@@ -1,0 +1,19 @@
+<template>
+    <div class="w-full lg:w-large lg:mx-auto px-4 md:px-6 lg:px-0 xl:w-feLarge">
+        <slot name="content" />
+    </div>
+</template>
+
+<script lang='ts'>
+import { useRoute } from 'vue-router';
+
+export default {
+    name : "PsContentContainer",
+    setup() {
+        const route = useRoute();
+        return {
+            route
+        }
+    }
+}
+</script>
