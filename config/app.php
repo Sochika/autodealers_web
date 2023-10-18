@@ -30,7 +30,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'PSX-Classified'),
+    'name' => env('APP_NAME', 'Auto Dealers NG'),
 
     'development' => env('VITE_APP_DEVELOPMENT'),
 
