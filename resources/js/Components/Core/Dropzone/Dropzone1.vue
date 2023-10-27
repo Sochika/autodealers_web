@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch, defineComponent } from 'vue'
-import { Head, useForm, usePage } from "@inertiajs/inertia-vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
 import Sortable from 'sortablejs';
@@ -113,7 +113,7 @@ onMounted(function (e) {
             thumbnailHeight: 250,
 
             headers: {
-                'X-CSRF-TOKEN': usePage().props.value.csrf,
+                'X-CSRF-TOKEN': usePage().props.csrf,
             },
             acceptedFiles: "image/jpeg,image/png,image/jpg",
             autoProcessQueue: false,
@@ -336,7 +336,7 @@ onMounted(function (e) {
             const sortedImages = props.images.sort((a, b) => a.ordering - b.ordering);
 
             props.images.forEach((element) => {
-                var url = usePage().props.value.uploadUrl + '/' + element.imgPath;
+                var url = usePage().props.uploadUrl + '/' + element.imgPath;
                 let mockFile = { name: element.imgPath, filename: element.imgPath, caption: element.imgDesc, upload: { filename: element.imgPath, uuid: element.imgId }, size: 12345, accepted: true };
                 myDropzone.value.displayExistingFile(mockFile, url);
                 myDropzone.value.createThumbnailFromUrl(mockFile, url);

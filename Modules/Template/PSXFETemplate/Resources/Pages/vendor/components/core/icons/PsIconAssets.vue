@@ -33,7 +33,7 @@ export default {
         },
         textColor: {
             type: String, 
-            default : " dark_text-feAchromatic-50"
+            default : " dark:text-feAchromatic-50"
         }
     },
     mounted() {

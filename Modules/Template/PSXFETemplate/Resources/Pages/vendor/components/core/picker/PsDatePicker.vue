@@ -1,15 +1,15 @@
 <template>
     <div v-if="isHasLimit">
-            <datepicker class="bg-fePrimary-50 dark_bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark_text-feAchromatic-50 z-0" 
+            <datepicker class="bg-fePrimary-50 dark:bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark:text-feAchromatic-50 z-0" 
             v-model="pickedDate" :lowerLimit="pickedDateProps"  @change="handleChange($event.target.value)" :disabled='isDisabled' inputFormat="MM-dd-yyyy" outputFormat="MM-dd-yyyy" />
     </div>
     <div v-else-if="isHasUpperLimit">
-                <datepicker class="bg-fePrimary-50 dark_bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark_text-feAchromatic-50 z-0" 
+                <datepicker class="bg-fePrimary-50 dark:bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark:text-feAchromatic-50 z-0" 
         v-model="pickedDate" :upperLimit="upperDateProps" @change="handleChange($event.target.value)" :disabled='isDisabled' inputFormat="MM-dd-yyyy" outputFormat="MM-dd-yyyy" />
 
     </div>
     <div v-else>
-        <datepicker class="bg-fePrimary-50 dark_bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark_text-feAchromatic-50 z-0" 
+        <datepicker class="bg-fePrimary-50 dark:bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl w-32 text-feSecondary-500 dark:text-feAchromatic-50 z-0" 
         v-model="pickedDate" @change="handleChange($event.target.value)" :disabled='isDisabled' inputFormat="MM-dd-yyyy" outputFormat="MM-dd-yyyy" />
     </div>
 </template>

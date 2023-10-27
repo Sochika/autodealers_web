@@ -110,7 +110,7 @@ s
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -123,7 +123,7 @@ import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 
@@ -214,7 +214,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('package_in_app_purchase.index'),
+            router.get(route('package_in_app_purchase.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -289,7 +289,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("package_in_app_purchase.destroy", id), {
+                    router.delete(route("package_in_app_purchase.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -354,7 +354,7 @@ export default defineComponent({
 
         },
         FilterOptionshandle(value) {
-            Inertia.put(route('package_in_app_purchase.screenDisplayUiSetting.store'),
+            router.put(route('package_in_app_purchase.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

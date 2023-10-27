@@ -12,7 +12,7 @@
                 leave-to-class="transform opacity-0 scale-95">
                 <div v-if="isMenuOpen"
 
-                    class="rounded shadow-lg text-sm overflow-hidden z-20 bg-feAchromatic-50 dark_bg-feAchromatic-900"
+                    class="rounded shadow-lg text-sm overflow-hidden z-20 bg-feAchromatic-50 dark:bg-feAchromatic-900"
                     :class="[horizontalAlign == 'right' ? 'ltr:origin-top-right ltr:right-0 rtl:origin-top-left rtl:left-0' : horizontalAlign == 'left' ? 'ltr:origin-top-left ltr:left-0 rtl:origin-top-right rtl:right-0' : 'ltr:origin-top-right ltr:right-0 rtl:origin-top-right rtl:right-0',
                     isPopup ? 'bottom-12' : 'mt-2',isFixed ? `fixed ${boxPositioning}` :`absolute ${boxPositioning}`]">
                         <div class="flex flex-col">

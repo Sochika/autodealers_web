@@ -49,7 +49,7 @@
             <div class=" flex flex-row justify-end">
                 <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-4"
                     border="border border-feAchromatic-200" colors="bg-none"
-                    hover="hover:outline-none hover_ring hover_ring-feAchromatic-100"> {{ cancelButton }} </ps-button>
+                    hover="hover:outline-none hover:ring hover:ring-feAchromatic-100"> {{ cancelButton }} </ps-button>
                 <ps-button rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="">
                     {{ okButton }} </ps-button>
             </div>
@@ -64,8 +64,8 @@ import PsLabel from '../label/PsLabel.vue';
 import PsButton from '../buttons/PsButton.vue';
 
 
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3';
+import { router } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 
 import PsCard from "@/Components/Core/Card/PsCard.vue";

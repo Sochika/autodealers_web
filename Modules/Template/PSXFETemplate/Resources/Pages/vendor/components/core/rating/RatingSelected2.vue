@@ -4,10 +4,10 @@
             <div v-for="star in maxStars" :key="star" class="relative star me-1">
                 {{ conditions(star) }}
                 <div :class="`absolute overflow-hidden `" :style="`width: ${showRatingWithPrecision ? `${(activeState % 1) * 100}%` : '0%'}`">
-                    <font-awesome-icon :icon="['fas', ratingIcon ]" :class="iconColor" size="lg" />
+                    <ps-icon name="starFill" :class="iconColor" w="28" h="28"/>
                 </div>
-                <font-awesome-icon :icon="['far', ratingIcon ]"  v-if="showEmptyIcon" :class="iconColor" size="lg" />
-                <font-awesome-icon :icon="['fas', ratingIcon ]"  v-else :class="iconColor" size="lg" />
+                <ps-icon name="starOutline" v-if="showEmptyIcon" :class="iconColor"  w="28" h="28"/>
+                <ps-icon name="starFill" v-else :class="iconColor" w="28" h="28"/>
             </div>
         </div>
     </div>
@@ -15,15 +15,12 @@
 
 <script>
 import { ref } from 'vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as farSrar } from '@fortawesome/free-solid-svg-icons';
-library.add(fasStar, farSrar)
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default {
     name: 'RatingSelected',
     components : {
-
+        PsIcon
     },
     props: {
         'increment': {
@@ -36,7 +33,7 @@ export default {
         },
         'iconColor': {
             type: String,
-            default: 'text-fePrimary-500 dark_text-feAccent-500'
+            default: 'text-fePrimary-500 dark:text-feAccent-500'
         },
         'ratingIcon': {
             type: String,

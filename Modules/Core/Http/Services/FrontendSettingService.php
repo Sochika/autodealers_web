@@ -52,7 +52,7 @@ class FrontendSettingService extends PsService
         ['language_code'=> 'zh', 'country_code' => 'CN', 'name' => 'Chinese'],
     ];
 
-    protected $colorService, $imageService,$show, $hide, $delete, $unDelete, $viewAnyAbility, $createAbility, $editAbility, $deleteAbility, $code, $screenDisplayUiKeyCol, $screenDisplayUiIdCol, $screenDisplayUiIsShowCol, $coreFieldFilterModuleNameCol, $customUiIsDelCol;
+    protected $colorService, $imageService,$show, $hide, $delete, $unDelete, $viewAnyAbility, $createAbility, $editAbility, $deleteAbility, $code, $screenDisplayUiKeyCol, $screenDisplayUiIdCol, $screenDisplayUiIsShowCol, $coreFieldFilterModuleNameCol, $customUiIsDelCol, $appBrandingImgType;
 
     public function __construct(ImageService $imageService, ColorService $colorService)
     {
@@ -68,6 +68,7 @@ class FrontendSettingService extends PsService
         $this->iconImgType = 'frontend-icon';
         $this->bannerImgType = 'frontend-banner';
         $this->metaImgType = 'backend-meta-image';
+        $this->appBrandingImgType = 'app-branding-image';
 
 
         $this->viewAnyAbility = Constants::viewAnyAbility;
@@ -240,11 +241,7 @@ class FrontendSettingService extends PsService
 
         $frontend_setting = FrontendSetting::first();
         $oldFilename = 'css/custom_color_'.$frontend_setting->color_changed_code.'.css';
-        if($oldFilename){
-            if(file_exists($oldFilename)){
-                unlink($oldFilename);
-            }
-        }
+
 
         $frontend_setting->color_changed_code  = Carbon::now()->getPreciseTimestamp(3);
         $frontend_setting->updated_user_id = Auth::user()->id;
@@ -389,12 +386,33 @@ class FrontendSettingService extends PsService
                 $this->imageService->update(null,null,$file,$data,$image);
             }
 
+            // update footer image
+            if($request->file('app_branding_image')){
+
+                $file = $request->file('app_branding_image');
+
+                $conds[$this->coreImageImgParentIdCol] = $frontend_setting->id;
+                $conds[$this->coreImageImgTypeCol] = $this->appBrandingImgType;
+                $image = CoreImage::where($conds)->first();
+
+                // if image, delete existing file
+                if(!empty($image)){
+                    // delete image from storage folder
+                    $this->imageService->deleteImage($image->img_path);
+                }
+
+
+                $data[$this->coreImageImgParentIdCol] = $frontend_setting->id;
+                $data[$this->coreImageImgTypeCol] = $this->appBrandingImgType;
+                $this->imageService->update(null,null,$file,$data,$image);
+            }
+
 
         return $frontend_setting;
     }
 
     public function getFrontendSetting($id = null){
-        $frontendSetting = FrontendSetting::with(['frontend_logo','frontend_banner','frontend_icon','frontend_meta_image'])
+        $frontendSetting = FrontendSetting::with(['frontend_logo','frontend_banner','frontend_icon','frontend_meta_image','app_branding_image'])
                             ->when($id, function ($q, $id){
                                                 $q->where($this->frontendSettingIdCol, $id);
                                             })

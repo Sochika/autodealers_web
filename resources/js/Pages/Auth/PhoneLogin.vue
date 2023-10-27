@@ -2,7 +2,7 @@
     <Head :title="$t('core__fe_sign_in')" />
     <div :class="isDarkMode ? 'dark' : ''">
 
-        <div class="mb-6 bg-feAchromatic-50 dark_bg-feAchromatic-900 flex flex-row   mt-28  min-h-screen items-center justify-center">
+        <div class="mb-6 bg-feAchromatic-50 dark:bg-feAchromatic-900 flex flex-row   mt-28  min-h-screen items-center justify-center">
             <div class="h-176 my-6 flex flex-row w-98 lg:w-202 rounded-md overflow-hidden shadow-md ">
                 <div class="hidden w-100  h-auto bg-feSecondary-900  lg:flex flex-col items-center justify-center">
                     <div class="w-65 h-50">
@@ -18,7 +18,7 @@
 
 
                 </div>
-                <div class="flex-grow bg-feAchromatic-50 dark_bg-feSecondary-800 px-10 pb-10">
+                <div class="flex-grow bg-feAchromatic-50 dark:bg-feSecondary-800 px-10 pb-10">
 
 
 
@@ -39,15 +39,15 @@
 
 
                             <ps-label-title class="text-center m-auto pb-8 pt-2 mt-10"
-                                textColor="text-feSecondary-600 dark_text-feSecondary-50">{{
+                                textColor="text-feSecondary-600 dark:text-feSecondary-50">{{
                                     $t('phone_login__phone_login') }}</ps-label-title>
                             <ps-label class="mt-4  "> {{ $t("core__fe_phone_login__display_name") }} : </ps-label>
-                            <ps-input class="mt-2 placeholder-feSecondary-800 dark_placeholder-feSecondary-500" type="text" v-bind:placeholder="$t('core__fe_phone_login__display_name_placeholder')"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500"
+                            <ps-input class="mt-2 placeholder-feSecondary-800 dark:placeholder-feSecondary-500" type="text" v-bind:placeholder="$t('core__fe_phone_login__display_name_placeholder')"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500"
                                 v-model:value="form.displayName"></ps-input>
                             <ps-label-caption v-if="isValidUserName" class="mt-2 mx-8"
-                                textColor="text-fePrimary-500 dark_text-feAccent-500">{{
+                                textColor="text-fePrimary-500 dark:text-feAccent-500">{{
                                     $t("phone_login__user_name_required")
                                 }}</ps-label-caption>
 
@@ -58,7 +58,7 @@
                         <ps-input class="mt-2 " v-on:keyup.enter="clicked" @keypress="validateName" type="text"
                             v-bind:placeholder="$t('phone_login__user_name')" v-model:value="name"></ps-input>
                         <ps-label-caption v-if="isValidUserName" class="mt-2 mx-8"
-                            textColor="text-fePrimary-500 dark_text-feAccent-500">{{
+                            textColor="text-fePrimary-500 dark:text-feAccent-500">{{
                                 $t("phone_login__user_name_required")
                             }}</ps-label-caption>
 
@@ -71,12 +71,12 @@
 
                                 <ps-dropdown align="left" class=" mt-2 w-20">
                                     <template #select>
-                                        <ps-dropdown-select border="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500" placeholder="phone" :showCenter="true"
+                                        <ps-dropdown-select border="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500" placeholder="phone" :showCenter="true"
                                             :selectedValue="form.phone_code == '' ? '' : phoneCodes.filter((phoneCode) => phoneCode.id == form.phone_code)[0].country_code"
                                             @change="[(form.phone_code = phoneCode.id)]" />
                                     </template>
                                     <template #list>
-                                        <div class="rounded-md shadow-xs w-16 bg-feAchromatic-50 dark_bg-feAchromatic-900">
+                                        <div class="rounded-md shadow-xs w-16 bg-feAchromatic-50 dark:bg-feAchromatic-900">
                                             <div class="pt-2 z-20">
                                                 <div v-if="phoneCodes.length === 0">
                                                     <ps-label class="p-2 flex cursor-pointer">{{
@@ -84,7 +84,7 @@
                                                 </div>
                                                 <div v-else>
                                                     <div v-for="cat in phoneCodes" :key="cat.id"
-                                                        class="w-96 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-700 cursor-pointer items-center"
+                                                        class="w-96 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-700 cursor-pointer items-center"
                                                         @click="[(form.phone_code = cat.id)]">
                                                         <ps-label class="ms-2"
                                                             :class="cat.id == form.phone_code ? ' font-bold' : ''">{{
@@ -96,8 +96,8 @@
                                     </template>
                                 </ps-dropdown>
                                 <ps-input class="mt-2 " v-on:keyup.enter="clicked" @keypress="validatePhone" type="text"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500"
                                     v-bind:placeholder="$t('phone_login__fe_phone_number_placeholderv2')"
                                     v-model:value="form.phone_string"></ps-input>
 
@@ -110,7 +110,7 @@
                             <ps-label-caption textColor="text-feError-500 " class="mt-2 block">{{ errors.user_ban
                             }}</ps-label-caption>
                             <ps-label-caption v-if="isValidPhone" class="mt-2 mx-8"
-                                textColor="text-fePrimary-500 dark_text-feAccent-500">{{
+                                textColor="text-fePrimary-500 dark:text-feAccent-500">{{
                                     $t("phone_login__phone_required")
                                 }}</ps-label-caption>
                             <ps-label-caption textColor="text-feError-500 " class="mt-2 block">{{ phoneError
@@ -147,7 +147,7 @@
                             <div class="flex flex-auto justify-center mt-4 mb-10">
 
 
-                                <ps-button colors="bg-feAchromatic-50 dark_bg-feSecondary-800 dark_text-feSecondary-50 " border="border" class="mt-6  w-full" @click="loginClicked" :disabled="false" >
+                                <ps-button colors="bg-feAchromatic-50 dark:bg-feSecondary-800 dark:text-feSecondary-50 " border="border" class="mt-6  w-full" @click="loginClicked" :disabled="false" >
                                     {{ $t("core__fe_btn_cancel") }} </ps-button>
                             </div>
                         </div>
@@ -177,8 +177,8 @@
 <script type="ts">
 //Vue
 import { defineComponent, ref, computed } from 'vue'
-import { Inertia } from '@inertiajs/inertia';
-import { Head, Link, useForm, usePage } from '@inertiajs/inertia-vue3';
+import { router } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 import firebaseApp from 'firebase/app';
 import "firebase/auth";
 import { onMounted } from 'vue';
@@ -353,7 +353,7 @@ export default defineComponent({
         function loginClicked() {
             // Redirect
             // userProvider.navigateUserLoginTo("login", router, route.query.redirect, route.query, route.params);
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         async function codeClicked() {
@@ -387,7 +387,7 @@ export default defineComponent({
                             form.user_phone = phone.value;
                             form.phone_id = user.uid;
 
-                            Inertia.post(route("CreateLogin"), form, {});
+                            router.post(route("CreateLogin"), form, {});
 
 
                         }
@@ -400,7 +400,7 @@ export default defineComponent({
                             form.phone_id = user.uid;
                             form.name = name.value
 
-                            Inertia.post(route("login"), form, {});
+                            router.post(route("login"), form, {});
 
 
                         }
@@ -550,7 +550,7 @@ export default defineComponent({
                                         form.user_phone = phoneFormatEdit.value;
                                         form.phone_id = user.uid;
 
-                                        Inertia.post(route("CreateLogin"), form, {});
+                                        router.post(route("CreateLogin"), form, {});
 
 
                                     }
@@ -563,7 +563,7 @@ export default defineComponent({
                                         form.phone_id = user.uid;
                                         form.name = name.value
 
-                                        Inertia.post(route("login"), form, {});
+                                        router.post(route("login"), form, {});
 
 
                                     }
@@ -614,7 +614,7 @@ export default defineComponent({
                         },
                         () => {
                             console.log("Cancel");
-                            // Inertia.get(route("dashboard"));
+                            // router.get(route("dashboard"));
                         }
                     );
 
@@ -628,7 +628,7 @@ export default defineComponent({
         }
 
         function test() {
-            Inertia.post(route("login"));
+            router.post(route("login"));
         }
         function validateName(e) {
             const pattern = /^\/$|(\/[a-zA-Z_0-9-]+)+$/;

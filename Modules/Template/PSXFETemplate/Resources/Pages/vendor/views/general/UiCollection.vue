@@ -103,7 +103,7 @@
                             </template>
                             <template #list>
                                 <div
-                                    class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-32"
+                                    class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-32"
                                     role="menu"
                                     aria-orientation="vertical"
                                     aria-labelledby="options-menu"
@@ -112,7 +112,7 @@
                                         <div
                                             v-for="i in 5"
                                             :key="i"
-                                            class="flex py-4 px-2 hover_bg-fePrimary-100 cursor-pointer items-center"
+                                            class="flex py-4 px-2 hover:bg-fePrimary-100 cursor-pointer items-center"
                                             @click="onItemClick(i)"
                                         >
                                             <span class="ms-2" :class="i == selectedIndex ? 'text-fePrimary-500' : 'text-fePrimary-500'">
@@ -181,7 +181,7 @@
                     :value="selectData"
                     v-model:selectedValue="checkedSelectedList"
                     :title="selectData.name"
-                    class="focus_bg-fePrimary-500 dark_bg-feAccent-500" > {{selectData.name}} </ps-checkbox>
+                    class="focus:bg-fePrimary-500 dark:bg-feAccent-500" > {{selectData.name}} </ps-checkbox>
 
                 <ps-label class="mt-4">{{checkedSelectedList}}</ps-label>
 
@@ -204,7 +204,7 @@
                     :value="selectData"
                     v-model:selectedValue="radioSelectedList"
                     :title="selectData.name"
-                    class="focus_bg-fePrimary-500 dark_bg-feAccent-500 me-4"></ps-radio>
+                    class="focus:bg-fePrimary-500 dark:bg-feAccent-500 me-4"></ps-radio>
                 </div>
                 <ps-label class="mt-4">{{radioSelectedList}}</ps-label>
 
@@ -228,18 +228,18 @@
                         </template>
                         <template #list>
                             <div
-                                class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs"
+                                class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs"
                                 role="menu"
                                 aria-orientation="vertical"
                                 aria-labelledby="options-menu">
                                 <div class="pt-2">
-                                    <div v-for="i in 5" :key="i" class="flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"  @click="onItemClick(i)" >
+                                    <div v-for="i in 5" :key="i" class="flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"  @click="onItemClick(i)" >
 
                                         <img  width="300px" height="200px" alt="Placeholder"
                                             src="https://s.svgbox.net/hero-outline.svg?ic=currency-rupee"
                                             class="h-6 w-6"
                                         />
-                                        <span class="ms-2 text-feSecondary-800 dark_text-feSecondary-200" :class="i==selectedIndex ? 'font-semibold' : ''"  > {{ $t("ui_collection__transaction_history") }} {{i}} </span>
+                                        <span class="ms-2 text-feSecondary-800 dark:text-feSecondary-200" :class="i==selectedIndex ? 'font-semibold' : ''"  > {{ $t("ui_collection__transaction_history") }} {{i}} </span>
 
                                     </div>
                                 </div>
@@ -263,7 +263,7 @@
                                 aria-orientation="vertical"
                                 aria-labelledby="options-menu">
                                 <div class="pt-2">
-                                    <div v-for="i in 5" :key="i" class="flex py-4 px-2 hover_bg-fePrimary-100 cursor-pointer items-center"  @click="onItemClick(i)" >
+                                    <div v-for="i in 5" :key="i" class="flex py-4 px-2 hover:bg-fePrimary-100 cursor-pointer items-center"  @click="onItemClick(i)" >
 
                                         <img  width="300px" height="200px" alt="Placeholder"
                                             src="https://s.svgbox.net/hero-outline.svg?ic=currency-rupee"
@@ -331,15 +331,15 @@
                 <ps-label-header-7 class="my-4"> Action Modals </ps-label-header-7>
                 <div class="flex flex-wrap  rtl:space-x-reverse space-x-2 mt-4" >
                     <ps-button @click="confirmClicked">Confirm</ps-button>
-                    <ps-button @click="dangerClicked" colors="bg-fePrimary-500 text-feAchromatic-50"  hover="hover:outline-none hover_ring hover_ring-fePrimary-500-100" focus="focus:outline-none focus_ring focus_ring-fePrimary-500-300">Danger</ps-button>
+                    <ps-button @click="dangerClicked" colors="bg-fePrimary-500 text-feAchromatic-50"  hover="hover:outline-none hover:ring hover:ring-fePrimary-500-100" focus="focus:outline-none focus:ring focus:ring-fePrimary-500-300">Danger</ps-button>
                     <ps-button @click="warningClicked"  colors="bg-feWarning-500 text-feAchromatic-50">Warning</ps-button>
                     <ps-button @click="actionClicked" >Only Confirm</ps-button>
                 </div>
 
                 <ps-label-header-7 class="my-4"> Message Modals </ps-label-header-7>
                 <div class="flex flex-wrap  rtl:space-x-reverse space-x-2 mt-4" >
-                    <ps-button @click="successClicked" colors="bg-feSuccess-500 text-feAchromatic-50"  hover="hover:outline-none hover_ring hover_ring-feSuccess-100" focus="focus:outline-none focus_ring focus_ring-feSuccess-300">Success</ps-button>
-                    <ps-button @click="errorClicked" colors="bg-fePrimary-500 text-feAchromatic-50"  hover="hover:outline-none hover_ring hover_ring-fePrimary-500-100" focus="focus:outline-none focus_ring focus_ring-fePrimary-500-300">Error</ps-button>
+                    <ps-button @click="successClicked" colors="bg-feSuccess-500 text-feAchromatic-50"  hover="hover:outline-none hover:ring hover:ring-feSuccess-100" focus="focus:outline-none focus:ring focus:ring-feSuccess-300">Success</ps-button>
+                    <ps-button @click="errorClicked" colors="bg-fePrimary-500 text-feAchromatic-50"  hover="hover:outline-none hover:ring hover:ring-fePrimary-500-100" focus="focus:outline-none focus:ring focus:ring-fePrimary-500-300">Error</ps-button>
                     <ps-button @click="messageClicked">Message</ps-button>
                     <ps-button @click="loadingClicked">Loading</ps-button>
                 </div>
@@ -422,7 +422,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { defineComponent, onUnmounted, reactive, ref} from 'vue';
 import PsCheckbox from '@template1/vendor/components/core/checkbox/PsCheckbox.vue';
 import PsRadio from '@template1/vendor/components/core/radio/PsRadio.vue';
@@ -455,8 +455,8 @@ import PsSecondaryButton from '@template1/vendor/components/core/buttons/PsSecon
 import PsTextButton from '@template1/vendor/components/core/buttons/PsTextButton.vue';
 
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
-import { useLoading } from 'vue3-loading-overlay';
-import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
+// import { useLoading } from 'vue3-loading-overlay';
+// import 'vue3-loading-overlay/dist/vue3-loading-overlay.css';
 // import $ from "cash-dom";
 import { Skeletor } from "vue-skeletor";
 import "vue-skeletor/dist/vue-skeletor.css";
@@ -622,18 +622,18 @@ export default defineComponent({
 
 
         function loadMore() {
-            const loader = useLoading();
-            loader.show({
-                // Optional parameters
-                container: fullPage.value ? null : formContainer.value,
-                canCancel: true,
-                onCancel: onCancel,
-            });
+            // const loader = useLoading();
+            // loader.show({
+            //     // Optional parameters
+            //     container: fullPage.value ? null : formContainer.value,
+            //     canCancel: true,
+            //     onCancel: onCancel,
+            // });
 
-                   // simulate AJAX
-            setTimeout(() => {
-                loader.hide()
-            },5000)
+            //        // simulate AJAX
+            // setTimeout(() => {
+            //     loader.hide()
+            // },5000)
         }
 
         const endDate = new Date();

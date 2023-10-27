@@ -25,7 +25,7 @@ import PsLabel from '../Label/PsLabel.vue';
 import PsButton from '../Buttons/PsButton.vue';
 import { trans } from 'laravel-vue-i18n';
 import PsIcon from "../Icons/PsIcon.vue";
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 
 
 export default defineComponent({

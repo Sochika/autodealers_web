@@ -1,6 +1,6 @@
 <script setup>
 import {ref,onMounted} from 'vue'
-import { Head, useForm,usePage } from "@inertiajs/inertia-vue3";
+import { Head, useForm,usePage } from "@inertiajs/vue3";
 import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
 
@@ -92,7 +92,7 @@ onMounted(function(e){
               maxFiles: props.max_image_upload,
 
               headers: {
-                              'X-CSRF-TOKEN':  usePage().props.value.csrf,
+                              'X-CSRF-TOKEN':  usePage().props.csrf,
                           },
               acceptedFiles: "image/jpeg,image/png,image/jpg",
               addRemoveLinks: true,
@@ -208,7 +208,7 @@ onMounted(function(e){
 
         if(props.images){
             props.images.forEach((element) => {
-                var url = usePage().props.value.uploadUrl+'/'+element.img_path;
+                var url = usePage().props.uploadUrl+'/'+element.img_path;
                 let mockFile = { name: "Filename",filename: element.img_path, caption : element.img_desc,upload : {filename:  element.img_path}, size: 12345 };
                 myDropzone.displayExistingFile(mockFile, url);
 

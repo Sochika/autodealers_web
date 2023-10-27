@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow-sm relative bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg flex flex-col gap-4 p-4">
+    <div class="shadow-sm relative bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg flex flex-col gap-4 p-4">
         <div class="flex gap-4">
             <ps-route-link :to="{ name: 'fe_other_profile', params: { userId: block.userId }}">
                 <div class="w-20 h-20 relative cursor-pointer">
@@ -12,7 +12,7 @@
             </ps-route-link>
             <div class="grow flex flex-col gap-2 justify-center truncate">
                 <ps-route-link :to="{ name: 'fe_other_profile', params: { userId: block.userId }}" class="cursor-pointer">
-                    <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{ block.userName.length > 17 ? block.userName.slice(0,17)+"..." : block.userName }}</ps-label>
+                    <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{ block.userName.length > 17 ? block.userName.slice(0,17)+"..." : block.userName }}</ps-label>
                 </ps-route-link>
                 <ps-route-link :to="{ name: 'fe_review_list',query: { user_id: block.userId } }">
                     <rating class="h-4" :grade="block ? block.overallRating:0" :maxStars="5" :hasCounter="true" />
@@ -22,14 +22,14 @@
                         <router-link v-if="block.isShowPhone == '1'" class="cursor-pointer">
 
                                 <!-- <ps-icon name="phone" w="24" h="24"/> -->
-                                <ps-label textColor="text-sm font-normal text-feSecondary-800 dark_text-feSecondary-50">{{ block.userPhone }}</ps-label>
+                                <ps-label textColor="text-sm font-normal text-feSecondary-800 dark:text-feSecondary-50">{{ block.userPhone }}</ps-label>
 
                         </router-link>
                     </div>
                     <div>
                         <router-link v-if="block.isShowEmail == '1'" class="cursor-pointer">
                             <!-- <ps-icon name="email" w="24" h="24"/> -->
-                            <ps-label textColor="text-sm font-normal text-feSecondary-800 dark_text-feSecondary-50">{{ block.userEmail }}</ps-label>
+                            <ps-label textColor="text-sm font-normal text-feSecondary-800 dark:text-feSecondary-50">{{ block.userEmail }}</ps-label>
                         </router-link>
                     </div>
                 </div>
@@ -42,12 +42,12 @@
         </div>
         <div class="grid grid-cols-2">
             <div class="flex items-center gap-1">
-                <ps-icon class="text-feSecondary-800 dark_text-feSecondary-50" name="user-group-fill" w="24" h="24" viewBox="0 0 24 24"/>
-                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark_text-feSecondary-50">{{user ? block.followerCount:'0'}} {{ $t("profile__followers")}}</ps-label>
+                <ps-icon class="text-feSecondary-800 dark:text-feSecondary-50" name="user-group-fill" w="24" h="24" viewBox="0 0 24 24"/>
+                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark:text-feSecondary-50">{{user ? block.followerCount:'0'}} {{ $t("profile__followers")}}</ps-label>
             </div>
             <div class="flex items-center gap-1">
-                <ps-icon class="text-feSecondary-800 dark_text-feSecondary-50" name="shoppingCart-fill" w="24" h="24" viewBox="0 0 24 24"/>
-                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark_text-feSecondary-50">{{user ? block.activeItemCount:'0'}} {{ $t("user__item") }}</ps-label>
+                <ps-icon class="text-feSecondary-800 dark:text-feSecondary-50" name="shoppingCart-fill" w="24" h="24" viewBox="0 0 24 24"/>
+                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark:text-feSecondary-50">{{user ? block.activeItemCount:'0'}} {{ $t("user__item") }}</ps-label>
             </div>
         </div>
 

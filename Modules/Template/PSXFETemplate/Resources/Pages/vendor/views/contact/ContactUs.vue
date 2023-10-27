@@ -2,7 +2,7 @@
     <Head :title="$t('contact_us__contact_us')"/>
     <ps-content-container>
         <template #content>
-            <div class="bg-feAchromatic-50 dark_bg-feAchromatic-900 rounded-lg w-auto sm:w-[556px] sm:mt-32 lg:mt-36 mt-28 mb-16 mx-auto py-4">
+            <div class="bg-feAchromatic-50 dark:bg-feAchromatic-900 rounded-lg w-auto sm:w-[556px] sm:mt-32 lg:mt-36 mt-28 mb-16 mx-auto py-4">
                 <div class="flex justify-center items-center">
                     <ps-label-header-4 class=" mb-4 font-medium"> {{ $t("contact_us__contact_us") }} </ps-label-header-4>
                 </div>
@@ -48,7 +48,7 @@
 <script lang="ts">
 //Vue
 import {ref} from 'vue';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeader4.vue';

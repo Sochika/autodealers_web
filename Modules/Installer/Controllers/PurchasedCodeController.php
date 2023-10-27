@@ -44,7 +44,7 @@ class PurchasedCodeController
 //             } else {
 //                 // for development start
 //                 $purchaseCode = $request->purchased_code;
-//                 if ($purchaseCode == "2aed1984-4f0e-480a-9d66-146959cfd75c"){
+//                 if ($purchaseCode == "2a"){
 //                     $response = json_decode(file_get_contents(public_path('json/buyser-purchase-response.json'), true));
 //                 } else {
 //                     $response = "";

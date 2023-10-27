@@ -10,7 +10,6 @@
             <div class="relative flex flex-row items-center">
                 <div class="relative ">
                     <div v-if="noti != ''" :class="!sidebarFull ? '' : 'hidden'" class="absolute w-1.5 h-1.5 ms-3 bg-red-500 rounded-full"></div>
-                    <!-- <font-awesome-icon v-if="showIcon" :icon="icon" /> -->
                     <div class="flex flex-col items-center" >
                         <ps-icon class="mx-auto my-auto" v-if="showIcon" :w="!sidebarFull ? '20' : '24'" :h="!sidebarFull ? '20' : '24'" :name="icon" />
                     </div>
@@ -42,7 +41,7 @@ import { computed,ref,onMounted } from 'vue'
 import { useStore } from 'vuex'
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import PsErrorDialog from "@/Components/Core/Dialog/PsErrorDialog.vue";
 
 export default {
@@ -117,7 +116,7 @@ export default {
         if(!props.hasModule){
             
             try{
-                Inertia.get(route(props.url));
+                router.get(route(props.url));
                 store.dispatch('handleSidebarActive',props.name);
             }
             catch(err){

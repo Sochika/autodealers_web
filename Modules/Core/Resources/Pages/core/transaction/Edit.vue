@@ -295,7 +295,7 @@
 <script>
 import { defineComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";

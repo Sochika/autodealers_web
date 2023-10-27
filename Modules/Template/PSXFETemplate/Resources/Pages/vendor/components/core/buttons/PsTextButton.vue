@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" :disabled="disabled" :class="disabled ? [rounded, padding, border, shadow, textSize , justify, 'bg-feSecondary-100 text-feSecondary-300 dark_text-feSecondary-600 dark_bg-feSecondary-700 cursor-not-allowed opacity-90'] : [rounded, colors, padding, border, shadow, textSize, hover, focus, cursor, opacity , justify]"
+    <button :type="type" :disabled="disabled" :class="disabled ? [rounded, padding, border, shadow, textSize , justify, 'bg-feSecondary-100 text-feSecondary-300 dark:text-feSecondary-600 dark:bg-feSecondary-700 cursor-not-allowed opacity-90'] : [rounded, colors, padding, border, shadow, textSize, hover, focus, cursor, opacity , justify]"
     class="font-medium transition duration-150 ease-in-out" >
         <slot />
     </button>
@@ -19,7 +19,7 @@
             },
             colors : {
                 type: String,
-                default: 'bg-feAchromatic-50 dark_bg-feAchromatic-900 text-feSecondary-800 dark_text-feAchromatic-50'
+                default: 'bg-feAchromatic-50 dark:bg-feAchromatic-900 text-feSecondary-800 dark:text-feAchromatic-50'
             },
             padding : {
                 type: String,
@@ -43,11 +43,11 @@
             },
             hover : {
                 type: String,
-                default: 'hover:outline-none dark_hover_text-feSecondary-800 dark_active_text-feSecondary-800  hover_bg-fePrimary-50 active_bg-fePrimary-200 dark_hover_bg-feSecondary-500 dark_active_bg-feSecondary-400'
+                default: 'hover:outline-none dark:hover:text-feSecondary-800 dark:active:text-feSecondary-800  hover:bg-fePrimary-50 active:bg-fePrimary-200 dark:hover:bg-feSecondary-500 dark:active:bg-feSecondary-400'
             },
             focus : {
                 type: String,
-                default: ' dark_focus_text-feAchromatic-50 focus:outline-none focus_bg-feAchromatic-50 dark_focus_bg-feAchromatic-900 focus_ring focus_ring-fePrimary-200'
+                default: ' dark:focus:text-feAchromatic-50 focus:outline-none focus:bg-feAchromatic-50 dark:focus:bg-feAchromatic-900 focus:ring focus:ring-fePrimary-200'
             },
             cursor: {
                 type: String,

@@ -57,7 +57,7 @@ class DisableWithKeyResource extends JsonResource
                     } elseif ($customField->ui_type_id === $textAreaUi){
                         $value = Str::words($customField->value, 5, '...');
                     } elseif ($customField->ui_type_id === $timeOnlyUi){
-                        $value = $customField->value->format('h:i');
+                        $value = $customField->value;
                     } elseif ($customField->ui_type_id === $dateOnlyUi){
                         $value = $customField->value->format('d M Y');
                     } else {

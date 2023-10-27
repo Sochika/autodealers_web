@@ -21,9 +21,6 @@ import { defineComponent,ref } from 'vue';
 import PsModal from '@template1/vendor/components/core/modals/PsModal.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
-import { trans } from 'laravel-vue-i18n';import { library } from '@fortawesome/fontawesome-svg-core';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-library.add(faExclamationTriangle);
 
 export default defineComponent({
     name : "PsConfirmDialog3",

@@ -13,8 +13,8 @@
         </template>
         <template #footer>
             <div class=" flex flex-row justify-end">
-                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-4" border="border border-feAchromatic-200 dark_border-feSecondary-700" colors="bg-none dark_text-feSecondary-100" hover="hover:outline-none hover_ring hover_ring-feSecondary-100 dark_hover_ring-feSecondary-600" > {{cancelButton}} </ps-button>
-                <ps-button rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="" colors="bg-feError-500 text-feAchromatic-50 dark_text-feAchromatic-900"  hover="hover:outline-none hover_ring hover_ring-feError-100" focus="focus:outline-none focus_ring focus_ring-feError-300" > {{okButton}} </ps-button>
+                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-4" border="border border-feAchromatic-200 dark:border-feSecondary-700" colors="bg-none dark:text-feSecondary-100" hover="hover:outline-none hover:ring hover:ring-feSecondary-100 dark:hover:ring-feSecondary-600" > {{cancelButton}} </ps-button>
+                <ps-button rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="" colors="bg-feError-500 text-feAchromatic-50 dark:text-feAchromatic-900"  hover="hover:outline-none hover:ring hover:ring-feError-100" focus="focus:outline-none focus:ring focus:ring-feError-300" > {{okButton}} </ps-button>
             </div>
         </template>
     </ps-modal>

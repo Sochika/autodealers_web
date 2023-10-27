@@ -13,13 +13,13 @@
                             {{ $t("offer_list__offer_sent") }}
                         </ps-button>
 
-                        <ps-button class="w-full" theme="dark_bg-feSecondary-100 dark_text-feAchromatic-50 bg-fePrimary-50 text-fePrimary-400" @click="buyerClicked">
+                        <ps-button class="w-full" theme="dark:bg-feSecondary-100 dark:text-feAchromatic-50 bg-fePrimary-50 text-fePrimary-400" @click="buyerClicked">
                             {{ $t("offer_list__offer_received") }}
                         </ps-button>
                     </div>
 
                     <div class="flex flex-row  rtl:space-x-reverse space-x-3.5 sm:space-x-0 space-y-0 sm:space-y-3.5 sm:flex-col" id="buyerbtn"  v-else :disabled="true">
-                        <ps-button class="w-full" theme='dark_bg-feSecondary-100 dark_text-feAchromatic-50 bg-fePrimary-50 text-fePrimary-400' @click="sellerClicked" >
+                        <ps-button class="w-full" theme='dark:bg-feSecondary-100 dark:text-feAchromatic-50 bg-fePrimary-50 text-fePrimary-400' @click="sellerClicked" >
                             {{ $t("offer_list__offer_sent") }}
                         </ps-button>
 
@@ -38,7 +38,7 @@
                     <ps-label class="text-sm sm:text-xl font-medium">{{ $t("offer_list__offer_received") }}</ps-label>
                 </div>
                 <div v-if="ps_loading">
-                    <div id="seller" class="w-full flex flex-col bg-fePrimary-50 dark_bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl" >
+                    <div id="seller" class="w-full flex flex-col bg-fePrimary-50 dark:bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl" >
                         <div class='w-full ' >
                             <div class=" flex flex-col">
                                 <!-- Column -->
@@ -52,12 +52,12 @@
                 <!-- Seller Chat horizontal -->
                 <div id="seller" class="flex flex-row mb-16" v-if="isSellerFocus && ps_loading == false">
                     <div v-if="offerListProvider.offerList.data == null "
-                    class="w-full flex flex-col bg-fePrimary-50 dark_bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl">
-                       <ps-icon name="mailOpen" textColor="text-feSecondary-400 dark_text-feAchromatic-500"  class='mt-2 w-full mx-auto' w="80" h="80" />
+                    class="w-full flex flex-col bg-fePrimary-50 dark:bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl">
+                       <ps-icon name="mailOpen" textColor="text-feSecondary-400 dark:text-feAchromatic-500"  class='mt-2 w-full mx-auto' w="80" h="80" />
                        <ps-label-caption-3 class="text-center mb-2" >{{ $t("offer_list__nothing_in_offer_sent") }} </ps-label-caption-3>
 
                     </div>
-                    <div v-else class='w-full flex flex-col bg-fePrimary-50 dark_bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl' >
+                    <div v-else class='w-full flex flex-col bg-fePrimary-50 dark:bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl' >
                         <div class="flex flex-wrap ">
                             <!-- Column -->
                             <div class=" mt-2 w-full" v-for="chathistory in offerListProvider.offerList.data" :key="chathistory.id">
@@ -88,13 +88,13 @@
                 <!-- Buyer Chat horizontal -->
                 <div id="buyer" class="flex flex-row mb-16 " v-else-if="ps_loading == false">
                     <div v-if="offerReceivedListProvider.offerList.data == null  "
-                     class="w-full flex flex-col bg-fePrimary-50 dark_bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl">
-                       <ps-icon name="mailOpen" textColor="text-feSecondary-400 dark_text-feAchromatic-500"  class='mt-2 w-full mx-auto' w="80" h="80" />
+                     class="w-full flex flex-col bg-fePrimary-50 dark:bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl">
+                       <ps-icon name="mailOpen" textColor="text-feSecondary-400 dark:text-feAchromatic-500"  class='mt-2 w-full mx-auto' w="80" h="80" />
                        <ps-label-caption-3 class="text-center mb-2" >{{ $t("offer_list__nothing_in_offer_received") }} </ps-label-caption-3>
 
                     </div>
                     <div v-else class='w-full ' >
-                        <div class="w-full flex flex-col bg-fePrimary-50 dark_bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl ">
+                        <div class="w-full flex flex-col bg-fePrimary-50 dark:bg-feAchromatic-800 lg:p-4 p-2 sm:p-3 rounded-2xl ">
                             <!-- Column -->
                             <div class="w-full mt-2" v-for="chathistory in offerReceivedListProvider.offerList.data" :key="chathistory.id">
                                <ps-route-link :to="{
@@ -129,7 +129,7 @@
 
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 // import router from '@template1/router';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
@@ -149,7 +149,7 @@ import ChatHorizontalItem from "@template1/vendor/components/modules/chat/ChatHo
 import ChatBuyerHorizontalItem from "@template1/vendor/components/modules/chat/ChatBuyerHorizontalItem.vue";
 import ChatSkeletorItem from "@template1/vendor/components/modules/chat/ChatSkeletorItem.vue";
 import PsConst from '@templateCore/object/constant/ps_constants';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default {
     name : "OfferListView",
@@ -172,7 +172,7 @@ export default {
         const offerReceivedListProvider = useOfferStoreState();
         const loginUserId = psValueStore.getLoginUserId();
         if(loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-           Inertia.get(route('login'));
+           router.get(route('login'));
         }
         const holder = new OfferParameterHolder().resetParameterHolder();
         const ps_loading = ref(true);

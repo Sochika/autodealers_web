@@ -1,7 +1,7 @@
 <template>
     <Head :title="$t('core__fe_register')" />
     <div :class="isDarkMode ? 'dark' : ''">
-        <div class="mb-6 bg-feAchromatic-50 dark_bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
+        <div class="mb-6 bg-feAchromatic-50 dark:bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
             <div class="h-auto  sm:mt-32 lg:mt-36 mt-28 flex flex-row w-98 lg:w-202 rounded-md overflow-hidden shadow-md ">
                 <div class="hidden w-100  h-auto bg-feSecondary-900  lg:flex flex-col items-center justify-center">
                     <div class="w-65 h-50">
@@ -15,17 +15,17 @@
                         {{ $t('login__fe_description_best_deal') }}
                     </ps-label>
 
-                    <div class="flex flex-row text-feSecondary-50  dark_text-feSecondary-900  rtl:space-x-reverse space-x-4">
+                    <div class="flex flex-row text-feSecondary-50  dark:text-feSecondary-900  rtl:space-x-reverse space-x-4">
                         <ps-icon name="facebookCircle" />
                         <ps-icon name="instagramCircle" />
                         <ps-icon name="twitter" />
-                        <!-- <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-50" class="" name="apple-icon"
+                        <!-- <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-50" class="" name="apple-icon"
                             h="24" w="24" /> -->
                         <ps-icon name="pinterest" />
                         <ps-icon name="linkedIn" />
                     </div>
                 </div>
-                <div class="w-full lg:w-100 bg-feAchromatic-50 dark_bg-feSecondary-800 px-4 sm:px-10 pb-10">
+                <div class="w-full lg:w-100 bg-feAchromatic-50 dark:bg-feSecondary-800 px-4 sm:px-10 pb-10">
                     <!-- <img v-if="$page.props.backendLogo" :src="$page.props.uploadUrl + '/' + $page.props.backendLogo.img_path" width="50" height="50" class="m-auto my-2.5"/> -->
 
                     <div class="flex  justify-center">
@@ -34,43 +34,43 @@
 
                     <div>
                         <div class="mb-4">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_name') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_name') }}</ps-label>
                             <ps-input type="text" v-model:value="form.name" @keypress="nameError = ''"
-                            class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                            class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                 :placeholder="$t('core__fe_name_placeholder')" autofocus />
-                                 <ps-label class="mt-2 text-xs" textColor=" text-feSecondary-400 dark_text-feSecondary-300">{{ $t('core__fe_name_descriotion') }}</ps-label>
+                                 <ps-label class="mt-2 text-xs" textColor=" text-feSecondary-400 dark:text-feSecondary-300">{{ $t('core__fe_name_descriotion') }}</ps-label>
                             <ps-label-caption textColor="text-feError-500 "
                                 class="mt-2 block">{{ nameError }}</ps-label-caption>
                         </div>
                         <div class="mb-4">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_username') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_username') }}</ps-label>
                             <ps-input  type="text" v-model:value="form.username" @keypress="usernameError = ''"
-                            class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                            class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                 :placeholder="$t('core__fe_username_placeholder')"  />
-                                 <ps-label class="mt-2 text-xs" textColor=" text-feSecondary-400 dark_text-feSecondary-300">{{ $t('username__fe_valid_description') }}</ps-label>
+                                 <ps-label class="mt-2 text-xs" textColor=" text-feSecondary-400 dark:text-feSecondary-300">{{ $t('username__fe_valid_description') }}</ps-label>
                             <ps-label-caption textColor="text-feError-500 "
                                 class="mt-2 block">{{ usernameError }}</ps-label-caption>
                         </div>
                         <div class="mb-4">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_email') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_email') }}</ps-label>
                             <ps-input  type="email" v-model:value="form.email" @keypress="emailError = ''"
-                            class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                            class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                 :placeholder="$t('core__fe_email_placeholder')"  />
                             <ps-label-caption textColor="text-feError-500 "
                                 class="mt-2 block">{{ emailError }}</ps-label-caption>
                         </div>
                         <div class="mb-4">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_password') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_password') }}</ps-label>
                             <ps-input-with-right-icon v-model:value="form.password" ref="password" @keypress="pswError = ''"
-                                placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="bg-feAchromatic-50 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                                placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="bg-feAchromatic-50 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                 :type="(isHide ? 'password' : 'text')"
                                 :placeholder="$t('core__fe_password_placeholder')" autocomplete="current-password">
                                 <template #icon>
@@ -82,11 +82,11 @@
                                 class="mt-2 block">{{ pswError }}</ps-label-caption>
                         </div>
                         <div class="mb-8">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_conf_password') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_conf_password') }}</ps-label>
                             <ps-input-with-right-icon v-model:value="form.password_confirmation" ref="conf_password" @keypress="confpswError = ''"
-                                placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="bg-feAchromatic-50 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                                placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="bg-feAchromatic-50 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                 :type="(isHide1 ? 'password' : 'text')"
                                 :placeholder="$t('core__fe_conf_password_placeholder')" autocomplete="current-password">
                                 <template #icon>
@@ -101,10 +101,10 @@
 
                         <div class='flex flex-row items-start justify-start mb-6'>
                             <ps-checkbox-value title="" class="" v-model:value="agreePrivacyPolicy"
-                                color="focus_ring-2 focus_ring-fePrimary-300 hover_bg-fePrimary-500 dark_hover_bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark_text-fePrimary-500"
-                                textColor="text-fePrimary-500 dark_text-fePrimary-500"
+                                color="focus:ring-2 focus:ring-fePrimary-300 hover:bg-fePrimary-500 dark:hover:bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark:text-fePrimary-500"
+                                textColor="text-fePrimary-500 dark:text-fePrimary-500"
                                 @click="agreePrivacyPolicyClicked" />
-                            <ps-label class='me-2  text-sm ' textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t("core__fe_login__check_privacy_policy")
+                            <ps-label class='me-2  text-sm ' textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t("core__fe_login__check_privacy_policy")
                             }}</ps-label>
 
                             <ps-label textColor="text-fePrimary-500" class=' text-sm '> {{ $t("login__privacy_policy")
@@ -122,7 +122,7 @@
                         </div>
 
                         <div class=" flex flex-row justify-center my-8">
-                            <ps-label class="me-4" textColor="text-feSecondary-800 dark_text-feSecondary-500">
+                            <ps-label class="me-4" textColor="text-feSecondary-800 dark:text-feSecondary-500">
                                 {{ $t('core__fe_already_a_member') }}
                             </ps-label>
                             <ps-label class="cursor-pointer" textColor="text-fePrimary-500" @click="singinInClicked">
@@ -154,10 +154,6 @@ import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsLabelCaption from "@template1/vendor/components/core/label/PsLabelCaption.vue";
 import WelcomeImage from "@/Components/Svgs/WelcomeImage.vue";
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faTrashAlt, faEdit, faStore, faStoreSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-library.add(faHeart, faTrashAlt, faEdit, faStore, faStoreSlash, faEye)
 import { defineComponent,onMounted,ref,computed } from "vue";
 
 import PsLabelHeader3 from "@template1/vendor/components/core/label/PsLabelHeader3.vue";
@@ -171,7 +167,7 @@ import PsCheckboxValue from "@/Components/Core/Checkbox/PsCheckboxValue.vue";
 import PsLabelTitle from "@template1/vendor/components/core/label/PsLabelTitle.vue";
 import PsLoading from "@/Components/Core/Loading/PsLoading.vue";
 
-import { Head, Link ,useForm} from "@inertiajs/inertia-vue3";
+import { Head, Link ,useForm} from "@inertiajs/vue3";
 import firebase from "firebase/app";
 import 'firebase/messaging'
 import { useAuthStore } from '../../store/AuthStore';
@@ -179,7 +175,7 @@ import { getExistUser } from '@/Api/psApiService.js'
 import PsConst from '@templateCore/object/constant/ps_constants';
 import UserRegisterParameterHolder from '@templateCore/object/holder/UserRegisterParameterHolder.ts';
 import PsStatus from '@templateCore/api/common/PsStatus';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import PrivacyModal from '@template1/vendor/components/modules/privacy/PrivacyModal.vue';
 
 export default defineComponent({
@@ -409,7 +405,7 @@ export default defineComponent({
             if(user.status == PsStatus.SUCCESS){
                 if(user.data.needVerify == 1){
                     loading.value=false;
-                    Inertia.post(route('verifyEmail'),useForm({'email': form.email,'user_id': user.data.userId,'password': form.password}))
+                    router.post(route('verifyEmail'),useForm({'email': form.email,'user_id': user.data.userId,'password': form.password}))
                 }else{
                     form.loginMethod = 'normal';
 
@@ -437,7 +433,7 @@ export default defineComponent({
         }
 
         function singinInClicked(){
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
 

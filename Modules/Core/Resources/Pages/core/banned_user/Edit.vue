@@ -265,7 +265,7 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import CheckBox from "../components/CheckBox.vue";
 import PsRadioValue from "@/Components/Core/Radio/PsRadioValue.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";

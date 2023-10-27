@@ -34,15 +34,15 @@
                 <ps-label class="font-semibold mb-4 text-xl">{{ $t('review_list__review_list')}}</ps-label>
 
                   <!-- customer review -->
-                  <div class="flex w-auto sm:w-[551px] mt-10 mx-auto bg-feAchromatic-50 dark_bg-feAchromatic-900 px-10 py-4">
+                  <div class="flex w-auto sm:w-[551px] mt-10 mx-auto bg-feAchromatic-50 dark:bg-feAchromatic-900 px-10 py-4">
                         <div class="w-full flex flex-col rounded-lg">
 
-                            <h1 class="text-center font-semibold text-2xl dark_text-feAchromatic-50">{{ $t("review_list__customer_reviews") }}</h1>
+                            <h1 class="text-center font-semibold text-2xl dark:text-feAchromatic-50">{{ $t("review_list__customer_reviews") }}</h1>
 
                             <div class="w-auto mx-auto mt-5">
-                                <div class="bg-fePrimary-50 dark_bg-feAchromatic-900 rounded-full p-1 flex items-center justify-between w-full mx-auto">
-                                    <rating-show class="ms-2" :rating="reviewuserProvider.user.data ? reviewuserProvider.user.data.overallRating:0" :maxStars="5" :iconColor="'text-feWarning-500 dark_text-feWarning-accent'" />
-                                    <ps-label-title3 class="me-3 " textColor="dark_text-feAchromatic-50"> {{ reviewuserProvider.user.data.overallRating }} of 5</ps-label-title3>
+                                <div class="bg-fePrimary-50 dark:bg-feAchromatic-900 rounded-full p-1 flex items-center justify-between w-full mx-auto">
+                                    <rating-show class="ms-2" :rating="reviewuserProvider.user.data ? reviewuserProvider.user.data.overallRating:0" :maxStars="5" :iconColor="'text-feWarning-500 dark:text-feWarning-accent'" />
+                                    <ps-label-title3 class="me-3 " textColor="dark:text-feAchromatic-50"> {{ reviewuserProvider.user.data?.overallRating }} out of 5</ps-label-title3>
                                 </div>
 
                                 <ps-label-title-3 class="mt-3 text-center"> {{reviewuserProvider.user.data ? reviewuserProvider.user.data.ratingCount : ''}} {{ $t("review_list__customer_ratings") }}  </ps-label-title-3>
@@ -126,7 +126,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // import router from "@template1/router";
 
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';

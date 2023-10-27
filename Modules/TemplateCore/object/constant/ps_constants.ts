@@ -263,4 +263,18 @@ export default class PsConst {
     static paidItemRejected : string = 'Rejected';
     static paidItemNotAvailable : string = 'Not Available';
 
+    /// Selected Chat Type
+    static CHAT_AND_OFFER : string = 'CHAT_AND_OFFER';
+    static CHAT_ONLY: string = 'CHAT_ONLY';
+    static CHAT_AND_APPOINTMENT: string = 'CHAT_AND_APPOINTMENT';
+    static NO_CHAT: string = 'NO_CHAT';
+    
+    //item advance setting
+    static NO_PRICE : string = 'NO_PRICE';
+    static PRICE_RANGE : string = 'PRICE_RANGE';
+    static NORMAL_PRICE : string = 'NORMAL_PRICE';
+
+    //whatsapp core key id
+    static WHATSAPP_CORE_KEY_Id : string = 'ps-usr00012';
+
 }

@@ -57,7 +57,7 @@ use Modules\Core\Entities\ScreenDisplayUiSetting;
 use Modules\ItemPromotion\Entities\PaidItemHistory;
 use Modules\Package\Entities\PackageBoughtTransaction;
 
-if (! function_exists('deleteUserRelatedData')) {
+if (!function_exists('deleteUserRelatedData')) {
     /**
      * Set the active class to the current opened menu.
      *
@@ -112,7 +112,7 @@ if (! function_exists('deleteUserRelatedData')) {
             Touch::where($usrDeleteCond)->delete();
             //search history
             SearchHistory::where($usrDeleteCond)->delete();
-             //package bought soft delete
+            //package bought soft delete
             PackageBoughtTransaction::where($usrDeleteCond)->delete();
 
             //user report
@@ -133,11 +133,11 @@ if (! function_exists('deleteUserRelatedData')) {
             $storage_thumb2x_path = '/storage/' . Constants::folderPath . '/thumbnail2x/';
             $storage_thumb3x_path = '/storage/' . Constants::folderPath . '/thumbnail3x/';
 
-            foreach($items as $item){
-                $productRelations = ItemInfo::where('item_id',$item->id)->get();
+            foreach ($items as $item) {
+                $productRelations = ItemInfo::where('item_id', $item->id)->get();
                 foreach ($productRelations as $productRelation) {
                     //delete custom field images
-                    if (str_contains($productRelation->value,'.png') || str_contains($productRelation->value,'.jpg')){
+                    if (str_contains($productRelation->value, '.png') || str_contains($productRelation->value, '.jpg')) {
                         Storage::delete($upload_path . $productRelation->value);
                         Storage::delete($storage_upload_path . $productRelation->value);
                         Storage::delete($storage_thumb1x_path . $productRelation->value);
@@ -214,7 +214,7 @@ if (! function_exists('deleteUserRelatedData')) {
                 //delete item
                 $item->delete();
                 $itemConds['item_id'] = $item->id;
-                Touch::where('type_name','item')->where('type_id',$item->id)->delete();
+                Touch::where('type_name', 'item')->where('type_id', $item->id)->delete();
                 ComplaintItem::where($itemConds)->delete();
                 ChatHistory::where($itemConds)->delete();
                 ChatNoti::where($itemConds)->delete();
@@ -238,7 +238,7 @@ if (! function_exists('deleteUserRelatedData')) {
     }
 }
 
-if (! function_exists('isActive')) {
+if (!function_exists('isActive')) {
     /**
      * Set the active class to the current opened menu.
      *
@@ -260,7 +260,7 @@ if (! function_exists('isActive')) {
     }
 }
 
-if (! function_exists('columnOrdering')) {
+if (!function_exists('columnOrdering')) {
     function columnOrdering($field, $arrObj, $sortType = SORT_ASC)
     {
         $col  = $field;
@@ -275,7 +275,7 @@ if (! function_exists('columnOrdering')) {
 }
 
 
-if (! function_exists('deeplinkGenerate')) {
+if (!function_exists('deeplinkGenerate')) {
     /**
      * @param String,Integer  $id - item id
      * @param String $title - item title
@@ -284,79 +284,80 @@ if (! function_exists('deeplinkGenerate')) {
      *
      * @return String generated deeplink short url
      */
-    function deeplinkGenerate($id, $title, $description, $img){
-        $folder_path_thumbnail1x= '/storage/' .Constants::folderPath. '/thumbnail/';
+    function deeplinkGenerate($id, $title, $description, $img)
+    {
+        $folder_path_thumbnail1x = '/storage/' . Constants::folderPath . '/thumbnail/';
         $backend_setting = BackendSetting::first();
 
-		// check description length
-		if(strlen($description)>6605){
-			$description = substr($description, 0, 6605);
-		}
+        // check description length
+        if (strlen($description) > 6605) {
+            $description = substr($description, 0, 6605);
+        }
 
         // $title = strtolower($title);
         // $item_name = str_replace(' ', '-', $title);
-        $longUrl= $backend_setting->dyn_link_deep_url.'/fe_item?item_id='.$id;
+        $longUrl = $backend_setting->dyn_link_deep_url . '/fe_item?item_id=' . $id;
 
-        $landingPage= $backend_setting->dyn_link_deep_url;
+        $landingPage = $backend_setting->dyn_link_deep_url;
 
         //Web API Key From Firebase
         $key = $backend_setting->dyn_link_key;
 
-		//Firebase Rest API URL
-		$url = $backend_setting->dyn_link_url . $key;
+        //Firebase Rest API URL
+        $url = $backend_setting->dyn_link_url . $key;
 
         //To link with Android App, so need to provide with android package name
-		$androidInfo = array(
-		    "androidPackageName" => $backend_setting->dyn_link_package_name,
+        $androidInfo = array(
+            "androidPackageName" => $backend_setting->dyn_link_package_name,
             // "androidFallbackLink" => $landingPage,
-		);
+        );
 
         //For iOS
-		$iOSInfo = array(
-            "iosBundleId" => $backend_setting->ios_boundle_id ,
+        $iOSInfo = array(
+            "iosBundleId" => $backend_setting->ios_boundle_id,
             "iosAppStoreId" => $backend_setting->ios_appstore_id,
             // "iosFallbackLink" => $landingPage,
         );
 
         //For meta data when share the URL
-		$socialMetaTagInfo = array(
-		    "socialDescription" => $description,
-		    "socialImageLink"   => $backend_setting->dyn_link_deep_url.$folder_path_thumbnail1x.$img,
-		    "socialTitle"       => $title
-		);
+        $socialMetaTagInfo = array(
+            "socialDescription" => $description,
+            "socialImageLink"   => $backend_setting->dyn_link_deep_url . $folder_path_thumbnail1x . $img,
+            "socialTitle"       => $title
+        );
 
         //For only 4 character at url
-		$suffix = array(
-		    "option" => "SHORT"
-		);
+        $suffix = array(
+            "option" => "SHORT"
+        );
 
         $data = array(
             "dynamicLinkInfo" => array(
-               "dynamicLinkDomain" => $backend_setting->dyn_link_domain,
-               "link" => $longUrl,
-            //    "link" => $landingPage,
-               "androidInfo" => $androidInfo,
+                "dynamicLinkDomain" => $backend_setting->dyn_link_domain,
+                "link" => $longUrl,
+                //    "link" => $landingPage,
+                "androidInfo" => $androidInfo,
                 "iosInfo" => $iOSInfo,
-               "socialMetaTagInfo" => $socialMetaTagInfo
+                "socialMetaTagInfo" => $socialMetaTagInfo
             ),
             "suffix" => $suffix
-       );
+        );
 
-       $headers = array('Content-Type: application/json');
+        $headers = array('Content-Type: application/json');
 
-		$ch = curl_init ();
-		curl_setopt ( $ch, CURLOPT_URL, $url );
-		curl_setopt ( $ch, CURLOPT_POST, true );
-		curl_setopt ( $ch, CURLOPT_HTTPHEADER, $headers );
-		curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, true );
-		curl_setopt ( $ch, CURLOPT_POSTFIELDS, json_encode($data) );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-		$data = curl_exec ( $ch );
-		curl_close ( $ch );
+        $data = curl_exec($ch);
+        curl_close($ch);
 
-        if($data != false){
+        if ($data != false) {
             $short_url = json_decode($data);
-            if(isset($short_url->error)){
+            if (isset($short_url->error)) {
                 $status = [
                     'msg' => $short_url->error->message,
                     'flag' => 'error',
@@ -368,20 +369,18 @@ if (! function_exists('deeplinkGenerate')) {
                     'flag' => 'success',
                 ];
                 return $status;
-
             }
-        }else{
+        } else {
             $status = [
                 'msg' => 'Wrong Configuration',
                 'flag' => 'error',
             ];
             return $status;
-
         }
     }
 }
 
-if(! function_exists('duplicate')) {
+if (!function_exists('duplicate')) {
     /**
      * @param Model_instatnce $data - original data - array object from table Model
      * @param Array $copies - data to be updated during duplication - array
@@ -418,13 +417,12 @@ if(! function_exists('duplicate')) {
                     // Storage::copy($storage_thumb1x_path . $image->img_path, $storage_thumb1x_path . $duplicate_image->img_path);
                     // Storage::copy($storage_thumb2x_path . $image->img_path, $storage_thumb2x_path . $duplicate_image->img_path);
                     // Storage::copy($storage_thumb3x_path . $image->img_path, $storage_thumb3x_path . $duplicate_image->img_path);
-                    try{
+                    try {
                         File::copy(public_path($storage_upload_path . $image->img_path), public_path($storage_upload_path . $duplicate_image->img_path));
                         File::copy(public_path($storage_thumb1x_path . $image->img_path), public_path($storage_thumb1x_path . $duplicate_image->img_path));
                         File::copy(public_path($storage_thumb2x_path . $image->img_path), public_path($storage_thumb2x_path . $duplicate_image->img_path));
                         File::copy(public_path($storage_thumb3x_path . $image->img_path), public_path($storage_thumb3x_path . $duplicate_image->img_path));
-                    }
-                    catch(Exception $e){
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -435,22 +433,23 @@ if(! function_exists('duplicate')) {
     }
 }
 
-if (!function_exists('validateForCustomField')){
-    function validateForCustomField($moduleName,$request) {
+if (!function_exists('validateForCustomField')) {
+    function validateForCustomField($moduleName, $request)
+    {
 
         $haveValueId = [];
         $customizeHeaderIds = [];
         $errors = [];
 
-        $customizeHeaders = CustomizeUi::where('module_name',$moduleName)->get();
-        foreach ($customizeHeaders as $key => $value){
-            array_push($customizeHeaderIds,$value->core_keys_id);
+        $customizeHeaders = CustomizeUi::where('module_name', $moduleName)->get();
+        foreach ($customizeHeaders as $key => $value) {
+            array_push($customizeHeaderIds, $value->core_keys_id);
         }
 
-        if (!empty($request)){
-            foreach ($request as $key => $postRel){
+        if (!empty($request)) {
+            foreach ($request as $key => $postRel) {
 
-                if (!is_object($postRel)){
+                if (!is_object($postRel)) {
                     $coreKeysIdFromReq = $key;
                     $valueFromReq = $postRel;
                 } else {
@@ -458,18 +457,17 @@ if (!function_exists('validateForCustomField')){
                     $valueFromReq = $postRel->value;
                 }
 
-                if ($valueFromReq !== null){
-                    array_push($haveValueId,$coreKeysIdFromReq);
+                if ($valueFromReq !== null) {
+                    array_push($haveValueId, $coreKeysIdFromReq);
                 }
             }
         }
-        $result = array_diff( $customizeHeaderIds, $haveValueId);
-        foreach ($result as $value){
-            foreach ($customizeHeaders as $key=>$value2){
+        $result = array_diff($customizeHeaderIds, $haveValueId);
+        foreach ($result as $value) {
+            foreach ($customizeHeaders as $key => $value2) {
                 if ($value === $value2->core_keys_id && $value2->mandatory === 1 && $value2->enable === 1 && $value2->is_delete === 0) {
                     $errMessage = __($value2->name) . " is required.";
                     $errors[$value2->core_keys_id] = $errMessage;
-
                 }
             }
         }
@@ -478,150 +476,152 @@ if (!function_exists('validateForCustomField')){
     }
 }
 
-if (!function_exists('validateForCustomFieldFromApi')){
-    function validateForCustomFieldFromApi($moduleName,$request) {
+if (!function_exists('validateForCustomFieldFromApi')) {
+    function validateForCustomFieldFromApi($moduleName, $request)
+    {
 
         $haveValueId = [];
         $customizeHeaderIds = [];
         $errors = [];
 
 
-        $customizeHeaders = CustomizeUi::where('module_name',$moduleName)->get();
-        foreach ($customizeHeaders as $key => $value){
-            array_push($customizeHeaderIds,$value->core_keys_id);
+        $customizeHeaders = CustomizeUi::where('module_name', $moduleName)->get();
+        foreach ($customizeHeaders as $key => $value) {
+            array_push($customizeHeaderIds, $value->core_keys_id);
         }
 
 
-        foreach ($request as $key => $postRel){
-            if ($postRel['value'] !== null){
-                array_push($haveValueId,$postRel['core_keys_id']);
+        foreach ($request as $key => $postRel) {
+            if ($postRel['value'] !== null) {
+                array_push($haveValueId, $postRel['core_keys_id']);
             }
         }
 
-        $result = array_diff( $customizeHeaderIds, $haveValueId);
+        $result = array_diff($customizeHeaderIds, $haveValueId);
 
-        foreach ($result as $value){
-            foreach ($customizeHeaders as $key=>$value2){
+        foreach ($result as $value) {
+            foreach ($customizeHeaders as $key => $value2) {
 
                 if ($value === $value2->core_keys_id && $value2->mandatory === 1 && $value2->enable === 1 && $value2->is_delete === 0) {
                     $errMessage = $value2->name . " is required";
                     $errors[$value2->core_keys_id] = $errMessage;
-
                 }
             }
         }
 
         return $errors;
-
     }
 }
 
-if (!function_exists('responseMsgApi')){
-    function responseMsgApi($message = "Record not Found" ,$code = Constants::notFoundStatusCode, $status = Constants::errorStatus){
+if (!function_exists('responseMsgApi')) {
+    function responseMsgApi($message = "Record not Found", $code = Constants::notFoundStatusCode, $status = Constants::errorStatus)
+    {
         // dd("here");
         return response([
             "status" => $status,
             "message" =>  $message,
-        ],$code);
+        ], $code);
     }
 }
 
-if (!function_exists('responseDataApi')){
-    function responseDataApi($message, $code = Constants::okStatusCode){
+if (!function_exists('responseDataApi')) {
+    function responseDataApi($message, $code = Constants::okStatusCode)
+    {
         return response($message, $code);
     }
 }
 
 
 
-if (!function_exists('customizeDetailsApi')){
-    function custiomizeDetailsApi($coreKeysId, $limit, $offset, $msg = "Record Not Found"){
+if (!function_exists('customizeDetailsApi')) {
+    function custiomizeDetailsApi($coreKeysId, $limit, $offset, $msg = "Record Not Found")
+    {
 
-        $customizeDetails = CustomizeUiDetail::where('core_keys_id',$coreKeysId)
-                                            ->latest('id')
-                                            ->when($limit, function ($query,$limit){
-                                                $query->limit($limit);
-                                            })
-                                            ->when($offset, function ($query,$offset){
-                                                $query->offset($offset);
-                                            })
-                                            ->get();
+        $customizeDetails = CustomizeUiDetail::where('core_keys_id', $coreKeysId)
+            ->latest('id')
+            ->when($limit, function ($query, $limit) {
+                $query->limit($limit);
+            })
+            ->when($offset, function ($query, $offset) {
+                $query->offset($offset);
+            })
+            ->get();
 
         // if not have value
-        if ($customizeDetails->isEmpty()){
-            return ['error' =>   $msg ];
+        if ($customizeDetails->isEmpty()) {
+            return ['error' =>   $msg];
         }
 
         return $customizeDetails;
     }
-
 }
 
-if (!function_exists('uiTypesForCustomizeDetails')){
-    function uiTypesForCustomizeDetailsApi($coreKeyIdsForUiType, $limit, $offset, $msg = "Record Not Found"){
-        $uiTypesForCustomizeDetails = UiType::whereIn("core_keys_id",$coreKeyIdsForUiType)
-                                            ->when($limit, function ($query,$limit){
-                                                $query->limit($limit);
-                                            })
-                                            ->when($offset, function ($query,$offset){
-                                                $query->offset($offset);
-                                            })
-                                            ->get();
+if (!function_exists('uiTypesForCustomizeDetails')) {
+    function uiTypesForCustomizeDetailsApi($coreKeyIdsForUiType, $limit, $offset, $msg = "Record Not Found")
+    {
+        $uiTypesForCustomizeDetails = UiType::whereIn("core_keys_id", $coreKeyIdsForUiType)
+            ->when($limit, function ($query, $limit) {
+                $query->limit($limit);
+            })
+            ->when($offset, function ($query, $offset) {
+                $query->offset($offset);
+            })
+            ->get();
 
         // if not have value
-        if ($uiTypesForCustomizeDetails->isEmpty()){
-            return ['error' =>   $msg ];
+        if ($uiTypesForCustomizeDetails->isEmpty()) {
+            return ['error' =>   $msg];
         }
 
         return $uiTypesForCustomizeDetails;
     }
 }
 
-if(! function_exists('permissionControl')){
+if (!function_exists('permissionControl')) {
     /**
      * @param $module_id
      * @param $permission_id
      */
-    function permissionControl($module_id='',$permission_id=''){
+    function permissionControl($module_id = '', $permission_id = '')
+    {
 
         $loginUserId = Auth::id();
         // check request from api or backend
-        if (!empty($_GET['login_user_id'])){
+        if (!empty($_GET['login_user_id'])) {
             $loginUserIdFromGet = $_GET['login_user_id'];
-            $loginUserRoles = UserPermission::where('user_id',$loginUserIdFromGet)->first();
+            $loginUserRoles = UserPermission::where('user_id', $loginUserIdFromGet)->first();
         } else {
-            $loginUserRoles = UserPermission::where('user_id',$loginUserId)->first();
+            $loginUserRoles = UserPermission::where('user_id', $loginUserId)->first();
         }
 
         if (!empty($loginUserRoles)) {
-            $roleIds = explode(',',$loginUserRoles->role_id);
-            $userAccesses = RolePermission::whereIn('role_id',$roleIds)->where('module_id',$module_id)->get();
+            $roleIds = explode(',', $loginUserRoles->role_id);
+            $userAccesses = RolePermission::whereIn('role_id', $roleIds)->where('module_id', $module_id)->get();
 
-//        $userPermissions = UserPermission::where('user_id',$loginUserId)->where('module_id',$module_id)->first();
-            foreach ($userAccesses as $userAccess){
-                if ($userAccess){
+            //        $userPermissions = UserPermission::where('user_id',$loginUserId)->where('module_id',$module_id)->first();
+            foreach ($userAccesses as $userAccess) {
+                if ($userAccess) {
                     $permission = $userAccess->permission_id;
-                    $permissionIds = explode(',',$permission);
-                    if ($permission_id == ps_constant::readPermission){
-                        foreach ($permissionIds as $id){
-                            if ($id == $permission_id || $id == ps_constant::createPermission || $id == ps_constant::updatePermission || $id == ps_constant::deletePermission){
+                    $permissionIds = explode(',', $permission);
+                    if ($permission_id == ps_constant::readPermission) {
+                        foreach ($permissionIds as $id) {
+                            if ($id == $permission_id || $id == ps_constant::createPermission || $id == ps_constant::updatePermission || $id == ps_constant::deletePermission) {
                                 return true;
                             }
                         }
                     }
-                    foreach ($permissionIds as $id){
-                        if ($id == $permission_id){
+                    foreach ($permissionIds as $id) {
+                        if ($id == $permission_id) {
                             return true;
                         }
                     }
-
                 }
             }
         }
     }
 }
 
-if(! function_exists('authorization')) {
+if (!function_exists('authorization')) {
     /**
      * @param $module_id
      */
@@ -641,174 +641,182 @@ if(! function_exists('authorization')) {
     }
 }
 
-if (!function_exists('keyGenerate')){
-    function keyGenerate($typeCode){
-        $coreKeyType = CoreKeyType::where('code',$typeCode)->first();
+if (!function_exists('keyGenerate')) {
+    function keyGenerate($typeCode)
+    {
+        $coreKeyType = CoreKeyType::where('code', $typeCode)->first();
 
-        $coreKeyLastestRow = CoreKey::where('core_keys_id','like','%'.$typeCode.'%')->latest()->first();
-        if (!empty($coreKeyLastestRow)){
+        $coreKeyLastestRow = CoreKey::where('core_keys_id', 'like', '%' . $typeCode . '%')->latest()->first();
+        if (!empty($coreKeyLastestRow)) {
             $coreKeysIdLastest = substr($coreKeyLastestRow->core_keys_id, -5);
         } else {
             $coreKeysIdLastest = null;
         }
-        $countRow = str_pad( $coreKeysIdLastest + 1, 5, '0', STR_PAD_LEFT );
-        $core_keys_id = $coreKeyType->code.$countRow;
+        $countRow = str_pad($coreKeysIdLastest + 1, 5, '0', STR_PAD_LEFT);
+        $core_keys_id = $coreKeyType->code . $countRow;
         return $core_keys_id;
     }
 }
 
-if (!function_exists('getCoreKey')){
-    function getCoreKey($coreKeysId){
-        $coreKey = CoreKey::where("core_keys_id",$coreKeysId)->first();
+if (!function_exists('getCoreKey')) {
+    function getCoreKey($coreKeysId)
+    {
+        $coreKey = CoreKey::where("core_keys_id", $coreKeysId)->first();
         return $coreKey;
     }
 }
 
 
-if (!function_exists('relationForCoreFieldFilter')){
-    function relationForCoreFieldFilter($coreFieldForFilter,$ownerField,$relationTable,$relationField, $coreFieldFilterForRelation){
-        if ($coreFieldForFilter === $ownerField){
-//        return $coreFieldForFilter.$ownerField;
-            foreach ($relationTable as $category){
-                if ($category == $relationField){
-                    return $coreFieldForFilter.$coreFieldFilterForRelation.$category;
+if (!function_exists('relationForCoreFieldFilter')) {
+    function relationForCoreFieldFilter($coreFieldForFilter, $ownerField, $relationTable, $relationField, $coreFieldFilterForRelation)
+    {
+        if ($coreFieldForFilter === $ownerField) {
+            //        return $coreFieldForFilter.$ownerField;
+            foreach ($relationTable as $category) {
+                if ($category == $relationField) {
+                    return $coreFieldForFilter . $coreFieldFilterForRelation . $category;
                 }
-
             }
         }
     }
 }
 
 
-if ( !function_exists( 'read_more' ))
-{
-	function read_more( $string, $limit )
-	{
-		$string = strip_tags($string);
+if (!function_exists('read_more')) {
+    function read_more($string, $limit)
+    {
+        $string = strip_tags($string);
 
-		if (strlen($string) > $limit) {
+        if (strlen($string) > $limit) {
 
-		    // truncate string
-		    $stringCut = substr($string, 0, $limit);
+            // truncate string
+            $stringCut = substr($string, 0, $limit);
 
-		    // make sure it ends in a word so assassinate doesn't become ass...
-		    $string = substr($stringCut, 0, strrpos($stringCut, ' ')).'...';
-		}
-		return $string;
-	}
+            // make sure it ends in a word so assassinate doesn't become ass...
+            $string = substr($stringCut, 0, strrpos($stringCut, ' ')) . '...';
+        }
+        return $string;
+    }
 }
 
-if ( !function_exists( 'generateLangStrJson' ))
-{
-    function generateLangStrJson($fileName, $lang_str){
+if (!function_exists('generateLangStrJson')) {
+    function generateLangStrJson($fileName, $lang_str)
+    {
 
         $languageString = [];
-        foreach($lang_str as $str){
+        foreach ($lang_str as $str) {
             $languageString[$str['key']] = $str['value'];
         }
 
         $file['data'] = json_encode($languageString);
 
-        File::put(base_path('lang/'.$fileName),$file);
+        File::put(base_path('lang/' . $fileName), $file);
     }
 }
-if ( !function_exists( 'generateFEangStrJson' ))
-{
-    function generateFEangStrJson($fileName, $lang_str){
+if (!function_exists('generateFEangStrJson')) {
+    function generateFEangStrJson($fileName, $lang_str)
+    {
 
         $languageString = [];
-        foreach($lang_str as $str){
+        foreach ($lang_str as $str) {
             $languageString[$str['key']] = $str['value'];
         }
 
         $file['data'] = json_encode($languageString);
 
-        File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/'.$fileName),$file);
+        File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/' . $fileName), $file);
     }
 }
 
-if(!function_exists('generateFeLangStrJson')){
-    function generateFeLangStrJson($fileName,$lang_str){
+if (!function_exists('generateFeLangStrJson')) {
+    function generateFeLangStrJson($fileName, $lang_str)
+    {
         $languageString = [];
-        foreach($lang_str as $str){
+        foreach ($lang_str as $str) {
             $languageString[$str['key']] = $str['value'];
         }
 
         $file['data'] = json_encode($languageString);
 
-        File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/'.$fileName),$file);
+        File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/' . $fileName), $file);
     }
 }
 
-if ( !function_exists( 'generateAllLanguage' )){
+if (!function_exists('generateAllLanguage')) {
 
-    function generateAllLanguage(){
+    function generateAllLanguage()
+    {
 
         $languages = Language::all();
-        foreach($languages as $language){
+        foreach ($languages as $language) {
             $languageString = [];
             $lang_str = LanguageString::select('key', 'value')->where('language_id', $language->id)->get();
 
-            foreach($lang_str as $str){
+            foreach ($lang_str as $str) {
                 $languageString[$str['key']] = $str['value'];
             }
 
             $file['data'] = json_encode($languageString);
 
             $fileName = $language->symbol . '.json';
-            File::put(base_path('lang/'.$fileName),$file);
+            File::put(base_path('lang/' . $fileName), $file);
         }
     }
 }
 
-if ( !function_exists( 'generateAllFeLanguages' )){
+if (!function_exists('generateAllFeLanguages')) {
 
-    function generateAllFeLanguages(){
+    function generateAllFeLanguages()
+    {
 
         $languages = Language::all();
-        foreach($languages as $language){
+        foreach ($languages as $language) {
             $languageString = [];
             $lang_str = FeLanguageString::select('key', 'value')->where('language_id', $language->id)->get();
 
-            foreach($lang_str as $str){
+            foreach ($lang_str as $str) {
                 $languageString[$str['key']] = $str['value'];
             }
 
             $file['data'] = json_encode($languageString);
 
             $fileName = $language->symbol . '.json';
-            File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/'.$fileName),$file);
+            File::put(base_path('Modules/Template/PSXFETemplate/Resources/frontend_languages/' . $fileName), $file);
         }
     }
 }
 
-if ( !function_exists('deleteBuilderLanguageStrings')){
-    function deleteBuilderLanguageStrings(){
+if (!function_exists('deleteBuilderLanguageStrings')) {
+    function deleteBuilderLanguageStrings()
+    {
         LanguageString::where("is_from_builder", 1)->delete();
     }
 }
 
-if(!function_exists('deleteBuilderFeLanguageStrings')){
-    function deleteBuilderFeLanguageStrings(){
-        FeLanguageString::where('is_from_builder',1)->delete();
+if (!function_exists('deleteBuilderFeLanguageStrings')) {
+    function deleteBuilderFeLanguageStrings()
+    {
+        FeLanguageString::where('is_from_builder', 1)->delete();
     }
 }
 
-if ( !function_exists('redirectView')){
-    function redirectView($routeName, $msg, $flag = "success", $parameter = null){
+if (!function_exists('redirectView')) {
+    function redirectView($routeName, $msg, $flag = "success", $parameter = null)
+    {
 
-        if (empty($parameter) && !empty($routeName)){
-            return redirect()->route($routeName)->with('status',[ 'flag' => $flag, 'msg' => $msg ]);
-        } elseif (empty($routeName) && empty($parameter)){
-            return redirect()->back()->with('status',[ 'flag' => $flag, 'msg' => $msg ]);
+        if (empty($parameter) && !empty($routeName)) {
+            return redirect()->route($routeName)->with('status', ['flag' => $flag, 'msg' => $msg]);
+        } elseif (empty($routeName) && empty($parameter)) {
+            return redirect()->back()->with('status', ['flag' => $flag, 'msg' => $msg]);
         } else {
-            return redirect()->route($routeName, $parameter)->with('status',[ 'flag' => $flag, 'msg' => $msg ]);
+            return redirect()->route($routeName, $parameter)->with('status', ['flag' => $flag, 'msg' => $msg]);
         }
     }
 }
 
-if ( !function_exists('getBetweenTwoDateRangeArr')){
-    function getBetweenTwoDateRangeArr($startDate, $endDate, $format = 'Y-m-d'){
+if (!function_exists('getBetweenTwoDateRangeArr')) {
+    function getBetweenTwoDateRangeArr($startDate, $endDate, $format = 'Y-m-d')
+    {
 
         $dateRange = CarbonPeriod::create($startDate, $endDate);
         $formatedDateRangeArr = [];
@@ -819,33 +827,36 @@ if ( !function_exists('getBetweenTwoDateRangeArr')){
     }
 }
 
-if ( !function_exists('subtractDay')){
-    function subtractDay($dayCount, $date, $format = 'Y-m-d H:i:s'){
+if (!function_exists('subtractDay')) {
+    function subtractDay($dayCount, $date, $format = 'Y-m-d H:i:s')
+    {
         return date($format, strtotime("-$dayCount day", strtotime($date)));
     }
 }
 
 
 
-if ( !function_exists('checkSave')){
-    function checkSave($returnValue, $route, $flag){
-        if (is_object($returnValue)){
+if (!function_exists('checkSave')) {
+    function checkSave($returnValue, $route, $flag)
+    {
+        if (is_object($returnValue)) {
             $savedValue = $returnValue;
-        } else{
+        } else {
             return redirectView($route, $returnValue, $flag);
         }
     }
 }
 
-if ( !function_exists('deleteImages')){
-    function deleteImages($images){
-        if(count($images)>0){
-            foreach($images as $image){
+if (!function_exists('deleteImages')) {
+    function deleteImages($images)
+    {
+        if (count($images) > 0) {
+            foreach ($images as $image) {
                 // delete image from storage folder
-                Storage::delete('public/uploads/'.$image->img_path);
-                Storage::delete('public/thumbnail/'.$image->img_path);
-                Storage::delete('public/thumbnail2x/'.$image->img_path);
-                Storage::delete('public/thumbnail3x/'.$image->img_path);
+                Storage::delete('public/uploads/' . $image->img_path);
+                Storage::delete('public/thumbnail/' . $image->img_path);
+                Storage::delete('public/thumbnail2x/' . $image->img_path);
+                Storage::delete('public/thumbnail3x/' . $image->img_path);
 
                 $image->delete();
             }
@@ -853,32 +864,35 @@ if ( !function_exists('deleteImages')){
     }
 }
 
-if ( !function_exists('deleteImage')){
-    function deleteImage($image){
-        if(!empty($image)){
+if (!function_exists('deleteImage')) {
+    function deleteImage($image)
+    {
+        if (!empty($image)) {
             // delete image from storage folder
-            Storage::delete('public/uploads/'.$image->img_path);
-            Storage::delete('public/thumbnail/'.$image->img_path);
-            Storage::delete('public/thumbnail2x/'.$image->img_path);
-            Storage::delete('public/thumbnail3x/'.$image->img_path);
+            Storage::delete('public/uploads/' . $image->img_path);
+            Storage::delete('public/thumbnail/' . $image->img_path);
+            Storage::delete('public/thumbnail2x/' . $image->img_path);
+            Storage::delete('public/thumbnail3x/' . $image->img_path);
         }
     }
 }
 
 
-if ( !function_exists('renderView')){
-    function renderView($componentPath, $dataForView = null){
-        if(empty($dataForView)){
+if (!function_exists('renderView')) {
+    function renderView($componentPath, $dataForView = null)
+    {
+        if (empty($dataForView)) {
             return Inertia::render($componentPath);
         } else {
-            return Inertia::render($componentPath,$dataForView);
+            return Inertia::render($componentPath, $dataForView);
         }
     }
 }
 
 
-if  ( !function_exists('getAllCoreFields')){
-    function getAllCoreFields($tableName){
+if (!function_exists('getAllCoreFields')) {
+    function getAllCoreFields($tableName)
+    {
         return Schema::getColumnListing($tableName);
     }
 }
@@ -892,29 +906,32 @@ if  ( !function_exists('getAllCoreFields')){
 //    }
 //}
 
-if  ( !function_exists('checkPermissionApi')){
-    function checkPermissionApi($ability, $model, $msg = null){
-        if($msg == null){
+if (!function_exists('checkPermissionApi')) {
+    function checkPermissionApi($ability, $model, $msg = null)
+    {
+        if ($msg == null) {
             $msg = __("no_permission");
         }
-        if (Gate::denies($ability,$model)){
-            return response()->json(["message" => $msg, "status" => "error"],403);
+        if (Gate::denies($ability, $model)) {
+            return response()->json(["message" => $msg, "status" => "error"], 403);
         }
     }
 }
 
-if  ( !function_exists('checkOwnerShip')){
-    function checkOwnerShip($singleObj, $loginUserId){
-        if ($singleObj->added_user_id == $loginUserId){
+if (!function_exists('checkOwnerShip')) {
+    function checkOwnerShip($singleObj, $loginUserId)
+    {
+        if ($singleObj->added_user_id == $loginUserId) {
             return true;
         }
         return false;
     }
 }
 
-if  ( !function_exists('checkUserByLoginUser')){
-    function checkUserByLoginUser($userId, $loginUserId){
-        if ($userId == $loginUserId){
+if (!function_exists('checkUserByLoginUser')) {
+    function checkUserByLoginUser($userId, $loginUserId)
+    {
+        if ($userId == $loginUserId) {
             return true;
         }
         return false;
@@ -922,9 +939,10 @@ if  ( !function_exists('checkUserByLoginUser')){
 }
 
 
-if  ( !function_exists('getLoginUserId')){
-    function getLoginUserId($userIdParaFromApi = null, $userIdFromBE = null){
-        if (!empty($_GET['login_user_id'])){
+if (!function_exists('getLoginUserId')) {
+    function getLoginUserId($userIdParaFromApi = null, $userIdFromBE = null)
+    {
+        if (!empty($_GET['login_user_id'])) {
             $userId = $_GET['login_user_id'];
         } else {
             $userId = $userIdFromBE;
@@ -933,8 +951,9 @@ if  ( !function_exists('getLoginUserId')){
     }
 }
 
-if  ( !function_exists('createCustomizeAttr')){
-    function createCustomizeAttr($request){
+if (!function_exists('createCustomizeAttr')) {
+    function createCustomizeAttr($request)
+    {
         $customizeDetail = new CustomizeUiDetail();
         $customizeDetail->name = $request->name;
         $customizeDetail->core_keys_id = $request->core_keys_id;
@@ -944,8 +963,9 @@ if  ( !function_exists('createCustomizeAttr')){
     }
 }
 
-if ( !function_exists('updateCustomizeAttr')){
-    function updateCustomizeAttr($customizationDetail, $request){
+if (!function_exists('updateCustomizeAttr')) {
+    function updateCustomizeAttr($customizationDetail, $request)
+    {
         $customizationDetail->name = $request->name;
         $customizationDetail->core_keys_id = $request->core_keys_id;
         $customizationDetail->update();
@@ -954,15 +974,17 @@ if ( !function_exists('updateCustomizeAttr')){
     }
 }
 
-if ( !function_exists("getSupportedUi")){
-    function getSupportedUi(){
+if (!function_exists("getSupportedUi")) {
+    function getSupportedUi()
+    {
         $ui = UiType::all();
         return $ui;
     }
 }
 
-if ( !function_exists("createCustomField")){
-    function createCustomField($request, $code){
+if (!function_exists("createCustomField")) {
+    function createCustomField($request, $code)
+    {
         $customizeHeader = new CustomizeUi();
         $customizeHeader->name = $request->name;
         $customizeHeader->placeholder = $request->placeholder;
@@ -974,7 +996,7 @@ if ( !function_exists("createCustomField")){
         } else {
             $customizeHeader->mandatory = 1;
         }
-//        $key = CoreKeyType::where("name","product")->get();
+        //        $key = CoreKeyType::where("name","product")->get();
         $customizeHeader->module_name = $code;
         $customizeHeader->enable = 1;
         $customizeHeader->save();
@@ -982,8 +1004,9 @@ if ( !function_exists("createCustomField")){
     }
 }
 
-if ( !function_exists("createCustomField")){
-    function createCustomField($request, $code){
+if (!function_exists("createCustomField")) {
+    function createCustomField($request, $code)
+    {
         $customizeHeader = new CustomizeUi();
         $customizeHeader->name = $request->name;
         $customizeHeader->placeholder = $request->placeholder;
@@ -995,7 +1018,7 @@ if ( !function_exists("createCustomField")){
         } else {
             $customizeHeader->mandatory = 1;
         }
-//        $key = CoreKeyType::where("name","product")->get();
+        //        $key = CoreKeyType::where("name","product")->get();
         $customizeHeader->module_name = $code;
 
         $stringUiTypes = ['uit00001', 'uit00002', 'uit00003', 'uit00004', 'uit00006'];
@@ -1004,7 +1027,7 @@ if ( !function_exists("createCustomField")){
         $dateUiTypes = ['uit00005', 'uit00010', 'uit00011'];
         $integerUiTypes = ['uit00007'];
 
-        if (in_array($request->ui_type_id, $stringUiTypes)){
+        if (in_array($request->ui_type_id, $stringUiTypes)) {
             $customizeHeader->data_type = 'String';
         } elseif (in_array($request->ui_type_id, $dateUiTypes)) {
             $customizeHeader->data_type = 'Date';
@@ -1022,8 +1045,9 @@ if ( !function_exists("createCustomField")){
     }
 }
 
-if ( !function_exists("updateCustomField")){
-    function updateCustomField($customizeHeader, $request, $code){
+if (!function_exists("updateCustomField")) {
+    function updateCustomField($customizeHeader, $request, $code)
+    {
         $customizeHeader->name = $request->name;
         $customizeHeader->placeholder = $request->placeholder;
         $customizeHeader->ui_type_id = $request->ui_type_id;
@@ -1034,7 +1058,7 @@ if ( !function_exists("updateCustomField")){
         } else {
             $customizeHeader->mandatory = 1;
         }
-//        $key = CoreKeyType::where("name","product")->get();
+        //        $key = CoreKeyType::where("name","product")->get();
         $customizeHeader->module_name = $code;
         $customizeHeader->enable = 1;
         $customizeHeader->update();
@@ -1043,29 +1067,32 @@ if ( !function_exists("updateCustomField")){
     }
 }
 
-if ( !function_exists("createCoreKey")){
-    function createCoreKey($customizeHeader, $code){
+if (!function_exists("createCoreKey")) {
+    function createCoreKey($customizeHeader, $code)
+    {
         $coreKey = new CoreKey();
         $coreKey->core_keys_id = keyGenerate($code);
         $coreKey->name = $customizeHeader->name;
-        $coreKey->description = $customizeHeader->name.' desc';
+        $coreKey->description = $customizeHeader->name . ' desc';
         $coreKey->save();
         return $coreKey;
     }
 }
 
-if ( !function_exists("updateCoreKey")){
-    function updateCoreKey($coreKey,$customizeHeader, $code){
+if (!function_exists("updateCoreKey")) {
+    function updateCoreKey($coreKey, $customizeHeader, $code)
+    {
         $coreKey->core_keys_id = $customizeHeader->core_keys_id;
         $coreKey->name = $customizeHeader->name;
-        $coreKey->description = $customizeHeader->name.' desc';
+        $coreKey->description = $customizeHeader->name . ' desc';
         $coreKey->update();
         return $coreKey;
     }
 }
 
-if ( !function_exists("createForHideShow")){
-    function createForHideShow($coreKey, $code){
+if (!function_exists("createForHideShow")) {
+    function createForHideShow($coreKey, $code)
+    {
         $screenDisplayUiSetting = new ScreenDisplayUiSetting();
         $screenDisplayUiSetting->module_name = $code;
         $screenDisplayUiSetting->key = $coreKey->core_keys_id;
@@ -1076,9 +1103,10 @@ if ( !function_exists("createForHideShow")){
 }
 
 
-if ( !function_exists("customFieldStatusUpdate")){
-    function customFieldStatusUpdate($customizeHeader, $columnName){
-        if ($customizeHeader->$columnName === 1){
+if (!function_exists("customFieldStatusUpdate")) {
+    function customFieldStatusUpdate($customizeHeader, $columnName)
+    {
+        if ($customizeHeader->$columnName === 1) {
             $customizeHeader->$columnName = 0;
         } else {
             $customizeHeader->$columnName = 1;
@@ -1088,69 +1116,76 @@ if ( !function_exists("customFieldStatusUpdate")){
     }
 }
 
-if ( !function_exists("newFileName")){
-    function newFileName($value, $componentName = null){
-        $newName = uniqid()."_".$componentName.".".$value->getClientOriginalExtension();
+if (!function_exists("newFileName")) {
+    function newFileName($value, $componentName = null)
+    {
+        $newName = uniqid() . "_" . $componentName . "." . $value->getClientOriginalExtension();
         return $newName;
     }
 }
 
-if ( !function_exists("newFileNameForExport")){
-    function newFileNameForExport($fileName, $format = "csv"){
-        $newName = $fileName.'_'. date('Y_m_d') . '.'.$format;
+if (!function_exists("newFileNameForExport")) {
+    function newFileNameForExport($fileName, $format = "csv")
+    {
+        $newName = $fileName . '_' . date('Y_m_d') . '.' . $format;
         return $newName;
     }
 }
 
 
 
-if ( !function_exists("saveImgAsOrigin")){
-    function saveImgAsOrigin($file, $originPath, $fileName){
+if (!function_exists("saveImgAsOrigin")) {
+    function saveImgAsOrigin($file, $originPath, $fileName)
+    {
         $img = Image::make($file);
         $origin = $originPath;
-        $img->save($origin.$fileName,30);
+        $img->save($origin . $fileName, 30);
     }
 }
 
-if ( !function_exists("saveImgAsThumbnail1x")){
-    function saveImgAsThumbnail1x($file, $thumbnail1xPath, $fileName){
+if (!function_exists("saveImgAsThumbnail1x")) {
+    function saveImgAsThumbnail1x($file, $thumbnail1xPath, $fileName)
+    {
         $thumbnail1x = Image::make($file);
         $thumbnail1xDir = $thumbnail1xPath;
         $thumbnail1x->resize(200, null, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
         });
-        $thumbnail1x->save($thumbnail1xDir.$fileName);
+        $thumbnail1x->save($thumbnail1xDir . $fileName);
     }
 }
 
 
-if ( !function_exists("saveImgAsThumbnail2x")){
-    function saveImgAsThumbnail2x($file, $thumbnail2xPath, $fileName){
+if (!function_exists("saveImgAsThumbnail2x")) {
+    function saveImgAsThumbnail2x($file, $thumbnail2xPath, $fileName)
+    {
         $thumbnail2x = Image::make($file);
         $thumbnail2xDir = $thumbnail2xPath;
         $thumbnail2x->resize(400, null, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
         });
-        $thumbnail2x->save($thumbnail2xDir.$fileName);
+        $thumbnail2x->save($thumbnail2xDir . $fileName);
     }
 }
 
-if ( !function_exists("saveImgAsThumbnail3x")){
-    function saveImgAsThumbnail3x($file, $thumbnail3xPath, $fileName){
+if (!function_exists("saveImgAsThumbnail3x")) {
+    function saveImgAsThumbnail3x($file, $thumbnail3xPath, $fileName)
+    {
         $thumbnail3x = Image::make($file);
         $thumbnail3xDir = $thumbnail3xPath;
         $thumbnail3x->resize(600, null, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
         });
-        $thumbnail3x->save($thumbnail3xDir.$fileName);
+        $thumbnail3x->save($thumbnail3xDir . $fileName);
     }
 }
 
-if ( !function_exists("saveImgAsOriginalThumbNail1x2x3x")){
-    function saveImgAsOriginalThumbNail1x2x3x($file, $fileName, $originPath, $thumbnail1xPath, $thumbnail2xPath, $thumbnail3xPath){
+if (!function_exists("saveImgAsOriginalThumbNail1x2x3x")) {
+    function saveImgAsOriginalThumbNail1x2x3x($file, $fileName, $originPath, $thumbnail1xPath, $thumbnail2xPath, $thumbnail3xPath)
+    {
 
         //save origin
         saveImgAsOrigin($file, $originPath, $fileName);
@@ -1163,21 +1198,20 @@ if ( !function_exists("saveImgAsOriginalThumbNail1x2x3x")){
 
         //save 3x
         saveImgAsThumbnail3x($file, $thumbnail3xPath, $fileName);
-
     }
 }
 
-if ( !function_exists("delImageFromCustomFieldValue")){
-    function delImageFromCustomFieldValue($productRelation, $uploadPathForDel, $thumb1xPathForDel, $thumb2xPathForDel, $thumb3xPathForDel){
+if (!function_exists("delImageFromCustomFieldValue")) {
+    function delImageFromCustomFieldValue($productRelation, $uploadPathForDel, $thumb1xPathForDel, $thumb2xPathForDel, $thumb3xPathForDel)
+    {
 
         // delete all photos
-        if (str_contains($productRelation->value,'.png') || str_contains($productRelation->value,'.jpg')){
-            Storage::delete($uploadPathForDel.$productRelation->value);
-            Storage::delete($thumb1xPathForDel.$productRelation->value);
-            Storage::delete($thumb2xPathForDel.$productRelation->value);
-            Storage::delete($thumb3xPathForDel.$productRelation->value);
+        if (str_contains($productRelation->value, '.png') || str_contains($productRelation->value, '.jpg')) {
+            Storage::delete($uploadPathForDel . $productRelation->value);
+            Storage::delete($thumb1xPathForDel . $productRelation->value);
+            Storage::delete($thumb2xPathForDel . $productRelation->value);
+            Storage::delete($thumb3xPathForDel . $productRelation->value);
         }
-
     }
 }
 
@@ -1200,8 +1234,9 @@ if (!function_exists('generate_random_string')) {
     }
 }
 
-if(!function_exists('generateCoreKey')){
-    function generateCoreKey($code){
+if (!function_exists('generateCoreKey')) {
+    function generateCoreKey($code)
+    {
         $conds['code'] = $code;
         $coreKeyCounter = CoreKeyCounter::where($conds)->first();
         $counter = $coreKeyCounter->counter + 1;
@@ -1211,10 +1246,10 @@ if(!function_exists('generateCoreKey')){
         $counterCount = strlen((string)$counter);
 
         $count = 0;
-        if($middleCoreKeyCount <= $counterCount){
+        if ($middleCoreKeyCount <= $counterCount) {
             $count = $counter;
-        }else if($middleCoreKeyCount > $counterCount){
-            $count = substr($middleCoreKeyCode, 0, ($middleCoreKeyCount-$counterCount)+1) . $counter;
+        } else if ($middleCoreKeyCount > $counterCount) {
+            $count = substr($middleCoreKeyCode, 0, ($middleCoreKeyCount - $counterCount) + 1) . $counter;
         }
 
         // update core key counter
@@ -1228,19 +1263,20 @@ if(!function_exists('generateCoreKey')){
 /**
  * Get Paid Item Status
  */
-if(!function_exists('getPaidStatus')){
-    function getPaidStatus($start_timestamp, $end_timestamp){
+if (!function_exists('getPaidStatus')) {
+    function getPaidStatus($start_timestamp, $end_timestamp)
+    {
         $today_date = Carbon::now();
 
         $start_date = date('Y-m-d H:i:s', $start_timestamp);
         $end_date = date('Y-m-d H:i:s', $end_timestamp);
 
-        if($today_date >= $start_date && $today_date <= $end_date){
+        if ($today_date >= $start_date && $today_date <= $end_date) {
             // dd("here");
             return Constants::paidItemProgressStatus;
-        }else if ($today_date > $start_date && $today_date > $end_date){
+        } else if ($today_date > $start_date && $today_date > $end_date) {
             return Constants::paidItemCompletedStatus;
-        }else if ($today_date < $start_date && $today_date < $end_date){
+        } else if ($today_date < $start_date && $today_date < $end_date) {
             return Constants::paidItemNotYetStartStatus;
         }
     }
@@ -1257,7 +1293,7 @@ if (!function_exists('send_android_fcm')) {
         $message = $data['message'];
         $flag = $data['flag'];
 
-        if(isset($data['item_id'])){
+        if (isset($data['item_id'])) {
             $id = $data['item_id'];
 
             $item = Item::find($id);
@@ -1270,13 +1306,13 @@ if (!function_exists('send_android_fcm')) {
 
             $currency_id = $item->currency_id;
             $cur = Currency::find($currency_id);
-            $currency = $cur? $cur->currency_symbol:'';
+            $currency = $cur ? $cur->currency_symbol : '';
 
             $conds_img['img_parent_id'] = $id;
             $conds_img['img_type'] = "item";
             $conds_img['ordering'] = '1';
             $images = CoreImage::where($conds_img)->get();
-            $img_path = count($images)>0 ? $images[0]->img_path: '';
+            $img_path = count($images) > 0 ? $images[0]->img_path : '';
 
             if (count($images) == 0) {
                 $conds_img1['img_parent_id'] = $id;
@@ -1287,7 +1323,7 @@ if (!function_exists('send_android_fcm')) {
                 if (count($images1) == 1) {
                     $img_path = $images1[0]->img_path;
                 } else {
-                    $img_path = count($images1)>0 ? $images1[0]->img_path : '';
+                    $img_path = count($images1) > 0 ? $images1[0]->img_path : '';
                 }
             }
 
@@ -1307,14 +1343,14 @@ if (!function_exists('send_android_fcm')) {
 
         $click_action = "";
 
-        foreach($platform_names as $platform_name){
+        foreach ($platform_names as $platform_name) {
             $currency_tmp =  '&currency=';
             $currency_tmp = htmlentities($currency_tmp);
 
             if (strtolower($platform_name) == "frontend" && $flag == Constants::chatNotiFlag) {
                 //for chat chat?buyer_user_id=133&seller_user_id=1&item_id=192&chat_flag=CHAT_FROM_BUYER
                 $click_action = $prj_name .  'chat?buyer_user_id=' . $data['buyer_user_id'] . '&seller_user_id=' . $data['seller_user_id'] . '&item_id=' . $data['item_id'] . '&chat_flag=' . $data['chat_flag'];
-            } elseif ( strtolower($platform_name) == "frontend" && $flag == Constants::reviewNotiFlag) {
+            } elseif (strtolower($platform_name) == "frontend" && $flag == Constants::reviewNotiFlag) {
                 $click_action = $prj_name . 'review-list?user_id=' . $data['review_user_id'];
             } elseif (strtolower($platform_name) == "frontend" && $flag == Constants::approvalNotiFlag) {
                 $click_action = $prj_name . 'fe_item?item_id=' . $data['item_id'];
@@ -1324,9 +1360,9 @@ if (!function_exists('send_android_fcm')) {
                 $click_action = $prj_name . "profile";
             } elseif (strtolower($platform_name) == "android" || strtolower($platform_name) == "ios") {
                 $click_action = ps_constant::flutterNotificationClick;
-            }else if(strtolower($platform_name) == "frontend")
+            } else if (strtolower($platform_name) == "frontend")
                 $click_action = $prj_name . "";
-            else{
+            else {
                 $click_action = ps_constant::flutterNotificationClick;
             }
         }
@@ -1421,7 +1457,7 @@ if (!function_exists('send_android_fcm')) {
         }
 
         // Update your Google Cloud Messaging API Key
-        $fcm_api_key = !empty($backend_setting)? $backend_setting->fcm_api_key : '';
+        $fcm_api_key = !empty($backend_setting) ? $backend_setting->fcm_api_key : '';
         $google_api_key = $fcm_api_key;
 
         // //Google cloud messaging GCM-API url
@@ -1483,7 +1519,7 @@ if (!function_exists('send_subscribe_noti_fcm')) {
         );
 
         // Update your Google Cloud Messaging API Key
-        $fcm_api_key = !empty($backend_setting)? $backend_setting->fcm_api_key : '';
+        $fcm_api_key = !empty($backend_setting) ? $backend_setting->fcm_api_key : '';
         // define("GOOGLE_API_KEY", $fcm_api_key);
 
         // //Google cloud messaging GCM-API url
@@ -1513,9 +1549,10 @@ if (!function_exists('send_subscribe_noti_fcm')) {
     }
 }
 
-if(!function_exists('customPagination')){
+if (!function_exists('customPagination')) {
 
-    function customPagination($items, $perPage = 10, $page = null, $options = []){
+    function customPagination($items, $perPage = 10, $page = null, $options = [])
+    {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
@@ -1526,11 +1563,10 @@ if(!function_exists('customPagination')){
 
 
 /**
-* Sending Message From FCM For Android & iOS By using topics subscribe
-*/
-if ( ! function_exists( 'send_android_fcm_topics_subscribe' ))
-{
-	function send_android_fcm_topics_subscribe( $data )
+ * Sending Message From FCM For Android & iOS By using topics subscribe
+ */
+if (!function_exists('send_android_fcm_topics_subscribe')) {
+    function send_android_fcm_topics_subscribe($data)
     {
         // dd();
         $backend_setting = BackendSetting::first();
@@ -1542,37 +1578,36 @@ if ( ! function_exists( 'send_android_fcm_topics_subscribe' ))
 
         $click_action = "";
 
-    	//Google cloud messaging GCM-API url
-    	$url = 'https://fcm.googleapis.com/fcm/send';
+        //Google cloud messaging GCM-API url
+        $url = 'https://fcm.googleapis.com/fcm/send';
 
-    	if ($data['subscribe'] == '0' && $data['push'] == 1) {
-    		// push noti
+        if ($data['subscribe'] == '0' && $data['push'] == 1) {
+            // push noti
             $click_action = $prj_name . "notification-list";
 
-    		$noti_arr = array(
-	    		'title' => $data['message'],
-	    		'body' => $data['desc'],
-	    		'sound' => 'default',
-	    		'flag' => ps_constant::broadcast
-	    	);
+            $noti_arr = array(
+                'title' => $data['message'],
+                'body' => $data['desc'],
+                'sound' => 'default',
+                'flag' => ps_constant::broadcast
+            );
 
-	    	$noti_data = array(
-	    		'sound' => 'default',
-	    		'message' => $data['message'],
-	    		'flag' => ps_constant::broadcast,
-	    		'click_action' => $click_action
-	    	);
+            $noti_data = array(
+                'sound' => 'default',
+                'message' => $data['message'],
+                'flag' => ps_constant::broadcast,
+                'click_action' => $click_action
+            );
 
-	    	$fields = array(
-	    		'sound' => 'default',
-	    		'flag' => ps_constant::broadcast,
-	    		'notification' => $noti_arr,
-	    		'data' => $noti_data,
-	    	    'to' => '/topics/' . $backend_setting->topics
-	    	);
-
-    	} else {
-    		// subscribe noti
+            $fields = array(
+                'sound' => 'default',
+                'flag' => ps_constant::broadcast,
+                'notification' => $noti_arr,
+                'data' => $noti_data,
+                'to' => '/topics/' . $backend_setting->topics
+            );
+        } else {
+            // subscribe noti
             // $noti_arr = array(
             //     'title' => __('site_name'),
             //     'body' => $message,
@@ -1594,181 +1629,181 @@ if ( ! function_exists( 'send_android_fcm_topics_subscribe' ))
 
             // );
             $click_action = $prj_name . 'fe_item?item_id=' . $data['item_id'];
-    		$noti_arr = array(
-	    		'title' => __('site_name'),
-	    		'body' => $data['message'],
-	    		'item_id' => $data['item_id'],
-	    		'sound' => 'default',
-	    		'flag' => Constants::subscribeNotiFlag
-	    	);
+            $noti_arr = array(
+                'title' => __('site_name'),
+                'body' => $data['message'],
+                'item_id' => $data['item_id'],
+                'sound' => 'default',
+                'flag' => Constants::subscribeNotiFlag
+            );
 
-	    	$noti_data = array(
-	    		'sound' => 'default',
-	    		'message' => $data['message'],
-	    		'item_id' => $data['item_id'],
-	    		'flag' => Constants::subscribeNotiFlag,
-	    		'click_action' => $click_action
-	    	);
+            $noti_data = array(
+                'sound' => 'default',
+                'message' => $data['message'],
+                'item_id' => $data['item_id'],
+                'flag' => Constants::subscribeNotiFlag,
+                'click_action' => $click_action
+            );
 
-	    	$fields = array(
-	    		'sound' => 'default',
-	    		'flag' => Constants::subscribeNotiFlag,
+            $fields = array(
+                'sound' => 'default',
+                'flag' => Constants::subscribeNotiFlag,
                 // 'registration_ids' => $data['device_token'],
-	    		'notification' => $noti_arr,
-	    		'data' => $noti_data,
-	    	    'to' => '/topics/' . $data['subcategory_id'] . '_MB'
-	    	);
-    	}
+                'notification' => $noti_arr,
+                'data' => $noti_data,
+                'to' => '/topics/' . $data['subcategory_id'] . '_MB'
+            );
+        }
 
-        $fcm_api_key = !empty($backend_setting)? $backend_setting->fcm_api_key : '';
-    	// define("GOOGLE_API_KEY", $fcm_api_key);
+        $fcm_api_key = !empty($backend_setting) ? $backend_setting->fcm_api_key : '';
+        // define("GOOGLE_API_KEY", $fcm_api_key);
 
-    	$headers = array(
-    	    'Authorization: key=' . $fcm_api_key,
-    	    'Content-Type: application/json'
-    	);
-    	$ch = curl_init();
-    	curl_setopt($ch, CURLOPT_URL, $url);
-    	curl_setopt($ch, CURLOPT_POST, true);
-    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    	$result = curl_exec($ch);
-    	if ($result === FALSE) {
-    	    die('Curl failed: ' . curl_error($ch));
-    	}
-    	curl_close($ch);
+        $headers = array(
+            'Authorization: key=' . $fcm_api_key,
+            'Content-Type: application/json'
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }
+        curl_close($ch);
 
-    	return $result;
+        return $result;
     }
 }
 
 /**
-* Sending Message From FCM For Frontend By using topics subscribe
-*/
-if ( ! function_exists( 'send_android_fcm_topics_subscribe_fe' ))
-{
-	function send_android_fcm_topics_subscribe_fe( $data, $prj_name )
+ * Sending Message From FCM For Frontend By using topics subscribe
+ */
+if (!function_exists('send_android_fcm_topics_subscribe_fe')) {
+    function send_android_fcm_topics_subscribe_fe($data, $prj_name)
     {
         $backend_setting = BackendSetting::first();
 
-    	$url = 'https://fcm.googleapis.com/fcm/send';
+        $url = 'https://fcm.googleapis.com/fcm/send';
 
-    	if ($data['subscribe'] == '0' && $data['push'] == 1) {
-    		// push noti
-	    	$noti_arr = array(
-	    		'title' => $data['message'],
-	    		'body' => $data['desc'],
-	    		'sound' => 'default',
-	    		'flag' => ps_constant::feBroadcast
-	    	);
+        if ($data['subscribe'] == '0' && $data['push'] == 1) {
+            // push noti
+            $noti_arr = array(
+                'title' => $data['message'],
+                'body' => $data['desc'],
+                'sound' => 'default',
+                'flag' => ps_constant::feBroadcast
+            );
 
-	    	$noti_data = array(
-	    		'sound' => 'default',
-	    		'message' => $data['message'],
-	    		'flag' => ps_constant::feBroadcast,
-	    		'click_action' => $prj_name. '/' . 'notification'
-	    	);
+            $noti_data = array(
+                'sound' => 'default',
+                'message' => $data['message'],
+                'flag' => ps_constant::feBroadcast,
+                'click_action' => $prj_name . '/' . 'notification'
+            );
 
-	    	$fields = array(
-	    		'sound' => 'default',
-	    		'flag' => ps_constant::feBroadcast,
-	    		'notification' => $noti_arr,
-	    		'data' => $noti_data,
-	    	    'to' => '/topics/' . $backend_setting->topics_fe
-	    	);
+            $fields = array(
+                'sound' => 'default',
+                'flag' => ps_constant::feBroadcast,
+                'notification' => $noti_arr,
+                'data' => $noti_data,
+                'to' => '/topics/' . $backend_setting->topics_fe
+            );
+        } else {
+            // subscribe noti
 
-	    } else {
-	    	// subscribe noti
+            // to get item name for FE click action
+            $subscribeFlag = $data['subcategory_id'] . Constants::feSubscribeNotiFlag;
+            $id = $data['item_id'];
+            $title = Item::find($id)->title;
+            $item_name = str_replace(' ', '%20', $title);
+            $itm_name = str_replace(' ', '-', $title);
+            $click_action = $prj_name . '/' . 'item/' . $itm_name . '?item_id=' . $data['item_id'] . '&item_name=' . $itm_name;
 
-    		// to get item name for FE click action
-            $subscribeFlag = $data['subcategory_id'].Constants::feSubscribeNotiFlag;
-    		$id = $data['item_id'];
-			$title = Item::find($id)->title;
-			$item_name = str_replace(' ' , '%20' , $title);
-			$itm_name = str_replace(' ' , '-' , $title);
-    		$click_action = $prj_name. '/' . 'item/' . $itm_name . '?item_id=' . $data['item_id'] . '&item_name=' . $itm_name ;
-
-    		$noti_arr = array(
-	    		'title' => __('site_name'),
-	    		'body' => $data['message'],
-	    		'sound' => 'default',
+            $noti_arr = array(
+                'title' => __('site_name'),
+                'body' => $data['message'],
+                'sound' => 'default',
                 'item_id' => $id,
-	    		'flag' => Constants::subscribeNotiFlag
-	    	);
+                'flag' => Constants::subscribeNotiFlag
+            );
 
-	    	$noti_data = array(
-	    		'sound' => 'default',
-	    		'message' => $data['message'],
+            $noti_data = array(
+                'sound' => 'default',
+                'message' => $data['message'],
                 'item_id' => $id,
-	    		'flag' => Constants::subscribeNotiFlag,
-	    		'click_action' => $click_action
-	    	);
+                'flag' => Constants::subscribeNotiFlag,
+                'click_action' => $click_action
+            );
 
-	    	$fields = array(
-	    		'sound' => 'default',
-	    		'flag' => Constants::subscribeNotiFlag,
-	    		'notification' => $noti_arr,
-	    		'data' => $noti_data,
-	    	    'to' => '/topics/' . $subscribeFlag
-	    	);
-	    }
-
-
-        $fcm_api_key = !empty($backend_setting)? $backend_setting->fcm_api_key : '';
-    	// define("GOOGLE_API_KEY", $fcm_api_key);
+            $fields = array(
+                'sound' => 'default',
+                'flag' => Constants::subscribeNotiFlag,
+                'notification' => $noti_arr,
+                'data' => $noti_data,
+                'to' => '/topics/' . $subscribeFlag
+            );
+        }
 
 
-    	$headers = array(
-    	    'Authorization: key=' . $fcm_api_key,
-    	    'Content-Type: application/json'
-    	);
-    	$ch = curl_init();
-    	curl_setopt($ch, CURLOPT_URL, $url);
-    	curl_setopt($ch, CURLOPT_POST, true);
-    	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    	$result = curl_exec($ch);
-    	if ($result === FALSE) {
-    	    die('Curl failed: ' . curl_error($ch));
-    	}
-    	curl_close($ch);
-    	return $result;
+        $fcm_api_key = !empty($backend_setting) ? $backend_setting->fcm_api_key : '';
+        // define("GOOGLE_API_KEY", $fcm_api_key);
+
+
+        $headers = array(
+            'Authorization: key=' . $fcm_api_key,
+            'Content-Type: application/json'
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }
+        curl_close($ch);
+        return $result;
     }
 }
 
-if(!function_exists('authorizationWithoutPolicy')){
+if (!function_exists('authorizationWithoutPolicy')) {
 
-    function authorizationWithoutPolicy($moduleId){
+    function authorizationWithoutPolicy($moduleId)
+    {
         return [
-            "create" => permissionControl($moduleId,1) ? true : false,
-            "update" => permissionControl($moduleId,3) ? true : false,
-            "delete" => permissionControl($moduleId,4) ? true : false
+            "create" => permissionControl($moduleId, 1) ? true : false,
+            "update" => permissionControl($moduleId, 3) ? true : false,
+            "delete" => permissionControl($moduleId, 4) ? true : false
         ];
     }
 }
 
-if ( !function_exists("checkPurchasedCode")){
-    function checkPurchasedCode($response, $routeName=null){
+if (!function_exists("checkPurchasedCode")) {
+    function checkPurchasedCode($response, $routeName = null)
+    {
 
-        if (empty($response->item)){
+        if (empty($response->item)) {
             return redirect()->back()->with("purchased_code", "Envato Purchase Code is invalid")->withInput();
         }
-
     }
 }
 
-if ( !function_exists("checkForDashboardPermission")){
-    function checkForDashboardPermission(){
+if (!function_exists("checkForDashboardPermission")) {
+    function checkForDashboardPermission()
+    {
         $havePermission = true;
         $haveNoPermission = false;
 
-        if (Auth::check()){
+        if (Auth::check()) {
             $authUserId = Auth::id();
             $user = User::select("id", "role_id")->with(['user_permissions', 'role', 'role_permissions'])->where('id', $authUserId)->first();
             if($user->role->can_access_admin_panel){
@@ -1785,13 +1820,13 @@ if ( !function_exists("checkForDashboardPermission")){
                 return $haveNoPermission;
             }
         }
-
     }
 }
 
 
-if (!function_exists('getHttpWithApiKey')){
-    function getHttpWithApiKey($baseUrl, $apiKey, $url, $para = null){
+if (!function_exists('getHttpWithApiKey')) {
+    function getHttpWithApiKey($baseUrl, $apiKey, $url, $para = null)
+    {
         // if(!empty($para)){
         //     $responseData = json_decode(Http::get($baseUrl.$url.'?api_key='.$apiKey.$para));
         //     return $responseData;
@@ -1799,13 +1834,13 @@ if (!function_exists('getHttpWithApiKey')){
         //     $responseData = json_decode(Http::get($baseUrl.$url.'?api_key='.$apiKey));
         //     return $responseData;
         // }
-        try{
+        try {
             $responseData = json_decode(Http::withHeaders([
-                'Authorization' => 'Bearer '.$apiKey,
-            ])->get($baseUrl.$url.'?'.$para));
+                'Authorization' => 'Bearer ' . $apiKey,
+            ])->get($baseUrl . $url . '?' . $para));
 
             return $responseData;
-        }catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $dataArr = json_decode(
                 json_encode([
                     "status" => "error",
@@ -1817,21 +1852,22 @@ if (!function_exists('getHttpWithApiKey')){
     }
 }
 
-if (!function_exists('postHttpWithApiKey')){
-    function postHttpWithApiKey($baseUrl, $apiKey, $url, $para = null, $data = null){
+if (!function_exists('postHttpWithApiKey')) {
+    function postHttpWithApiKey($baseUrl, $apiKey, $url, $para = null, $data = null)
+    {
         // try{
         //     $responseData = json_decode(Http::post($baseUrl.$url.'?api_key='.$apiKey,  $data));
         //     return $responseData;
         // } catch(\Throwable $e) {
         //     return $e->getMessage();
         // }
-        try{
+        try {
             $responseData = json_decode(Http::withHeaders([
-                'Authorization' => 'Bearer '.$apiKey,
-            ])->post($baseUrl.$url.'?'.$para, $data));
+                'Authorization' => 'Bearer ' . $apiKey,
+            ])->post($baseUrl . $url . '?' . $para, $data));
 
             return $responseData;
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $dataArr = [
                 "status" => "error",
                 "message" => $e->getMessage()
@@ -1861,19 +1897,20 @@ if (!function_exists('getProjectId')){
     }
 }
 
-if (!function_exists('dateDiff')){
-    function dateDiff(){
+if (!function_exists('dateDiff')) {
+    function dateDiff()
+    {
         $apiCallSetting = ApiCallSetting::first();
         $duration = date_diff(Carbon::now(), $apiCallSetting->added_date);
-        if($duration->d == 0){
-            if($duration->h >= $apiCallSetting->delay){
+        if ($duration->d == 0) {
+            if ($duration->h >= $apiCallSetting->delay) {
                 $apiCallSetting->added_date = Carbon::now();
                 $apiCallSetting->update();
                 return $status = true;
-            }else{
+            } else {
                 return $status = false;
             }
-        }else{
+        } else {
             $apiCallSetting->added_date = Carbon::now();
             $apiCallSetting->update();
             return $status = true;
@@ -1881,32 +1918,32 @@ if (!function_exists('dateDiff')){
     }
 }
 
-if (!function_exists('updateBuilderAppInfoCache')){
+if (!function_exists('updateBuilderAppInfoCache')) {
     function updateBuilderAppInfoCache($request)
     {
         $builderAppInfoCache = BuilderAppInfoCache::first();
-        if(isset($builderAppInfoCache)  && !empty($builderAppInfoCache)){
+        if (isset($builderAppInfoCache)  && !empty($builderAppInfoCache)) {
             $cachedData = json_decode($builderAppInfoCache->cached_data);
-            if(isset($request->isConnected)){
+            if (isset($request->isConnected)) {
                 $cachedData->isConnected = $request->isConnected;
             }
-            if(isset($request->isProjectChanged)){
+            if (isset($request->isProjectChanged)) {
                 $cachedData->isProjectChanged = $request->isProjectChanged;
             }
-            if(isset($request->isValid)){
+            if (isset($request->isValid)) {
                 $cachedData->isValid = $request->isValid;
             }
-            if(isset($request->syncAble)){
+            if (isset($request->syncAble)) {
                 $cachedData->syncAble = $request->syncAble;
             }
-            if(isset($request->versionCode)){
+            if (isset($request->versionCode)) {
                 $cachedData->versionCode = $request->versionCode;
             }
             $cache = [
                 'cached_data' => json_encode($cachedData)
             ];
             $builderAppInfoCache->update($cache);
-        }else{
+        } else {
             $data = [
                 "isConnected" => $request->isConnected,
                 "isProjectChanged" => $request->isProjectChanged,
@@ -1922,15 +1959,17 @@ if (!function_exists('updateBuilderAppInfoCache')){
     }
 }
 
-if ( !function_exists('redirectBackWithError')){
-    function redirectBackWithError($dataArr){
+if (!function_exists('redirectBackWithError')) {
+    function redirectBackWithError($dataArr)
+    {
         return redirect()->back()->withErrors($dataArr);
     }
 }
 
 
-if ( !function_exists('resultMessage')){
-    function resultMessage($msg, $status = "success"){
+if (!function_exists('resultMessage')) {
+    function resultMessage($msg, $status = "success")
+    {
         $dataArr = [
             "status" => $status,
             "message" => $msg
@@ -1939,19 +1978,19 @@ if ( !function_exists('resultMessage')){
     }
 }
 
-if ( !function_exists('syncTableFields')){
-    function syncTableFields($data){
-        try{
+if (!function_exists('syncTableFields')) {
+    function syncTableFields($data)
+    {
+        try {
             $checkBuilderConnection = getHttpWithApiKey(ps_constant::base_url, getApiKey(), ps_url::checkBuilderConnection);
             // dd($checkBuilderConnection);
-            if($checkBuilderConnection?->status !== "success" || empty($checkBuilderConnection)){
+            if ($checkBuilderConnection?->status !== "success" || empty($checkBuilderConnection)) {
 
                 $msg = $checkBuilderConnection?->message ? $checkBuilderConnection?->message : __('connection__failed');
                 $dataArr = [
                     "status" => 'error',
                     "message" => $msg
                 ];
-
             } else {
                 $postdata = [
                     "id" => $data->id,
@@ -1976,33 +2015,30 @@ if ( !function_exists('syncTableFields')){
                     "permission_for_mandatory" => $data->permission_for_mandatory,
                 ];
 
-                $syncResponse = postHttpWithApiKey(ps_constant::base_url, getApiKey(), ps_url::syncTaleField,"&project_id=".getProjectId(), $postdata);
+                $syncResponse = postHttpWithApiKey(ps_constant::base_url, getApiKey(), ps_url::syncTaleField, "&project_id=" . getProjectId(), $postdata);
 
                 // dd($syncResponse);
 
-                if(empty($syncResponse)){
+                if (empty($syncResponse)) {
                     $dataArr = [
                         "status" => 'error',
                         "message" => __('error__builder_synced')
                     ];
-                }if($syncResponse?->status !== "success"){
+                }
+                if ($syncResponse?->status !== "success") {
 
                     $dataArr = [
                         "status" => 'error',
                         "message" => $syncResponse->message
                     ];
-
-
-                }else{
+                } else {
                     $dataArr = [
                         "status" => 'success',
                         "message" => __('api__builder_sync_success')
                     ];
                 }
-
             }
-        }
-        catch(\Throwable $e){
+        } catch (\Throwable $e) {
             $dataArr = [
                 "status" => 'error',
                 "message" => $e->getMessage()
@@ -2014,8 +2050,9 @@ if ( !function_exists('syncTableFields')){
     }
 }
 
-if ( !function_exists('findAndReplaceForBuildFolder')){
-    function findAndReplaceForBuildFolder($filePath, $searchContent, $replaceContent){
+if (!function_exists('findAndReplaceForBuildFolder')) {
+    function findAndReplaceForBuildFolder($filePath, $searchContent, $replaceContent)
+    {
         $file_contents = file_get_contents($filePath);
         $search = $searchContent;
         $replace = $replaceContent;
@@ -2026,7 +2063,154 @@ if ( !function_exists('findAndReplaceForBuildFolder')){
     }
 }
 
+if ( !function_exists('CheckPhpVersion')){
+    function CheckPhpVersion(){
+        $phpPathFromEnv = config("app.php_path");
 
+        if(!empty($phpPathFromEnv)){
+            $phpVersion = shell_exec($phpPathFromEnv.' -r "echo PHP_VERSION;"');
 
+            if(empty($phpVersion)){
+                $dataArr = [
+                    "errMsg" => "This php path ($phpPathFromEnv) is wrong. You can find detailed instructions in our guide at",
+                ];
+                dd($dataArr);
+            }
 
+            return $phpPathFromEnv;
+        } else {
+            return "php";
+        }
+    }
+}
 
+if (!function_exists('isJsonDuplicate')) {
+    function isJsonDuplicate($arrayName1, $arrayName2, $idToFind)
+    {
+        if (isset($data[$arrayName1][$arrayName2])) {
+            // $idToFind = "1";
+            $result = false;
+
+            foreach ($data[$arrayName1][$arrayName2] as $item) {
+                if ($item['id'] === $idToFind) {
+                    $result = true;
+                    break;
+                }
+            }
+
+            return $result ? 'true' : 'false';
+        } else {
+            return 'false'; // item_price_type_list not found in JSON.
+        }
+    }
+}
+
+if (!function_exists('findNextId')) {
+    function findNextId($array, $subArrayName1, $subArrayName2)
+    {
+        $existingIds = array_map(function ($item) {
+            return intval($item["id"]);
+        }, $array[$subArrayName1][$subArrayName2]);
+        return strval(max($existingIds) + 1);
+    }
+}
+if (!function_exists('addValueWithNewId')) {
+    function addValueWithNewId($data, $subArrayName1, $subArrayName2,$new_values)
+    {
+
+        foreach ($new_values as $new_value) {
+            // Add the new item to the list
+            $newId = findNextId($data, $subArrayName1, $subArrayName2);
+            $newItem = ["id" => $newId, "value" => $new_value['value']];
+            $data[$subArrayName1][$subArrayName2][] = $newItem;
+        }
+
+        return $data;
+
+        // Print the updated data
+    }
+}
+
+if ( !function_exists('CheckPhpVersion')){
+    function CheckPhpVersion(){
+        $phpPathFromEnv = config("app.php_path");
+
+        if(!empty($phpPathFromEnv)){
+            $phpVersion = shell_exec($phpPathFromEnv.' -r "echo PHP_VERSION;"');
+
+            if(empty($phpVersion)){
+                $dataArr = [
+                    "errMsg" => "This php path ($phpPathFromEnv) is wrong. You can find detailed instructions in our guide at",
+                ];
+                dd($dataArr);
+            }
+
+            return $phpPathFromEnv;
+        } else {
+            return "php";
+        }
+    }
+}
+
+if ( !function_exists('findFindWithHashKey')){
+    function findFindWithHashKey($path){
+        return File::glob($path);
+    }
+}
+
+if(!function_exists('repairVue')){
+    function repairVue(){
+        $pathArr = findFindWithHashKey(public_path(ps_constant::appJSFilePath));
+        if(count($pathArr) !== 0){
+            $path_to_file = $pathArr[0];
+        }
+
+        $pathArr2 = findFindWithHashKey(public_path(ps_constant::PsApiServiceJSFilePath));
+        if(count($pathArr2) !== 0){
+            $path_to_file2 = $pathArr2[0];
+        }
+
+        $pathArr3 = findFindWithHashKey(public_path(ps_constant::psApiServiceJSFilePath));
+        if(count($pathArr3) !== 0){
+            $path_to_file3 = $pathArr3[0];
+        }
+
+        if(empty(config("app.dir"))){
+            $domainSubFolderBuild = ps_constant::searchDomain . ps_constant::searchSubFolder . '/' . 'build' . '/';
+            $domainSubFolder = ps_constant::searchDomain . ps_constant::searchSubFolder;
+            $envDomainBuild = config("app.base_domain") . 'build' . '/';
+
+            findAndReplaceForBuildFolder($path_to_file, $domainSubFolderBuild, $envDomainBuild);
+            findAndReplaceForBuildFolder($path_to_file, $domainSubFolder, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolderWithSlash1, "");
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolderWithSlash2, "");
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolder, "");
+
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchApiToken, config("app.api_token"));
+            findAndReplaceForBuildFolder($path_to_file2, $domainSubFolderBuild, $envDomainBuild);
+            findAndReplaceForBuildFolder($path_to_file2, $domainSubFolder, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolderWithSlash1, "");
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolderWithSlash2, "");
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolder, "");
+
+            findAndReplaceForBuildFolder($path_to_file3, $domainSubFolderBuild, $envDomainBuild);
+            findAndReplaceForBuildFolder($path_to_file3, $domainSubFolder, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolderWithSlash1, "");
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolderWithSlash2, "");
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolder, "");
+        } else {
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolder, config("app.dir"));
+
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchApiToken, config("app.api_token"));
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolder, config("app.dir"));
+
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchDomain, config("app.base_domain"));
+            findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolder, config("app.dir"));
+        }
+    }
+}

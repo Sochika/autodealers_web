@@ -278,9 +278,9 @@ import PsIcon from "../Icons/PsIcon.vue";
 import PsInput from "../Input/PsInput.vue";
 import PsInputWithRightIcon from "../Input/PsInputWithRightIcon.vue";
 import PsLabelCaption from "../Label/PsLabelCaption.vue";
-import {useForm,Link, usePage} from "@inertiajs/inertia-vue3";
+import {useForm,Link, usePage} from "@inertiajs/vue3";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsConfirmDialog from '@/Components/Core/Dialog/PsConfirmDialog.vue';
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
@@ -501,7 +501,7 @@ export default defineComponent ({
 
             // ps_loading_circle_dialog.value.openModal(trans('license_activating'), trans('wait_msg'));
 
-            Inertia.post(route('admin.dashboard.activateLicense'), form, {
+            router.post(route('admin.dashboard.activateLicense'), form, {
                 onBefore: () => {
                     ps_loading_circle_dialog.value.openModal(trans('license_activating'), trans('wait_msg'));
                 },
@@ -528,7 +528,7 @@ export default defineComponent ({
             });
 
             if(tokenForm.token == null || tokenForm.token == ''){
-                Inertia.post(route('api_token.default_creating_token'),form1,{
+                router.post(route('api_token.default_creating_token'),form1,{
                     onSuccess:(res) => {
                         // console.log('hello my from Ps license');
                         // console.log(res.props.defaultBuilderToken);
@@ -553,7 +553,7 @@ export default defineComponent ({
         function installClicked(){
             if (tokenForm.token != ""){
 
-                Inertia.post(route('admin.dashboard.activateLicenseWithBuilderConnection'),tokenForm,{
+                router.post(route('admin.dashboard.activateLicenseWithBuilderConnection'),tokenForm,{
                     onBefore:() => {
                         ps_loading_circle_dialog.value.openModal(trans('activating'), trans('wait_msg'));
                     },
@@ -574,7 +574,7 @@ export default defineComponent ({
         function checkConnection(){
             if (tokenForm.token != ""){
                 // console.log(tokenForm.token);
-                Inertia.post(route('admin.dashboard.checkConnection'),tokenForm,{
+                router.post(route('admin.dashboard.checkConnection'),tokenForm,{
                     onBefore:() => {
                         ps_loading_circle_dialog.value.openModal(trans('creating_auto_sync'), trans('wait_msg'));
                     },

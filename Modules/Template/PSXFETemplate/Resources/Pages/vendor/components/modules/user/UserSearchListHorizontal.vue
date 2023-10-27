@@ -1,8 +1,8 @@
 <template>
     <div class="cursor-pointer h-full w-full" v-on:click="onClick != null ? onClick(user) : null">
         <!-- admin Pscard -->
-        <ps-card class="flex-col h-full bg-fePrimary-50 dark_bg-feAchromatic-800">
-            <div class="p-4 bg-fePrimary-50 dark_bg-feAchromatic-800 rounded-xl lg:rounded-2xl">
+        <ps-card class="flex-col h-full bg-fePrimary-50 dark:bg-feAchromatic-800">
+            <div class="p-4 bg-fePrimary-50 dark:bg-feAchromatic-800 rounded-xl lg:rounded-2xl">
                 <div class="flex items-start justify-between leading-none" >
                     <div class="flex items-start no-underline text-feAchromatic-900 cursor-pointer">
                         <div class="flex mt-2 w-10 ">
@@ -46,8 +46,7 @@
 </template>
 <script lang="ts">
 import { ref } from 'vue'
-// import { useRoute } from 'vue-router';
-// import router from "@template1/router";
+
 import PsCard from '@template1/vendor/components/core/card/PsCard.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue'
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue'
@@ -57,7 +56,7 @@ import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue'
 //Modules
 import { PsValueStore } from '@templateCore/store/modules/core/PsValueStore';
 import User from '@templateCore/object/User';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import { useUserStore } from "@templateCore/store/modules/user/UserStore";
 
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
@@ -84,7 +83,6 @@ export default {
     },
     setup( props) {
     // setup() {
-        // const route = useRoute();
         // Get Login User Id
         const psValueStore = PsValueStore();
         const LoginUserId = psValueStore.getLoginUserId();
@@ -108,7 +106,7 @@ export default {
             }
             else{
 
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
             
             

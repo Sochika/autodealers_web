@@ -106,8 +106,8 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { Head, useForm } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
+import { Head, useForm } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -210,7 +210,7 @@ export default defineComponent({
                         csvFile: selectedFile,
                         "_method": "put"
                     })
-                    Inertia.post(route('language_string.import.csv', props.language), form, {
+                    router.post(route('language_string.import.csv', props.language), form, {
                         onSuccess: () => {
 
                             window.location.reload();
@@ -236,7 +236,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('language_string.index',props.language.id),
+            router.get(route('language_string.index',props.language.id),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -280,7 +280,7 @@ export default defineComponent({
         },
         FilterOptionshandle(value) {
 
-            Inertia.post(route('language_string.screenDisplayUiSetting.store'),
+            router.post(route('language_string.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

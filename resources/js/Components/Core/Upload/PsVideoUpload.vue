@@ -20,7 +20,7 @@
                     </video>
                 </div>
                 <div class="relative w-7 h-7 bg-secondary-200 rounded-full mx-auto mt-2">
-                    <font-awesome-icon :icon="['fas', 'play']" class="text-white py-1.5 px-2 text-md"  />
+                    <ps-icon name="playCircleOutline" class="text-white text-md"  />
                 </div>
             </div>
             <p class="ms-4 mt-2 flex-rows">
@@ -44,9 +44,6 @@ import PsLabelTitle3 from '@/Components/Core/Label/PsLabelTitle3.vue';
 import PsIcon from '@/Components/Core/Icons/PsIcon.vue';
 import PsDraggable from '@/Components/Core/Draggable/PsDraggable.vue';
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-library.add(faPlay)
 
 export default {
     name : "PsVideoUpload",

@@ -261,21 +261,27 @@ class ImageService extends PsService
             if ($org_image->width() > $org_image->height()) {
                 $image_type = 'Landscape';
                 if ($org_image->width() > $backend_setting->landscape_width) {
-                    $org_image = $org_image->resize($backend_setting->landscape_width, $org_image->height());
+                    $org_image = $org_image->resize($backend_setting->landscape_width, $org_image->height(), function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
                 }
             }
 
             if ($org_image->height() > $org_image->width()) {
                 $image_type = 'Portrait';
                 if ($org_image->height() > $backend_setting->potrait_height) {
-                    $org_image = $org_image->resize($backend_setting->potrait_height, $org_image->height());
+                    $org_image = $org_image->resize($backend_setting->potrait_height, $org_image->height(), function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
                 }
             }
 
             if ($org_image->width() == $org_image->height()) {
                 $image_type = 'Square';
                 if ($org_image->height() > $backend_setting->square_height) {
-                    $org_image = $org_image->resize($backend_setting->square_height, $org_image->height());
+                    $org_image = $org_image->resize($backend_setting->square_height, $org_image->height(), function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
                 }
             }
         }
@@ -457,7 +463,7 @@ class ImageService extends PsService
 
             $thumbnail2x = $thumbnail2x->resize($backend_setting->landscape_thumb2x_width, null, function ($constraint) {
                 $constraint->aspectRatio();
-                $constraint->upsize();
+                // $constraint->upsize();
             });
         }
 
@@ -565,8 +571,9 @@ class ImageService extends PsService
             if ($image) {
                 $file_exist = File::exists(public_path() . $this->storage_upload_path  . $image->img_path);
                 if ($file_exist) {
-
-                    $thumbnail3x = $this->applyWatermask($backend_setting, $thumbnail3x, $image);
+                    if ($backend_setting->is_watermask == 1) {
+                        $thumbnail3x = $this->applyWatermask($backend_setting, $thumbnail3x, $image);
+                    }
                 }
             }
         }
@@ -616,23 +623,96 @@ class ImageService extends PsService
     // delete images
     public function clearUnuseImage()
     {
-        $files = Storage::files('/storage/thumbnail3x/');
+        //mauual change thumbnail,thumbnail2x,thumbnail3x,uploads
+        $files = Storage::files('/storage/PSX_MPC/uploads/');
         $filenames = [];
         foreach ($files as $file) {
-            array_push($filenames, explode('/', $file)[2]);
+            array_push($filenames, explode('/', $file)[3]);
         }
 
-        $coreImages = DB::table('psx_core_images')->pluck('img_path')->toArray();
+        // $coreImages = DB::table('psx_core_images')->pluck('img_path')->toArray();
         $userImages = DB::table('users')->pluck('user_cover_photo')->toArray();
+
+        $allCoreImages = DB::table('psx_core_images')->get();
+
+        $coreImages =  $allCoreImages->pluck('img_path')->toArray();
+
+        $backendIds = DB::table('psx_backend_settings')->pluck('id')->toArray();
+        $blogIds = DB::table('psx_blogs')->pluck('id')->toArray();
+        $categoryIds = DB::table('psx_categories')->pluck('id')->toArray();
+        $chatIds = DB::table('psx_chat_histories')->pluck('id')->toArray();
+        $landingIds = DB::table('psx_landing_pages')->pluck('id')->toArray();
+        $itemIds = DB::table('psx_items')->pluck('id')->toArray();
+        $notiIds = DB::table('psx_push_notification_messages')->pluck('id')->toArray();
+        $subcatgoryIds = DB::table('psx_subcategories')->pluck('id')->toArray();
+        $frontendIds = DB::table('psx_frontend_settings')->pluck('id')->toArray();
+        // $userImages = DB::table('users')->pluck('user_cover_photo')->toArray();
+
+        // $q->where($this->coreImageImgTypeCol,'like',"%item%");
 
         $useFiles = [];
         foreach ($filenames as $filename) {
             if (!in_array($filename, $coreImages) && !in_array($filename, $userImages)) {
+                //delete images which doesn't exist in image table
                 $this->deleteImage($filename);
             } else {
-                array_push($useFiles, $filename);
+                //delete by checking ids
+                foreach ($allCoreImages as $img) {
+                    if($img->img_path == $filename){
+                        if($img->img_type == 'backend-logo' || $img->img_type == 'backend-meta-image' || $img->img_type == 'backend-water-mask-image'){
+                            if(!in_array($img->img_parent_id, $backendIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'blog'){
+                            if(!in_array($img->img_parent_id, $blogIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'category-cover' || $img->img_type == 'category-icon'){
+                            if(!in_array($img->img_parent_id, $categoryIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'chat'){
+                            if(!in_array($img->img_parent_id, $chatIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'landing-cover' || $img->img_type == 'landing-logo'){
+                            if(!in_array($img->img_parent_id, $landingIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'push_notification_message'){
+                            if(!in_array($img->img_parent_id, $notiIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'subCategory-cover' || $img->img_type == 'subCategory-icon'){
+                            if(!in_array($img->img_parent_id, $subcatgoryIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }
+                        else if($img->img_type == 'item' || $img->img_type == 'item-video' || $img->img_type == 'item-video-icon' || $img->img_type == 'item-video'){
+                            if(!in_array($img->img_parent_id, $itemIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }else if($img->img_type == 'fav-icon' || $img->img_type == 'frontend-banner' || $img->img_type == 'frontend-logo'){
+                            if(!in_array($img->img_parent_id, $frontendIds)){
+                                $this->deleteImage($filename);
+                            }
+                        }else{
+                            array_push($useFiles, $filename);
+                        }
+
+                    }
+                }
+
+
             }
         }
+        dd($useFiles);
     }
     public function deleteImage($img_path)
     {

@@ -22,13 +22,13 @@
                             </template>
                             <template #list>
                                 <div
-                                    class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-28"
+                                    class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-28"
                                     role="menu"
                                     aria-orientation="vertical"
                                     aria-labelledby="options-menu">
                                     <div class="pt-2">
-                                        <div v-for="sort in usersorting" :key="sort.id" class="flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"  @click="usersortingFilterClicked(sort)" >
-                                            <span class="ms-2 text-feSecondary-800 dark_text-feSecondary-200" :class="sort.id==activeSortingId ? 'font-semibold' : ''"  > {{sort.name}} </span>
+                                        <div v-for="sort in usersorting" :key="sort.id" class="flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"  @click="usersortingFilterClicked(sort)" >
+                                            <span class="ms-2 text-feSecondary-800 dark:text-feSecondary-200" :class="sort.id==activeSortingId ? 'font-semibold' : ''"  > {{sort.name}} </span>
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // Vue
 import { ref } from 'vue'
 // import router from '@template1/router';

@@ -20,7 +20,7 @@
                     Resend Verification Email
                 </jet-button>
 
-                <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover_text-gray-900">Log Out</Link>
+                <Link :href="route('logout')" method="post" as="button" class="underline text-sm text-gray-600 hover:text-gray-900">Log Out</Link>
             </div>
         </form>
     </jet-authentication-card>
@@ -31,7 +31,7 @@
     import JetAuthenticationCard from '@/Jetstream/AuthenticationCard.vue'
     import JetAuthenticationCardLogo from '@/Jetstream/AuthenticationCardLogo.vue'
     import JetButton from '@/Jetstream/Button.vue'
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+    import { Head, Link } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {

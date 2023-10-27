@@ -55,7 +55,7 @@
 <script>
 import { defineComponent,ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -69,7 +69,7 @@ import PsToggle from '@/Components/Core/Toggle/PsToggle.vue';
 import PsBreadcrumb2 from "@/Components/Core/Breadcrumbs/PsBreadcrumb2.vue";
 import { trans } from 'laravel-vue-i18n';
 import PsTable2 from "@/Components/Core/Table/PsTable2.vue";
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 
 export default defineComponent({
@@ -175,7 +175,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('module.index'),
+            router.get(route('module.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -223,7 +223,7 @@ export default defineComponent({
       methods: {
         FilterOptionshandle(value) {
 
-            Inertia.post(route('module.screenDisplayUiSetting.store'),
+            router.post(route('module.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

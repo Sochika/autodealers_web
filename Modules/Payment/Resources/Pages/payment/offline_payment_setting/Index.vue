@@ -57,7 +57,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -71,7 +71,7 @@ import PsCsvModal from '@/Components/Core/Modals/PsCsvModal.vue';
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -144,7 +144,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('offline_payment_setting.index'),
+            router.get(route('offline_payment_setting.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -210,7 +210,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("offline_payment_setting.destroy", id), {
+                    router.delete(route("offline_payment_setting.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -272,7 +272,7 @@ export default defineComponent({
 
         },
         FilterOptionshandle(value) {
-            Inertia.put(route('offline_payment_setting.screenDisplayUiSetting.store'),
+            router.put(route('offline_payment_setting.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

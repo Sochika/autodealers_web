@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-       <ps-card class=" flex flex-col my-2 bg-feAchromatic-50 dark_bg-feAchromatic-800  ">
+       <ps-card class=" flex flex-col my-2 bg-feAchromatic-50 dark:bg-feAchromatic-800  ">
            <div class="flex items-center justify-between leading-none p-3">
                <div>
                     <Skeletor circle size="3rem" />

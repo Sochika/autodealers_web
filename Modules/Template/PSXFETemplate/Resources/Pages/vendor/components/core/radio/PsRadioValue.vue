@@ -1,6 +1,6 @@
 <template>
     <ps-label class="select-none  inline-flex items-center">  
-        <input type="radio" class="form-radio me-2 checked:bg-fePrimary-500 dark_bg-feAccent-500" :id="title" :checked="title === value" @change="handleInput(title)" />
+        <input type="radio" class="form-radio me-2 checked:bg-fePrimary-500 dark:bg-feAccent-500" :id="title" :checked="title === value" @change="handleInput(title)" />
         {{title}}
     </ps-label>
 </template>

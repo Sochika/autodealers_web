@@ -35,6 +35,7 @@ export default class FrontendConfigSetting extends PsObject<FrontendConfigSettin
     frontendLogo: DefaultPhoto = new DefaultPhoto();
     frontendIcon: DefaultPhoto = new DefaultPhoto();
     frontendBanner: DefaultPhoto = new DefaultPhoto();
+    appBrandingImage: DefaultPhoto = new DefaultPhoto();
 
     init(
         mapKey : string,
@@ -69,6 +70,7 @@ export default class FrontendConfigSetting extends PsObject<FrontendConfigSettin
         frontendLogo: DefaultPhoto,
         frontendIcon: DefaultPhoto,
         frontendBanner: DefaultPhoto,
+        appBrandingImage: DefaultPhoto,
 
     ) {
         this.mapKey = mapKey;
@@ -103,6 +105,7 @@ export default class FrontendConfigSetting extends PsObject<FrontendConfigSettin
         this.frontendLogo = frontendLogo;
         this.frontendIcon = frontendIcon;
         this.frontendBanner = frontendBanner;
+        this.appBrandingImage = appBrandingImage;
 
 
         return this;
@@ -147,6 +150,7 @@ export default class FrontendConfigSetting extends PsObject<FrontendConfigSettin
         map['frontend_logo'] = new DefaultPhoto().toMap(object.frontendLogo);
         map['frontend_icon'] = new DefaultPhoto().toMap(object.frontendIcon);
         map['frontend_banner'] = new DefaultPhoto().toMap(object.frontendBanner);
+        map['app_branding_image'] = new DefaultPhoto().toMap(object.appBrandingImage);
 
 
         return map;
@@ -199,6 +203,7 @@ export default class FrontendConfigSetting extends PsObject<FrontendConfigSettin
             new DefaultPhoto().fromMap(obj.frontend_logo),
             new DefaultPhoto().fromMap(obj.frontend_icon),
             new DefaultPhoto().fromMap(obj.frontend_banner),
+            new DefaultPhoto().fromMap(obj.app_branding_image),
 
        );
     }

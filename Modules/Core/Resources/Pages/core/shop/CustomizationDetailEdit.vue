@@ -34,7 +34,7 @@
 <script>
 import { defineComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Link, useForm } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 import useValidators from '@/Validation/Validators'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";

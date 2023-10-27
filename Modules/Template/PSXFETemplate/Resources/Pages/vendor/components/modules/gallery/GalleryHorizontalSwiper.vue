@@ -59,7 +59,7 @@
                 :slides-per-view="galleryList.length < 3 ? galleryList.length : 3"
                 :space-between="14"
                 @slideChange="onSlideChange">
-                    <swiper-slide class='swiper-slide bg-feAchromatic-50 dark_bg-feAchromatic-900' v-for="gallery in galleryList.slice(0,totalCount)" :key="gallery.imgId" >
+                    <swiper-slide class='swiper-slide bg-feAchromatic-50 dark:bg-feAchromatic-900' v-for="gallery in galleryList.slice(0,totalCount)" :key="gallery.imgId" >
                         <gallery-horizontal-item :imageCount="imageCount" :gallery="gallery" @click="imgClicked(gallery)" />
                     </swiper-slide>
 

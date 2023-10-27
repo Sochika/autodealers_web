@@ -211,7 +211,7 @@
 <script>
 import { reactive, ref,computed } from 'vue';
 import { mapActions, mapGetters } from "vuex";
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/vue3';
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
@@ -225,7 +225,7 @@ import PsTextButton from '@/Components/Core/Buttons/PsTextButton.vue';
 import { trans, loadLanguageAsync } from 'laravel-vue-i18n';
 import PsDangerDialog from "@/Components/Core/Dialog/PsDangerDialog.vue";
 import PsWarningDialog from "@/Components/Core/Dialog/PsWarningDialog.vue";
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import { useStore } from 'vuex'
 import firebaseApp from 'firebase/app';
 import "firebase/auth";
@@ -293,7 +293,7 @@ export default {
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("contact.destroy", id),{
+                    router.delete(route("contact.destroy", id),{
                         onSuccess: () => {
                             loadContact();
                         },
@@ -313,7 +313,7 @@ export default {
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.put(route("contact.allasread"),{
+                    router.put(route("contact.allasread"),{
                         onSuccess: () => {
                             loadContact();
                         },
@@ -327,7 +327,7 @@ export default {
     }
 
     function goToDetail(id){
-         Inertia.get(route("contact.edit",id));
+         router.get(route("contact.edit",id));
     }
 
     function handleLanguage(row){

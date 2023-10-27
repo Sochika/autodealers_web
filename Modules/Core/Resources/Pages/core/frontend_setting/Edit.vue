@@ -128,6 +128,29 @@
                                     <ps-image-upload v-else  class="w-72" uploadType="icon" v-model:imageFile="form.frontend_banner" />
                                         <ps-label-caption textColor="text-red-500 " class="mt-2 block">{{errors.frontend_banner}}</ps-label-caption>
                                 </div>
+
+                                <div class="px-4 py-3">
+                                    <ps-label class="text-base mb-1" >{{ $t('core__be_app_branding_image') }} </ps-label>
+
+                                    <ps-label v-if="!frontend_setting.app_branding_image[0]" textColor="text-secondary-400 text-xs"> {{ $t('core__be_recommended_size_256_256') }}
+                                    </ps-label>
+                                    <div v-if="frontend_setting.app_branding_image[0]" class="flex items-end pt-4">
+                                        <img
+                                        v-lazy=" { src: $page.props.uploadUrl + '/' + frontend_setting.app_branding_image[0].img_path, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
+                                            width="200" height="200"
+                                            class="w-48 h-48" alt="frontend_setting" />
+                                        <ps-button type="button" @click="replaceImageClicked(frontend_setting.app_branding_image[0].id, true,'app_branding_image','app_branding_image')" rounded="rounded-full"
+                                            shadow="drop-shadow-2xl" class="-ms-10 mb-2"
+                                            colors="bg-white text-primary-500 dark:bg-secondaryDark-black" border="border border-1 dark:border-secondary-700 border-secondary-300" padding="p-1.5" hover="" focus="">
+                                            <ps-icon name="pencil-btn" w="21" h="21" />
+                                        </ps-button>
+                                        <ps-image-icon-modal ref="ps_image_icon_modal" />
+                                        <ps-action-modal ref="ps_action_modal" />
+                                        <ps-danger-dialog ref="ps_danger_dialog" />
+                                    </div>
+                                    <ps-image-upload v-else  class="w-72" uploadType="icon" v-model:imageFile="form.app_branding_image" />
+                                        <ps-label-caption textColor="text-red-500 " class="mt-2 block">{{errors.app_branding_image}}</ps-label-caption>
+                                </div>
                             </div>
                             <!-- End image setting -->
                             <!-- Start firebase setting -->
@@ -407,7 +430,7 @@
 <script>
     import { defineComponent, ref, reactive, defineAsyncComponent } from 'vue'
     import PsLayout from "@/Components/PsLayout.vue";
-    import { Head, useForm } from "@inertiajs/inertia-vue3";
+    import { Head, useForm } from "@inertiajs/vue3";
     import useValidators from '@/Validation/Validators'
     import PsInput from "@/Components/Core/Input/PsInput.vue";
     import PsColorSeriesGenerator from "@/Components/Core/Picker/PsColorSeriesGenerator.vue";
@@ -581,6 +604,7 @@
                     frontend_meta_title: props.frontend_setting.frontend_meta_title,
                     frontend_meta_description: props.frontend_setting.frontend_meta_description,
                     frontend_meta_image: "",
+                    app_branding_image: "",
                     //  "_method": "put"
                 }
             ))
@@ -668,6 +692,12 @@
                     replaceLabel = trans('core__be_replace_banner_label');
                     confirmLabel = trans('core__be_are_u_sure_remove_banner');
                     uploadLabel = trans('core__be_upload_banner');
+                }
+                if(imageName == 'app_branding_image'){
+                    removeLabel = trans('core__be_remove_app_branding_label');
+                    replaceLabel = trans('core__be_replace_app_branding_label');
+                    confirmLabel = trans('core__be_are_u_sure_remove_app_branding');
+                    uploadLabel = trans('core__be_upload_app_branding');
                 }
                 ps_action_modal.value.openModal(trans('conf_modal_label'),
                     replaceLabel,

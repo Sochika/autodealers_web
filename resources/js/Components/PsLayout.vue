@@ -118,11 +118,11 @@
 import { defineComponent, computed, onMounted, reactive,watch,  ref } from "vue";
 import TitleBar from "@/Components/Layouts/TitleBar/TitleBar.vue";
 import SidebarMenu from "@/Components/Layouts/Sidebar/SidebarMenu.vue";
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { useStore } from 'vuex'
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import firebaseApp from 'firebase/app';
 import "firebase/auth";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -204,7 +204,7 @@ export default defineComponent({
         console.log("checkVersionUpdate",props.checkVersionUpdate);
 
         function replaceTable() {
-            Inertia.get(route("table.replace"));
+            router.get(route("table.replace"));
         }
 
         function clickOutsideSidebar() {
@@ -218,9 +218,9 @@ export default defineComponent({
             var loading = document. getElementById("home_loading__container");
             loading.style.display = "none";
 
-            const currentRouteArr = usePage().props.value.currentRoute;
+            const currentRouteArr = usePage().props.currentRoute;
             const currentRoute = currentRouteArr.split(".")[0];
-            const menugroup = usePage().props.value.menuGroups;
+            const menugroup = usePage().props.menuGroups;
 
             if(props.builderAppInfo != null && props.builderAppInfo.isValid == 0){
                  ps_license_activate_modal.value.openModal(trans('pls_activate_your_app'),'You have successfully imported the file.','Back',
@@ -275,7 +275,7 @@ export default defineComponent({
         });
 
 
-        Inertia.on('start', (event) => {
+        router.on('start', (event) => {
             // store.dispatch('handleSidebarFull',false);
             //  store.dispatch('handleShowMenu',false);
             store.dispatch('handleSidebarNavOpen', false);

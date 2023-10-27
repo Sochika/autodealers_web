@@ -40,7 +40,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden absolute top-0 right-0 lg:flex w-7/12 h-full bg-fePrimary-500 dark_bg-feAccent-500 items-end justify-center">
+        <div class="hidden absolute top-0 right-0 lg:flex w-7/12 h-full bg-fePrimary-500 dark:bg-feAccent-500 items-end justify-center">
             <!-- <img @click="gotToHome" src="@template1/assets/images/hand_and_phone.png" alt="ps icon" width="40px" height="40px" class=" h-80 cursor-pointer object-cover "/>                         -->
         </div>
     </div>
@@ -52,13 +52,13 @@
 import PsLabelHeader2 from '@template1/vendor/components/core/label/PsLabelHeader2.vue';
 import PsLabelTitle from '@template1/vendor/components/core/label/PsLabelTitle.vue';
 import PsLink from '@template1/vendor/components/core/link/PsLink.vue';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default {
     components: { PsLabelHeader2, PsLabelTitle , PsLink},
     setup() {
         function gotToHome() {
-            Inertia.get(route('dashboard'));
+            router.get(route('dashboard'));
         }
 
         return  {

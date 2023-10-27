@@ -10,12 +10,12 @@
 </template>
 
 <script lang='ts'>
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head } from "@inertiajs/vue3";
 import PsLabel from "@template1/vendor/components/core/label/PsLabel.vue";
 import PsButton from "@template1/vendor/components/core/buttons/PsButton.vue";
 // import router from '@template1/router'
 import { defineComponent } from "vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "NotFoundView",
@@ -26,7 +26,7 @@ export default defineComponent({
     },
     setup() {
         function goToDashboard() {
-            Inertia.get(route('dashboard'));
+            router.get(route('dashboard'));
         }
 
         return {

@@ -12,7 +12,7 @@
             <!-- Start Input Field for md .. -->
             <div class="flex justify-between container w-full p-4">
                 <!-- Start Left Screen -->
-                <div class="md:w-full h-72 bg-feAchromatic-50 dark_bg-feAchromatic-900 rounded-md  pt-2 overflow-auto">
+                <div class="md:w-full h-72 bg-feAchromatic-50 dark:bg-feAchromatic-900 rounded-md  pt-2 overflow-auto">
                     <div v-for="offline in offlineProvider.offlinePayment.data" :key="offline.id">
                         <!-- bank -->
                         <div class="flex flex-auto px-4 py-10">
@@ -36,7 +36,7 @@
         <template #footer>
             <div class="flex items-center justify-center mb-4">
                 <ps-button class="text-center w-60 mx-auto  " @click="actionClicked('yes')" > {{ $t('offline_payment_modal__pay_offline') }} </ps-button>
-                <ps-button class="text-center w-60 mx-auto ms-4" theme="btn-second" @click="psmodal.toggle(false)" >  {{ $t('stripe_credit_card_modal__cancel') }} </ps-button>
+                <ps-button class="text-center w-60 mx-auto ms-4" theme="btn-second" @click="actionClicked('no')" >  {{ $t('stripe_credit_card_modal__cancel') }} </ps-button>
             </div>
         </template>
 

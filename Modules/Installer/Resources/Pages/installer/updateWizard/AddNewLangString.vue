@@ -40,10 +40,10 @@ import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
 import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
-import { Link } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from '@inertiajs/inertia-vue3'
+import { router } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3'
 
 
 export default defineComponent({
@@ -63,22 +63,22 @@ export default defineComponent({
         const ps_success_dialog = ref();
         const isGoNext = ref(0);
 
-        let go_next = usePage().props.value.logMessages
+        let go_next = usePage().props.logMessages
 
         if(go_next=='be_lang_sync_success'){
-            Inertia.get(route("NextLaravelUpdater::addNewFeLangString"));
+            router.get(route("NextLaravelUpdater::addNewFeLangString"));
         }
 
 
         function toAddNewFeLangString() {
-            Inertia.post(route("NextLaravelUpdater::addNewLangString"), {}, {
+            router.post(route("NextLaravelUpdater::addNewLangString"), {}, {
                 onBefore: () => {
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title2_be'), trans('core__be_importing_note2_be'));
                 },
                 onSuccess: (res) => {
                     // alert("herer");
-                    if(usePage().props.value.logMessages == 'be_lang_sync_success'){
-                        Inertia.get(route("NextLaravelUpdater::addNewFeLangString"));
+                    if(usePage().props.logMessages == 'be_lang_sync_success'){
+                        router.get(route("NextLaravelUpdater::addNewFeLangString"));
                     }
                     // ps_loading_circle_dialog.value.closeModal();
                 },

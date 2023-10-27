@@ -49,7 +49,7 @@
 
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useStore } from 'vuex'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import SideBarTab from '@/Components/Layouts/Sidebar/SideBarTab.vue'
 import SidebarSubTab from '@/Components/Layouts/Sidebar/SidebarSubTab.vue'
 import { trans } from 'laravel-vue-i18n';

@@ -1,6 +1,6 @@
 <template> 
     <div class="w-full">
-       <div class=" flex flex-col my-2 bg-feAchromatic-50 dark_bg-feAchromatic-50  ">
+       <div class=" flex flex-col my-2 bg-feAchromatic-50 dark:bg-feAchromatic-50  ">
            <div class=" items-center leading-none">
                 <div class=" w-full rounded-md mt-1">
                     <Skeletor height="20" class='w-64 rounded-md' />

@@ -1,11 +1,11 @@
 <template>
     <div class=" w-full md:w-auto cursor-pointer my-2 ">
         <!-- Pscard -->
-        <div class="flex flex-col my-2 bg-fePrimary-50 h-[196px] rounded-md dark_bg-feAchromatic-900" :enabledHover="true">
+        <div class="flex flex-col my-2 bg-fePrimary-50 h-[196px] rounded-md dark:bg-feAchromatic-900" :enabledHover="true">
             <div class="px-4 mt-4">
 
                 <div class="flex justify-between">
-                    <rating-view :iconColor="'text-feWarning-500 dark_text-feWarning-accent'" :size="'md'" :rating="rate ? rate.rating:0" :maxStars="5" :hasCounter="true" />
+                    <rating-view :iconColor="'text-feWarning-500 dark:text-feWarning-accent'" :size="'md'" :rating="rate ? rate.rating:0" :maxStars="5" :hasCounter="true" />
                     <ps-label-title-3 class="mt-2"> {{rate ? moment(rate.addedDate).format($page.props.dateFormat):''}} </ps-label-title-3>
                 </div>
                 <ps-label class="mt-2 mb-2 text-xl"> {{rate ? rate.title:''}} </ps-label>

@@ -2,47 +2,47 @@
     <Head :title="$t('core__fe_sign_in')" />
     <div :class="isDarkMode ? 'dark' : ''">
         <div
-            class="min-h-screen flex flex-col lg:mt-36 mt-28   items-center pt-6 sm:pt-0 dark_bg-feAchromatic-900 dark_text-feSecondary-50">
+            class="min-h-screen flex flex-col lg:mt-36 mt-28   items-center pt-6 sm:pt-0 dark:bg-feAchromatic-900 dark:text-feSecondary-50">
 
 
 
-            <ps-card class="w-full sm:max-w-md mt-6 py-4  dark_bg-feSecondary-800" >
+            <ps-card class="w-full sm:max-w-md mt-6 py-4  dark:bg-feSecondary-800" >
 
 
                 <div class="px-6">
 
                     <ps-label-header-5 class="pt-2 text-center font-semibold">{{ $t('core_fe_create_account') }}</ps-label-header-5>
                     <!-- <ps-label-title class="text-center m-auto pb-8 pt-2"
-                        textColor="text-feSecondary-600 dark_text-feSecondary-50">{{ $t('please_create_account') }}</ps-label-title> -->
+                        textColor="text-feSecondary-600 dark:text-feSecondary-50">{{ $t('please_create_account') }}</ps-label-title> -->
 
                     <form class='mt-6' @submit.prevent="submit">
                         <div class="mb-4" v-if="userLoginData.loginMethod == 'phone'">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_user_phone') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_user_phone') }}</ps-label>
                             <ps-input ref="phone" type="text" v-model:value="form.user_phone"
-                            class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500"
+                            class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500"
                                 :placeholder="$t('core__fe_phone_placeholder')" :disabled="true" />
                             <ps-label-caption textColor="text-feError-500 "
                                 class="mt-2 block">{{ errors.phone }}</ps-label-caption>
 
                         </div>
                         <div class="mb-4">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_username') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_username') }}</ps-label>
                             <ps-input ref="email" type="text" v-model:value="form.newUser.username"
-                            class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500"
+                            class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500"
                                 :placeholder="$t('core__fe_username_placeholder')" autofocus />
-                                 <ps-label-title-3 class="mt-2 " textColor="text-feSecondary-400 dark_text-feSecondary-500">{{ $t('username__fe_valid_description') }}</ps-label-title-3>
+                                 <ps-label-title-3 class="mt-2 " textColor="text-feSecondary-400 dark:text-feSecondary-500">{{ $t('username__fe_valid_description') }}</ps-label-title-3>
                             <ps-label-caption textColor="text-feError-500 "
                                 class="mt-2 block">{{ errors.email }}</ps-label-caption>
                         </div>
                         <div class="mb-8">
-                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_password') }}</ps-label>
+                            <ps-label class="mb-2" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_password') }}</ps-label>
                             <ps-input-with-right-icon v-model:value="form.newUser.password" ref="password"
-                                placeholderColor="placeholder-feSecondary-400 dark_placeholder-feSecondary-500"
-                                theme="bg-feAchromatic-50 dark_bg-feSecondary-800"
+                                placeholderColor="placeholder-feSecondary-400 dark:placeholder-feSecondary-500"
+                                theme="bg-feAchromatic-50 dark:bg-feSecondary-800"
                                 :type="(isHide ? 'password' : 'text')" @keyup="validateEmptyInput('password', form.password)"
                                 @blur="validateEmptyInput('password', form.password)"
                                 :placeholder="$t('core__fe_password_placeholder2')" autocomplete="current-password">
@@ -78,7 +78,7 @@
 
 <script>
 import { defineComponent, ref, computed, onMounted } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PsLabelHeader3 from "@template1/vendor/components/core/label/PsLabelHeader3.vue";
 import PsLabelHeader5 from "@template1/vendor/components/core/label/PsLabelHeader5.vue";
 import PsCard from "@/Components/Core/Card/PsCard.vue";

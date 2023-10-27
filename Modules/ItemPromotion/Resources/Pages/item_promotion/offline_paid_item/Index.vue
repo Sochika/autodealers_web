@@ -225,8 +225,8 @@
 
 <script>
 import { defineComponent, ref, reactive,watch } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
-import { Inertia } from "@inertiajs/inertia";
+import { Link, Head } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -399,7 +399,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("offline_paid_item.destroy", id), {
+                    router.delete(route("offline_paid_item.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -463,7 +463,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('offline_paid_item.index'),
+            router.get(route('offline_paid_item.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -622,7 +622,7 @@ export default defineComponent({
             this.$inertia.get(route('offline_paid_item.edit',id));
         },
         FilterOptionshandle(value) {
-            Inertia.put(route('offline_paid_item.screenDisplayUiSetting.store'),
+            router.put(route('offline_paid_item.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

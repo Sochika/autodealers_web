@@ -293,7 +293,7 @@
 <script>
 import { defineComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import useValidators from '@/Validation/Validators'
 import CheckBox from "../components/CheckBox.vue";
 import PsInput from "@/Components/Core/Input/PsInput.vue";

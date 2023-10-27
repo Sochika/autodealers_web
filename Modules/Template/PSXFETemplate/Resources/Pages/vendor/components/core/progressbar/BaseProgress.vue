@@ -23,7 +23,7 @@
 
 <template>
   <div
-    class="w-full bg-fePrimary-50 dark_bg-fePrimary-200 h-2 relative overflow-hidden"
+    class="w-full bg-fePrimary-50 dark:bg-fePrimary-200 h-2 relative overflow-hidden"
     :class="[{'rounded-full': rounded}, { indeterminate: indeterminate}]"
   >
     <div
@@ -48,7 +48,7 @@ export default {
     props: {
         color: {
             type: String,
-            default: "bg-fePrimary-500 dark_bg-feAccent-500"
+            default: "bg-fePrimary-500 dark:bg-feAccent-500"
         },
         percentage: {
             type: Number,

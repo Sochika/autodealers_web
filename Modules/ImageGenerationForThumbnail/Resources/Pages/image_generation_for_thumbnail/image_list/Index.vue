@@ -34,7 +34,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";

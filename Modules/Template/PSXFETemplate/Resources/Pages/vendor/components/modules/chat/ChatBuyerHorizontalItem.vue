@@ -2,7 +2,7 @@
     <div class="cursor-pointer " @click="gotoDetail(chathistory)">
 
         <!-- Pscard -->
-        <div :class="`h-[80px] sm:h-[100px] rounded-lg shadow-sm overflow-hidden mb-3 ${chathistory?.sellerUnreadCount > 0 ? 'bg-feAchromatic-200' : ''} dark_bg-feSecondary-800`">
+        <div :class="`h-[80px] sm:h-[100px] rounded-lg shadow-sm overflow-hidden mb-3 ${chathistory?.sellerUnreadCount > 0 ? 'bg-feAchromatic-200' : ''} dark:bg-feSecondary-800`">
            <div class="flex h-full">
                 <div class="h-full w-[64px] sm:w-[100px] relative flex items-center">
                     <img alt="Placeholder" class="rounded-full bg-transparent h-16 w-16 sm:h-full sm:w-full border-2 border-feAchromatic-300"
@@ -50,7 +50,7 @@ import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
 import PsConst from '@templateCore/object/constant/ps_constants';
 // Objects
 import chathistory from '@templateCore/object/ChatHistory';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 import format from 'number-format.js';
 import { trans } from 'laravel-vue-i18n';
@@ -86,7 +86,7 @@ export default {
             }
         }
         function gotoDetail(chathistory){
-            Inertia.get(route('fe_chat'),{
+            router.get(route('fe_chat'),{
                     'buyer_user_id' : chathistory.buyerUserId,
                     'seller_user_id' : chathistory.sellerUserId,
                     'item_id' : chathistory.itemId,

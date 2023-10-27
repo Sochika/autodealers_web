@@ -32,7 +32,7 @@
     <div  class="  w-full h-full flex flex-col min-h-screen ">
 
         <!-- Body -->
-        <main class="flex-grow bg-feAchromatic-50 dark_bg-feAchromatic-900">
+        <main class="flex-grow bg-feAchromatic-50 dark:bg-feAchromatic-900">
             <slot />
         </main>
         <!-- End Body -->
@@ -58,7 +58,7 @@
 // libs
 import { defineComponent, onMounted , onUnmounted, ref,reactive, computed,watch } from 'vue';
 import { trans } from 'laravel-vue-i18n';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { useStore } from 'vuex'
 
 
@@ -77,9 +77,10 @@ import PsConst from '@templateCore/object/constant/ps_constants';
 import { useNotiStoreState } from "@templateCore/store/modules/noti/NotificationStore";
 import NotiRegisterHolder from '@templateCore/object/holder/NotiRegisterHolder';
 import NotiUnRegisterHolder from '@templateCore/object/holder/NotiUnRegisterHolder';
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import firebaseApp from 'firebase/app';
 import 'firebase/database';
+import "https://unpkg.com/delayed-scroll-restoration-polyfill@0.1.1/index.js";
 
 export default defineComponent({
     name : "PsFrontendLayout",
@@ -94,6 +95,36 @@ export default defineComponent({
   props:['authUser','backendSetting','firebaseConfig','webPushKey', 'appUrl'],
     setup(props) {
 
+        // For Scroll Position Restore When click Back button
+        // Handling manual for polyfill
+        if ('scrollRestoration' in window.history) {
+           window.history.scrollRestoration = 'manual';
+        }
+
+        // Monitoring the back action
+        // it will set true when back action.
+        // But current is only supported for item list
+        // That means if back action is target to item list
+        // it will mark as true in popStateDetected
+        window.popStateDetected = false; // declared in resources/js/Types/index.d.ts
+        window.addEventListener('popstate', (event) => {
+            // console.log(String(event.state.url));
+            if(event != null 
+                && event.state != null
+                && event.state.url != null 
+                && ( String(event.state.url).includes("item-list", 1)
+                    || String(event.state.url).includes("active-items", 1)
+                    || String(event.state.url).includes("other-profile", 1)
+                )) {
+                    window.popStateDetected = true;
+                    // console.log("Event Trggered");                
+            }else {
+                // console.log("Else");
+                window.popStateDetected = false;
+            }
+            
+        })
+        
 
         const atTopOfPage = ref(true);
         const dataReady = ref(true);
@@ -117,7 +148,7 @@ export default defineComponent({
         });
         const dir = computed(() => store.getters.dir);
 
-        Inertia.on('finish', (event) => {
+        router.on('finish', (event) => {
             if(localStorage.loginUserId && localStorage.loginUserId != '' && localStorage.loginUserId != null && localStorage.loginUserId != undefined && localStorage.loginUserId != PsConst.NO_LOGIN_USER){
                 if(firebase.apps.length >= 1){
                     const userRef = firebaseApp.database().ref('User_Presence');
@@ -212,6 +243,9 @@ export default defineComponent({
 
 
         onMounted( async () =>{
+
+            
+            
             window.addEventListener('scroll', handleScroll);
 
             var loading = document. getElementById("home_loading__container");
@@ -225,7 +259,8 @@ export default defineComponent({
                     // console.log(appUrl);
                     // console.log(appUrl.endsWith("/"));
 
-                    if(appUrl.endsWith("/")){
+                    if(appUrl != null 
+                        && String(appUrl).endsWith("/")){
                         url = appUrl+"firebase-messaging-sw.js";
                     }
                     navigator.serviceWorker .register(url)
@@ -328,4 +363,3 @@ export default defineComponent({
 })
 
 </script>
-

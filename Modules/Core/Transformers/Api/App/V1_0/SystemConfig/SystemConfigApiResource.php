@@ -3,6 +3,8 @@
 namespace Modules\Core\Transformers\Api\App\V1_0\SystemConfig;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Modules\Core\Constants\Constants;
+use Modules\Core\Entities\Setting;
 
 class SystemConfigApiResource extends JsonResource
 {
@@ -14,6 +16,9 @@ class SystemConfigApiResource extends JsonResource
      */
     public function toArray($request)
     {
+        $setting = Setting::where('setting_env', Constants::SYSTEM_CONFIG )->first();
+        $selcted_array = json_decode($setting->setting, true);
+
         return [
             'lat' => isset($this->lat)?(string)$this->lat:'',
             'lng' => isset($this->lng)?(string)$this->lng:'',
@@ -27,6 +32,9 @@ class SystemConfigApiResource extends JsonResource
             'ad_type' => isset($this->ad_type)?(string)$this->ad_type:'',
             'promo_cell_interval_no' => isset($this->promo_cell_interval_no)?(string)$this->promo_cell_interval_no:'',
             'one_day_per_price' => isset($this->one_day_per_price)?(string)$this->one_day_per_price:'',
+            'selected_price_type' => (string) $selcted_array['selected_price_type']['id'],
+            'selected_chat_type' => (string) $selcted_array['selected_chat_data']['id'],
+
         ];
     }
 }

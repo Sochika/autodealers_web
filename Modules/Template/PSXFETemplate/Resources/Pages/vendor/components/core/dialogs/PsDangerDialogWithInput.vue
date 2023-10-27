@@ -15,8 +15,8 @@
         </template>
         <template #footer>
             <div class=" flex flex-row justify-end">
-                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-4" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover_ring hover_ring-feAchromatic-100" > {{cancelButton}} </ps-button>
-                <ps-button :disabled="okBtnIsDisable" rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="" colors="bg-feError-500 text-feAchromatic-50"  hover="hover:outline-none hover_ring hover_ring-feError-100" focus="focus:outline-none focus_ring focus_ring-feError-300" > {{okButton}} </ps-button>
+                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-4" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover:ring hover:ring-feAchromatic-100" > {{cancelButton}} </ps-button>
+                <ps-button :disabled="okBtnIsDisable" rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="" colors="bg-feError-500 text-feAchromatic-50"  hover="hover:outline-none hover:ring hover:ring-feError-100" focus="focus:outline-none focus:ring focus:ring-feError-300" > {{okButton}} </ps-button>
             </div>
         </template>
     </ps-modal>
@@ -29,7 +29,7 @@ import PsLabel from '../label/PsLabel.vue';
 import PsButton from '../buttons/PsButton.vue';
 import { trans } from 'laravel-vue-i18n';
 import PsIcon from "../icons/PsIcon.vue";
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 import PsInput from "../input/PsInput.vue";
 
 

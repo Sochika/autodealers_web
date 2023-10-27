@@ -30,7 +30,7 @@
 
 import { computed,ref } from 'vue'
 import { useStore } from 'vuex'
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsErrorDialog from "@/Components/Core/Dialog/PsErrorDialog.vue";
@@ -95,7 +95,7 @@ export default {
 
 
         try{
-            Inertia.get(route(props.url));
+            router.get(route(props.url));
             store.dispatch('handleSidebarActive',props.name);
             isDropdownActive.value = !isDropdownActive.value;
             handleSidebarFull(true);

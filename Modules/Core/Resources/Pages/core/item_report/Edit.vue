@@ -31,28 +31,37 @@
                                     <ps-input :disabled="true" type="text" v-model:value="form.title" :placeholder="$t(coreField.placeholder)" />
                                 </div>
 
-                                <!-- original price-->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'original_price' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
-                                    <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input :disabled="true" type="text" v-model:value="form.original_price" :placeholder="$t(coreField.placeholder)" />
+                                <div v-if="selected_price_type == PsConst.NORMAL_PRICE" class="grid gap-6">
+                                    <!-- original price-->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'original_price' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
+                                        <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input :disabled="true" type="text" v-model:value="form.original_price" :placeholder="$t(coreField.placeholder)" />
+                                    </div>
+
+                                    <!-- sale price-->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'price' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
+                                        <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input :disabled="true" type="text" v-model:value="form.price" :placeholder="$t(coreField.placeholder)" />
+                                    </div>
+
+                                    <!-- for currency dropdown -->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'currency_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
+                                        <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-dropdown :disabled="true" align="left" class="lg:mt-2 mt-1 w-full">
+                                            <template #select>
+                                                <ps-dropdown-select :disabled="true" :placeholder="$t(coreField.placeholder)" :showCenter="true" :selectedValue="form.currency_id" />
+                                            </template>
+                                        </ps-dropdown>
+                                    </div>
+                                    <!-- end currency -->
                                 </div>
 
-                                <!-- sale price-->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'price' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
-                                    <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input :disabled="true" type="text" v-model:value="form.price" :placeholder="$t(coreField.placeholder)" />
+                                <div v-if="selected_price_type == PsConst.PRICE_RANGE">
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'price' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
+                                        <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input :disabled="true" type="text" v-model:value="priceRange" :placeholder="$t(coreField.placeholder)" />
+                                    </div>
                                 </div>
-
-                                <!-- for currency dropdown -->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'currency_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
-                                    <ps-label  class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-dropdown :disabled="true" align="left" class="lg:mt-2 mt-1 w-full">
-                                        <template #select>
-                                            <ps-dropdown-select :disabled="true" :placeholder="$t(coreField.placeholder)" :showCenter="true" :selectedValue="form.currency_id" />
-                                        </template>
-                                    </ps-dropdown>
-                                </div>
-                                <!-- end currency -->
 
                                 <!-- for category dropdown -->
                                 <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'category_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
@@ -426,7 +435,8 @@
 <script>
 import { defineComponent, defineAsyncComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
+import PsConst from '@templateCore/object/constant/ps_constants';
 import CheckBox from "../components/CheckBox.vue";
 import PsRadioValue from "@/Components/Core/Radio/PsRadioValue.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
@@ -459,6 +469,7 @@ export default defineComponent({
         Head,
         CheckBox,
         DatePicker,
+        PsConst,
         PsInput,
         PsRadioValue,
         PsLabel,
@@ -490,8 +501,31 @@ export default defineComponent({
         'coreFieldFilterSettings',
         'item',
         'customizeHeaders',
-        'customizeDetails'
-    ],setup(props) {
+        'customizeDetails',
+        "selected_price_type"
+    ],
+    setup(props) {
+        function checkPriceFormat(data) {
+            if (props.selected_price_type == PsConst.PRICE_RANGE) {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return '$'.repeat(5);
+                }
+                if (intValue < 1) {
+                    return '$'.repeat(1);
+                }
+                return '$'.repeat(intValue);
+            }
+            if (props.selected_price_type == PsConst.NORMAL_PRICE) {
+                return data;
+            }
+            if (props.selected_price_type == PsConst.NO_PRICE) {
+                return data;
+            }
+        }
+
         let form = useForm(
             {
                 id: props.item.id,
@@ -519,7 +553,11 @@ export default defineComponent({
             }
         )
 
-        return { form }
+        if(props.selected_price_type == PsConst.PRICE_RANGE){
+            var priceRange = checkPriceFormat(form.price);
+        }
+
+        return { form , checkPriceFormat , priceRange}
     },
     computed: {
         breadcrumb() {

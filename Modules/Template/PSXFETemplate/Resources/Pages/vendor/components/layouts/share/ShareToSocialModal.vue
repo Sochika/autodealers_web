@@ -1,44 +1,44 @@
 <template>
-    <ps-modal ref="psmodal" :isClickOut="false" maxWidth="472px" theme="rounded-lg p-6 bg-feAchromatic-50 dark_bg-feSecondary-800" >
+    <ps-modal ref="psmodal" :isClickOut="false" maxWidth="472px" theme="rounded-lg p-6 bg-feAchromatic-50 dark:bg-feSecondary-800" >
         <template #title>
-            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-200">  {{ $t("share_with_social_modal__share_with") }} </ps-label>
+            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-200">  {{ $t("share_with_social_modal__share_with") }} </ps-label>
         </template>
         <template #body>
 
             <ps-link :url="facebookURL">
                 <div class="flex items-center gap-4 mb-6">
-                    <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="share-facebook" w="32" h="32" viewBox="0 0 32 32"/>
+                    <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="share-facebook" w="32" h="32" viewBox="0 0 32 32"/>
                     <!-- <ps-label> {{ $t("share_with_social_modal__facebook") }} </ps-label> -->
-                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("Facebook") }} </ps-label>
+                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("Facebook") }} </ps-label>
                 </div>
             </ps-link>
 
 
             <ps-link :url="twitterURL">
                 <div class="flex items-center gap-4 mb-6">
-                    <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="twitter" w="32" h="32" viewBox="0 0 20 20"/>
-                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("Twitter") }} </ps-label>
+                    <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="twitter" w="32" h="32" viewBox="0 0 20 20"/>
+                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("Twitter") }} </ps-label>
                 </div>
             </ps-link>
 
 
             <ps-link :url="linkedinURL">
                 <div class="flex items-center gap-4 mb-6">
-                    <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="linkedIn" w="32" h="32" viewBox="0 0 20 20"/>
-                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("LinkedIn") }} </ps-label>
+                    <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="linkedIn" w="32" h="32" viewBox="0 0 20 20"/>
+                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("LinkedIn") }} </ps-label>
                 </div>
             </ps-link>
 
             <div @click="copy" class="cursor-pointer">
                 <div class="flex items-center gap-4">
-                    <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="copy-link-outline" w="32" h="32" viewBox="0 0 32 32"/>
-                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("item_detail__copy_link") }} </ps-label>
+                    <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="copy-link-outline" w="32" h="32" viewBox="0 0 32 32"/>
+                    <ps-label textColor="text-lg font-medium text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("item_detail__copy_link") }} </ps-label>
                 </div>
             </div>
         </template>
         <template #footer>
             <div class="flex justify-end">
-                <ps-button @click="psmodal.toggle(false)" colors="bg-feAchromatic-50 text-feSecondary-800 dark_bg-feSecondary-800 dark_text-feSecondary-200" hover="dark_hover_bg-feSecondary-700" border="border"> {{ $t("share_with_social_modal__cancel") }} </ps-button>
+                <ps-button @click="psmodal.toggle(false)" colors="bg-feAchromatic-50 text-feSecondary-800 dark:bg-feSecondary-800 dark:text-feSecondary-200" hover="dark:hover:bg-feSecondary-700" border="border"> {{ $t("share_with_social_modal__cancel") }} </ps-button>
             </div>
         </template>
     </ps-modal>
@@ -55,12 +55,6 @@ import PsLink from '@template1/vendor/components/core/link/PsLink.vue'
 import PsSuccessDialog from '@template1/vendor/components/core/dialog/PsSuccessDialog.vue';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 import { trans } from 'laravel-vue-i18n'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faClone } from '@fortawesome/free-solid-svg-icons';
-library.add(faFacebookSquare,faTwitterSquare,faLinkedin,faClone )
 
 export default defineComponent({
     name : "ShareToSocialModal",

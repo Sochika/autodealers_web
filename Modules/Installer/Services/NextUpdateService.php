@@ -2,6 +2,7 @@
 
 namespace Modules\Installer\Services;
 
+use App\Config\ps_config;
 use App\Config\ps_constant;
 use App\Config\ps_url;
 use App\Http\Services\PsService;
@@ -27,6 +28,7 @@ use Modules\Core\Http\Services\MobileLanguageStringService;
 use Modules\Core\Imports\FeLanguageStringImport;
 use Modules\Core\Imports\LanguageStringImport;
 use Illuminate\Support\Facades\File;
+use Throwable;
 
 class NextUpdateService extends PsService
 {
@@ -157,8 +159,8 @@ class NextUpdateService extends PsService
                 // for not our support lang, we will add english lang string for our new lang string end
 
                 // clean imported files start
-                // Storage::delete($langStringCSVFiles);
-                // Storage::deleteDirectory(($parentFileName));
+                Storage::delete($langStringCSVFiles);
+                Storage::deleteDirectory(($parentFileName));
                 // clean imported files start
 
                 // updated at psx_check_version_updates
@@ -309,7 +311,7 @@ class NextUpdateService extends PsService
                     $checkVersionUpdate->update();
                 }
             } else {
-                return redirectBackWithError(resultMessage("There have issue at getting MB language Zip", "error"));
+                return redirectBackWithError(resultMessage("There have issue at getting FE language Zip", "error"));
             }
         }
 
@@ -497,7 +499,7 @@ class NextUpdateService extends PsService
 
                 // clean imported files start
                 Storage::delete($langStringCSVFiles);
-                // Storage::deleteDirectory(($parentFileName));
+                Storage::deleteDirectory(($parentFileName));
                 // clean imported files start
 
                 if (empty($checkVersionUpdate)) {
@@ -545,6 +547,8 @@ class NextUpdateService extends PsService
     public function sourceCodeSync($redirectRouteName)
     {
 
+        putenv('COMPOSER_HOME=' . __DIR__ . '/../../../vendor/bin/composer');
+
         $checkBuilderConnection = getHttpWithApiKey(ps_constant::base_url, getApiKey(), ps_url::checkBuilderConnection);
         if ($checkBuilderConnection?->status !== "success" || empty($checkBuilderConnection)) {
 
@@ -579,11 +583,15 @@ class NextUpdateService extends PsService
 
                 //make backup
                 try{
-                    Artisan::call('backup:run --disable-notifications');
+                    // Artisan::call('backup:run --disable-notifications');
+                    shell_exec("cd .. && ".CheckPhpVersion()." artisan backup:run --disable-notifications");
                 }catch(\Throwable $e){
                     Artisan::call('optimize:clear');
                     return redirectBackWithError(resultMessage("Source Code Sync Fail. Reload and Try Againg", "error"));
                 }
+
+                // delete old build folder under public dir
+                File::deleteDirectory(public_path('build'));
 
                 $zipContent = $getSourceCode->body();
 
@@ -605,26 +613,47 @@ class NextUpdateService extends PsService
                 $zip->close();
 
                 // replace content at builded file
-                $path_to_file = public_path('build/app.js');
-                $path_to_file2 = public_path('build/PsApiService2.js');
-                $path_to_file3 = public_path('build/psApiService.js');
+                $pathArr = findFindWithHashKey(public_path(ps_constant::appJSFilePath));
+                if(count($pathArr) !== 0){
+                    $path_to_file = $pathArr[0];
+                }
+
+                $pathArr2 = findFindWithHashKey(public_path(ps_constant::PsApiServiceJSFilePath));
+                if(count($pathArr2) !== 0){
+                    $path_to_file2 = $pathArr2[0];
+                }
+
+                $pathArr3 = findFindWithHashKey(public_path(ps_constant::psApiServiceJSFilePath));
+                if(count($pathArr3) !== 0){
+                    $path_to_file3 = $pathArr3[0];
+                }
 
                 if(empty(config("app.dir"))){
+                    $domainSubFolderBuild = ps_constant::searchDomain . ps_constant::searchSubFolder . '/' . 'build' . '/';
+                    $domainSubFolder = ps_constant::searchDomain . ps_constant::searchSubFolder;
+                    $envDomainBuild = config("app.base_domain") . 'build' . '/';
+
+                    findAndReplaceForBuildFolder($path_to_file, $domainSubFolderBuild, $envDomainBuild);
+                    findAndReplaceForBuildFolder($path_to_file, $domainSubFolder, config("app.base_domain"));
                     findAndReplaceForBuildFolder($path_to_file, ps_constant::searchDomain, config("app.base_domain"));
-                    findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolder, "");
                     findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolderWithSlash1, "");
                     findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolderWithSlash2, "");
+                    findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolder, "");
 
                     findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchApiToken, config("app.api_token"));
+                    findAndReplaceForBuildFolder($path_to_file2, $domainSubFolderBuild, $envDomainBuild);
+                    findAndReplaceForBuildFolder($path_to_file2, $domainSubFolder, config("app.base_domain"));
                     findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchDomain, config("app.base_domain"));
-                    findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolder, "");
                     findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolderWithSlash1, "");
                     findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolderWithSlash2, "");
+                    findAndReplaceForBuildFolder($path_to_file2, ps_constant::searchSubFolder, "");
 
+                    findAndReplaceForBuildFolder($path_to_file3, $domainSubFolderBuild, $envDomainBuild);
+                    findAndReplaceForBuildFolder($path_to_file3, $domainSubFolder, config("app.base_domain"));
                     findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchDomain, config("app.base_domain"));
-                    findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolder, "");
                     findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolderWithSlash1, "");
                     findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolderWithSlash2, "");
+                    findAndReplaceForBuildFolder($path_to_file3, ps_constant::searchSubFolder, "");
                 } else {
                     findAndReplaceForBuildFolder($path_to_file, ps_constant::searchDomain, config("app.base_domain"));
                     findAndReplaceForBuildFolder($path_to_file, ps_constant::searchSubFolder, config("app.dir"));
@@ -643,8 +672,7 @@ class NextUpdateService extends PsService
 
                 $composerPath = base_path('./composer.phar');
                 // $command = "cd .. && php $composerPath update 2>&1";
-                $command = "cd .. && php $composerPath update";
-                $output = shell_exec($command);
+                $command = shell_exec("cd .. && ". CheckPhpVersion() ." composer.phar update");;
 
                 // extracted zip file delete
                 Storage::delete($folderName . "/" . $fileName);
@@ -878,6 +906,66 @@ class NextUpdateService extends PsService
         }
     }
 
+    public function welcome()
+    {
+        $minPhpVersion = ps_constant::minPhpVersion;
+        $phpPathFromEnv = config("app.php_path");
+
+        // return "phpPathFromEnv ".shell_exec("whereis php");
+
+
+        if(!empty($phpPathFromEnv)){
+
+            // checking php path right or wrong start
+            $phpVersion = shell_exec($phpPathFromEnv.' -r "echo PHP_VERSION;"');
+
+            if(empty($phpVersion)){
+                $dataArr = [
+                    "errMsg" => "This php path ($phpPathFromEnv) is wrong. You can find detailed instructions in our guide at",
+                    "docLink" => ps_config::howToChangePhpPathDocLink,
+                ];
+                return $dataArr;
+            }
+            // checking php path right or wrong end
+
+            // checking minPhp start
+            $phpPath = shell_exec("which $phpPathFromEnv");
+
+            $msg = "This application needs PHP version $minPhpVersion or higher to function properly. However, your current PHP version is $phpVersion.
+            Detected PHP Path: $phpPathFromEnv
+            If this path isn't accurate, please update the PHP path in your .env file. You can find detailed instructions in our guide at";
+
+            if (version_compare($phpVersion, $minPhpVersion) < 0) {
+                $dataArr = [
+                    // "errMsg" => "This path ($phpPath) of php version is $phpVersion. Our minimum php version is $minPhpVersion. Therefore, please add path at env if this path($phpPath) is not your using path."
+                    "errMsg" => $msg,
+                    "docLink" => ps_config::howToChangePhpPathDocLink,
+                ];
+                return $dataArr;
+            }
+            // checking minPhp end
+
+        } else {
+
+            // checking minPhp start
+            $phpVersion = shell_exec('php -r "echo PHP_VERSION;"');
+            $phpPath = shell_exec("which php");
+
+            $msg = "This application needs PHP version $minPhpVersion or higher to function properly. However, your current PHP version is $phpVersion.
+            Detected PHP Path: $phpPathFromEnv
+            If this path isn't accurate, please update the PHP path in your .env file. You can find detailed instructions in our guide at";
+
+            if (version_compare($phpVersion, $minPhpVersion) < 0) {
+                $dataArr = [
+                    "errMsg" => $msg,
+                    "docLink" => ps_config::howToChangePhpPathDocLink,
+                ];
+                return $dataArr;
+            }
+            // checking minPhp end
+
+        }
+    }
 
 
 }

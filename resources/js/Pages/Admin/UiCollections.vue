@@ -126,7 +126,7 @@
                 <ps-line theme="my-5" />
 
                 <!-- Select -->
-                <ps-label-title class="mt-4">Select</ps-label-title>
+                <!-- <ps-label-title class="mt-4">Select</ps-label-title>
                 <v-select
                     dir="$store.state.dir"
                     multiple
@@ -137,7 +137,7 @@
                     placeholder="Choose..."
                     class="multiple-select input-primary rounded"
                 />
-                {{ selectedMultiple }}
+                {{ selectedMultiple }} -->
 
                 <ps-line theme="my-5" />
 
@@ -701,8 +701,8 @@
 
 <script>
 import { defineComponent, onUnmounted, onMounted, reactive, ref } from "vue";
-import { useLoading } from "vue3-loading-overlay";
-import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
+// import { useLoading } from "vue3-loading-overlay";
+// import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
 
 import PsLayout from "@/Components/PsLayout.vue";
 
@@ -778,8 +778,8 @@ import BaseProgress from "@/Components/Core/Progressbar/BaseProgress.vue";
 
 import PsEditor from "@/Components/Core/CKEditor/PsEditor.vue";
 
-import vSelect from "vue-select";
-import "vue-select/dist/vue-select.css";
+// import vSelect from "vue-select";
+// import "vue-select/dist/vue-select.css";
 
 export default {
     components: {
@@ -850,7 +850,7 @@ export default {
 
         PsEditor,
 
-        vSelect,
+        // vSelect,
     },
     layout: PsLayout,
     data() {
@@ -948,18 +948,18 @@ export default {
         const formContainer = ref(null);
         function onCancel() {}
         function loadMore() {
-            const loader = useLoading();
-            loader.show({
-                // Optional parameters
-                container: fullPage.value ? null : formContainer.value,
-                canCancel: true,
-                onCancel: onCancel,
-            });
+            // const loader = useLoading();
+            // loader.show({
+            //     // Optional parameters
+            //     container: fullPage.value ? null : formContainer.value,
+            //     canCancel: true,
+            //     onCancel: onCancel,
+            // });
 
-            // simulate AJAX
-            setTimeout(() => {
-                loader.hide();
-            }, 2000);
+            // // simulate AJAX
+            // setTimeout(() => {
+            //     loader.hide();
+            // }, 2000);
         }
 
         // For countdown

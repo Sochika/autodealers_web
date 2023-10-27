@@ -14,8 +14,8 @@
 <script>
 import PsLabel from "@template1/vendor/components/core/label/PsLabel.vue";
 import { defineComponent,onMounted,ref } from "vue";
-// import { Inertia } from '@inertiajs/inertia'
-import { Head } from "@inertiajs/inertia-vue3";
+// import { router } from '@inertiajs/vue3'
+import { Head } from "@inertiajs/vue3";
 
 
 export default defineComponent({

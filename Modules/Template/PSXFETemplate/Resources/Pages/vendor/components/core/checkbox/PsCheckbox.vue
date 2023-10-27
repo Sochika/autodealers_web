@@ -1,7 +1,7 @@
 <template>
     <ps-label class="select-none inline-flex items-center">  
         <input type="checkbox" 
-        class="form-checkbox me-2 checked:bg-fePrimary-500 dark_bg-feAccent-500" 
+        class="form-checkbox me-2 checked:bg-fePrimary-500 dark:bg-feAccent-500" 
         :id="title" 
         :checked="getValue()" @input="handleInput($event.target.checked)" />
         {{title}}

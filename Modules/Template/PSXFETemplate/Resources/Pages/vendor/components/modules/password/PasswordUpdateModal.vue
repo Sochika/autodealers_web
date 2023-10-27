@@ -1,7 +1,7 @@
 <template>
-    <ps-modal ref="psmodal" theme="p-2 dark_bg-feAchromatic-50 dark_bg-feSecondary-900 border rounded-xl" maxWidth="408px" :visibleLine="false" :isClickOut='true' class="z-50" >
+    <ps-modal ref="psmodal" theme="p-2 dark:bg-feAchromatic-50 dark:bg-feSecondary-900 border rounded-xl" maxWidth="408px" :visibleLine="false" :isClickOut='true' class="z-50" >
         <template #title>
-            <ps-icon @click="closeModal()" name="close" class="text-sm text-feSecondary-400 ms-auto my-auto focus:shadow-none hover_text-purple-500 flex justify-end"  />
+            <ps-icon @click="closeModal()" name="close" class="text-sm text-feSecondary-400 ms-auto my-auto focus:shadow-none hover:text-purple-500 flex justify-end"  />
 
             <ps-label class="text-center text-xl font-semibold" > {{ $t('password_update_modal__update_password') }}</ps-label>
         </template>
@@ -13,13 +13,13 @@
                      <!-- for Password -->
                     <ps-label class="mt-5 mb-2  text-sm"> {{ $t('password_update_modal__old_password') }} <span style="font-size: 17px; color: red;">*</span> </ps-label>
                     <ps-input-with-right-icon @keypress="old_psw_error = ''"  v-model:value="paramHolder.userOldPassword" 
-                        className="dark_bg-feSecondary-900 w-full text-sm shadow-sm"
-                        placeholderColor=" placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
+                        className="dark:bg-feSecondary-900 w-full text-sm shadow-sm"
+                        placeholderColor=" placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
                         :type="(isHide ? 'password' : 'text')"
                         :placeholder="$t('password_update_modal__old_password_placeholder')">
                         <template #icon>
                             <ps-icon :h="24" :w="24" @click="isHide = !isHide" class="cursor-pointer"
-                                theme=" text-feSecondary-800 dark_text-feSecondary-300"
+                                theme=" text-feSecondary-800 dark:text-feSecondary-300"
                                 :name="isHide ? 'eyeOff' : 'eye-on'" />
                         </template>
                     </ps-input-with-right-icon>
@@ -30,14 +30,14 @@
                     <!-- for Password -->
                     <ps-label class="mt-5 mb-2 text-sm"> {{ $t('password_update_modal__password') }} <span style="font-size: 17px; color: red;">*</span> </ps-label>
                     <ps-input-with-right-icon
-                    className="dark_bg-feSecondary-900 w-full text-sm shadow-sm"
+                    className="dark:bg-feSecondary-900 w-full text-sm shadow-sm"
                      @keypress="new_psw_error = ''" v-model:value="paramHolder.userPassword" 
-                        placeholderColor=" placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
+                        placeholderColor=" placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
                         :type="(isHide1 ? 'password' : 'text')"
                         :placeholder="$t('password_update_modal__password_placeholder')">
                         <template #icon>
                             <ps-icon :h="24" :w="24" @click="isHide1 = !isHide1" class="cursor-pointer"
-                                theme=" text-feSecondary-800 dark_text-feSecondary-300"
+                                theme=" text-feSecondary-800 dark:text-feSecondary-300"
                                 :name="isHide1 ? 'eyeOff' : 'eye-on'" />
                         </template>
                     </ps-input-with-right-icon>
@@ -47,14 +47,14 @@
                     <!-- for Confirm Password -->
                     <ps-label class="mt-5 mb-2 text-sm "> {{ $t('password_update_modal__confirm_password') }} <span style="font-size: 17px; color: red;">*</span> </ps-label>
                     <ps-input-with-right-icon 
-                    className="dark_bg-feSecondary-900 w-full text-sm shadow-sm"
+                    className="dark:bg-feSecondary-900 w-full text-sm shadow-sm"
                     @keypress="conf_psw_error = ''" v-model:value="paramHolder.confPassword" 
-                        placeholderColor=" placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
+                        placeholderColor=" placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
                         :type="(isHide2 ? 'password' : 'text')"
                         :placeholder="$t('password_update_modal__confirm_password_placeholder')">
                         <template #icon>
                             <ps-icon :h="24" :w="24" @click="isHide2 = !isHide2" class="cursor-pointer"
-                                theme=" text-feSecondary-800 dark_text-feSecondary-300"
+                                theme=" text-feSecondary-800 dark:text-feSecondary-300"
                                 :name="isHide2 ? 'eyeOff' : 'eye-on'" />
                         </template>
                     </ps-input-with-right-icon>
@@ -71,7 +71,7 @@
         <template #footer>
             <div class="flex mt-8 flex-col w-68 sm:w-80 mx-auto">
                 <ps-button class="text-center" @click="submitClicked" > {{ $t('password_update_modal__update') }} </ps-button>
-                <ps-feSecondary-button class="mt-4 mb-2 text-center" @click="closeModal()" > {{ $t('password_update_modal__cancel') }} </ps-feSecondary-button>
+                <ps-secondary-button class="mt-4 mb-2 text-center" @click="closeModal()" > {{ $t('password_update_modal__cancel') }} </ps-secondary-button>
 
             </div>
 
@@ -107,7 +107,7 @@ import { PsValueStore } from '@templateCore/store/modules/core/PsValueStore';
 import PsStatus from '@templateCore/api/common/PsStatus';
 import { trans } from 'laravel-vue-i18n';
 import Message from '../../../../../../../../TemplateCore/object/Message';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsIcon from "@template1/vendor/components/core/icons/PsIcon.vue";
 import PsInputWithRightIcon from "@template1/vendor/components/core/input/PsInputWithRightIcon.vue";
 
@@ -227,7 +227,7 @@ export default defineComponent({
                 // );
                 ps_success_dialog.value.openModal(trans('password_update_modal__success'),
                 trans('password_update_modal__psw_update_success'),trans('password_update_modal__continue'),()=>{
-                    Inertia.get(route('login'));
+                    router.get(route('login'));
                 });
                 psmodal.value.toggle(false);
                 

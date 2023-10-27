@@ -133,7 +133,7 @@
                     disabled:text-gray-400
                     " :disabled="page == 1" @click="changePage('prev')">
                     <span class="sr-only">Previous</span>
-                    <font-awesome-icon icon="angles-left" />
+                    <ps-icon name="doubleArrowLeft" />
                 </button>
 
                 <!-- First Page -->
@@ -237,7 +237,7 @@
                     " :disabled="page == pages" @click="changePage('next')"
                     >
                     <span class="sr-only">Next</span>
-                    <font-awesome-icon icon="angles-right" />
+                    <ps-icon name="doubleArrowRight" />
                 </button>
             </div>
         </div>

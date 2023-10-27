@@ -24,8 +24,8 @@
 <script>
 import { ref, defineComponent } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
+import { Head } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";

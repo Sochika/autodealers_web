@@ -1,5 +1,5 @@
 <template>
-    <button :type="type" :disabled="disabled" :class="disabled ? [rounded, padding, border, shadow, textSize , justify, 'bg-feSecondary-100 text-feSecondary-300 dark_text-feSecondary-600 dark_bg-feSecondary-700 cursor-not-allowed opacity-90'] : [rounded, colors, padding, border, shadow, textSize, hover, focus, cursor, opacity , justify]"
+    <button :type="type" :disabled="disabled" :class="disabled ? [rounded, padding, border, shadow, textSize , justify, 'bg-feSecondary-100 text-feSecondary-300 dark:text-feSecondary-600 dark:bg-feSecondary-700 cursor-not-allowed opacity-90'] : [rounded, colors, padding, border, shadow, textSize, hover, focus, cursor, opacity , justify]"
     class="font-medium transition duration-150 ease-in-out" >
         <slot />
     </button>
@@ -43,11 +43,11 @@
             },
             hover : {
                 type: String,
-                default: 'hover:outline-none hover_bg-fePrimary-600 active_bg-fePrimary-700'
+                default: 'hover:outline-none hover:bg-fePrimary-600 active:bg-fePrimary-700'
             },
             focus : {
                 type: String,
-                default: 'focus:outline-none focus_bg-fePrimary-500 focus_ring focus_ring-fePrimary-300'
+                default: 'focus:outline-none focus:bg-fePrimary-500 focus:ring focus:ring-fePrimary-300'
             },
             cursor: {
                 type: String,

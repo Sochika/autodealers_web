@@ -1,13 +1,13 @@
 <template>
-    <ps-modal ref="psmodal" line="hidden" maxWidth="472px" :isClickOut='false' theme="p-6 rounded-lg dark_bg-feSecondary-800" class=' z-20'>
+    <ps-modal ref="psmodal" line="hidden" maxWidth="472px" :isClickOut='false' theme="p-6 rounded-lg dark:bg-feSecondary-800" class=' z-20'>
         <template #title>
             <div class="w-full">
-                <ps-label class="font-semibold text-xl text-feSecondary-800 dark_text-feSecondary-200"> {{title}} </ps-label>
+                <ps-label class="font-semibold text-xl text-feSecondary-800 dark:text-feSecondary-200"> {{title}} </ps-label>
             </div>
         </template>
         <template #body>
             <div class="w-full mt-4">
-                <ps-label class="text-base font-normal text-feSecondary-700 dark_text-feSecondary-300"> {{message}} </ps-label>
+                <ps-label class="text-base font-normal text-feSecondary-700 dark:text-feSecondary-300"> {{message}} </ps-label>
             </div>
         </template>
         <template #footer>

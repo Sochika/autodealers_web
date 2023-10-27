@@ -60,7 +60,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -72,7 +72,7 @@ import PsToggle from '@/Components/Core/Toggle/PsToggle.vue';
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -159,7 +159,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('push_notification_message.index'),
+            router.get(route('push_notification_message.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -230,7 +230,7 @@ export default defineComponent({
             this.$inertia.get(route("push_notification_message.create"));
         },
          FilterOptionshandle(value) {
-        Inertia.put(route('push_notification_message.screenDisplayUiSetting.store'),
+        router.put(route('push_notification_message.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

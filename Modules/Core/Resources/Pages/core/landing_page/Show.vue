@@ -180,7 +180,7 @@ import { defineComponent } from 'vue'
 // import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 // import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 // import PsLink1 from '@/Components/Core/Link/PsLink1.vue';
-// import { Head, Link } from '@inertiajs/inertia-vue3';
+// import { Head, Link } from '@inertiajs/vue3';
 
 export default defineComponent({
     // props: ['landing_page'],

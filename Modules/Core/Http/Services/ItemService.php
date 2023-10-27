@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Config\ps_config;
 use App\Config\ps_constant;
 use Modules\Core\Entities\Item;
+
 use Modules\Core\Entities\Shop;
 use App\Http\Services\PsService;
 use Illuminate\Support\Collection;
@@ -27,15 +28,11 @@ use Modules\Core\Entities\CustomizeUi;
 use Modules\Core\Entities\Subcategory;
 use Modules\Core\Entities\LocationCity;
 use Modules\Core\Entities\SystemConfig;
-use Modules\Core\Entities\BackendSetting;
-use Modules\Core\Entities\SubcatSubscribe;
 use Modules\Core\Exports\ItemReportExport;
 use Modules\Core\Entities\LocationTownship;
 use Modules\Core\Entities\CustomizeUiDetail;
-use Modules\Core\Entities\TransactionDetail;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Modules\Core\Entities\MobileSetting;
-use Mockery\Undefined;
 use Modules\ComplaintItem\Entities\ComplaintItem;
 use Modules\Core\Entities\CoreFieldFilterSetting;
 use Modules\Core\Entities\ScreenDisplayUiSetting;
@@ -347,10 +344,21 @@ class  ItemService extends PsService
                 $approval = SystemConfig::first()->is_approved_enable;
                 $item->status = $approval == 1 ? 0 : 1;
             }
+            $selcted_array = $this->systemConfigService->getSystemSettingJson();
+            
+            if ($selcted_array['selected_price_type']['id'] == Constants::PRICE_RANGE || $selcted_array['selected_price_type']['id'] == Constants::NO_PRICE ) {
+                
+                $default_currency = Currency::where([Currency::isDefault => 1])->first();
+                $item->currency_id = $default_currency->id;
 
-            if (isset($request->currency_id) && !empty($request->currency_id)) {
-                $item->currency_id = $request->currency_id;
             }
+
+            if ($selcted_array['selected_price_type']['id'] == Constants::NORMAL_PRICE) {
+                if (isset($request->currency_id) && !empty($request->currency_id)) {
+                    $item->currency_id = $request->currency_id;
+                }
+            }
+
 
             if (isset($request->is_available)) {
                 $item->is_available = $request->is_available;
@@ -375,21 +383,31 @@ class  ItemService extends PsService
             }
 
             if (isset($request->phone) && !empty($request->phone)) {
-                // dd($request->phone);
                 $item->phone = $request->phone;
             }
 
-            if (isset($request->percent)) {
-                $item->percent = $request->percent;
-                $item->price = $item->original_price - ((floatval($request->percent) / 100) * $item->original_price);
-                if (floatval($request->percent) > 0) {
-                    $item->is_discount = 1;
+            if ($selcted_array['selected_price_type']['id'] == Constants::NORMAL_PRICE) {
+                if (isset($request->percent)) {
+                    $item->percent = $request->percent;
+                    $item->price = $item->original_price - ((floatval($request->percent) / 100) * $item->original_price);
+                    if (floatval($request->percent) > 0) {
+                        $item->is_discount = 1;
+                    } else {
+                        $item->is_discount = 0;
+                    }
                 } else {
-                    $item->is_discount = 0;
+                    $item->price =  $item->original_price;
                 }
-            } else {
-                $item->price =  $item->original_price;
+            }else if ($selcted_array['selected_price_type']['id'] == Constants::PRICE_RANGE) {
+                if (isset($request->percent)) {
+                    $item->percent = $request->percent;
+                    $item->price = $request->original_price;
+                }
+                else{
+                    $item->price = $request->original_price;
+                }
             }
+
 
             if (isset($request->is_paid) && !empty($request->is_paid)) {
                 $item->is_paid = $request->is_paid;
@@ -459,21 +477,16 @@ class  ItemService extends PsService
 
     public function store($request)
     {
-
-
-        // dd($request->all());
         // save in item table
         $item = $this->storeCoreFieldValues($request);
         $itemId = $item->id;
 
         if ($request->images) {
             $images = $request->images;
-            // dd($files);
+            
             foreach ($images as $image) {
                 $image_description = "";
                 $path = public_path('storage/uploads/items/' . $image);
-
-                // dd($path);
 
                 $file_exist = File::exists($path);
 
@@ -484,10 +497,7 @@ class  ItemService extends PsService
                             if ($value['name'] == $image) {
                                 $image_description = $value['value'];
                             }
-                            // dd($value['name']);
                         }
-                        // $key = array_search($image, $image_arr);
-                        // dd($key);
                     }
                     $data[$this->coreImageImgParentIdCol] = $itemId;
                     $data[$this->coreImageImgTypeCol] = 'item';
@@ -532,29 +542,27 @@ class  ItemService extends PsService
         return $item;
     }
 
-    public function dropzoneImagesUpload($request){
+    public function dropzoneImagesUpload($request)
+    {
 
-        if($request->hasFile('file'))
-            {
-                $file = $request->file('file');
-                $image = Image::make($file);
-                $fileName = uniqid()."_".".".$file->getClientOriginalExtension();
-                if (!File::isDirectory(public_path() . '/storage/uploads/items')) {
-                    File::makeDirectory(public_path() . '/storage/uploads/items', 0777, true, true);
-                }
-                // $image = $request->file('imageFilepond')->store('uploads/items','public');
-                // dd($fileName);
-                // return $request->file('imageFilepond')->store('uploads/items','public');
-
-                 $image->save(public_path() . '/storage/uploads/items/' . $fileName, 50);
-
-
-                // dd($image);
-                // return $fileName;
-                return response()->json(['success'=>$fileName,'msg'=>'success']);
-
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $image = Image::make($file);
+            $fileName = uniqid() . "_" . "." . $file->getClientOriginalExtension();
+            if (!File::isDirectory(public_path() . '/storage/uploads/items')) {
+                File::makeDirectory(public_path() . '/storage/uploads/items', 0777, true, true);
             }
+            // $image = $request->file('imageFilepond')->store('uploads/items','public');
+            // dd($fileName);
+            // return $request->file('imageFilepond')->store('uploads/items','public');
 
+            $image->save(public_path() . '/storage/uploads/items/' . $fileName, 50);
+
+
+            // dd($image);
+            // return $fileName;
+            return response()->json(['success' => $fileName, 'msg' => 'success']);
+        }
     }
 
     public function processImage($request, $fileName, $imgType, $imgParentId)
@@ -694,8 +702,16 @@ class  ItemService extends PsService
             $item->status = $status;
         }
 
-        if (isset($request->currency_id) && !empty($request->currency_id))
-            $item->currency_id = $request->currency_id;
+        $selcted_array = $this->systemConfigService->getSystemSettingJson();
+
+        if ($selcted_array['selected_price_type']['id'] == Constants::PRICE_RANGE || $selcted_array['selected_price_type']['id'] == Constants::NO_PRICE) {
+            $default_currency = Currency::where([Currency::isDefault => 1])->first();
+            $item->currency_id = $default_currency->id;
+        }else if ($selcted_array['selected_price_type']['id'] == Constants::NORMAL_PRICE) {
+            if (isset($request->currency_id) && !empty($request->currency_id)) {
+                $item->currency_id = $request->currency_id;
+            }
+        }
 
         if (isset($request->is_available))
             $item->is_available = $request->is_available;
@@ -703,6 +719,8 @@ class  ItemService extends PsService
         if (isset($request->is_sold_out)) {
             $item->is_sold_out = $request->is_sold_out;
         }
+
+
 
         if (isset($request->price) && !empty($request->price))
             $item->price = $request->price;
@@ -725,6 +743,8 @@ class  ItemService extends PsService
             } else {
                 $item->is_discount = 0;
             }
+        }else{
+            $item->price = $item->original_price;
         }
 
         // else
@@ -782,6 +802,8 @@ class  ItemService extends PsService
             $data['ordering'] = $request->order;
             // $this->imageService->update(null,null,$file, $data, $image,'item');
             $fileName = $this->imageService->update(null, null, $file, $data, false, 'item');
+
+            $this->saveDeeplink('item', $imgParentId);
         }
         return $fileName;
     }
@@ -961,7 +983,7 @@ class  ItemService extends PsService
                             // update in db end
                         }
                     }
-                }else if($valueFromReq === null){
+                } else if ($valueFromReq === null) {
                     $productRelations = ItemInfo::where('item_id', $item->id)->get();
 
                     foreach ($productRelations as $key3 => $itemRelation) {
@@ -1067,12 +1089,11 @@ class  ItemService extends PsService
 
     public function getCoreFieldFilteredLists($code)
     {
-        if(MobileSetting::first()->is_show_subcategory == '1'){
+        if (MobileSetting::first()->is_show_subcategory == '1') {
             return CoreFieldFilterSetting::where($this->coreFieldFilterModuleNameCol, $code)->get();
-        }else{
+        } else {
             return CoreFieldFilterSetting::where($this->coreFieldFilterModuleNameCol, $code)->whereNot($this->coreFieldFilterFieldNameCol, 'subcategory_id@@name')->get();
         }
-
     }
 
     public function deleteCoreFilteredOldData($code)
@@ -2147,7 +2168,7 @@ class  ItemService extends PsService
             ->where("$this->itmTableName.$this->itmIsPaidCol", '=', 1)
             ->where("$this->paidItmTableName.$this->paidItmStartTimeStamp", '<=', strtotime($todayDate))
             ->where($this->paidItmTableName . '.' . $this->paidItmEndTimeStamp, '>=', strtotime($todayDate))
-            ->where($this->paidItmTableName . '.deleted_at' , '=', null)
+            ->where($this->paidItmTableName . '.deleted_at', '=', null)
             ->when($relation, function ($query, $relation) {
                 $query->with($relation);
             })
@@ -2188,29 +2209,29 @@ class  ItemService extends PsService
             ->where($this->paidItmTableName . '.' . $this->paidItmEndTimeStamp, '>=', strtotime($todayDate))
             ->get()->pluck($this->paidItmItemIdCol);
 
-        $normalItems = Item::select($this->itmTableName.'.*')
-                    ->when($sql, function($query, $sql){
-                        $query->selectRaw($sql);
-                    })
-                    // ->leftJoin($this->paidItmTableName, $this->itmTableName.'.'.$this->itmIdCol, '=', $this->paidItmTableName.'.'.$this->paidItmItemIdCol)
-                    // ->leftJoin($this->paidItmTableName, function ($leftJoin) use ($todayDate) {
-                    //     $leftJoin->on('psx_paid_item_histories.item_id', '=', 'psx_items.id')
-                    //         ->whereNot(function($query) use($todayDate){
-                    //             $query->where($this->paidItmTableName.'.'.$this->paidItmStartDateCol, '<=', $todayDate )
-                    //             ->where($this->paidItmTableName.'.'.$this->paidItmEndDateCol, '>=', $todayDate);
-                    //         });
-                    // })
-                    ->whereNotIn($this->itmTableName.'.'.$this->itmIdCol,$paidItemIds)
-                    ->leftJoin($this->itmInfoTableName, $this->itmTableName.'.'.$this->itmIdCol,'=',$this->itmInfoTableName.'.'.$this->itmInfoItemIdCol)
-                    ->leftJoin($this->customUiDetailTableName, "$this->itmInfoTableName.$this->itmInfoValueCol",'=',"$this->customUiDetailTableName.$this->customUiDetailIdCol")
-                    ->groupBy($this->itmTableName.'.'.$this->itmIdCol)
-                    ->when($relation, function ($q, $relation) {
-                        $q->with($relation);
-                    })->when($conds, function ($query, $conds) {
-                        $query = $this->searching($query, $conds);
-                    })->when($condsNotIn, function ($query, $condsNotIn) {
-                        if (isset($condsNotIn['complaintItemIds']))
-                            $query->whereNotIn($this->itmTableName .'.'.$this->itmIdCol, $condsNotIn['complaintItemIds']);
+        $normalItems = Item::select($this->itmTableName . '.*')
+            ->when($sql, function ($query, $sql) {
+                $query->selectRaw($sql);
+            })
+            // ->leftJoin($this->paidItmTableName, $this->itmTableName.'.'.$this->itmIdCol, '=', $this->paidItmTableName.'.'.$this->paidItmItemIdCol)
+            // ->leftJoin($this->paidItmTableName, function ($leftJoin) use ($todayDate) {
+            //     $leftJoin->on('psx_paid_item_histories.item_id', '=', 'psx_items.id')
+            //         ->whereNot(function($query) use($todayDate){
+            //             $query->where($this->paidItmTableName.'.'.$this->paidItmStartDateCol, '<=', $todayDate )
+            //             ->where($this->paidItmTableName.'.'.$this->paidItmEndDateCol, '>=', $todayDate);
+            //         });
+            // })
+            ->whereNotIn($this->itmTableName . '.' . $this->itmIdCol, $paidItemIds)
+            ->leftJoin($this->itmInfoTableName, $this->itmTableName . '.' . $this->itmIdCol, '=', $this->itmInfoTableName . '.' . $this->itmInfoItemIdCol)
+            ->leftJoin($this->customUiDetailTableName, "$this->itmInfoTableName.$this->itmInfoValueCol", '=', "$this->customUiDetailTableName.$this->customUiDetailIdCol")
+            ->groupBy($this->itmTableName . '.' . $this->itmIdCol)
+            ->when($relation, function ($q, $relation) {
+                $q->with($relation);
+            })->when($conds, function ($query, $conds) {
+                $query = $this->searching($query, $conds);
+            })->when($condsNotIn, function ($query, $condsNotIn) {
+                if (isset($condsNotIn['complaintItemIds']))
+                    $query->whereNotIn($this->itmTableName . '.' . $this->itmIdCol, $condsNotIn['complaintItemIds']);
 
                 if (isset($condsNotIn['blockUserIds']))
                     $query->whereNotIn($this->itmTableName . '.' . $this->itmAddedUserIdCol, $condsNotIn['blockUserIds']);
@@ -2429,7 +2450,7 @@ class  ItemService extends PsService
                 $ordering = $showFields->coreField->ordering;
 
                 //if subcategory is disabled
-                if($showFields->coreField->field_name == 'subcategory_id@@name' && MobileSetting::first()->is_show_subcategory != '1'){
+                if ($showFields->coreField->field_name == 'subcategory_id@@name' && MobileSetting::first()->is_show_subcategory != '1') {
                     continue;
                 }
 
@@ -2504,7 +2525,6 @@ class  ItemService extends PsService
 
     public function index($request)
     {
-
 
         $code = $this->code;
         $customizeUis = CustomizeUi::where($this->customUiModuleName, $code)->where($this->customUiUiTypeIdCol, 'uit00001')->latest()->get();
@@ -2709,6 +2729,9 @@ class  ItemService extends PsService
         $itmTableColumns = getAllCoreFields($this->itmTableName);
         $backendSetting = $this->backendSettingService->getBackendSetting();
         $systemConfig = SystemConfig::first();
+        $setting = $this->systemConfigService->getJsonSystemConfig(); 
+        $selcted_array = json_decode($setting->setting, true);
+        $ref_array = json_decode($setting->ref_selection, true);
 
         $backendSettings = $this->backendSettingService->getBackendSetting();
 
@@ -2726,6 +2749,10 @@ class  ItemService extends PsService
             "itmTableColumns" => $itmTableColumns,
             "backendSetting" => $backendSetting,
             "systemConfig" => $systemConfig,
+            'selected_price_type' =>  $selcted_array['selected_price_type']['id'],
+            'selected_chat_type' => $selcted_array['selected_chat_data']['id'],
+            'item_price_range' => $selcted_array['selected_price_type']['id'] == Constants::PRICE_RANGE ? $ref_array['item_price_range'] : [],
+
         ];
 
         return $dataArr;
@@ -2781,6 +2808,11 @@ class  ItemService extends PsService
             }
         }
 
+        $setting = $this->systemConfigService->getJsonSystemConfig();
+        $selcted_array = json_decode($setting->setting, true);
+        $ref_array = json_decode($setting->ref_selection, true);
+
+
 
 
         $dataArr = [
@@ -2797,7 +2829,10 @@ class  ItemService extends PsService
             'backendSettings' => $backendSettings,
             'paidItemProgressStatus' => $paidItemProgressStatus,
             'validation' => $validation,
-            'systemConfig' => $systemConfig
+            'systemConfig' => $systemConfig,
+            'selected_price_type' =>  $selcted_array['selected_price_type']['id'],
+            'selected_chat_type' => $selcted_array['selected_chat_data']['id'],
+            'item_price_range' => $selcted_array['selected_price_type']['id'] == Constants::PRICE_RANGE ? $ref_array['item_price_range'] : [],
 
         ];
 
@@ -3166,7 +3201,7 @@ class  ItemService extends PsService
             $flag = $this->dangerFlag;
         }
         if ($request->status == 'disable') {
-            if(isset($isPaidItem)){
+            if (isset($isPaidItem)) {
                 PaidItemHistory::where("item_id", $id)->update(['status' => 0]);
             }
             $item->status = $this->disableItem;
@@ -3197,10 +3232,6 @@ class  ItemService extends PsService
             $item = $this->getItem($request->item_id, $itemApiRelation);
             return $item;
         }
-
-
-
-
     }
 
     // item report
@@ -3704,7 +3735,7 @@ class  ItemService extends PsService
                     $coreFieldFilterSetting->placeholder = __($coreFieldFilterSetting->placeholder, [], $request->language_symbol);
                     $coreFieldFilterSetting->label_name = __($coreFieldFilterSetting->label_name, [], $request->language_symbol);
 
-                    if(MobileSetting::first()->is_show_subcategory == '1' || $coreFieldFilterSetting->field_name != 'subcategory_id@@name'){
+                    if (MobileSetting::first()->is_show_subcategory == '1' || $coreFieldFilterSetting->field_name != 'subcategory_id@@name') {
                         array_push($core, $coreFieldFilterSetting);
                     }
                     // $coreFieldObj->placeholder = isset($coreFieldFilterSetting->placeholder)?(string)$coreFieldFilterSetting->placeholder:'';
@@ -3813,33 +3844,30 @@ class  ItemService extends PsService
         // check permission end
 
         //caption update
-        if($request->img_caption){
+        if ($request->img_caption) {
 
-            foreach($request->img_caption as $caption){
-                if($caption['name'] != 'undefined'){
-                    $img = CoreImage::where('img_path',$caption['name'])->first();
+            foreach ($request->img_caption as $caption) {
+                if ($caption['name'] != 'undefined') {
+                    $img = CoreImage::where('img_path', $caption['name'])->first();
                     // dd($img);
-                    if($img){
+                    if ($img) {
                         $img->img_desc = $caption['value'];
                         $img->update();
                     }
                 }
-
             }
         }
 
         //order update with fe dropzone
-        if($request->img_order){
-            foreach($request->img_order as $order){
+        if ($request->img_order) {
+            foreach ($request->img_order as $order) {
 
-                    $img = CoreImage::where('id',$order['id'])->first();
-                    // dd($img);
-                    if($img){
-                        $img->ordering = $order['order'];
-                        $img->update();
-                    }
-
-
+                $img = CoreImage::where('id', $order['id'])->first();
+                // dd($img);
+                if ($img) {
+                    $img->ordering = $order['order'];
+                    $img->update();
+                }
             }
         }
         $systemConfig = $this->systemConfigService->getSystemConfig();
@@ -4240,8 +4268,8 @@ class  ItemService extends PsService
         /* End For Block User */
         $complaintItemIds = [];
         $complaintItems = ComplaintItem::where('reported_user_id', $request->login_user_id)->get();
-        if($complaintItems){
-            foreach($complaintItems as $complaintItem){
+        if ($complaintItems) {
+            foreach ($complaintItems as $complaintItem) {
                 array_push($complaintItemIds, $complaintItem->item_id);
             }
             $condsNotIn['complaintItemIds'] = $complaintItemIds;

@@ -1,7 +1,7 @@
 <template>
     <Head :title="$t('core__fe_password_reset_title')" />
     <div :class="isDarkMode ? 'dark' : ''">
-        <div class="mb-6 bg-feAchromatic-50 dark_bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
+        <div class="mb-6 bg-feAchromatic-50 dark:bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
             <div class="h-auto  sm:mt-32 lg:mt-36 mt-28 flex flex-row w-98 lg:w-202 rounded-md overflow-hidden shadow-md ">
                 <div class="hidden w-100  h-auto bg-feSecondary-900  lg:flex flex-col items-center justify-center">
                     <div class="w-65 h-50">
@@ -15,17 +15,17 @@
                         {{ $t('login__fe_description_best_deal') }}
                     </ps-label>
 
-                    <div class="flex flex-row text-feSecondary-50  dark_text-feSecondary-900  rtl:space-x-reverse space-x-4">
+                    <div class="flex flex-row text-feSecondary-50  dark:text-feSecondary-900  rtl:space-x-reverse space-x-4">
                         <ps-icon name="facebookCircle" />
                         <ps-icon name="instagramCircle" />
                         <ps-icon name="twitter" />
-                        <!-- <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-50" class="" name="apple-icon"
+                        <!-- <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-50" class="" name="apple-icon"
                             h="24" w="24" /> -->
                         <ps-icon name="pinterest" />
                         <ps-icon name="linkedIn" />
                     </div>
                 </div>
-                <div class="w-full lg:w-100 bg-feAchromatic-50 dark_bg-feSecondary-800 px-4 sm:px-10 pb-10">
+                <div class="w-full lg:w-100 bg-feAchromatic-50 dark:bg-feSecondary-800 px-4 sm:px-10 pb-10">
                     <!-- <img v-if="$page.props.backendLogo" :src="$page.props.uploadUrl + '/' + $page.props.backendLogo.img_path" width="50" height="50" class="m-auto my-2.5"/> -->
 
                     <div class="flex  justify-center">
@@ -38,12 +38,12 @@
                          <div class="mb-4">
                             <ps-label class="mb-2">{{ $t('core__fe_password_reset_password') }}</ps-label>
                             <ps-input-with-right-icon v-model:value="paramHolder.userPassword" ref="password"
-                                placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="bg-feAchromatic-50 dark_bg-feSecondary-800" :type="(isHide ? 'password' : 'text')"
+                                placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="bg-feAchromatic-50 dark:bg-feSecondary-800" :type="(isHide ? 'password' : 'text')"
                                 :placeholder="$t('core__fe_password_reset_password_placeholder')" >
                                 <template #icon>
                                     <ps-icon viewBox="0 0 24 24" @click="isHide = !isHide" class="cursor-pointer"
-                                        theme="text-feSecondary-800 dark_text-feSecondary-300"
+                                        theme="text-feSecondary-800 dark:text-feSecondary-300"
                                         :name="isHide ? 'eyeOff' : 'eye-on'" />
                                 </template>
                             </ps-input-with-right-icon>
@@ -53,12 +53,12 @@
                         <div class="mb-4">
                             <ps-label class="mb-2">{{ $t('core__fe_password_reset_conf_password') }}</ps-label>
                             <ps-input-with-right-icon v-model:value="paramHolder.confPassword" ref="password"
-                                placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="bg-feAchromatic-50 dark_bg-feSecondary-800" :type="(isHide1 ? 'password' : 'text')"
+                                placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="bg-feAchromatic-50 dark:bg-feSecondary-800" :type="(isHide1 ? 'password' : 'text')"
                                 :placeholder="$t('core__fe_password_reset_conf_password_placeholder')" >
                                 <template #icon>
                                     <ps-icon viewBox="0 0 24 24" @click="isHide1 = !isHide1" class="cursor-pointer"
-                                        theme="text-feSecondary-800 dark_text-feSecondary-300"
+                                        theme="text-feSecondary-800 dark:text-feSecondary-300"
                                         :name="isHide1 ? 'eyeOff' : 'eye-on'" />
                                 </template>
                             </ps-input-with-right-icon>
@@ -76,7 +76,7 @@
 
                         <div class="block mt-6 mb-2 lg:mb-44">
                             <ps-feSecondary-button 
-                            colors="bg-feAchromatic-50 dark_bg-feSecondary-800 text-feSecondary-800 dark_text-feSecondary-50"
+                            colors="bg-feAchromatic-50 dark:bg-feSecondary-800 text-feSecondary-800 dark:text-feSecondary-50"
                             @click="loginClicked" class="w-full">
                                 {{ $t('core__fe_verify_cancel') }}
                             </ps-feSecondary-button>
@@ -111,7 +111,7 @@ import { ref,reactive , computed} from 'vue';
 import { useStore } from 'vuex'
 import { trans } from 'laravel-vue-i18n';
 
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PsLabelHeader3 from "@template1/vendor/components/core/label/PsLabelHeader3.vue";
 import PsCard from "@/Components/Core/Card/PsCard.vue";
 // Params Holders
@@ -120,16 +120,12 @@ import PsLabelCaption from "@template1/vendor/components/core/label/PsLabelCapti
 import PsLoading from "@/Components/Core/Loading/PsLoading.vue";
 import WelcomeImage from "@/Components/Svgs/WelcomeImage.vue";
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faTrashAlt, faEdit, faStore, faStoreSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-library.add(faHeart, faTrashAlt, faEdit, faStore, faStoreSlash, faEye)
 
 import ResetPasswordParameterHolder from '@templateCore/object/holder/ResetPasswordParameterHolder';
 import PsStatus from '@templateCore/api/common/PsStatus';
 import PsConst from '@templateCore/object/constant/ps_constants';
 // import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 
 import { useAuthStore } from '../../store/AuthStore';
 
@@ -213,7 +209,7 @@ import { useAuthStore } from '../../store/AuthStore';
                 // );
                 ps_success_dialog.value.openModal(trans('core__fe_verify_login_success'), 
                 trans('core__fe_verify_psw_update_success'),trans('core__fe_verify_continue'),()=>{
-                    Inertia.get(route('login'));
+                    router.get(route('login'));
                 });
                 
             }   
@@ -221,7 +217,7 @@ import { useAuthStore } from '../../store/AuthStore';
 
             function loginClicked() {
                 // Redirect
-                Inertia.get(route('login'))
+                router.get(route('login'))
                 // authStore.navigateUserLoginTo("login", router, route.query.redirect, route.query, route.params);
             }
 

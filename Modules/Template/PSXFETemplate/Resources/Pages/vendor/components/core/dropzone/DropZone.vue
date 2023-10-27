@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, watch, defineComponent } from 'vue'
-import { Head, useForm, usePage } from "@inertiajs/inertia-vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
 import Sortable from 'sortablejs';
@@ -113,7 +113,7 @@ onMounted(function (e) {
             thumbnailHeight: 250,
 
             headers: {
-                'X-CSRF-TOKEN': usePage().props.value.csrf,
+                'X-CSRF-TOKEN': usePage().props.csrf,
             },
             acceptedFiles: "image/jpeg,image/png,image/jpg",
             autoProcessQueue: false,
@@ -149,8 +149,8 @@ onMounted(function (e) {
                         else {
                             file._defaultLabel = '';
                         }
-                        file._captionBox = Dropzone.createElement("<input class='block dark_bg-feAchromatic-800 w-full px-3 py-2 text-sm shadow-sm dark_placeholder-feSecondary-300 placeholder-feSecondary-500 text-feSecondary-500 dark_text-feSecondary-400 rounded border border-feSecondary-200 hover_border-feSecondary-400 dark_border-feSecondary-400 hover:dark_border-feSecondary-50 focus:outline-none focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400 opacity-100' id='" + file.upload.uuid + "' type='text' name='caption[]'  value='" + caption + "'>");
-                        file._order = Dropzone.createElement("<input class='block dark_bg-feAchromatic-800 w-full px-3 py-2 text-sm shadow-sm dark_placeholder-feSecondary-300 placeholder-feSecondary-500 text-feSecondary-500 dark_text-feSecondary-400 rounded border border-feSecondary-200 hover_border-feSecondary-400 dark_border-feSecondary-400 hover:dark_border-feSecondary-50 focus:outline-none focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400 opacity-100' id='" + file.upload.uuid + "' type='hidden' name='order[]'  value='" + (myDropzone.value.getAcceptedFiles().length + 1) + "'>");
+                        file._captionBox = Dropzone.createElement("<input class='block dark:bg-feAchromatic-800 w-full px-3 py-2 text-sm shadow-sm dark:placeholder-feSecondary-300 placeholder-feSecondary-500 text-feSecondary-500 dark:text-feSecondary-400 rounded border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focus:border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400 opacity-100' id='" + file.upload.uuid + "' type='text' name='caption[]'  value='" + caption + "'>");
+                        file._order = Dropzone.createElement("<input class='block dark:bg-feAchromatic-800 w-full px-3 py-2 text-sm shadow-sm dark:placeholder-feSecondary-300 placeholder-feSecondary-500 text-feSecondary-500 dark:text-feSecondary-400 rounded border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focus:border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400 opacity-100' id='" + file.upload.uuid + "' type='hidden' name='order[]'  value='" + (myDropzone.value.getAcceptedFiles().length + 1) + "'>");
                         // file._preview = Dropzone.createElement("<div class='flex justify-center'> <button type='button' >Preview</button></div>");
                         file.previewElement.appendChild(file._captionLabel);
 
@@ -317,7 +317,7 @@ onMounted(function (e) {
             const sortedImages = props.images.sort((a, b) => a.ordering - b.ordering);
 
             sortedImages.forEach((element) => {
-                var url = usePage().props.value.uploadUrl + '/' + element.imgPath;
+                var url = usePage().props.uploadUrl + '/' + element.imgPath;
                 let mockFile = { name: element.imgPath, filename: element.imgPath, caption: element.imgDesc, upload: { filename: element.imgPath, uuid: element.imgId }, size: 12345, accepted: true };
                 myDropzone.value.displayExistingFile(mockFile, url);
                 myDropzone.value.createThumbnailFromUrl(mockFile, url);

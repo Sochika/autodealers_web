@@ -32,55 +32,93 @@
                                     <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{ errors.title }}</ps-label-caption>
                                 </div>
 
-                                <!-- original price-->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'original_price' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
-                                    <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input ref="original_price" type="text" v-model:value="form.original_price" :placeholder="$t(coreField.placeholder)"
-                                        @keyup="[coreField.mandatory=1?validatePriceInput('original_price',form.original_price):'', handleUnitPrice()]"
-                                        @blur="[coreField.mandatory=1?validatePriceInput('original_price',form.original_price):'', handleUnitPrice()]"
-                                        @keypress="[coreField.mandatory=1?onlyNumberWithCustom:'', handleUnitPrice()]"
-                                        />
-                                    <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{ errors.original_price }}</ps-label-caption>
-                                </div>
+                                <div v-if="selected_price_type == PsConst.NORMAL_PRICE">
 
-                                <!-- sale price-->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'price' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
-                                    <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input :readonly="true" ref="price" type="text" v-model:value="form.price" :placeholder="$t(coreField.placeholder)"
-                                        @keyup="coreField.mandatory=1?validatePriceInput('price',form.price):''" @blur="coreField.mandatory=1?validatePriceInput('price',form.price):''" @keypress="coreField.mandatory=1?onlyNumberWithCustom:''" />
-                                    <ps-label-caption v-if="coreField.mandatory=1" textColor="text-red-500 " class="mt-2 block">{{ errors.price }}</ps-label-caption>
-                                </div>
+                                    <!-- original price-->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'original_price' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
+                                        <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input ref="original_price" type="text" v-model:value="form.original_price" :placeholder="$t(coreField.placeholder)"
+                                            @keyup="[coreField.mandatory=1?validatePriceInput('original_price',form.original_price):'', handleUnitPrice()]"
+                                            @blur="[coreField.mandatory=1?validatePriceInput('original_price',form.original_price):'', handleUnitPrice()]"
+                                            @keypress="[coreField.mandatory=1?onlyNumberWithCustom:'', handleUnitPrice()]"
+                                            />
+                                        <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{ errors.original_price }}</ps-label-caption>
+                                    </div>
 
-                                <!-- for currency dropdown -->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'currency_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
-                                    <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-dropdown align="left" class="lg:mt-2 mt-1 w-full">
-                                        <template #select>
-                                            <ps-dropdown-select ref="currency" :placeholder="$t(coreField.placeholder)" :showCenter="true"
-                                                :selectedValue="form.currency_id == '' ? '': currencies.filter((currency) => currency.id == form.currency_id)[0].currency_short_form"
-                                                @change="coreField.mandatory=1?validateEmptyInput('currency_id', form.currency_id ):''"
-                                                @blur="coreField.mandatory=1?validateEmptyInput('currency_id',form.currency_id):''" />
-                                        </template>
-                                        <template #list>
-                                            <div class="rounded-md shadow-xs w-full bg-background dark:bg-backgroundDark">
-                                                <div class="pt-2 z-30">
-                                                    <div v-if="currencies.length == null">
-                                                        <ps-label class="p-2 flex" @click="route('currency.index')">{{$t('core__be_add_new_currency')}}</ps-label>
-                                                    </div>
-                                                    <div v-else>
-                                                        <div v-for="currency in currencies" :key="currency.id"
-                                                            class="w-96 flex py-4 px-2 hover:bg-primary-000 dark:hover:bg-secondary-700 cursor-pointer items-center"
-                                                            @click="[(form.currency_id = currency.id), coreField.mandatory=1?validateEmptyInput('currency_id',form.currency_id):'']">
-                                                            <ps-label class="ms-2" :class="currency.id == form.currency_id ? ' font-bold' : '' ">{{ currency.currency_short_form }}</ps-label>
+                                    <!-- sale price-->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'price' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
+                                        <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input :readonly="true" ref="price" type="text" v-model:value="form.price" :placeholder="$t(coreField.placeholder)"
+                                            @keyup="coreField.mandatory=1?validatePriceInput('price',form.price):''" @blur="coreField.mandatory=1?validatePriceInput('price',form.price):''" @keypress="coreField.mandatory=1?onlyNumberWithCustom:''" />
+                                        <ps-label-caption v-if="coreField.mandatory=1" textColor="text-red-500 " class="mt-2 block">{{ errors.price }}</ps-label-caption>
+                                    </div>
+
+                                    <!-- for currency dropdown -->
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'currency_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
+                                        <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-dropdown align="left" class="lg:mt-2 mt-1 w-full">
+                                            <template #select>
+                                                <ps-dropdown-select ref="currency" :placeholder="$t(coreField.placeholder)" :showCenter="true"
+                                                    :selectedValue="form.currency_id == '' ? '': currencies.filter((currency) => currency.id == form.currency_id)[0].currency_short_form"
+                                                    @change="coreField.mandatory=1?validateEmptyInput('currency_id', form.currency_id ):''"
+                                                    @blur="coreField.mandatory=1?validateEmptyInput('currency_id',form.currency_id):''" />
+                                            </template>
+                                            <template #list>
+                                                <div class="rounded-md shadow-xs w-full bg-background dark:bg-backgroundDark">
+                                                    <div class="pt-2 z-30">
+                                                        <div v-if="currencies.length == null">
+                                                            <ps-label class="p-2 flex" @click="route('currency.index')">{{$t('core__be_add_new_currency')}}</ps-label>
+                                                        </div>
+                                                        <div v-else>
+                                                            <div v-for="currency in currencies" :key="currency.id"
+                                                                class="w-96 flex py-4 px-2 hover:bg-primary-000 dark:hover:bg-secondary-700 cursor-pointer items-center"
+                                                                @click="[(form.currency_id = currency.id), coreField.mandatory=1?validateEmptyInput('currency_id',form.currency_id):'']">
+                                                                <ps-label class="ms-2" :class="currency.id == form.currency_id ? ' font-bold' : '' ">{{ currency.currency_short_form }}</ps-label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </template>
-                                    </ps-dropdown>
-                                    <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{errors.currency_id}}</ps-label-caption>
+                                            </template>
+                                        </ps-dropdown>
+                                        <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{errors.currency_id}}</ps-label-caption>
+                                    </div>
+                                    <!-- end currency -->
                                 </div>
-                                <!-- end currency -->
+
+                                <div v-if="selected_price_type == PsConst.PRICE_RANGE">
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'original_price' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
+                                        <!-- <ps-label class="text-base">{{ $t(coreField.label_name)}}
+
+                                        </ps-label> -->
+
+                                        <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory=1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-dropdown align="left" class="lg:mt-2 mt-1 w-full">
+                                            <template #select>
+                                                <ps-dropdown-select  :placeholder="$t(coreField.placeholder)" :showCenter="true"
+                                                    :selectedValue="form.original_price == '' ? '' : item_price_range.item_price_range_selections.filter((price) => price.id == form.original_price)[0].value"
+                                                    @change="[ coreField.mandatory=1?validateEmptyInput('original_price',form.original_price):'',]"
+                                                    @blur="coreField.mandatory=1?validateEmptyInput('original_price',form.original_price):''"
+                                                    />
+                                            </template>
+                                            <template #list>
+                                                <div class="rounded-md shadow-xs w-full bg-background dark:bg-backgroundDark">
+                                                    <div class="pt-2 z-30">
+
+
+                                                            <div v-for="price in item_price_range.item_price_range_selections" :key="price.id"
+                                                                class="w-96 flex py-4 px-2 hover:bg-primary-000 dark:hover:bg-secondary-700 cursor-pointer items-center"
+                                                                @click="[(form.original_price = price.id), coreField.mandatory=1?validateEmptyInput( 'original_price', form.original_price ):'',]">
+                                                                <ps-label class="ms-2" :class=" price.id == form.original_price ? ' font-bold' : '' ">{{ price.value }}</ps-label>
+                                                            </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </ps-dropdown>
+                                        <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{ errors.original_price }}</ps-label-caption>
+                                    </div>
+                                </div>
 
                                 <!-- for category dropdown -->
                                 <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'category_id' && coreField.enable === 1 && coreField.is_delete === 0)" :key="index">
@@ -234,15 +272,17 @@
                                     <ps-label-caption v-if="coreField.mandatory==1" textColor="text-red-500 " class="mt-2 block">{{ errors.description }}</ps-label-caption>
                                 </div>
 
-                                <!-- percent -->
-                                <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'percent' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
-                                    <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory==1" class="text-red-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input ref="percent" type="text" v-model:value="form.percent" :placeholder="$t(coreField.placeholder)"
-                                        @keyup="[coreField.mandatory=1?validatePriceInput('percent',form.percent):'', handleUnitPrice()]"
-                                        @blur="[coreField.mandatory=1?validatePriceInput('percent',form.percent):'', handleUnitPrice()]"
-                                        @keypress="[coreField.mandatory=1?onlyNumberWithCustom:'', handleUnitPrice()]" />
-                                    <ps-label-caption v-if="coreField.mandatory=1" textColor="text-red-500 " class="mt-2 block">{{ errors.percent }}</ps-label-caption>
+                                <div v-if="selected_price_type == PsConst.NORMAL_PRICE">
+                                    <div class="md:me-6 sm:me-0" v-for="(coreField, index) in coreFieldFilterSettings.filter((coreField) => coreField.original_field_name === 'percent' && coreField.enable === 1 && coreField.is_delete === 0 )" :key="index">
+                                        <ps-label class="text-base">{{ $t(coreField.label_name) }}<span v-if="coreField.mandatory==1" class="text-red-800 font-medium ms-1">*</span></ps-label>
+                                        <ps-input ref="percent" type="text" v-model:value="form.percent" :placeholder="$t(coreField.placeholder)"
+                                            @keyup="[coreField.mandatory=1?validatePriceInput('percent',form.percent):'', handleUnitPrice()]"
+                                            @blur="[coreField.mandatory=1?validatePriceInput('percent',form.percent):'', handleUnitPrice()]"
+                                            @keypress="[coreField.mandatory=1?onlyNumberWithCustom:'', handleUnitPrice()]" />
+                                        <ps-label-caption v-if="coreField.mandatory=1" textColor="text-red-500 " class="mt-2 block">{{ errors.percent }}</ps-label-caption>
+                                    </div>
                                 </div>
+                                <!-- percent -->
 
                                 <!-- custom field start -->
                                 <div v-for="(custom_field_header) in customizeHeaders.filter((custom) => custom.core_keys_id != 'ps-itm00009')" :key="custom_field_header.id">
@@ -620,7 +660,7 @@ import axios from 'axios';
 import { defineComponent, defineAsyncComponent, ref } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
-import { Head, useForm,usePage } from "@inertiajs/inertia-vue3";
+import { Head, useForm,usePage } from "@inertiajs/vue3";
 import useValidators from "@/Validation/Validators";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsRadioValue from "@/Components/Core/Radio/PsRadioValue.vue";
@@ -647,6 +687,8 @@ import Dropzone from "@/Components/Core/Dropzone/Dropzone.vue"
 const GoogleMapPinPicker = defineAsyncComponent(() => import("@/Components/Core/Map/GoogleMapPinPicker.vue"));
 const OpenStreetMapPinPicker = defineAsyncComponent(() => import("@/Components/Core/Map/OpenStreetMapPinPicker.vue"));
 import { trans } from "laravel-vue-i18n";
+import PsConst from '@templateCore/object/constant/ps_constants';
+
 
 
 import vueFilePond,{ setOptions } from "vue-filepond";
@@ -717,6 +759,8 @@ export default defineComponent({
         "backendSetting",
         "systemConfig",
         "backendSettings",
+        "selected_price_type",
+        "item_price_range",
     ],
     data() {
         return {
@@ -823,7 +867,7 @@ export default defineComponent({
             location_township_id: "",
             price: "",
             percent: "0",
-            original_price: "",
+            original_price: props.selected_price_type == PsConst.NO_PRICE? 0 : '',
             lat: "",
             lng: "",
             status: true,
@@ -856,7 +900,7 @@ export default defineComponent({
                         method: 'POST',
                         withCredentials: false,
                         headers: {
-                            'X-CSRF-TOKEN':  usePage().props.value.csrf,
+                            'X-CSRF-TOKEN':  usePage().props.csrf,
                         },
                         timeout: 7000,
                         onload: null,
@@ -1043,6 +1087,7 @@ export default defineComponent({
             handleFilePondLoad,
             handleFilePondRemove,
             handleFilePondRevert,
+            PsConst
 
         };
     },

@@ -1,6 +1,6 @@
 <template>
   <label class="checkbox-label">
-    <input type="checkbox" class="w-6 h-6 text-fePrimary-500 bg-feAchromatic-50 border-feSecondary-300 rounded focus_ring-fePrimary-500 focus_ring-2 dark_bg-feSecondary-800 dark:checked:bg-fePrimary-500 dark_border-feSecondary-300" :checked="getValue()" @input="handleInput($event.target.checked)" />
+    <input type="checkbox" class="w-6 h-6 text-fePrimary-500 bg-feAchromatic-50 border-feSecondary-300 rounded focus:ring-fePrimary-500 focus:ring-2 dark:bg-feSecondary-800 dark:checked:bg-fePrimary-500 dark:border-feSecondary-300" :checked="getValue()" @input="handleInput($event.target.checked)" />
     <!-- <span class="circle-checkbox"></span> -->
   </label>
 </template>

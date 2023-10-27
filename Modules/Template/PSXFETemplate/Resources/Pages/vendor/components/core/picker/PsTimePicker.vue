@@ -1,14 +1,14 @@
 <template>
-    <div class="bg-fePrimary-50 dark_bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl h-auto ms-4">
+    <div class="bg-fePrimary-50 dark:bg-feAchromatic-800 p-3 lg:rounded-2xl rounded-xl h-auto ms-4">
         <div class="flex">
             <ps-dropdown align="left" class=' w-full' >
                 <template #select>
                    <button
                         type="button"
                         class="shadow-sm inline-flex items-center content-start
-                        text-sm leading-5 font-medium text-feSecondary-500 dark_text-feAchromatic-50
-                                 focus:outline-none focus_border-fePrimary-300 
-                                focus:shadow-outline-blue active_bg-feAchromatic-100 active_text-feSecondary-600 transition 
+                        text-sm leading-5 font-medium text-feSecondary-500 dark:text-feAchromatic-50
+                                 focus:outline-none focus:border-fePrimary-300 
+                                focus:shadow-outline-blue active:bg-feAchromatic-100 active:text-feSecondary-600 transition 
                                 ease-in-out duration-150 btn-focus"
                         id="options-menu"
                         aria-haspopup="true"
@@ -19,7 +19,7 @@
                 <template #list >
                     <div class="rounded-md shadow-xs w-14" >
                         <div class="pt-1 z-30">
-                            <div v-for="i in 13" :value="i-1" :key="i-1" class="cursor-pointer text-center text-feSecondary-500 dark_text-feAchromatic-50" @click="handleHourInput(('00'+(i-1)).slice(-2))" > 
+                            <div v-for="i in 13" :value="i-1" :key="i-1" class="cursor-pointer text-center text-feSecondary-500 dark:text-feAchromatic-50" @click="handleHourInput(('00'+(i-1)).slice(-2))" > 
                                 <ps-label> {{('00'+(i-1)).slice(-2)}} </ps-label>
                             </div>      
                         </div>
@@ -35,9 +35,9 @@
                    <button
                         type="button"
                         class="shadow-sm inline-flex items-center content-start
-                        text-sm leading-5 font-medium text-feSecondary-500 dark_text-feAchromatic-50
-                                 focus:outline-none focus_border-fePrimary-300 
-                                focus:shadow-outline-blue active_bg-feAchromatic-100 active_text-feSecondary-600 transition 
+                        text-sm leading-5 font-medium text-feSecondary-500 dark:text-feAchromatic-50
+                                 focus:outline-none focus:border-fePrimary-300 
+                                focus:shadow-outline-blue active:bg-feAchromatic-100 active:text-feSecondary-600 transition 
                                 ease-in-out duration-150 btn-focus"
                         id="options-menu"
                         aria-haspopup="true"
@@ -48,7 +48,7 @@
                 <template #list >
                     <div class="rounded-md shadow-xs w-14" >
                         <div class="pt-1 z-30">
-                            <div v-for="i in 60" :value="i-1" :key="i-1" class="cursor-pointer text-center text-feSecondary-500 dark_text-feAchromatic-50" @click="handleMinuteInput(('00'+(i-1)).slice(-2))" > 
+                            <div v-for="i in 60" :value="i-1" :key="i-1" class="cursor-pointer text-center text-feSecondary-500 dark:text-feAchromatic-50" @click="handleMinuteInput(('00'+(i-1)).slice(-2))" > 
                                 <ps-label> {{('00'+(i-1)).slice(-2)}} </ps-label>
                             </div>      
                         </div>
@@ -63,9 +63,9 @@
                    <button
                         type="button"
                         class="shadow-sm inline-flex items-center content-start
-                        text-sm leading-5 font-medium text-feSecondary-500 dark_text-feAchromatic-50
-                                 focus:outline-none focus_border-fePrimary-300 
-                                focus:shadow-outline-blue active_bg-feAchromatic-100 active_text-feSecondary-600transition 
+                        text-sm leading-5 font-medium text-feSecondary-500 dark:text-feAchromatic-50
+                                 focus:outline-none focus:border-fePrimary-300 
+                                focus:shadow-outline-blue active:bg-feAchromatic-100 active:text-feSecondary-600transition 
                                 ease-in-out duration-150 btn-focus"
                         id="options-menu"
                         aria-haspopup="true"
@@ -76,10 +76,10 @@
                 <template #list >
                     <div class="rounded-md shadow-xs w-14" >
                         <div class="pt-1 z-30">
-                            <div class="cursor-pointer text-center text-feSecondary-500 dark_text-feAchromatic-50" @click="handleAmPmInput('1')" > 
+                            <div class="cursor-pointer text-center text-feSecondary-500 dark:text-feAchromatic-50" @click="handleAmPmInput('1')" > 
                                 <ps-label> AM </ps-label>
                             </div>
-                            <div class="cursor-pointer text-center text-feSecondary-500 dark_text-feAchromatic-50" @click="handleAmPmInput('2')" > 
+                            <div class="cursor-pointer text-center text-feSecondary-500 dark:text-feAchromatic-50" @click="handleAmPmInput('2')" > 
                                 <ps-label> PM </ps-label>
                             </div>      
                         </div>

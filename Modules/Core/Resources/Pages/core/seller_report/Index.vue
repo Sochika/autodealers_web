@@ -135,7 +135,7 @@
 
 <script>
 import { ref, defineComponent } from "vue";
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -150,7 +150,7 @@ import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
 import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -259,7 +259,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('seller_report.index'),
+            router.get(route('seller_report.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -346,7 +346,7 @@ export default defineComponent({
             this.$inertia.get(route('seller_report.show',id));
         },
         // FilterOptionshandle(value) {
-        //     Inertia.post(route('user.screenDisplayUiSetting.store'),
+        //     router.post(route('user.screenDisplayUiSetting.store'),
         //         {
         //             value,
         //             sort_field: this.sort_field,

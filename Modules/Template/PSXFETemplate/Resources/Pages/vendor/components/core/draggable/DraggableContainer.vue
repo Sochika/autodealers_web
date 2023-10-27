@@ -1,5 +1,5 @@
 <template>
-  <draggable class="flex flex-wrap" :list="list" @change="log">
+  <!-- <draggable class="flex flex-wrap" :list="list" @change="log"> -->
   <slot></slot>
   <!--<div
     class="list-styles"
@@ -8,16 +8,16 @@
   >
     {{ element.name }}
   </div>-->
-</draggable>
+<!-- </draggable> -->
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
+// import { VueDraggableNext } from 'vue-draggable-next'
 
 export default defineComponent({
   components: {
-    draggable: VueDraggableNext,
+    // draggable: VueDraggableNext,
   },
   props : {
     list : [] as any ,

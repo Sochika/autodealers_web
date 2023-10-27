@@ -10,8 +10,8 @@
                 <div class="flex flex-col">
                     <div class="lg:my-12 mt-7 mb-12">
                         <div class="text-center sm:mb-10 mb-6">
-                            <ps-label-header-3 textColor="dark_text-feSecondary-200 text-feSecondary-800" class="font-semibold sm:mb-8 mb-4"> {{notiStore.noti?.data?.message}} </ps-label-header-3>
-                            <p class="text-sm font-medium text-feSecondary-500 dark_text-feSecondary-400">Admin <span class="mx-6">|</span> {{ moment(notiStore.noti?.data?.addedDate).format($page.props.dateFormat)}}</p>
+                            <ps-label-header-3 textColor="dark:text-feSecondary-200 text-feSecondary-800" class="font-semibold sm:mb-8 mb-4"> {{notiStore.noti?.data?.message}} </ps-label-header-3>
+                            <p class="text-sm font-medium text-feSecondary-500 dark:text-feSecondary-400">Admin <span class="mx-6">|</span> {{ moment(notiStore.noti?.data?.addedDate).format($page.props.dateFormat)}}</p>
                         </div>
 
                         <div class=" w-auto cursor-pointer">
@@ -20,7 +20,7 @@
                             >
                             <div class="lg:mt-8 mt-6 md:w-3/4 md:mx-auto">
                                 <p v-if="notiStore.noti.data != null">
-                                    <span class="font-normal text-base text-feSecondary-600 dark_text-feSecondary-200" v-html="notiStore.noti.data?.description"> </span>
+                                    <span class="font-normal text-base text-feSecondary-600 dark:text-feSecondary-200" v-html="notiStore.noti.data?.description"> </span>
                                 </p>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 //Vue
 import PsLabelTitle from '@template1/vendor/components/core/label/PsLabelTitle.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';

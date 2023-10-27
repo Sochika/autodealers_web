@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Core\Http\Controllers\Backend\Controllers\Item;
 
 use App\Config\ps_config;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Modules\Core\Constants\Constants;
 use Modules\Core\Entities\CoreImage;
+use Modules\Core\Entities\Currency;
 use Modules\Core\Entities\BackendSetting;
 // use Modules\Core\Entities\Item;
 use Modules\Core\Http\Services\ItemService;
@@ -23,14 +25,14 @@ use Illuminate\Support\Facades\File;
 class ItemController extends Controller
 {
     const parentPath = "item/";
-    const indexPath = self::parentPath.'Index';
-    const createPath = self::parentPath.'Create';
-    const editPath = self::parentPath.'Edit';
+    const indexPath = self::parentPath . 'Index';
+    const createPath = self::parentPath . 'Create';
+    const editPath = self::parentPath . 'Edit';
     const indexRoute = "item.index";
 
-    protected $imageService,$paginationPerPage,$coreFieldFilterSettingService, $systemConfigService, $dangerFlag ,$successFlag, $itemService, $code, $parentPath, $getImgPath, $coreFieldFilterForRelation, $viewAnyAbility ,$createAbility, $editAbility, $deleteAbility;
+    protected $imageService, $paginationPerPage, $coreFieldFilterSettingService, $systemConfigService, $dangerFlag, $successFlag, $itemService, $code, $parentPath, $getImgPath, $coreFieldFilterForRelation, $viewAnyAbility, $createAbility, $editAbility, $deleteAbility;
 
-    public function __construct(CoreFieldFilterSettingService $coreFieldFilterSettingService,ImageService $imageService,ItemService $itemService, SystemConfigService $systemConfigService)
+    public function __construct(CoreFieldFilterSettingService $coreFieldFilterSettingService, ImageService $imageService, ItemService $itemService, SystemConfigService $systemConfigService)
     {
         $this->itemService = $itemService;
         $this->systemConfigService = $systemConfigService;
@@ -52,10 +54,11 @@ class ItemController extends Controller
 
     public function index(Request $request)
     {
+        
         $dataArr = $this->itemService->index($request);
         // check permission
         $checkPermission = $dataArr["checkPermission"];
-        if (!empty($checkPermission)){
+        if (!empty($checkPermission)) {
             return $checkPermission;
         }
         // Session::put('items_url',request()->fullUrl());
@@ -71,7 +74,7 @@ class ItemController extends Controller
         $dataArr = $this->itemService->create(self::indexRoute);
         // check permission
         $checkPermission = $dataArr["checkPermission"];
-        if (!empty($checkPermission)){
+        if (!empty($checkPermission)) {
             return $checkPermission;
         }
         return renderView(self::createPath, $dataArr);
@@ -81,7 +84,13 @@ class ItemController extends Controller
     {
         // dd($request->all());
         //prepare for validation
-        $errors = validateForCustomField($this->code,$request->product_relation);
+        $errors = validateForCustomField($this->code, $request->product_relation);
+
+        $selcted_array = $this->systemConfigService->getSystemSettingJson();
+        
+        if ($selcted_array['selected_price_type']['id'] == "PRICE_RANGE") {
+            $default_currency = Currency::where([Currency::isDefault => 1])->first();
+        }
 
         $coreFieldsIds = [];
         $errors = [];
@@ -93,115 +102,114 @@ class ItemController extends Controller
         $coreFields = $this->coreFieldFilterSettingService->getCoreFieldsWithConds($cond);
 
         // $coreFields = CoreFieldFilterSetting::where('module_name',)->where('mandatory',1)->where('is_core_field',1)->get();
-        foreach ($coreFields as $key => $value){
-            if (str_contains($value->field_name,"@@")) {
-                $originFieldName = strstr($value->field_name,"@@",true);
+        foreach ($coreFields as $key => $value) {
+            if (str_contains($value->field_name, "@@")) {
+                $originFieldName = strstr($value->field_name, "@@", true);
             } else {
                 $originFieldName = $value->field_name;
             }
-            array_push($coreFieldsIds,$originFieldName);
-
+            array_push($coreFieldsIds, $originFieldName);
         }
 
 
         $validationArr = [];
 
-        if(in_array('title',$coreFieldsIds)){
-            $validationArr['title'] = 'required|min:3|unique:psx_items,title,'.$request->id;
+        if (in_array('title', $coreFieldsIds)) {
+            $validationArr['title'] = 'required|min:3|unique:psx_items,title,' . $request->id;
         }
-        if(in_array('description',$coreFieldsIds)){
+        if (in_array('description', $coreFieldsIds)) {
             $validationArr['description'] = 'required|min:10';
         }
-        if(in_array('category_id',$coreFieldsIds)){
+        if (in_array('category_id', $coreFieldsIds)) {
             $validationArr['category_id'] = 'required|exists:psx_categories,id';
         }
-        if(in_array('subcategory_id',$coreFieldsIds)){
+        if (in_array('subcategory_id', $coreFieldsIds)) {
             $validationArr['subcategory_id'] = 'required|exists:psx_subcategories,id';
         }
-        if(in_array('location_city_id',$coreFieldsIds)){
+        if (in_array('location_city_id', $coreFieldsIds)) {
             $validationArr['location_city_id'] = 'required|exists:psx_location_cities,id';
         }
-        if(in_array('location_township_id',$coreFieldsIds)){
+        if (in_array('location_township_id', $coreFieldsIds)) {
             $validationArr['location_township_id'] = 'required|exists:psx_location_townships,id';
         }
-        if(in_array('currency_id',$coreFieldsIds)){
-            $validationArr['currency_id'] = 'required|exists:psx_currencies,id';
+        if (in_array('currency_id', $coreFieldsIds)) {
+            if ($selcted_array['selected_price_type']['id'] == "NORMAL_PRICE") {
+                $validationArr['currency_id'] = 'required|exists:psx_currencies,id';
+            }
         }
         // if(in_array('price',$coreFieldsIds)){
         //     $validationArr['price'] = 'required';
         // }
-        if(in_array('original_price',$coreFieldsIds)){
-            $validationArr['original_price'] = 'required';
-        }
+        $validationArr['original_price'] = 'required|max:6';
         if(in_array('percent',$coreFieldsIds)){
             $validationArr['percent'] = 'required';
         }
-        if(in_array('lat',$coreFieldsIds)){
+        if (in_array('lat', $coreFieldsIds)) {
             $validationArr['lat'] = 'required';
         }
-        if(in_array('lng',$coreFieldsIds)){
+        if (in_array('lng', $coreFieldsIds)) {
             $validationArr['lng'] = 'required';
         }
-        if(in_array('shop_id',$coreFieldsIds)){
+        if (in_array('shop_id', $coreFieldsIds)) {
             $validationArr['shop_id'] = 'required';
         }
-        if(in_array('search_tag',$coreFieldsIds)){
+        if (in_array('search_tag', $coreFieldsIds)) {
             $validationArr['search_tag'] = 'required';
         }
-        if(in_array('ordering',$coreFieldsIds)){
+        if (in_array('ordering', $coreFieldsIds)) {
             $validationArr['ordering'] = 'required';
         }
-        if(in_array('is_discount',$coreFieldsIds)){
+        if (in_array('is_discount', $coreFieldsIds)) {
             $validationArr['is_discount'] = 'required';
         }
-        if(in_array('phone',$coreFieldsIds)){
+        if (in_array('phone', $coreFieldsIds)) {
             $validationArr['phone'] = 'required';
         }
-        if(in_array('phone',$coreFieldsIds)){
+        if (in_array('phone', $coreFieldsIds)) {
             $validationArr['phone'] = 'required';
         }
-        if(in_array('item_image',$coreFieldsIds)){
+        if (in_array('item_image', $coreFieldsIds)) {
             // $validationArr['cover'] = 'required|image';
             $validationArr['images'] = 'required';
-        }else{
+        } else {
             // $validationArr['cover'] = 'nullable|sometimes|image';
             // $validationArr['images'] = 'required';
         }
-        if(in_array('Item Video Icon',$coreFieldsIds)){
+        if (in_array('Item Video Icon', $coreFieldsIds)) {
             $validationArr['video_icon'] = 'required|image';
-        }else{
+        } else {
             $validationArr['video_icon'] = 'nullable|sometimes|image';
         }
-        if(in_array('item_video',$coreFieldsIds)){
+        if (in_array('item_video', $coreFieldsIds)) {
             $validationArr['video'] = 'required|mimetypes:video/mp4';
-        }else{
+        } else {
             $validationArr['video'] = 'nullable|sometimes|mimetypes:video/mp4';
         }
-
+        $attributes['original_price.max'] = "The original price must not be greater than 6 digits.";
         //prepare validation for core filed
-        $validator = Validator::make($request->all(),$validationArr
+        $validator = Validator::make($request->all(),$validationArr, $attributes
         //  [
             // 'cover' => 'nullable|file|mimes:jpg,png,jpeg',
             // 'video_icon' => 'nullable|file|mimes:jpg,png,jpeg',
             // 'video' => 'nullable|file|mimes:mp4|max:1500'
-        // ]
+            // ]
         );
 
 
         if ($validator->fails()) {
-            return redirect()->route('item.create')->with('product_relation_errors',$errors)
+            return redirect()->route('item.create')->with('product_relation_errors', $errors)
                 ->withErrors($validator)
                 ->withInput();
         } else {
 
-            if (collect($errors)->isNotEmpty()){
-                return redirect()->route('item.create')->with('product_relation_errors',$errors);
+            if (collect($errors)->isNotEmpty()) {
+                return redirect()->route('item.create')->with('product_relation_errors', $errors);
             }
         }
 
         /// validation end
         $product = $this->itemService->store($request);
-        if (isset($product['error'])){
+        if (isset($product['error'])) {
             // go back to index
             $msg = $product['error'];
             return redirectView(self::indexRoute, $msg, $this->dangerFlag);
@@ -232,11 +240,11 @@ class ItemController extends Controller
     {
         // dd($request->all());
         //prepare for validation
-        $default_images= CoreImage::where('img_type','item')->where('img_parent_id',$request->id)->count();
+        $default_images = CoreImage::where('img_type', 'item')->where('img_parent_id', $request->id)->count();
         // dd($default_images);
 
 
-        $errors = validateForCustomField($this->code,$request->product_relation);
+        $errors = validateForCustomField($this->code, $request->product_relation);
 
 
         // //validation
@@ -266,79 +274,77 @@ class ItemController extends Controller
         $coreFields = $this->coreFieldFilterSettingService->getCoreFieldsWithConds($cond);
 
         // $coreFields = CoreFieldFilterSetting::where('module_name',)->where('mandatory',1)->where('is_core_field',1)->get();
-        foreach ($coreFields as $key => $value){
-            if (str_contains($value->field_name,"@@")) {
-                $originFieldName = strstr($value->field_name,"@@",true);
+        foreach ($coreFields as $key => $value) {
+            if (str_contains($value->field_name, "@@")) {
+                $originFieldName = strstr($value->field_name, "@@", true);
             } else {
                 $originFieldName = $value->field_name;
             }
-            array_push($coreFieldsIds,$originFieldName);
-
+            array_push($coreFieldsIds, $originFieldName);
         }
 
         // dd($coreFieldsIds);
         $validationArr = [];
 
-        if($default_images == 0){
+        if ($default_images == 0) {
 
-            if(in_array('item_image',$coreFieldsIds)){
+            if (in_array('item_image', $coreFieldsIds)) {
                 // $validationArr['cover'] = 'required|image';
                 $validationArr['images'] = 'required';
             }
         }
 
-        if(in_array('title',$coreFieldsIds)){
-            $validationArr['title'] = 'required|min:3|unique:psx_items,title,'.$request->id;
+        if (in_array('title', $coreFieldsIds)) {
+            $validationArr['title'] = 'required|min:3|unique:psx_items,title,' . $request->id;
         }
-        if(in_array('description',$coreFieldsIds)){
+        if (in_array('description', $coreFieldsIds)) {
             $validationArr['description'] = 'required|min:10';
         }
-        if(in_array('category_id',$coreFieldsIds)){
+        if (in_array('category_id', $coreFieldsIds)) {
             $validationArr['category_id'] = 'required|exists:psx_categories,id';
         }
-        if(in_array('subcategory_id',$coreFieldsIds)){
+        if (in_array('subcategory_id', $coreFieldsIds)) {
             $validationArr['subcategory_id'] = 'required|exists:psx_subcategories,id';
         }
-        if(in_array('location_city_id',$coreFieldsIds)){
+        if (in_array('location_city_id', $coreFieldsIds)) {
             $validationArr['location_city_id'] = 'required|exists:psx_location_cities,id';
         }
-        if(in_array('location_township_id',$coreFieldsIds)){
+        if (in_array('location_township_id', $coreFieldsIds)) {
             $validationArr['location_township_id'] = 'required|exists:psx_location_townships,id';
         }
-        if(in_array('currency_id',$coreFieldsIds)){
+        if (in_array('currency_id', $coreFieldsIds)) {
             $validationArr['currency_id'] = 'required|exists:psx_currencies,id';
         }
         // if(in_array('price',$coreFieldsIds)){
         //     $validationArr['price'] = 'required';
         // }
-        if(in_array('original_price',$coreFieldsIds)){
-            $validationArr['original_price'] = 'required';
-        }
+        $validationArr['original_price'] = 'required|max:6';
+
         if(in_array('percent',$coreFieldsIds)){
             $validationArr['percent'] = 'required';
         }
-        if(in_array('lat',$coreFieldsIds)){
+        if (in_array('lat', $coreFieldsIds)) {
             $validationArr['lat'] = 'required';
         }
-        if(in_array('lng',$coreFieldsIds)){
+        if (in_array('lng', $coreFieldsIds)) {
             $validationArr['lng'] = 'required';
         }
-        if(in_array('shop_id',$coreFieldsIds)){
+        if (in_array('shop_id', $coreFieldsIds)) {
             $validationArr['shop_id'] = 'required';
         }
-        if(in_array('search_tag',$coreFieldsIds)){
+        if (in_array('search_tag', $coreFieldsIds)) {
             $validationArr['search_tag'] = 'required';
         }
-        if(in_array('ordering',$coreFieldsIds)){
+        if (in_array('ordering', $coreFieldsIds)) {
             $validationArr['ordering'] = 'required';
         }
-        if(in_array('is_discount',$coreFieldsIds)){
+        if (in_array('is_discount', $coreFieldsIds)) {
             $validationArr['is_discount'] = 'required';
         }
-        if(in_array('phone',$coreFieldsIds)){
+        if (in_array('phone', $coreFieldsIds)) {
             $validationArr['phone'] = 'required';
         }
-        if(in_array('phone',$coreFieldsIds)){
+        if (in_array('phone', $coreFieldsIds)) {
             $validationArr['phone'] = 'required';
         }
 
@@ -346,30 +352,30 @@ class ItemController extends Controller
         $validationArr['video_icon'] = 'nullable|sometimes|image';
         $validationArr['video'] = 'nullable|sometimes|mimetypes:video/mp4';
 
-
+        $attributes['original_price.max'] = "The original price must not be greater than 6 digits.";
         //prepare validation for core filed
-        $validator = Validator::make($request->all(),$validationArr
+        $validator = Validator::make($request->all(),$validationArr, $attributes
         //  [
             // 'cover' => 'nullable|file|mimes:jpg,png,jpeg',
             // 'video_icon' => 'nullable|file|mimes:jpg,png,jpeg',
             // 'video' => 'nullable|file|mimes:mp4|max:1500'
-        // ]
+            // ]
         );
 
         if ($validator->fails()) {
-            return redirect()->route('item.edit',$request->id)->with('product_relation_errors',$errors)
+            return redirect()->route('item.edit', $request->id)->with('product_relation_errors', $errors)
                 ->withErrors($validator)
                 ->withInput();
         } else {
 
-            if (collect($errors)->isNotEmpty()){
-                return redirect()->route('item.edit',$request->id)->with('product_relation_errors',$errors);
+            if (collect($errors)->isNotEmpty()) {
+                return redirect()->route('item.edit', $request->id)->with('product_relation_errors', $errors);
             }
         }
 
         $product = $this->itemService->update($request);
 
-        if (isset($product['error'])){
+        if (isset($product['error'])) {
             // go back to index
             $msg = $product['error'];
             return redirectView(self::indexRoute, $msg, $this->dangerFlag);
@@ -383,7 +389,7 @@ class ItemController extends Controller
         $dataArr = $this->itemService->destroy($id, self::indexRoute);
         // check permission
         $checkPermission = $dataArr["checkPermission"];
-        if (!empty($checkPermission)){
+        if (!empty($checkPermission)) {
             return $checkPermission;
         }
         return redirectView(self::indexRoute, $dataArr['msg'], $dataArr['flag']);
@@ -391,23 +397,22 @@ class ItemController extends Controller
 
     public function uploadMulti(Request $request)
     {
-        if($request->edit_mode == 1){
+        if ($request->edit_mode == 1) {
             // dd($request->all());
 
-            if($request->hasFile('file'))
-            {
-                $currentImages = CoreImage::where('img_parent_id',$request->item_id)->where('img_type','item')->get()->count();
+            if ($request->hasFile('file')) {
+                $currentImages = CoreImage::where('img_parent_id', $request->item_id)->where('img_type', 'item')->get()->count();
 
                 $systemConfig = $this->systemConfigService->getSystemConfig();
-                if($currentImages >= $systemConfig->max_img_upload_of_item){
-                    return response()->json(['success'=>'You have reach max image upload','msg'=>'fail']);
+                if ($currentImages >= $systemConfig->max_img_upload_of_item) {
+                    return response()->json(['success' => 'You have reach max image upload', 'msg' => 'fail']);
                 }
                 // dd($currentImages);
                 $file = $request->file('file');
                 // $image = Image::make($file);
                 // $fileName = uniqid()."_".".".$file->getClientOriginalExtension();
 
-                $fileName = $this->itemService->updateMultiImage($request,'cover', 'item', $request->item_id);
+                $fileName = $this->itemService->updateMultiImage($request, 'cover', 'item', $request->item_id);
                 // $image = $request->file('imageFilepond')->store('uploads/items','public');
                 // dd($fileName);
                 // return $request->file('imageFilepond')->store('uploads/items','public');
@@ -417,16 +422,13 @@ class ItemController extends Controller
 
                 // dd($image);
                 // return $fileName;
-                return response()->json(['success'=>$fileName,'msg'=>'success']);
-
+                return response()->json(['success' => $fileName, 'msg' => 'success']);
             }
-        }
-        else{
-            if($request->hasFile('file'))
-            {
+        } else {
+            if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 $image = Image::make($file);
-                $fileName = uniqid()."_".".".$file->getClientOriginalExtension();
+                $fileName = uniqid() . "_" . "." . $file->getClientOriginalExtension();
                 if (!File::isDirectory(public_path() . '/storage/uploads/items')) {
                     File::makeDirectory(public_path() . '/storage/uploads/items', 0777, true, true);
                 }
@@ -434,13 +436,12 @@ class ItemController extends Controller
                 // dd($fileName);
                 // return $request->file('imageFilepond')->store('uploads/items','public');
 
-                 $image->save(public_path() . '/storage/uploads/items/' . $fileName, 50);
+                $image->save(public_path() . '/storage/uploads/items/' . $fileName, 50);
 
 
                 // dd($image);
                 // return $fileName;
-                return response()->json(['success'=>$fileName,'msg'=>'success']);
-
+                return response()->json(['success' => $fileName, 'msg' => 'success']);
             }
         }
 
@@ -450,17 +451,17 @@ class ItemController extends Controller
     public function removeMulti(Request $request)
     {
         // dd($request->all());
-        if($request->edit_mode == 0){
+        if ($request->edit_mode == 0) {
             $fileName = $request->image;
             $image_path = public_path() . '/storage/uploads/items/' . $fileName;
-            if(File::exists($image_path)) {
+            if (File::exists($image_path)) {
                 File::delete($image_path);
             }
-            return response()->json(['success'=>$fileName]);
-        }else{
+            return response()->json(['success' => $fileName]);
+        } else {
             $fileName = $request->image;
-            $this->imageService->deleteMultiImage($request->img_parent_id,'item',$fileName);
-            return response()->json(['success'=>$fileName]);
+            $this->imageService->deleteMultiImage($request->img_parent_id, 'item', $fileName);
+            return response()->json(['success' => $fileName]);
         }
 
 
@@ -468,15 +469,16 @@ class ItemController extends Controller
     }
 
 
-    public function duplicateRow($id){
+    public function duplicateRow($id)
+    {
 
         // echo json_encode($id);exit;
         $item = $this->itemService->getItem($id);
 
         $systemConfig = $this->systemConfigService->getSystemConfig();
-        if($systemConfig->is_approved_enable == 1){
+        if ($systemConfig->is_approved_enable == 1) {
             $status = 0;
-        }else{
+        } else {
             $status = $item->status;
         }
 
@@ -507,19 +509,18 @@ class ItemController extends Controller
         $status = [
             'flag' => 'success',
             // 'msg' => 'The '.$item->title.' row has been duplicated successfully.',
-            'msg' => __('core__be_duplicate_success',['attribute'=>$item->title])
+            'msg' => __('core__be_duplicate_success', ['attribute' => $item->title])
         ];
 
-        if($duplicate->status == 1){
-            return redirect()->route('item.index')->with('status',$status);
-        }else{
-            return redirect()->route('pending_item.index')->with('status',$status);
+        if ($duplicate->status == 1) {
+            return redirect()->route('item.index')->with('status', $status);
+        } else {
+            return redirect()->route('pending_item.index')->with('status', $status);
         }
-
-
     }
 
-    public function deeplink($id){
+    public function deeplink($id)
+    {
 
         // echo json_encode($id);exit;
         $item = $this->itemService->getItem($id);
@@ -538,14 +539,15 @@ class ItemController extends Controller
         $status = [
             'flag' => 'success',
             // 'msg' => 'The deeplink of '.$item->title.' row has been generated successfully.',
-            'msg' => __('core__be_deep_link_generate',['attribute'=>$item->title])
+            'msg' => __('core__be_deep_link_generate', ['attribute' => $item->title])
 
         ];
 
-        return redirect()->route('item.index')->with('status',$status);
+        return redirect()->route('item.index')->with('status', $status);
     }
 
-    public function screenDisplayUiStore(Request $request) {
+    public function screenDisplayUiStore(Request $request)
+    {
         $parameter = ['page' => $request->current_page];
         $this->itemService->makeColumnHideShown($request);
 
@@ -554,7 +556,8 @@ class ItemController extends Controller
         return redirect()->back();
     }
 
-    public function statusChange($id){
+    public function statusChange($id)
+    {
         // dd("here");
 
         $this->itemService->makePublishOrUnpublish($id);
@@ -570,15 +573,11 @@ class ItemController extends Controller
         $status = [
             'flag' => 'success',
             // 'msg' => 'The status of item has been updated successfully.',
-            'msg' => __('core__be_status_attribute_updated',['attribute'=>__('core__be_item_label')])
+            'msg' => __('core__be_status_attribute_updated', ['attribute' => __('core__be_item_label')])
 
         ];
 
 
-        return redirect()->route('item.index')->with('status',$status);
-
+        return redirect()->route('item.index')->with('status', $status);
     }
-
 }
-
-

@@ -11,11 +11,11 @@
 
                 <!-- Login button -->
                 <ps-button v-if="$page.props.authUser" class="sm:flex" @click="clickLogout"  :style="{'background-color' : landing_page.default_landing_page_color}"
-                    hover="hover:outline-none hover_ring hover_ring-fePrimary-500-100" focus="">
+                    hover="hover:outline-none hover:ring hover:ring-fePrimary-500-100" focus="">
                     {{ $t('core__be_logout') }}
                 </ps-button>
                 <ps-button v-else class="sm:flex" @click="loginClicked"  :style="{'background-color' : landing_page.default_landing_page_color}"
-                    hover="hover:outline-none hover_ring hover_ring-fePrimary-500-100" focus="">
+                    hover="hover:outline-none hover:ring hover:ring-fePrimary-500-100" focus="">
                     {{ $t('ps_nav_bar__login') }}
                 </ps-button>
 
@@ -23,7 +23,7 @@
             </div>
 
             <!-- Hamburger button -->
-            <!-- <button class="block sm:hidden text-feAchromatic-800 hover_text-feAchromatic-900 focus_text-feAchromatic-900 focus:outline-none"
+            <!-- <button class="block sm:hidden text-feAchromatic-800 hover:text-feAchromatic-900 focus:text-feAchromatic-900 focus:outline-none"
                 @click="showMenu = !showMenu">
                 <svg viewBox="0 0 20 20" fill="currentColor" class="menu w-6 h-6">
                     <path fill-rule="evenodd"
@@ -223,11 +223,11 @@ import { defineComponent } from 'vue'
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsLink1 from '@/Components/Core/Link/PsLink1.vue';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
 import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import firebaseApp from 'firebase/app';
 import "firebase/auth"
 
@@ -247,11 +247,11 @@ export default defineComponent({
         loading.style.display = "none";
 
         function clickLogout() {
-            Inertia.post(route('logout'));
+            router.post(route('logout'));
         }
 
         function loginClicked(){
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         return{

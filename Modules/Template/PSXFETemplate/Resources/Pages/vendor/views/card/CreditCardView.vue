@@ -10,7 +10,7 @@
             <!-- Start Input Field for md .. -->
             <div class="flex justify-between container w-full p-4">
                 <!-- Start Left Screen -->
-                <div class="md:flex flex-auto md:w-6/12 h-auto bg-feAchromatic-50 dark_bg-feAchromatic-900 border rounded-md border-feAchromatic-200 dark_border-black  pt-2">
+                <div class="md:flex flex-auto md:w-6/12 h-auto bg-feAchromatic-50 dark:bg-feAchromatic-900 border rounded-md border-feAchromatic-200 dark:border-black  pt-2">
                     <div class="flex flex-col w-full">
 
                         <!-- for Card Number -->
@@ -67,7 +67,7 @@
                                         </div>
                                         <div v-else>
                                             <div v-for="selectedState in userStateListProvider.userStateList.data" :key="selectedState.id"
-                                            class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                            class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                             @click="userStateFilterClicked(selectedState)" >
                                                 <ps-label class="ms-2" :class="selectedState.id==paramHolder.stateId ? ' font-medium' : ''"  > {{selectedState.name}} </ps-label>
                                             </div>
@@ -105,7 +105,7 @@
 </template>
 
 <script lang='ts'>
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { defineComponent, reactive } from 'vue';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeader4.vue';

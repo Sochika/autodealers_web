@@ -18,7 +18,8 @@
                 <div class="flex-grow lg:w-72 xl:w-76 h-10 w-full sm:w-56 md:w-60">
                     <ps-input-with-right-icon v-on:keyup.enter="searchClicked" v-model:value="subCategoryStore.paramHolder.keyword" class=""  v-bind:placeholder="$t('sub_category_list__search')" >
                         <template #icon>
-                            <ps-icon name="search" class='cursor-pointer'/>
+                            <ps-icon v-if="subCategoryStore.paramHolder.keyword == ''" name="search" class='cursor-pointer'/>
+                            <ps-icon v-else @click="[subCategoryStore.paramHolder.keyword = '',searchClicked()]" name="cross" class='cursor-pointer'/>
                         </template>
                     </ps-input-with-right-icon>
                     <!-- <ps-input type="text" class="w-full lg:text-sm text-xs" name="search" v-bind:placeholder="$t('sub_category_list__search')"  /> -->
@@ -32,20 +33,19 @@
                                 <ps-button class=" h-10 "
                                 >
                                     <ps-icon  name="filter"   />
-                                    <!-- <font-awesome-icon :icon="['fas', 'filter']" class="text-sm  "  /> -->
                                     <span class="hidden sm:block mx-4"> {{activeSortingName ? activeSortingName : 'Sort'}} </span>
                                     <ps-icon class="hidden sm:flex" name="downChervon"   />
                                 </ps-button>
                             </ps-label>
                         </template>
                         <template #list >
-                            <div class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44 " >
+                            <div class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-44 " >
                                 <div class="pt-2 z-30">
 
                                     <div>
 
                                         <div v-for="sort in currentsorting" :key="sort.id"
-                                            class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"
+                                            class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"
                                                 @click="sortingFilterClicked(sort)" >
                                             <ps-label class="ms-2" :class="sort.id==activeSortingId ? ' font-medium' : 'font-light'"  >{{ $t("review_entry__title") }}: {{sort.name}} </ps-label>
                                         </div>
@@ -58,22 +58,22 @@
                 </div>
                 <!-- end keyword search -->
                 <div v-if="appInfoStore?.appInfo?.data?.psAppSetting?.isSubcatSubscription == PsConst.ONE" class="flex gap-4">
-                    <!-- <ps-icon v-if="!scribe" class="ms-2 text-fePrimary-500 dark_text-feAccent-500" @click="subCatScribe" name="bell-plus" h="20" w="20"/>
-                    <ps-icon v-if="scribe" class="ms-2 text-fePrimary-500 dark_text-feAccent-500" name="checkbox-marked" @click="submitScribe" h="30" w="30"/> -->
+                    <!-- <ps-icon v-if="!scribe" class="ms-2 text-fePrimary-500 dark:text-feAccent-500" @click="subCatScribe" name="bell-plus" h="20" w="20"/>
+                    <ps-icon v-if="scribe" class="ms-2 text-fePrimary-500 dark:text-feAccent-500" name="checkbox-marked" @click="submitScribe" h="30" w="30"/> -->
                     <ps-dropdown horizontalAlign="right" h="h-auto" class="ms-4">
                         <template #select>
                             <ps-label class="rounded h-full">
-                                <ps-button class="h-10 w-10" padding="p-2" colors="dg-feAchromatic-50 dark_bg-feSecondary-800 text-fePrimary-500 hover_text-feAchromatic-50" focus="focus:outline-none focus_bg-feAchromatic-50 focus_text-fePrimary-500" border="border border-feSecondary-200 dark_border-feSecondary-800" shadows="shadow-sm">
+                                <ps-button class="h-10 w-10" padding="p-2" colors="dg-feAchromatic-50 dark:bg-feSecondary-800 text-fePrimary-500 hover:text-feAchromatic-50" focus="focus:outline-none focus:bg-feAchromatic-50 focus:text-fePrimary-500" border="border border-feSecondary-200 dark:border-feSecondary-800" shadows="shadow-sm">
                                     <ps-icon  name="filter"/>
                                 </ps-button>
                             </ps-label>
                         </template>
                         <template #list >
-                            <div class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44 " >
+                            <div class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-44 " >
                                 <div class="pt-2 z-30">
                                     <div>
                                         <div v-for="sort in currentsorting" :key="sort.id"
-                                            class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"
+                                            class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"
                                                 @click="sortingFilterClicked(sort)" >
                                             <ps-label class="ms-2" :class="sort.id==activeSortingId ? ' font-medium' : 'font-light'"  >{{ $t("review_entry__title") }}: {{sort.name}} </ps-label>
                                         </div>
@@ -109,12 +109,12 @@
                                                 cat_name: catName,
                                                 sub_cat_id: subCategory.id,
                                                 sub_cat_name: subCategory.name, } }" >
-                                <div class="text-center cursor-pointer w-full lg:py-0 overflow-hidden lg:px-0 px-2 py-2 bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg" :class="scribe && subscribedSubCatList.filter((subcat)=>subcat == subCategory.id+'_FE').length == 1 ? 'border-2 border-fePrimary-500' : ''" >
+                                <div class="text-center cursor-pointer w-full lg:py-0 overflow-hidden lg:px-0 px-2 py-2 bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg" :class="scribe && subscribedSubCatList.filter((subcat)=>subcat == subCategory.id+'_FE').length == 1 ? 'border-2 border-fePrimary-500' : ''" >
                                     <div class="h-44 relative">
                                         <img class="transform transition duration-500 hover:scale-110 w-full h-full object-cover" v-lazy="{ src: $page.props.thumb3xUrl + '/' + subCategory?.defaultPhoto?.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }" alt="">
 
                                         <div class='flex justify-center absolute -bottom-6 w-full'>
-                                            <div class="w-[52px] h-[52px] bg-feSecondary-50 dark_bg-feSecondary-800 p-3 rounded-full border-2 border-white">
+                                            <div class="w-[52px] h-[52px] bg-feSecondary-50 dark:bg-feSecondary-800 p-3 rounded-full border-2 border-white">
                                                 <img alt="Placeholder" class="transform transition duration-500 hover:scale-110 "
                                                 v-lazy=" { src: $page.props.thumb2xUrl + '/' + subCategory?.defaultIcon?.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
                                                 >
@@ -159,7 +159,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import {  ref,onMounted } from 'vue';
 // import router from '@template1/router';
 // import { useRoute } from 'vue-router';
@@ -180,9 +180,6 @@ import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingD
 import PsSuccessDialog2 from '@template1/vendor/components/core/dialog/PsSuccessDialog2.vue';
 import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialog.vue';
 import PsConst from '@templateCore/object/constant/ps_constants';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkedAlt,faFilter } from '@fortawesome/free-solid-svg-icons';
-library.add(faMapMarkedAlt,faFilter)
 
 import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
 import AppInfoParameterHolder from '@templateCore/object/holder/AppInfoParameterHolder';
@@ -199,7 +196,7 @@ import PsContentContainer from '@template1/vendor/components/layouts/container/P
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
 import PsInputWithRightIcon from '@template1/vendor/components/core/input/PsInputWithRightIcon.vue';
 import PsNoResult from "@template1/vendor/components/modules/list/PsNoResult.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsUtils from '@templateCore/utils/PsUtils';
 
 export default {
@@ -309,7 +306,7 @@ export default {
                 }
                 scribe.value= true;
             }else{
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
 
 

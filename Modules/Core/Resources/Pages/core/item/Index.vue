@@ -45,7 +45,7 @@
             <template #Filter>
                 <!-- category filter -->
                 <ps-dropdown @on-click="loadCategory" align="" class=" h-10"
-                    v-if="!colFilterOptions.filter(option => option.key == 'category_id@@name')[0].hidden">
+                    v-if="!colFilterOptions.filter(option => option.key == 'category_id@@name')[0]?.hidden">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_category')"
                             :border="(selected_cat !== '' && selected_cat !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
@@ -86,11 +86,12 @@
                             </div>
                         </div> -->
                         <div class="mb-2 w-56">
-                            <div  v-if="categoryStore.itemList.data != null
-                            && categoryStore.loading.value == true" class='mt-4 ms-4 flex'>
-                            <ps-label-caption >{{ $t("core__be_load_more") }} </ps-label-caption>
+                            <div v-if="categoryStore.itemList.data != null
+                                && categoryStore.loading.value == true" class='mt-4 ms-4 flex'>
+                                <ps-label-caption>{{ $t("core__be_load_more") }} </ps-label-caption>
                             </div>
-                            <ps-label class="flex mt-4 ms-4 mb-2 underline font-bold cursor-pointer"   @click="loadCategory()" > {{ $t("core__be_load_more") }} </ps-label>
+                            <ps-label class="flex mt-4 ms-4 mb-2 underline font-bold cursor-pointer"
+                                @click="loadCategory()"> {{ $t("core__be_load_more") }} </ps-label>
                         </div>
                     </template>
                     <template #filter>
@@ -109,7 +110,7 @@
 
                 <!-- subcategory filter -->
                 <ps-dropdown @on-click="subCategoryDropdownClick" class=" h-10"
-                    v-if="$page.props.isSubCategoryOn == '1' && !colFilterOptions.filter(option => option.key == 'subcategory_id@@name')[0].hidden">
+                    v-if="$page.props.isSubCategoryOn == '1' && !colFilterOptions.filter(option => option.key == 'subcategory_id@@name')[0]?.hidden">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_subcategory')"
                             :border="(selected_sub_cat !== '' && selected_sub_cat !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
@@ -176,7 +177,7 @@
 
                 <!-- location city filter -->
                 <ps-dropdown @on-click="cityDropdownClick" align="" class=" h-10"
-                    v-if="!colFilterOptions.filter(option => option.key == 'location_city_id@@name')[0].hidden">
+                    v-if="!colFilterOptions.filter(option => option.key == 'location_city_id@@name')[0]?.hidden">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_city')"
                             :border="(selected_city !== '' && selected_city !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
@@ -228,7 +229,7 @@
 
                 <!-- location township filter -->
                 <ps-dropdown @on-click="townshipDropdownClick" class=" h-10"
-                    v-if="!colFilterOptions.filter(option => option.key == 'location_township_id@@name')[0].hidden">
+                    v-if="!colFilterOptions.filter(option => option.key == 'location_township_id@@name')[0]?.hidden">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_township')"
                             :border="(selected_township !== '' && selected_township !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
@@ -296,7 +297,7 @@
 
                 <!-- owner filter -->
                 <ps-dropdown @on-click="ownersDropdownClick" align="" class=" h-10"
-                    v-if="colFilterOptions.filter(option => option.key == 'added_user_id')[0] ? !colFilterOptions.filter(option => option.key == 'added_user_id')[0].hidden : false">
+                    v-if="colFilterOptions.filter(option => option.key == 'added_user_id')[0] ? !colFilterOptions.filter(option => option.key == 'added_user_id')[0]?.hidden : false">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_posted_by')"
                             :border="(selected_owner !== '' && selected_owner !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
@@ -396,7 +397,7 @@
 
                 <!-- added date filter -->
                 <date-picker
-                    v-if="reRenderDate && colFilterOptions.filter(option => option.key == 'added_date')[0] ? !colFilterOptions.filter(option => option.key == 'added_date')[0].hidden : false"
+                    v-if="reRenderDate && colFilterOptions.filter(option => option.key == 'added_date')[0] ? !colFilterOptions.filter(option => option.key == 'added_date')[0]?.hidden : false"
                     :placeholder="$t('core__be_posted_date')" @datepick="handleAddedDatefilter"
                     class="rounded shadow-sm pt-0.5   focus:outline-none focus:ring-1 focus:ring-primary-500 "
                     :class="(selected_added_date == null || selected_added_date == '') ? 'w-full' : 'w-full'"
@@ -404,14 +405,14 @@
 
                 <!-- updated date filter -->
                 <date-picker
-                    v-if="reRenderDate && colFilterOptions.filter(option => option.key == 'updated_date')[0] ? !colFilterOptions.filter(option => option.key == 'updated_date')[0].hidden : false"
+                    v-if="reRenderDate && colFilterOptions.filter(option => option.key == 'updated_date')[0] ? !colFilterOptions.filter(option => option.key == 'updated_date')[0]?.hidden : false"
                     :placeholder="$t('core__be_updated_date')" @datepick="handleUpdatedDatefilter"
                     class="rounded shadow-sm pt-0.5 focus:outline-none focus:ring-1 focus:ring-primary-500 "
                     :class="(selected_updated_date == null || selected_updated_date == '') ? 'w-full' : 'w-full'"
                     v-model:value="selected_updated_date" :range="true" :inline="false" :autoApply="false" />
 
                 <!-- available filter -->
-                <!-- <ps-dropdown  align="" class=" h-10" v-if="colFilterOptions.filter(option => option.key =='is_sold_out')[0] ? !colFilterOptions.filter(option => option.key =='is_sold_out')[0].hidden:''">
+                <!-- <ps-dropdown  align="" class=" h-10" v-if="colFilterOptions.filter(option => option.key =='is_sold_out')[0] ? !colFilterOptions.filter(option => option.key =='is_sold_out')[0]?.hidden:''">
                     <template #select>
                         <ps-dropdown-select :placeholder="$t('core__be_item_available')"
                             :selectedValue="(selected_available == '' || selected_available == 'all') ? '' : availables.filter(option => option.id == selected_available)[0].name" />
@@ -505,10 +506,13 @@
                         {{ $t('core__be_item_available') }}
                     </ps-label>
                 </ps-label>
-                <ps-label v-if="rowProps.field == 'original_price'">{{ rowProps.row['currency_id@@currency_symbol'] }}{{
-                    rowProps.row.original_price }}</ps-label>
-                <ps-label v-if="rowProps.field == 'unit_price'">{{ rowProps.row['currency_id@@currency_symbol'] }}{{
-                    rowProps.row.unit_price }}</ps-label>
+                <ps-label v-if="rowProps.field == 'original_price'">
+                    {{ checkPriceFormat(rowProps.row['currency_id@@currency_symbol'], rowProps.row.original_price) }}
+
+                </ps-label>
+                <ps-label v-if="rowProps.field == 'price'">
+                    {{ checkPriceFormat(rowProps.row['currency_id@@currency_symbol'], rowProps.row.price) }}
+                </ps-label>
             </template>
         </ps-table2>
 
@@ -518,8 +522,8 @@
 <script>
 import { ref, defineComponent, watch } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, usePage } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
+import { Head, usePage } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
@@ -547,7 +551,7 @@ import firebaseApp from 'firebase/app';
 import PsApiService from '@templateCore/api/PsApiService';
 import { useCategoryStoreState } from "@templateCore/store/modules/category/CategoryStore";
 import { PsValueStore } from '@templateCore/store/modules/core/PsValueStore';
-
+import PsConst from '@templateCore/object/constant/ps_constants';
 
 import "firebase/auth";
 
@@ -625,6 +629,7 @@ export default defineComponent({
         ps_itm00002: Object,
         customizeHeader: Object,
         customizeDetails: Object,
+        selected_price_type: String,
     },
     data() {
         return {
@@ -699,6 +704,25 @@ export default defineComponent({
 
         const ps_danger_dialog = ref();
 
+        function checkPriceFormat(currency, data) {
+            // alert(data);
+            if (usePage().props.selected_price_type == PsConst.PRICE_RANGE) {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return '$'.repeat(5);
+                }
+                if (intValue < 1) {
+                    return '$'.repeat(1);
+                }
+                return '$'.repeat(intValue);
+            }
+            if (usePage().props.selected_price_type == PsConst.NORMAL_PRICE) {
+                return currency + data;
+            }
+        }
+
         function confirmDeleteClicked(id) {
             ps_danger_dialog.value.openModal(
                 trans('core__be_delete_item'),
@@ -706,7 +730,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("item.destroy", id), {
+                    router.delete(route("item.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -837,7 +861,7 @@ export default defineComponent({
 
         function handlePublish(id, hasPermission) {
             if (hasPermission) {
-                Inertia.put(route('item.statusChange', id));
+                router.put(route('item.statusChange', id));
 
                 setTimeout(() => {
                     reRenderToogle.value = false;
@@ -1021,7 +1045,7 @@ export default defineComponent({
         }, 500))
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('item.index'),
+            router.get(route('item.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -1131,6 +1155,7 @@ export default defineComponent({
             subCategory_loadmore_visible,
             subCatSearch,
             customFieldDropdownClick,
+            checkPriceFormat,
             customFields,
             core_key,
             is_loading,
@@ -1184,6 +1209,11 @@ export default defineComponent({
             };
         });
 
+
+        if (usePage().props.selected_price_type == PsConst.NO_PRICE) {
+            this.columns = this.columns.filter(column => column.field !== "original_price" && column.field !== "price");
+        }
+
         this.colFilterOptions = this.hideShowFieldForFilterArr.map(columnFilterOption => {
             return {
                 hidden: columnFilterOption.hidden,
@@ -1220,7 +1250,7 @@ export default defineComponent({
         // this.$inertia.put(route('item.statusChange',id));
         // },
         FilterOptionshandle(value) {
-            Inertia.put(route('item.screenDisplayUiSetting.store'),
+            router.put(route('item.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

@@ -1,6 +1,6 @@
 <template>
 
-    <div v-if="gallery.ordering <= imageCount" class='w-screen bg-fePrimary-50 dark_bg-feAchromatic-800 overflow-hidden rounded-xl  h-56 flex flex-row justify-center items-center'  >
+    <div v-if="gallery.ordering <= imageCount" class='w-screen bg-fePrimary-50 dark:bg-feAchromatic-800 overflow-hidden rounded-xl  h-56 flex flex-row justify-center items-center'  >
         <div v-if="gallery.imgType == 'item-video-icon' " class=' relative w-full h-full' >
 
             <div class="absolute w-full h-56">
@@ -11,7 +11,7 @@
                      >
             </div>
             <div class="relative mx-auto mt-24">
-                <font-awesome-icon :icon="['fas', 'play']" class="text-feAchromatic-50 text-3xl"  />
+                <ps-icon name="playCircleOutline" class="text-feAchromatic-50" w="35" h="35" />
             </div>
 
         </div>
@@ -30,14 +30,12 @@
 
 import { defineComponent } from "vue";
 import DefaultPhoto from "@templateCore/object/DefaultPhoto";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
-library.add(faPlay)
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default defineComponent ({
     name : "GalleryHorizontalItem",
     components: {
-
+        PsIcon
     },
     props : {
         imageCount : {

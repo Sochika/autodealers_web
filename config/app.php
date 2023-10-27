@@ -29,8 +29,8 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
-    'name' => env('APP_NAME', 'Auto Dealers NG'),
+    'php_path' => env('PHP_PATH'),
+    'name' => env('APP_NAME', 'PSX-Classified'),
 
     'development' => env('VITE_APP_DEVELOPMENT'),
 

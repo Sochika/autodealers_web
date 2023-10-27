@@ -7,13 +7,17 @@
             ref="main"
             >
             <SplideSlide v-if="galleryList == null || video == null">
-                    <img class="w-full h-full object-cover" v-lazy=" { src: $page.props.sysImageUrl+'/loading_gif.gif', loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }" />
+                    <div class="w-full h-full flex flex-col justify-center items-center gap-8 absolute bg-feSecondary-50 dark:bg-feSecondary-800">
+                        <span class="loader"></span>
+                        <span class="text-2xl text-gray-500 font-semibold">Loading</span>
+                    </div>
+                    <!-- <img class="w-full h-full object-cover" v-lazy=" { src: $page.props.sysImageUrl+'/loading_gif.gif', loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }" /> -->
             </SplideSlide>
 
             <SplideSlide v-for="(gallery, index) in galleryList" :key="index">
                     <div class="w-full h-full relative bg-feSecondary-50">
-                        <img v-if="gallery.imgType == 'item'" class="h-full w-full mx-auto object-cover" v-lazy=" { src: $page.props.uploadUrl + '/' + gallery.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }" @click="openImage(gallery.imgType, gallery.imgPath, gallery.imgId, video)"/>
-                        <img v-else class="h-full w-full mx-auto object-cover" v-lazy=" { src: $page.props.uploadUrl + '/' + gallery.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"  />
+                        <img v-if="gallery.imgType == 'item'" class="h-full w-full mx-auto object-cover overflow-hidden" v-lazy=" { src: $page.props.uploadUrl + '/' + gallery.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }" @click="openImage(gallery.imgType, gallery.imgPath, gallery.imgId, video)"/>
+                        <img v-else class="h-full w-full mx-auto object-cover overflow-hidden" v-lazy=" { src: $page.props.uploadUrl + '/' + gallery.imgPath, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"  />
                         <div v-if="gallery.imgType == 'item-video-icon'" class="w-full h-full absolute top-0 left-0 flex justify-center items-center" @click="openImage(gallery.imgType, video.filter(item => item.imgType == 'item-video').pop().imgPath, gallery.imgId, video)"  >
                             <ps-icon textColor="text-feAchromatic-50" name="play" w="96" h="96" viewBox="0 0 96 96"/>
                         </div>
@@ -35,7 +39,7 @@
                     <div v-if="gallery.imgType == 'item-video-icon'" class="w-full h-full absolute top-0 left-0 flex justify-center items-center">
                         <ps-icon textColor="text-feAchromatic-50" name="play" w="28" h="28" viewBox="0 0 96 96"/>
                     </div>
-                    
+
                 </div>
             </SplideSlide>
 
@@ -121,8 +125,8 @@ export default defineComponent( {
 
 
     function openImage(imgType, activeImgPath, imgId, galleryList){
-       
-        
+
+
 
         clickCount++;
         if(clickCount === 1){
@@ -139,14 +143,14 @@ export default defineComponent( {
             //     );
             //     console.log(ps_gallery_modal.value.gallery_list);
             // }
-            
+
 
             clearTimeout(clickTimer);
             clickCount = 0;
             // setTimeout(()=>{
             //     ps_gallery_modal.value.close();
             // }, 75);
-            
+
             // setTimeout(()=>{
                 ps_gallery_modal.value.openModal(
                     imgType,
@@ -155,7 +159,7 @@ export default defineComponent( {
                     galleryList,
                 );
             // }, 1000);
-            
+
         }
 
     }
@@ -167,7 +171,7 @@ export default defineComponent( {
         if ( thumbsSplide ) {
             main.value?.sync( thumbsSplide );
         }
-       
+
     } );
 
 
@@ -187,5 +191,23 @@ export default defineComponent( {
 <style scoped>
 .splide__track--nav>.splide__list>.splide__slide.is-active{
     border: none;
+}
+
+.loader{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 10px solid #4f5a84;
+    border-bottom-color: transparent;
+    animation: animate 1.2s linear infinite;
+}
+
+@keyframes animate{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }
 </style>

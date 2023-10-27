@@ -4,7 +4,7 @@
         <!-- Pscard -->
         <ps-card class="flex flex-col  ">
 
-            <div class="px-4 bg-feAchromatic-50 dark_bg-feAchromatic-900  flex items-center md:w-full justify-between">
+            <div class="px-4 bg-feAchromatic-50 dark:bg-feAchromatic-900  flex items-center md:w-full justify-between">
                 <div class="flex flex-row">
                     <div class=" mt-2 my-auto">
                         <Skeletor height="60" class='w-16 rounded-full' />

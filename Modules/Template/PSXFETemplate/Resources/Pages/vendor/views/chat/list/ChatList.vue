@@ -14,14 +14,14 @@
                             <span class="rounded-full w-8 float-right bg-fePrimary-500 text-feAchromatic-50">{{ userunreadmsgStore.unreadCount.data?.sellerUnreadCount}}</span>
                         </ps-button>
 
-                        <ps-button class="w-full" colors="bg-feAchromatic-50 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500" rounded="rounded" @click="sellerClicked">
+                        <ps-button class="w-full" colors="bg-feAchromatic-50 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500" rounded="rounded" @click="sellerClicked">
                             <span class="me-2 md:me-4">{{ $t("chat_list__from_seller") }}</span>
                             <span class="rounded-full w-8 float-right bg-fePrimary-500 text-feAchromatic-50">{{ userunreadmsgStore.unreadCount.data?.buyerUnreadCount}}</span>
                         </ps-button>
                     </div>
 
                     <div class="flex flex-row rtl:space-x-reverse space-x-2 sm:space-x-0 space-y-0 sm:space-y-2 sm:flex-col" id="buyerbtn"  v-else :disabled="true">
-                        <ps-button class="w-full" colors="bg-feAchromatic-50 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500" rounded="rounded" @click="buyerClicked" >
+                        <ps-button class="w-full" colors="bg-feAchromatic-50 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500" rounded="rounded" @click="buyerClicked" >
                             <span class="me-2 md:me-4">{{ $t("chat_list__from_buyer") }}</span>
                             <span class="rounded-full w-8 float-right bg-fePrimary-500 text-feAchromatic-50">{{ userunreadmsgStore.unreadCount.data?.sellerUnreadCount}}</span>
                         </ps-button>
@@ -124,7 +124,7 @@
 
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 // import router from '@template1/router';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue'
@@ -150,7 +150,7 @@ import ChatSkeletorItem from "@template1/vendor/components/modules/chat/ChatSkel
 import PsConst from '@templateCore/object/constant/ps_constants';
 
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default {
     name : "ChatListView",
@@ -181,7 +181,7 @@ export default {
         const userunreadmsgStore = useUserUnReadMessageStore();
         const loginUserId = psValueStore.getLoginUserId();
         if(loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
         const sellerholder = new ChatHistoryParameterHolder().resetParameterHolder();
         const buyerholder = new ChatHistoryParameterHolder().resetParameterHolder();
@@ -254,7 +254,7 @@ export default {
             return "10";
         }
         function startSellingClicked(){
-            Inertia.get(route('fe_item_entry'));
+            router.get(route('fe_item_entry'));
         }
 
         return {

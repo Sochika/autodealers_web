@@ -4,13 +4,13 @@
             <div class="w-screem flex flex-col">
                 <div class="flex flex-row justify-between"> 
                     <div class="flex-grow" />
-                    <font-awesome-icon @click="psmodal.toggle(false)" :icon="['fas', 'times']" class="text-feSecondary-700 dark_text-feAchromatic-500" size="2x" />
+                    <ps-icon @click="psmodal.toggle(false)" name="close" class="text-feSecondary-700 dark:text-feAchromatic-500" w="30" h="30" />
                 </div>
                 <div class=" flex flex-row justify-between">
                     <div class="my-auto" @click="leftArrowClicked">
-                        <ps-icon name="leftArrow" class='block sm:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="30" h="30" />
-                        <ps-icon name="leftArrow" class='hidden sm:block lg:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="40" h="40" />
-                        <ps-icon name="leftArrow" class='hidden lg:block stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="50" h="50" />
+                        <ps-icon name="leftArrow" class='block sm:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="30" h="30" />
+                        <ps-icon name="leftArrow" class='hidden sm:block lg:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="40" h="40" />
+                        <ps-icon name="leftArrow" class='hidden lg:block stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="50" h="50" />
                     </div>
                     <div class="flex flex-grow max-w-5/6">
                         <div v-if="gallery.imgType == 'item-video'"  class="w-full h-auto " >
@@ -30,9 +30,9 @@
                          >
                     </div>
                     <div class="my-auto cursor-pointer"  @click="rightArrowClicked">
-                        <ps-icon  name="rightArrow" class='block sm:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="30" h="30"  />
-                        <ps-icon  name="rightArrow" class='hidden sm:block lg:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="40" h="40"  />
-                        <ps-icon  name="rightArrow" class='hidden lg:block stroke-current stroke-0 ' textColor="text-feSecondary-700 dark_text-feAchromatic-500" w="50" h="50"  />
+                        <ps-icon  name="rightArrow" class='block sm:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="30" h="30"  />
+                        <ps-icon  name="rightArrow" class='hidden sm:block lg:hidden stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="40" h="40"  />
+                        <ps-icon  name="rightArrow" class='hidden lg:block stroke-current stroke-0 ' textColor="text-feSecondary-700 dark:text-feAchromatic-500" w="50" h="50"  />
                     </div>
                 </div>
             </div>
@@ -48,9 +48,6 @@ import DefaultPhoto from '@templateCore/object/DefaultPhoto';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 import PsUtils from '@templateCore/utils/PsUtils';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-library.add(faTimes)
 export default defineComponent({
     name: "GalleryDetailHorizontalSwiper",
     components : {

@@ -155,7 +155,7 @@
 <script>
 import { defineComponent,ref,defineAsyncComponent, reactive } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head,Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head,Link, useForm } from "@inertiajs/vue3";
 import FlashMessage from "../components/FlashMessage.vue";
 import useValidators from '@/Validation/Validators'
 import PsInput from "@/Components/Core/Input/PsInput.vue";

@@ -37,10 +37,10 @@ import { defineComponent, computed, onMounted, onUnmounted, ref } from "vue";
 import UpdaterLayout from '@/Layouts/UpdaterLayout.vue';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
-import { Link } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
-import { usePage } from '@inertiajs/inertia-vue3'
+import { router } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3'
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
 import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
 
@@ -62,21 +62,21 @@ export default defineComponent({
 
         const ps_loading_circle_dialog = ref();
 
-        let go_next = usePage().props.value.logMessages
+        let go_next = usePage().props.logMessages
 
         if(go_next=='fe_lang_sync_success'){
-            Inertia.get(route("NextLaravelUpdater::addNewMobileLangString"));
+            router.get(route("NextLaravelUpdater::addNewMobileLangString"));
         }
 
 
         function toAddNewMobileLangString() {
-            Inertia.post(route("NextLaravelUpdater::addNewFeLangString"), {}, {
+            router.post(route("NextLaravelUpdater::addNewFeLangString"), {}, {
                 onBefore: () => {
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title2_be'),trans('core__be_importing_note2_fe'));
                 },
                 onSuccess: (res) => {
-                    if(usePage().props.value.logMessages == 'fe_lang_sync_success'){
-                        Inertia.get(route("NextLaravelUpdater::addNewMobileLangString"));
+                    if(usePage().props.logMessages == 'fe_lang_sync_success'){
+                        router.get(route("NextLaravelUpdater::addNewMobileLangString"));
                     }
                 },
                 onError: (errors) => {

@@ -99,7 +99,6 @@ class SystemConfigController extends Controller
             // if have error
             if (isset($systemConfig['error'])){
                 $msg = $systemConfig['error'];
-                // dd( $msg);
                 return redirectView(self::indexRoute, $msg, $this->dangerFlag);
             }
 
@@ -154,7 +153,6 @@ class SystemConfigController extends Controller
             // if have error
             if (isset($systemConfig['error'])){
                 $msg = $systemConfig['error'];
-                // dd( $msg);
                 return redirectView(self::indexRoute, $msg, $this->dangerFlag);
             }
 

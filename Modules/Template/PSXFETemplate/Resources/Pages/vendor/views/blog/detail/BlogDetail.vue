@@ -8,8 +8,8 @@
                 <div class="flex flex-col">
                     <div class="lg:my-12 mt-7 mb-12">
                         <div class="text-center sm:mb-10 mb-6">
-                            <ps-label-header-3 textColor="dark_text-feSecondary-200 text-feSecondary-800" class="font-semibold sm:mb-8 mb-4"> {{blogStore.blog?.data?.name}} </ps-label-header-3>
-                            <p class="text-sm font-medium text-feSecondary-500 dark_text-feSecondary-400">Admin <span class="mx-6">|</span>
+                            <ps-label-header-3 textColor="dark:text-feSecondary-200 text-feSecondary-800" class="font-semibold sm:mb-8 mb-4"> {{blogStore.blog?.data?.name}} </ps-label-header-3>
+                            <p class="text-sm font-medium text-feSecondary-500 dark:text-feSecondary-400">Admin <span class="mx-6">|</span>
                             {{moment(blogStore.blog?.data?.addedDate).format($page.props.dateFormat)}}
                             </p>
                         </div>
@@ -20,7 +20,7 @@
                             >
                             <div class="lg:mt-8 mt-6">
                                 <p v-if="blogStore.blog.data != null">
-                                    <span class="font-normal text-base text-feSecondary-600 dark_text-feSecondary-200" v-html="blogStore.blog.data.description"> </span>
+                                    <span class="font-normal text-base text-feSecondary-600 dark:text-feSecondary-200" v-html="blogStore.blog.data.description"> </span>
                                 </p>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
 <script lang="ts">
 //Vue
 // import { useRoute } from 'vue-router';
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head } from "@inertiajs/vue3";
 
 import PsContentContainer from "@template1/vendor/components/layouts/container/PsContentContainer.vue";
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue';
@@ -53,7 +53,7 @@ import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
 import { trans } from 'laravel-vue-i18n';
 import PsBreadcrumb2 from "@template1/vendor/components/core/breadcrumbs/PsBreadcrumb2.vue";
 import moment from 'moment';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 
 export default {
     name : "BlogDetailView",

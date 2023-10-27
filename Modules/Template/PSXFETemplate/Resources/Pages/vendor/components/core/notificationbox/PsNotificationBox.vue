@@ -1,6 +1,6 @@
 <template>
     <div v-if="notify">
-        <div id="notification-box" class="overflow-hidden flex items-end w-mobile sm:w-median lg:w-64 justify-between leading-none   bg-fePrimary-000 dark_bg-feAchromatic-900 rounded-t-xl lg:rounded-t-2xl top-0 fixed">
+        <div id="notification-box" class="overflow-hidden flex items-end w-mobile sm:w-median lg:w-64 justify-between leading-none   bg-fePrimary-000 dark:bg-feAchromatic-900 rounded-t-xl lg:rounded-t-2xl top-0 fixed">
             <a href="#" id="notification-close" @click="closed()" title="close">x</a>
             <div class="bg-fePrimary-000 lg:px-2 py-1 px-1 h-18 cursor-pointer flex-grow flex flex-row items-center no-underline text-feAchromatic-900"  @click="clicked(flag)">
                 <div class="me-2 w-8 sm:w-10 my-auto">
@@ -13,7 +13,7 @@
                     <span class="flex">
                         <ps-label class="truncate lg:text-sm text-xs font-medium" > {{title}} </ps-label>
                     </span>
-                    <ps-label class=" font-medium text-xxs lg:text-xs " textColor="text-feSecondary-400 dark_text-feAchromatic-500"> {{subject}}  </ps-label>
+                    <ps-label class=" font-medium text-xxs lg:text-xs " textColor="text-feSecondary-400 dark:text-feAchromatic-500"> {{subject}}  </ps-label>
                 </p>
             </div>
         </div>
@@ -29,7 +29,7 @@ import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import { useProductStore } from "@templateCore/store/modules/item/ProductStore";
 import { PsValueStore } from '@templateCore/store/modules/core/PsValueStore';
 import PsConst from '@templateCore/object/constant/ps_constants';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import { useUserUnReadMessageStore } from "@templateCore/store/modules/chat/UserUnreadMessageStore";
 import UserUnReadMessageParameterHolder from '@templateCore/object/holder/UserUnReadMessageParameterHolder';
 
@@ -71,16 +71,16 @@ export default {
         },
         async clicked(value){
             if(value == 'approval' || value == 'verify_blue_mark'){
-                Inertia.get(route('fe_profile'));
+                router.get(route('fe_profile'));
             }
             if(value == 'follow'){
-                Inertia.get(route('fe_follower_list'), { userId: localStorage.loginUserId  });
+                router.get(route('fe_follower_list'), { userId: localStorage.loginUserId  });
             }
             if(value == 'fe_broadcast') {
-                 Inertia.get(route('fe_notification_list'));
+                 router.get(route('fe_notification_list'));
             }
             if(value == 'review') {
-                Inertia.get(route('fe_review_list'),  { user_id: localStorage.loginUserId } );
+                router.get(route('fe_review_list'),  { user_id: localStorage.loginUserId } );
             }
             if(value == 'chat' || value == 'bought') {
                 const itemProvider = useProductStore();
@@ -92,7 +92,7 @@ export default {
                 if(loginUserId == this.currentMessage.data.buyer_id){
                     chatFlag = PsConst.CHAT_FROM_SELLER.toString();
                 }
-                Inertia.get(route('fe_chat'),{
+                router.get(route('fe_chat'),{
                     'buyer_user_id' : this.currentMessage.data.buyer_id,
                     'seller_user_id' : this.currentMessage.data.seller_id,
                     'item_id' : this.currentMessage.data.item_id,
@@ -101,7 +101,7 @@ export default {
 
             }
             if(value == "subscribe") {
-                 Inertia.get(route('fe_item_detail'), { item_id: this.currentMessage.data.item_id });
+                 router.get(route('fe_item_detail'), { item_id: this.currentMessage.data.item_id });
 
             }
 

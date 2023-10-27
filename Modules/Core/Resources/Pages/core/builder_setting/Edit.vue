@@ -89,7 +89,7 @@
 <script>
 import { defineComponent, ref, defineAsyncComponent, reactive, onMounted, onUnmounted } from 'vue';
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import { trans } from 'laravel-vue-i18n';
 import useValidators from '@/Validation/Validators';
 import PsBreadcrumb2 from "@/Components/Core/Breadcrumbs/PsBreadcrumb2.vue";

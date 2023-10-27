@@ -17,9 +17,9 @@
     import UpdaterLayout from '@/Layouts/UpdaterLayout.vue';
     import PsButton from "@/Components/Core/Buttons/PsButton.vue";
     import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
-    import { Link } from '@inertiajs/inertia';
+    import { Link } from '@inertiajs/vue3';
     import { trans } from 'laravel-vue-i18n';
-    import {Inertia} from "@inertiajs/inertia";
+    import { router } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {
@@ -35,7 +35,7 @@
 
 
             function toAddNewLangString(){
-                Inertia.get(route("NextLaravelUpdater::addNewLangString"),{},{
+                router.get(route("NextLaravelUpdater::addNewLangString"),{},{
                     onBefore: () => {
                         ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                     },

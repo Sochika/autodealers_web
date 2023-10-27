@@ -2,13 +2,13 @@ import PsResource from '@templateCore/api/common/PsResource';
 import axios from 'axios';
 import PsStatus from './PsStatus';
 import { PsObject } from '@templateCore/object/core/PsObject';
-import { Head, Link, usePage } from '@inertiajs/inertia-vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 // import PsUtils from '@templateCore/utils/PsUtils';
 
 
 axios.defaults.headers.common['Authorization'] = 'Bearer zUMi0HNjAtnREMj3weG7XEv6ogEVovsf6eUFgOp4';
 let sub_domain_url = '';
-// console.log(usePage().props.value.dir);
+// console.log(usePage().props.dir);
 let clearSlash =  import.meta.env.VITE_APP_DIR;
 // let subFolder = clearSlash.replaceAll("\\", "");
 let subFolder = clearSlash;

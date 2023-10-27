@@ -276,6 +276,12 @@
 
                             <!-- <img class="w-28 h-16 rounded" width="50" height="50" :src="thumb1xUrl+'/'+row[column.relation][column.relationField]" alt="Sunset in the mountains"> -->
                         </ps-label>
+                        <ps-label v-else-if="column.field == 'price'">
+                            {{ checkPriceFormat(row[column.field]) }}
+                        </ps-label>
+                        <ps-label v-else-if="column.field == 'original_price'">
+                            {{ checkPriceFormat(row[column.field]) }}
+                        </ps-label>
                         <ps-label v-else class="font-normal">{{ $t(row[column.field]) }}</ps-label>
                     </slot>
                 </td>
@@ -307,6 +313,7 @@ import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.vue';
 import moment from 'moment';
 import { trans } from 'laravel-vue-i18n';
+import PsConst from '@templateCore/object/constant/ps_constants';
 
 export default {
     name: "PsDataTable",
@@ -334,7 +341,36 @@ export default {
         'globalSearchPlaceholder': { type: String, default: "Search" },
         'searchHide': { type: Boolean, default: false },
         'searchRightHide': { type: Boolean, default: false },
-        'thumb1xUrl': { type: String, default: "" }
+        'thumb1xUrl': { type: String, default: "" },
+        'selectedPriceType' : {type: String, default: PsConst.NORMAL_PRICE}
+    },
+    setup(props) {
+
+        function checkPriceFormat(data) {
+            // alert(data);
+            if (props.selectedPriceType == PsConst.PRICE_RANGE) {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return '$'.repeat(5)
+                }
+                if (intValue < 1) {
+                    return '$'.repeat(1)
+                }
+                return '$'.repeat(intValue);
+            }
+            if (props.selectedPriceType == PsConst.NORMAL_PRICE) {
+                return data;
+            }
+            if (props.selectedPriceType == PsConst.NO_PRICE) {
+                return data;
+            }
+        }
+
+        return {
+            checkPriceFormat
+        }
     },
     data() {
         return {

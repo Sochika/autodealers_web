@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head } from "@inertiajs/vue3";
 import { createDealOptionProviderState } from "@templateCore/store/modules/dealOption/DealOptionProvider";
 
 import PsContentContainer from "@template1/vendor/components/layouts/container/PsContentContainer.vue";

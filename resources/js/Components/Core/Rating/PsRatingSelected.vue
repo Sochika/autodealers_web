@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center">
         <div @click="rate(star)" v-for="star in maxStars" :class="{ 'active': star <= stars }" :key="star" class="star">
-            <font-awesome-icon :icon="['fas', 'star']" v-if="star <= stars" class="text-primary-500 dark:text-primaryDark-accent " size="lg" />
-            <font-awesome-icon :icon="['far', 'star']" v-else class="text-primary-500 dark:text-primaryDark-accent  " size="lg" />
+            <ps-icon name="starFill" v-if="star <= stars" class="text-primary-500 dark:text-primaryDark-accent " w="25" h="25"/>
+            <ps-icon name="starOutline" v-else class="text-primary-500 dark:text-primaryDark-accent " w="25" h="25"/>
         </div>
     </div>
 </template>

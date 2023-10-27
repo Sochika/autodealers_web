@@ -97,7 +97,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { trans, loadLanguageAsync } from 'laravel-vue-i18n';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -111,7 +111,7 @@ import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -171,7 +171,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("fe_language.destroy", id), {
+                    router.delete(route("fe_language.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -206,7 +206,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('fe_language.index'),
+            router.get(route('fe_language.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -221,7 +221,7 @@ export default defineComponent({
         }
 
         function handleGenetate() {
-            Inertia.post(route('fe_language.generateall'), {
+            router.post(route('fe_language.generateall'), {
                         onSuccess: () => {
 
                             window.location.reload();
@@ -269,7 +269,7 @@ export default defineComponent({
             this.$inertia.get(route('fe_language_string.index',id));
         },
         FilterOptionshandle(value) {
-            Inertia.post(route('fe_language.screenDisplayUiSetting.store'),
+            router.post(route('fe_language.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

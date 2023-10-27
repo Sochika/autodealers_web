@@ -119,7 +119,7 @@ class ProductWithKeyResource extends JsonResource
             $item_image[] = $image->img_path;
         }
         $item_image = implode('|' , $item_image);
-        // dd($item_image);
+        // dd($this->original_price);
 
         return [
             'id' => $this->id,

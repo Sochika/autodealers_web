@@ -26,7 +26,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -38,7 +38,7 @@ import PsToggle from '@/Components/Core/Toggle/PsToggle.vue';
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
 
 export default defineComponent({
@@ -106,7 +106,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('core_key_type.index'),
+            router.get(route('core_key_type.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,

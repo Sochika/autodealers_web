@@ -83,7 +83,8 @@ export default defineComponent({
                 stripe.value?.createToken(cardElement.value).then(function(result) {
                     // Handle result.error or result.token
                     localStorage.paymentNonce = result.token?.id;
-                    okClicked()
+                    okClicked();
+                    psmodal.value.toggle(false);
                 });
 
             }

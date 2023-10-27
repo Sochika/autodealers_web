@@ -236,7 +236,7 @@
 
 // Libs
 import { ref } from 'vue';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
  import PsLink from '@template1/vendor/components/core/link/PsLink.vue'
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue'
@@ -269,7 +269,7 @@ export default {
         // const appInfoParameterHolder = new AppInfoParameterHolder();
         // appInfoParameterHolder.userId = loginUserId;
         function gotToHome() {
-            Inertia.get(route('dashboard'));
+            router.get(route('dashboard'));
         }
         // appInfoStore.loadAppInfo(appInfoParameterHolder);
 
@@ -277,7 +277,7 @@ export default {
             const holder = new ProductParameterHolder().getLatestParameterHolder();
             const params = holder.getUrlParamsAndQuery();
             
-            Inertia.get(route('fe_item_list',params.query));
+            router.get(route('fe_item_list',params.query));
 
         }
 
@@ -286,7 +286,7 @@ export default {
             const params = holder.getUrlParamsAndQuery();
 
             // Redirect
-            Inertia.get(route('fe_item_list', params.query));
+            router.get(route('fe_item_list', params.query));
 
 
         }

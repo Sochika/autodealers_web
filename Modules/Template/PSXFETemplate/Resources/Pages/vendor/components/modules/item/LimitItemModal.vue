@@ -4,15 +4,12 @@
         <template #title>
              <!-- Item entry title -->
             <div class="flex justify-between items-start">
-                <div class="">
                     <ps-label v-if="limitProvider.buyadList?.data != null && limitProvider.buyadList?.data[0]?.user?.remainingPost == 0 " textColor="text-lg font-semibold text-feSecondary-800 mb-2">{{ $t("limit_item_modal__quota_running_out.") }}</ps-label>
                     <div class="flex flex-wrap">
                         <ps-label class="text-lg font-semibold text-feSecondary-800 me-2"> {{ $t('limit_item_modal__limit') }} </ps-label>
                         <ps-label class="text-lg"> {{ $t('limit_item_modal__limit_post_buy') }} </ps-label>
                     </div>
-                </div>
-                <!-- <font-awesome-icon @click="psmodal.toggle(false)" :icon="['fas', 'times']" class="text-feSecondary-500 dark_text-feAchromatic-50" size="2x" /> -->
-                <ps-icon class="cursor-pointer dark_text-feSecondary-500" name="close" w="24" h="24" @click="psmodal.toggle(false)"/>
+                <ps-icon class="cursor-pointer dark:text-feSecondary-500" name="close" w="24" h="24" @click="psmodal.toggle(false)"/>
             </div>
         </template>
         <template #body>
@@ -53,22 +50,12 @@
         <template #footer>
             <ps-label class="mt-6 sm:mt-7 font-medium text-base"> {{ $t('promote_item_modal__pay_with') }}  </ps-label>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6">
-                <ps-button v-if="appInfoStore.appInfo.data?.paypalEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('PAYPAL')" >{{ $t('promote_item_modal__pay_with_paypal') }}</ps-button>
-                <ps-button v-if="appInfoStore.appInfo.data?.stripeEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('STRIPE')" >{{ $t('promote_item_modal__pay_with_stripe') }}</ps-button>
-                <ps-button v-if="appInfoStore.appInfo.data?.razorEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('RAZOR')" >{{ $t('promote_item_modal__pay_with_razor') }}</ps-button>
-                <ps-button v-if="appInfoStore.appInfo.data?.payStackEnabled == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('PAYSTACK')" >{{ $t('promote_item_modal__pay_with_stack') }}</ps-button>
+                <ps-button colors="bg-feBrand-paypal text-feAchromatic-50" v-if="appInfoStore.appInfo.data?.paypalEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('PAYPAL')" >{{ $t('promote_item_modal__pay_with_paypal') }}</ps-button>
+                <ps-button colors="bg-feBrand-stripe text-feAchromatic-50" v-if="appInfoStore.appInfo.data?.stripeEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('STRIPE')" >{{ $t('promote_item_modal__pay_with_stripe') }}</ps-button>
+                <ps-button colors="bg-feBrand-razor text-feAchromatic-50" v-if="appInfoStore.appInfo.data?.razorEnable == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('RAZOR')" >{{ $t('promote_item_modal__pay_with_razor') }}</ps-button>
+                <ps-button colors="bg-feBrand-paystack text-feAchromatic-50" v-if="appInfoStore.appInfo.data?.payStackEnabled == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('PAYSTACK')" >{{ $t('promote_item_modal__pay_with_stack') }}</ps-button>
                 <ps-button v-if="appInfoStore.appInfo.data?.offlineEnabled == '1'" class="" padding="px-8 py-4" rounded="rounded-lg" @click="paymentClicked('OFFLINE')" >{{ $t('promote_item_modal__pay_with_offline') }}</ps-button>
             </div>
-            <!-- <div class="px-6 flex flex-row justify-between">
-                <ps-button class=" sm:w-24 w-20  py-3" @click="paymentClicked('PAYPAL')" >{{ $t('promote_item_modal__pay_with_paypal') }}</ps-button>
-                <ps-button class="sm:w-24 w-20 py-3" @click="paymentClicked('STRIPE')" >{{ $t('promote_item_modal__pay_with_stripe') }}</ps-button>
-                <ps-button class=" sm:w-24 w-20 py-3" @click="paymentClicked('RAZOR')" >{{ $t('promote_item_modal__pay_with_razor') }}</ps-button>
-            </div>
-            <div class="px-8 mt-2 flex flex-row justify-between">
-                <ps-button class=" sm:w-24 w-20 py-3 " @click="paymentClicked('PAYSTACK')" >{{ $t('promote_item_modal__pay_with_stack') }}</ps-button>
-                <ps-button class=" sm:w-24 w-20 py-3 " @click="paymentClicked('OFFLINE')" >{{ $t('promote_item_modal__pay_with_offline') }}</ps-button>
-                <span class=" sm:w-24 w-20 py-3"></span>
-            </div> -->
         </template>
     </ps-modal>
     <stripe-payment-modal ref="stripe_payment_modal" />
@@ -92,7 +79,6 @@ import 'https://checkout.razorpay.com/v1/checkout.js';
 
 // Libs
 import {defineComponent, ref } from 'vue';
-// import PsUtils from '@templateCore/utils/PsUtils';
 
 // Compone
 import PsModal from '@template1/vendor/components/core/modals/PsModal.vue';
@@ -104,7 +90,6 @@ import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialo
 import PsWarningDialog2 from '@template1/vendor/components/core/dialog/PsWarningDialog2.vue';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
-// import PsInput from '@template1/vendor/components/core/input/PsInput.vue';
 import StripePaymentModal from '@template1/vendor/components/modules/credit/StripePaymentModal.vue';
 import PaypalPaymentModal from '@template1/vendor/components/modules/credit/PaypalPaymentModal.vue';
 import OfflinePaymentModal from '@template1/vendor/components/modules/credit/OfflinePaymentModal.vue';
@@ -118,18 +103,13 @@ import { usePackageStoreState } from "@templateCore/store/modules/package/Packag
 import ItemLimitParameterHolder from '@templateCore/object/holder/ItemLimitParameterHolder';
 import AppInfoParameterHolder from '@templateCore/object/holder/AppInfoParameterHolder';
 import { useLimitAdItemStoreState } from "@templateCore/store/modules/limit/LimitAdItemStore";
-// import ItemPaidHistoryParameterHolder from '@templateCore/object/holder/ItemPaidHistoryParameterHolder';
 
 import PsStatus from '@templateCore/api/common/PsStatus';
 import { trans } from 'laravel-vue-i18n';import PsConst from '@templateCore/object/constant/ps_constants';
-// import PsConfig from '@template1/config/PsConfig';
 
 import PaystackPop from '@paystack/inline-js';
 import PsUtils from '@templateCore/utils/PsUtils';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import format from 'number-format.js';
-library.add(faTimes)
 export default defineComponent({
     name: "LimitItemModal",
     components: {
@@ -178,6 +158,8 @@ export default defineComponent({
             await limitProvider.resetPaidAdItemList(loginUserId);
             await packageprovider.resetPackageList(loginUserId);
 
+            selectPackageOne();
+
             const info = await appInfoStore.loadAppInfo(appInfoParameterHolder);
 
             razorKey.value = info.data.razorKey;
@@ -189,7 +171,21 @@ export default defineComponent({
 
         }
 
+        function selectPackageOne() {
+            if(packageprovider.packageList != null 
+                && packageprovider.packageList.data != null 
+                && packageprovider.packageList.data.length > 0 ) {
+                selected.value = packageprovider.packageList.data[0];
+            }
+        }
+
+
         function paymentClicked(value){
+            if(selected.value == null 
+                || selected.value.paymentInfo == null ){
+                    ps_error_dialog.value.openModal('', $t("select_package"));
+                    return;
+            }
             if(appInfoStore.appInfo.data.mobileSetting.is_demo_for_payment == 1){
                 ps_warning_dialog.value.openModal(
                     trans('payment__warning_title'),
@@ -227,6 +223,7 @@ export default defineComponent({
                     offlineClicked();
                 }
             }
+        
 
         }
 
@@ -391,7 +388,6 @@ export default defineComponent({
             appInfoStore,
             limitProvider,
             ps_error_dialog,
-            // selectedPackagePlan,
             stripe_payment_modal,
             paypal_payment_modal,
             offline_payment_modal,

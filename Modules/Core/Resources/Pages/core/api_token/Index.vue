@@ -87,7 +87,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -105,7 +105,7 @@ import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import JetDialogModal from '@/Jetstream/DialogModal.vue'
 import JetCheckbox from '@/Jetstream/Checkbox.vue'
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -202,7 +202,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('api_token.index'),
+            router.get(route('api_token.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -298,7 +298,7 @@ export default defineComponent({
             this.$inertia.get(route('api_token.edit',id));
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('api_token.screenDisplayUiSetting.store'),
+        router.put(route('api_token.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

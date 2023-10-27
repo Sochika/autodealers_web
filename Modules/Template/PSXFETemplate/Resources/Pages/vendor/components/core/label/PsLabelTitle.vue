@@ -14,7 +14,7 @@ export default defineComponent({
     props: {
         textColor : {
             type: String,               
-            default: 'text-feSecondary-800 dark_text-feSecondary-300',            
+            default: 'text-feSecondary-800 dark:text-feSecondary-300',            
         }        
     }    
 });

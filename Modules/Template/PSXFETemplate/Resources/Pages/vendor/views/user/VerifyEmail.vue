@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 //Vue
 import { ref } from 'vue';
 // import router from '@template1/router';

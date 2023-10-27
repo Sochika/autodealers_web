@@ -268,9 +268,7 @@ class ProductApiController extends Controller
         // if(in_array('price',$coreFieldsIds)){
         //     $validationArr['price'] = 'required';
         // }
-        if (in_array('original_price', $coreFieldsIds)) {
-            $validationArr['original_price'] = 'required';
-        }
+        $validationArr['original_price'] = 'required|max:6';
         if (in_array('percent', $coreFieldsIds)) {
             $validationArr['percent'] = 'required';
         }
@@ -295,11 +293,12 @@ class ProductApiController extends Controller
         if (in_array('phone', $coreFieldsIds)) {
             $validationArr['phone'] = 'required';
         }
-
+        $attributes['original_price.max'] = "The original price must not be greater than 6 digits.";
         //prepare validation for core filed
         $validator = Validator::make(
             $request->all(),
-            $validationArr
+            $validationArr,
+            $attributes
             //  [
             // 'cover' => 'nullable|file|mimes:jpg,png,jpeg',
             // 'video_icon' => 'nullable|file|mimes:jpg,png,jpeg',
@@ -338,6 +337,7 @@ class ProductApiController extends Controller
             // try {
                 // dd("here");
             $item = $this->itemService->storeFromApi($request, $this->code);
+            // dd($item);
 
             if (isset($item['error'])) {
                 if (isset($item['status'])) {

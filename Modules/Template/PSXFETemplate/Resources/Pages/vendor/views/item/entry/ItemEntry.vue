@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { defineComponent, onMounted ,ref} from 'vue'
 import ItemUpload1 from './ItemUpload1.vue'
 

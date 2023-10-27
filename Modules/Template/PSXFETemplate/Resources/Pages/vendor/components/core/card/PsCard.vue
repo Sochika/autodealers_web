@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-hidden lg:rounded-2xl rounded-lg dark_bg-feSecondary-800  dark_border-black"
+  <div class="overflow-hidden lg:rounded-2xl rounded-lg dark:bg-feSecondary-800  dark:border-black"
     :class="enabledHover ? 'hover:shadow-md' : '' " key="">
     <slot class=""></slot>
   </div>

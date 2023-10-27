@@ -21,17 +21,15 @@
         aria-haspopup="true"
         aria-expanded="true">
 
-        <div class="w-full flex flex-row child items-center " :class="justify" >
-            <div class="flex flex-row" >
-                <ps-icon v-if="leftIcon!=''" :name="leftIcon" :class="leftIconTheme" />
-                <p :class="disabled ? 'text-xs lg:text-sm font-medium text-feSecondary-300 dark_text-feSecondary-100' : text" v-if="placeholder==''">
-                    {{selectedValue ? selectedValue : $t(placeholderLang)}}
-                </p>
-                <p :class="disabled ? 'text-xs lg:text-sm font-medium text-feSecondary-300 dark_text-feSecondary-100' : text" v-else>{{ selectedValue ? selectedValue : placeholder }}</p>
-            </div>
-
-            <ps-icon name="downChervon" class="child1" :class="disabled ? 'text-feSecondary-300 dark_text-feSecondary-100' : iconTheme"  />
-            <ps-icon name="upChervon" class="child2" :class="disabled ? 'text-feSecondary-300 dark_text-feSecondary-100' : iconTheme"  />
+        <div class="w-full flex flex-row child items-center" :class="justify" >
+            <ps-icon v-if="leftIcon!=''" :name="leftIcon" :class="leftIconTheme" />
+            <p :class="disabled ? 'text-xs lg:text-sm font-medium text-feSecondary-300 dark:text-feSecondary-100' : text" v-if="placeholder==''">
+                {{selectedValue ? selectedValue : $t(placeholderLang)}}
+            </p>
+            <p :class="disabled ? 'text-xs lg:text-sm font-medium text-feSecondary-300 dark:text-feSecondary-100' : text" v-else>{{ selectedValue ? selectedValue : placeholder }}</p>
+            
+            <ps-icon name="downChervon" class="child1" :class="disabled ? 'text-feSecondary-300 dark:text-feSecondary-100' : iconTheme"  />
+            <ps-icon name="upChervon" class="child2" :class="disabled ? 'text-feSecondary-300 dark:text-feSecondary-100' : iconTheme"  />
         </div>
 
     </button>
@@ -77,11 +75,11 @@ export default {
         },
         text : {
             type: String,
-            default: 'text-xs lg:text-sm font-medium text-feSecondary-600 dark_text-feSecondary-100'
+            default: 'text-xs lg:text-sm font-medium text-feSecondary-600 dark:text-feSecondary-100'
         },
         iconTheme : {
             type: String,
-            default: 'text-feSecondary-500 dark_text-feSecondary-200 '
+            default: 'text-feSecondary-500 dark:text-feSecondary-200 '
         },
         padding : {
             type: String,
@@ -89,7 +87,7 @@ export default {
         },
         border : {
             type: String,
-            default: 'border border-1 border-feSecondary-200 dark_border-feSecondary-800'
+            default: 'border border-1 border-feSecondary-200 dark:border-feSecondary-800'
         },
         shadow : {
             type: String,
@@ -101,11 +99,11 @@ export default {
         },
         hover : {
             type: String,
-            default: ' hover_border-feSecondary-400'
+            default: ' hover:border-feSecondary-400'
         },
         focus : {
             type: String,
-            default: 'focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 focus:outline-none focus:shadow-outline-blue text-feSecondary-800 dark_text-feSecondary-400 '
+            default: 'focus:border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 focus:outline-none focus:shadow-outline-blue text-feSecondary-800 dark:text-feSecondary-400 '
         },
         cursor: {
             type: String,

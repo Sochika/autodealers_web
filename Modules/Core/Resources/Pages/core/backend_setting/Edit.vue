@@ -1441,7 +1441,7 @@
 <script>
 import { defineComponent, ref, defineAsyncComponent, reactive, onMounted, onUnmounted } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import FlashMessage from "../components/FlashMessage.vue";
 import useValidators from '@/Validation/Validators'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
@@ -1742,7 +1742,7 @@ export default defineComponent({
         function openSuccessDialog() {
             ps_success_dialog.value.openModal(trans('core__be_smtp_configuration_check'), trans('smtp_configuration_is_success'), trans('btn_back'),
                 () => {
-                    // Inertia.get(route('language_string.updateAllLanguageStrings'), {
+                    // router.get(route('language_string.updateAllLanguageStrings'), {
                     //     onBefore: () => {
                     //         ps_loading_circle_dialog.value.openModal('Importing','We’re processing your file at the moment. Please wait while we import the file for you.');
                     //     },

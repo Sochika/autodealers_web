@@ -1,21 +1,21 @@
 <template>
     <Head :title="$t('successful_deal_count_report_module')" />
     <ps-layout>
-         <!-- breadcrumb start -->
+        <!-- breadcrumb start -->
         <ps-breadcrumb-2 :items="breadcrumb" class="mb-5 sm:mb-6 lg:mb-8" />
         <!-- breadcrumb end -->
 
         <!-- data table start -->
-        <ps-table2 ::row="row" :search="search" :object="this.items" :colFilterOptions="colFilterOptions"
-            :columns="columns" :sort_field="sort_field" :sort_order="sort_order"
-            :globalSearchPlaceholder="$t('core__be_search_user_name')"
+        <ps-table2 ::row="row" :search="search" :object="this.items" :colFilterOptions="colFilterOptions" :columns="columns"
+            :sort_field="sort_field" :sort_order="sort_order" :globalSearchPlaceholder="$t('core__be_search_user_name')"
             @FilterOptionshandle="FilterOptionshandle" @handleSort="handleSorting" @handleSearch="handleSearching"
-            @handleRow="handleRow" :searchable="showFilter"
-            :eye_filter="false">
+            @handleRow="handleRow" :searchable="showFilter" :eye_filter="false">
 
             <!-- for csv file import start -->
             <template #searchLeft>
-                <a :href="route('successful_deal_count_report.csv.export')" class="font-medium transition duration-150 ease-in-out px-4 py-1.75 ms-1 rounded text-primary-500 border border-primary-500 hover:outline-none hover:ring hover:ring-blue-100 focus:outline-none focus:ring focus:ring-blue-300 opacity-100 flex items-center"><ps-icon name="fileUpload" class="me-2 font-semibold" />{{ $t('core__be_export_btn') }}</a>
+                <a :href="route('successful_deal_count_report.csv.export')"
+                    class="font-medium transition duration-150 ease-in-out px-4 py-1.75 ms-1 rounded text-primary-500 border border-primary-500 hover:outline-none hover:ring hover:ring-blue-100 focus:outline-none focus:ring focus:ring-blue-300 opacity-100 flex items-center"><ps-icon
+                        name="fileUpload" class="me-2 font-semibold" />{{ $t('core__be_export_btn') }}</a>
             </template>
 
             <template #searchRight>
@@ -24,9 +24,10 @@
                     <ps-icon theme="dark:text-red-400" name="cross" class="me-3" />
                     {{ $t('core__be_clear_filter') }}
                 </ps-text-button>
-                <ps-icon-button :colors="!showFilter ? '' : 'bg-primary-500 text-white dark:text-secondary-800'" focus="" padding="py-1 px-4"
-                    hover="hover:bg-primary-500 hover:text-white" :border="!showFilter ? ' border border-secondary-200' : 'border border-primary-500'"
-                    leftIcon="filter" @click="showFilter = !showFilter">{{ $t('core__be_filter') }}</ps-icon-button>
+                <ps-icon-button :colors="!showFilter ? '' : 'bg-primary-500 text-white dark:text-secondary-800'" focus=""
+                    padding="py-1 px-4" hover="hover:bg-primary-500 hover:text-white"
+                    :border="!showFilter ? ' border border-secondary-200' : 'border border-primary-500'" leftIcon="filter"
+                    @click="showFilter = !showFilter">{{ $t('core__be_filter') }}</ps-icon-button>
             </template>
 
             <template #Filter>
@@ -59,19 +60,19 @@
                 </ps-dropdown> -->
 
 
-                                  <!-- category filter -->
-                <ps-dropdown @on-click="dropdownClick" align="" class=" h-10" >
+                <!-- category filter -->
+                <ps-dropdown @on-click="dropdownClick" align="" class=" h-10">
                     <template #select>
-                        <ps-dropdown-select :placeholder="$t('core__be_category')" :border="(selected_cat !== '' && selected_cat !== 'all') ?'border border-indigo-500/100':'border border-1 border-secondary-200'"
-                            :selectedValue="(selected_cat == '' || selected_cat == 'all') ? '' : selectedCategory.name "
-                        />
+                        <ps-dropdown-select :placeholder="$t('core__be_category')"
+                            :border="(selected_cat !== '' && selected_cat !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
+                            :selectedValue="(selected_cat == '' || selected_cat == 'all') ? '' : selectedCategory.name" />
                     </template>
                     <template #list>
                         <div class="rounded-md shadow-xs w-56 ">
                             <div class="pt-2 z-30  ">
                                 <div class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handleCategoryfilter('all')">
-                                    <ps-label class="text-gray-200 ms-2">{{$t('core__be_select_all')}}</ps-label>
+                                    <ps-label class="text-gray-200 ms-2">{{ $t('core__be_select_all') }}</ps-label>
                                 </div>
                                 <div v-for="category in categories" :key="category.id"
                                     class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
@@ -83,20 +84,22 @@
                         </div>
                     </template>
                     <template #loadmore>
-                       <div  @click="dropdownClick(true)" v-if="category_loadmore_visible" class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
-                        <div class="flex flex-row items-center justify-between">
-                                    <ps-label  class="ms-2 ">
-                                        {{is_loading ? $t('core__be_loading') :$t('core__be_load_more')}}
-                                    </ps-label>
-                                    <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
+                        <div @click="dropdownClick(true)" v-if="category_loadmore_visible"
+                            class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
+                            <div class="flex flex-row items-center justify-between">
+                                <ps-label class="ms-2 ">
+                                    {{ is_loading ? $t('core__be_loading') : $t('core__be_load_more') }}
+                                </ps-label>
+                                <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
+                            </div>
                         </div>
-                       </div>
                     </template>
-                     <template #filter>
+                    <template #filter>
                         <!-- <ps-input type="text" :placeholder="$t('core__be_category')" v-model:value="catSearch" class=""/> -->
                         <div class="mt-1 mx-1">
-                            <ps-input-with-right-icon  class="w-full h-10"  rounded="rounded-lg" v-model:value="catSearch" :placeholder="$t('core__be_search')" >
-                                <template #icon >
+                            <ps-input-with-right-icon class="w-full h-10" rounded="rounded-lg" v-model:value="catSearch"
+                                :placeholder="$t('core__be_search')">
+                                <template #icon>
                                     <ps-icon name="search" class='cursor-pointer' />
                                 </template>
                             </ps-input-with-right-icon>
@@ -127,19 +130,18 @@
                         </div>
                     </template>
                 </ps-dropdown> -->
-                 <ps-dropdown @on-click="itemTypeOptionDropdownClick" align="" class=" h-10" >
+                <ps-dropdown @on-click="itemTypeOptionDropdownClick" align="" class=" h-10">
                     <template #select>
-                        <ps-dropdown-select :placeholder="$t('core__be_item_type')" :border="(selected_item_type !== '' && selected_item_type !== 'all') ?'border border-indigo-500/100':'border border-1 border-secondary-200'"
-
-                             :selectedValue="(selected_item_type == '' || selected_item_type == 'all') ? '' : selectedItemType.name"
-                        />
+                        <ps-dropdown-select :placeholder="$t('core__be_item_type')"
+                            :border="(selected_item_type !== '' && selected_item_type !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
+                            :selectedValue="(selected_item_type == '' || selected_item_type == 'all') ? '' : selectedItemType.name" />
                     </template>
                     <template #list>
                         <div class="rounded-md shadow-xs w-56 ">
                             <div class="pt-2 z-30  ">
                                 <div class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handleItemTypeFilter('all')">
-                                    <ps-label class="text-gray-200 ms-2">{{$t('core__be_select_all')}}</ps-label>
+                                    <ps-label class="text-gray-200 ms-2">{{ $t('core__be_select_all') }}</ps-label>
                                 </div>
                                 <div v-for="option in itemTypeOptions" :key="option.id"
                                     class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
@@ -151,50 +153,53 @@
                         </div>
                     </template>
                     <template #loadmore>
-                       <div  @click="itemTypeOptionDropdownClick(true)" v-if="itemTypeOptions_loadmore_visible" class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
-                        <div class="flex flex-row items-center justify-between">
-                                    <ps-label  class="ms-2 ">
-                                        {{is_loading ? $t('core__be_loading') :$t('core__be_load_more')}}
-                                    </ps-label>
-                                    <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
-                         </div>
-                       </div>
+                        <div @click="itemTypeOptionDropdownClick(true)" v-if="itemTypeOptions_loadmore_visible"
+                            class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
+                            <div class="flex flex-row items-center justify-between">
+                                <ps-label class="ms-2 ">
+                                    {{ is_loading ? $t('core__be_loading') : $t('core__be_load_more') }}
+                                </ps-label>
+                                <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
+                            </div>
+                        </div>
                     </template>
 
                 </ps-dropdown>
 
 
-                <ps-dropdown @on-click="purchaseOptionDropdownClick" align="" class=" h-10" >
+                <ps-dropdown @on-click="purchaseOptionDropdownClick" align="" class=" h-10">
                     <template #select>
-                        <ps-dropdown-select :placeholder="$t('core__be_purchased_option')" :border="(selected_purchase_option !== '' && selected_purchase_option !== 'all') ?'border border-indigo-500/100':'border border-1 border-secondary-200'"
-                             :selectedValue="(selected_purchase_option == '' || selected_purchase_option == 'all') ? '' : selectedPurchaseOption.name "
-                        />
+                        <ps-dropdown-select :placeholder="$t('core__be_purchased_option')"
+                            :border="(selected_purchase_option !== '' && selected_purchase_option !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
+                            :selectedValue="(selected_purchase_option == '' || selected_purchase_option == 'all') ? '' : selectedPurchaseOption.name" />
                     </template>
                     <template #list>
                         <div class="rounded-md shadow-xs w-56 ">
                             <div class="pt-2 z-30  ">
                                 <div class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handlePurchaseOptionFilter('all')">
-                                    <ps-label class="text-gray-200 ms-2">{{$t('core__be_select_all')}}</ps-label>
+                                    <ps-label class="text-gray-200 ms-2">{{ $t('core__be_select_all') }}</ps-label>
                                 </div>
                                 <div v-for="option in purchaseOptions" :key="option.id"
                                     class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handlePurchaseOptionFilter(option.id)">
-                                    <ps-label class="ms-2" :class="option.id == selected_purchase_option ? ' font-bold' : ''">
+                                    <ps-label class="ms-2"
+                                        :class="option.id == selected_purchase_option ? ' font-bold' : ''">
                                         {{ option.name }} </ps-label>
                                 </div>
                             </div>
                         </div>
                     </template>
                     <template #loadmore>
-                       <div  @click="purchaseOptionDropdownClick(true)" v-if="purchaseOptions_loadmore_visible" class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
-                        <div class="flex flex-row items-center justify-between">
-                                    <ps-label  class="ms-2 ">
-                                        {{is_loading ? $t('core__be_loading') :$t('core__be_load_more')}}
-                                    </ps-label>
-                                    <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
-                         </div>
-                       </div>
+                        <div @click="purchaseOptionDropdownClick(true)" v-if="purchaseOptions_loadmore_visible"
+                            class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
+                            <div class="flex flex-row items-center justify-between">
+                                <ps-label class="ms-2 ">
+                                    {{ is_loading ? $t('core__be_loading') : $t('core__be_load_more') }}
+                                </ps-label>
+                                <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
+                            </div>
+                        </div>
                     </template>
 
                 </ps-dropdown>
@@ -222,62 +227,76 @@
                         </div>
                     </template>
                 </ps-dropdown> -->
-                <ps-dropdown @on-click="dealOptionDropdownClick" align="" class=" h-10" >
+                <ps-dropdown @on-click="dealOptionDropdownClick" align="" class=" h-10">
                     <template #select>
-                        <ps-dropdown-select :placeholder="$t('core__be_deal_option')" :border="(selected_deal_option !== '' && selected_deal_option !== 'all') ?'border border-indigo-500/100':'border border-1 border-secondary-200'"
-                             :selectedValue="(selected_deal_option == '' || selected_deal_option == 'all') ? '' : selectedDealOption.name "
-                        />
+                        <ps-dropdown-select :placeholder="$t('core__be_deal_option')"
+                            :border="(selected_deal_option !== '' && selected_deal_option !== 'all') ? 'border border-indigo-500/100' : 'border border-1 border-secondary-200'"
+                            :selectedValue="(selected_deal_option == '' || selected_deal_option == 'all') ? '' : selectedDealOption.name" />
                     </template>
                     <template #list>
                         <div class="rounded-md shadow-xs w-56 ">
                             <div class="pt-2 z-30  ">
                                 <div class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handleDealOptionFilter('all')">
-                                    <ps-label class="text-gray-200 ms-2">{{$t('core__be_select_all')}}</ps-label>
+                                    <ps-label class="text-gray-200 ms-2">{{ $t('core__be_select_all') }}</ps-label>
                                 </div>
                                 <div v-for="option in dealOptions" :key="option.id"
                                     class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center"
                                     @click="handleDealOptionFilter(option.id)">
-                                    <ps-label class="ms-2" :class="option.id == selected_purchase_option ? ' font-bold' : ''">
+                                    <ps-label class="ms-2"
+                                        :class="option.id == selected_purchase_option ? ' font-bold' : ''">
                                         {{ option.name }} </ps-label>
                                 </div>
                             </div>
                         </div>
                     </template>
                     <template #loadmore>
-                       <div  @click="dealOptionDropdownClick(true)" v-if="dealOptions_loadmore_visible" class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
-                        <div class="flex flex-row items-center justify-between">
-                                    <ps-label  class="ms-2 ">
-                                        {{is_loading ? $t('core__be_loading') :$t('core__be_load_more')}}
-                                    </ps-label>
-                                    <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
-                         </div>
-                       </div>
+                        <div @click="dealOptionDropdownClick(true)" v-if="dealOptions_loadmore_visible"
+                            class="w-56 flex py-2 px-2 hover:bg-primary-000 dark:hover:bg-primary-900 cursor-pointer items-center">
+                            <div class="flex flex-row items-center justify-between">
+                                <ps-label class="ms-2 ">
+                                    {{ is_loading ? $t('core__be_loading') : $t('core__be_load_more') }}
+                                </ps-label>
+                                <ps-icon theme="text-black dark:text-primary-900" name="load" w="16" h="16" />
+                            </div>
+                        </div>
                     </template>
                 </ps-dropdown>
 
                 <!-- added date filter -->
-                <date-picker v-if="reRenderDate" :placeholder="$t('core__be_select_date')" @datepick="handleDateFilter" class="rounded shadow-sm pt-0.5 focus:outline-none focus:ring-1 focus:ring-primary-500" :class="(selected_date == null || selected_date == '') ? 'w-full' :'w-full'"
-                v-model:value="selected_date" :range="true" :inline="false" :autoApply="false"/>
+                <date-picker v-if="reRenderDate" :placeholder="$t('core__be_select_date')" @datepick="handleDateFilter"
+                    class="rounded shadow-sm pt-0.5 focus:outline-none focus:ring-1 focus:ring-primary-500"
+                    :class="(selected_date == null || selected_date == '') ? 'w-full' : 'w-full'"
+                    v-model:value="selected_date" :range="true" :inline="false" :autoApply="false" />
 
             </template>
 
             <template #tableRow="rowProps">
 
                 <span v-if="rowProps.field == itmPurchasedOption + '@@name'">
-                    <ps-badge theme="text-green-600 bg-green-50" class="m-2" v-if="rowProps.row[itmPurchasedOption + '@@name']">{{ rowProps.row[itmPurchasedOption + '@@name'] }}</ps-badge>
+                    <ps-badge theme="text-green-600 bg-green-50" class="m-2"
+                        v-if="rowProps.row[itmPurchasedOption + '@@name']">{{ rowProps.row[itmPurchasedOption + '@@name']
+                        }}</ps-badge>
                 </span>
 
                 <span v-if="rowProps.field == itmItemType + '@@name'">
-                    <ps-badge theme="text-red-600 bg-red-50" class="m-2" v-if="rowProps.row[itmItemType + '@@name']">{{ rowProps.row[itmItemType + '@@name'] }}</ps-badge>
+                    <ps-badge theme="text-red-600 bg-red-50" class="m-2" v-if="rowProps.row[itmItemType + '@@name']">{{
+                        rowProps.row[itmItemType + '@@name'] }}</ps-badge>
                 </span>
 
                 <span v-if="rowProps.field == itmConditionOfItem + '@@name'">
-                    <ps-badge theme="text-red-600 bg-red-50" class="m-2" v-if="rowProps.row[itmConditionOfItem + '@@name']">{{ rowProps.row[itmConditionOfItem + '@@name'] }}</ps-badge>
+                    <ps-badge theme="text-red-600 bg-red-50" class="m-2"
+                        v-if="rowProps.row[itmConditionOfItem + '@@name']">{{ rowProps.row[itmConditionOfItem + '@@name']
+                        }}</ps-badge>
                 </span>
 
                 <div class="flex flex-row mb-2" v-if="rowProps.field == 'detail'">
                     <ps-text-button @click="handleDetail(rowProps.row.id)">{{ $t('core__be_btn_detail') }}</ps-text-button>
+                </div>
+                <div v-if="rowProps.field == 'price'">
+
+                    {{ checkPriceFormat(rowProps.row.price) }}
+
                 </div>
             </template>
 
@@ -287,10 +306,10 @@
 </template>
 
 <script>
-import { ref, defineComponent,watch } from "vue";
+import { ref, defineComponent, watch } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
+import { Head } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
@@ -312,6 +331,8 @@ import { getCategories, getSubCat, getCustomFields, getCities, getTownships, get
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import debounce from 'lodash/debounce';
 import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.vue';
+import PsConst from '@templateCore/object/constant/ps_constants';
+
 
 export default defineComponent({
     name: "Index",
@@ -335,7 +356,7 @@ export default defineComponent({
         DatePicker,
         PsInputWithRightIcon
     },
-    layout : PsLayout,
+    layout: PsLayout,
     props: {
         status: Object,
         items: Object,
@@ -367,13 +388,14 @@ export default defineComponent({
         itmDealOption: String,
         itmConditionOfItem: String,
         itmItemType: String,
+        selected_price_type: String,
     },
     setup(props) {
         let visible = ref(false)
         const reRenderDate = ref(true);
 
         // For data table
-        const showFilter = props.selectedCategory || props.selectedSubcategory || props.selectedCity || props.selectedTownship ? ref(true): ref(false);
+        const showFilter = props.selectedCategory || props.selectedSubcategory || props.selectedCity || props.selectedTownship ? ref(true) : ref(false);
         const clearFilter = ref(false);
 
         let search = props.search ? ref(props.search) : ref('');
@@ -386,20 +408,20 @@ export default defineComponent({
         let selected_date = props.selectedDate ? ref(props.selectedDate) : ref('');
 
         let categories = ref([]);
-        let category_loadmore_visible= ref(false);
+        let category_loadmore_visible = ref(false);
         let catSearch = ref();
         let is_loading = ref(false);
 
-        let purchaseOptions=ref([]);
-        let purchaseOptions_loadmore_visible= ref(false);
+        let purchaseOptions = ref([]);
+        let purchaseOptions_loadmore_visible = ref(false);
         let purchaseOptionsSearch = ref();
 
-        let dealOptions=ref([]);
-        let dealOptions_loadmore_visible= ref(false);
+        let dealOptions = ref([]);
+        let dealOptions_loadmore_visible = ref(false);
         let dealOptionsSearch = ref();
 
-        let itemTypeOptions=ref([]);
-        let itemTypeOptions_loadmore_visible= ref(false);
+        let itemTypeOptions = ref([]);
+        let itemTypeOptions_loadmore_visible = ref(false);
         let itemTypeOptionsSearch = ref();
 
         const colFilterOptions = ref();
@@ -425,11 +447,7 @@ export default defineComponent({
                 field: "category_id@@name",
                 type: "String",
             },
-            {
-                label: trans('core__be_item_price_title'),
-                field: "price",
-                type: "String",
-            },
+
             {
                 label: trans('core__be_offer_amount'),
                 field: "offer_amount",
@@ -468,6 +486,38 @@ export default defineComponent({
             sort_order.value = value.sort_order
             handleSearchingSorting()
         }
+        function checkPriceFormat(data) {
+            // alert(data);
+            if (props.selected_price_type == PsConst.PRICE_RANGE) {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return '$'.repeat(5);
+                }
+                if (intValue < 1) {
+                    return '$'.repeat(1);
+                }
+                return '$'.repeat(intValue);
+            }
+            if (props.selected_price_type == PsConst.NORMAL_PRICE) {
+                return data;
+            }
+        }
+
+        if (props.selected_price_type != PsConst.NO_PRICE) {
+
+            const indexOfTitleColumn = columns.findIndex(column => column.field === "category_id@@name");
+            const priceColumn = {
+                label: trans('core__be_item_price'),
+                field: "price",
+                type: 'Integer',
+                action: 'Action'
+            }
+            if (indexOfTitleColumn !== -1) {
+                columns.splice(indexOfTitleColumn + 1, 0, priceColumn);
+            }
+        }
 
         function handleClearFilter() {
             selected_cat.value = 'all';
@@ -478,7 +528,7 @@ export default defineComponent({
             search = '';
             handleSearchingSorting();
 
-            reRenderDate.value= false;
+            reRenderDate.value = false;
             setTimeout(() => {
                 reRenderDate.value = true;
             }, 100);
@@ -525,7 +575,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('successful_deal_count_report.index'),
+            router.get(route('successful_deal_count_report.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -544,130 +594,130 @@ export default defineComponent({
                 })
         }
         // Category data
-            function getCategoriesData(offset){
-                category_loadmore_visible.value = true;
-                is_loading.value = true
-                getCategories(offset,catSearch.value,props.authUser.id).then(response => {
+        function getCategoriesData(offset) {
+            category_loadmore_visible.value = true;
+            is_loading.value = true
+            getCategories(offset, catSearch.value, props.authUser.id).then(response => {
 
-                    if(!response.data.length){
-                        category_loadmore_visible.value = false;
-                    }
-                    else{
-                        response.data.forEach(element =>{
-                            categories.value.push(element);
-                        });
-                    }
-                    is_loading.value=false;
-                });
-            }
-
-            function dropdownClick(loadMore = null) {
-
-                let offset = categories.value ? categories.value.length : 0 ;
-                if(offset == 0 || loadMore == true){
-
-                    getCategoriesData(offset);
+                if (!response.data.length) {
+                    category_loadmore_visible.value = false;
                 }
-            }
-            watch(catSearch,_.debounce((current,previous)=>{
-                let offset= 0;
-                categories.value = [];
+                else {
+                    response.data.forEach(element => {
+                        categories.value.push(element);
+                    });
+                }
+                is_loading.value = false;
+            });
+        }
+
+        function dropdownClick(loadMore = null) {
+
+            let offset = categories.value ? categories.value.length : 0;
+            if (offset == 0 || loadMore == true) {
+
                 getCategoriesData(offset);
-
-            },500))
-
-            // purchase option customfield
-            function getPurchaseOptionsData(offset){
-                purchaseOptions_loadmore_visible.value = true;
-                is_loading.value = true
-                getPurchaseOption(offset,props.authUser.id).then(response => {
-
-                    if(!response.data.length){
-                        purchaseOptions_loadmore_visible.value = false;
-                    }
-                    else{
-                        response.data.forEach(element =>{
-                            purchaseOptions.value.push(element);
-                        });
-                    }
-                    is_loading.value=false;
-                }).catch(function (error) {
-                    if(error){
-                         is_loading.value=false;
-                         purchaseOptions_loadmore_visible.value = false;
-                    }
-                });
             }
-             function purchaseOptionDropdownClick(loadMore = null) {
+        }
+        watch(catSearch, _.debounce((current, previous) => {
+            let offset = 0;
+            categories.value = [];
+            getCategoriesData(offset);
 
-                let offset = purchaseOptions.value ? purchaseOptions.value.length : 0 ;
-                if(offset == 0 || loadMore == true){
+        }, 500))
 
-                    getPurchaseOptionsData(offset);
+        // purchase option customfield
+        function getPurchaseOptionsData(offset) {
+            purchaseOptions_loadmore_visible.value = true;
+            is_loading.value = true
+            getPurchaseOption(offset, props.authUser.id).then(response => {
+
+                if (!response.data.length) {
+                    purchaseOptions_loadmore_visible.value = false;
                 }
-            }
-
-            // deal option customfield
-            function getDealOptionsData(offset){
-                dealOptions_loadmore_visible.value = true;
-                is_loading.value = true
-                getDealOption(offset,props.authUser.id).then(response => {
-
-                    if(!response.data.length){
-                        dealOptions_loadmore_visible.value = false;
-                    }
-                    else{
-                        response.data.forEach(element =>{
-                            dealOptions.value.push(element);
-                        });
-                    }
-                    is_loading.value=false;
-                }).catch(function (error) {
-                    if(error){
-                         is_loading.value=false;
-                         dealOptions_loadmore_visible.value = false;
-                    }
-                });
-            }
-             function dealOptionDropdownClick(loadMore = null) {
-
-                let offset = dealOptions.value ? dealOptions.value.length : 0 ;
-                if(offset == 0 || loadMore == true){
-
-                    getDealOptionsData(offset);
+                else {
+                    response.data.forEach(element => {
+                        purchaseOptions.value.push(element);
+                    });
                 }
-            }
-
-            // item Type customfield
-            function getItemTypeOptionsData(offset){
-                itemTypeOptions_loadmore_visible.value = true;
-                is_loading.value = true
-                getItemTypeOption(offset,props.authUser.id).then(response => {
-
-                    if(!response.data.length){
-                        itemTypeOptions_loadmore_visible.value = false;
-                    }
-                    else{
-                        response.data.forEach(element =>{
-                            itemTypeOptions.value.push(element);
-                        });
-                    }
-                    is_loading.value=false;
-                }).catch(function (error) {
-                    if(error){
-                         is_loading.value=false;
-                         itemTypeOptions_loadmore_visible.value = false;
-                    }
-                });
-            }
-             function itemTypeOptionDropdownClick(loadMore = null) {
-
-                let offset = itemTypeOptions.value ? itemTypeOptions.value.length : 0 ;
-                if(offset == 0 || loadMore == true){
-
-                    getItemTypeOptionsData(offset);
+                is_loading.value = false;
+            }).catch(function (error) {
+                if (error) {
+                    is_loading.value = false;
+                    purchaseOptions_loadmore_visible.value = false;
                 }
+            });
+        }
+        function purchaseOptionDropdownClick(loadMore = null) {
+
+            let offset = purchaseOptions.value ? purchaseOptions.value.length : 0;
+            if (offset == 0 || loadMore == true) {
+
+                getPurchaseOptionsData(offset);
             }
+        }
+
+        // deal option customfield
+        function getDealOptionsData(offset) {
+            dealOptions_loadmore_visible.value = true;
+            is_loading.value = true
+            getDealOption(offset, props.authUser.id).then(response => {
+
+                if (!response.data.length) {
+                    dealOptions_loadmore_visible.value = false;
+                }
+                else {
+                    response.data.forEach(element => {
+                        dealOptions.value.push(element);
+                    });
+                }
+                is_loading.value = false;
+            }).catch(function (error) {
+                if (error) {
+                    is_loading.value = false;
+                    dealOptions_loadmore_visible.value = false;
+                }
+            });
+        }
+        function dealOptionDropdownClick(loadMore = null) {
+
+            let offset = dealOptions.value ? dealOptions.value.length : 0;
+            if (offset == 0 || loadMore == true) {
+
+                getDealOptionsData(offset);
+            }
+        }
+
+        // item Type customfield
+        function getItemTypeOptionsData(offset) {
+            itemTypeOptions_loadmore_visible.value = true;
+            is_loading.value = true
+            getItemTypeOption(offset, props.authUser.id).then(response => {
+
+                if (!response.data.length) {
+                    itemTypeOptions_loadmore_visible.value = false;
+                }
+                else {
+                    response.data.forEach(element => {
+                        itemTypeOptions.value.push(element);
+                    });
+                }
+                is_loading.value = false;
+            }).catch(function (error) {
+                if (error) {
+                    is_loading.value = false;
+                    itemTypeOptions_loadmore_visible.value = false;
+                }
+            });
+        }
+        function itemTypeOptionDropdownClick(loadMore = null) {
+
+            let offset = itemTypeOptions.value ? itemTypeOptions.value.length : 0;
+            if (offset == 0 || loadMore == true) {
+
+                getItemTypeOptionsData(offset);
+            }
+        }
 
         return {
             reRenderDate,
@@ -708,6 +758,7 @@ export default defineComponent({
             itemTypeOptions_loadmore_visible,
             itemTypeOptionsSearch,
             itemTypeOptionDropdownClick,
+            checkPriceFormat
         }
     },
     created() {
@@ -732,11 +783,11 @@ export default defineComponent({
         // });
     },
     methods: {
-        handleDetail(id){
-            this.$inertia.get(route('successful_deal_count_report.show',id));
+        handleDetail(id) {
+            this.$inertia.get(route('successful_deal_count_report.show', id));
         },
         FilterOptionshandle(value) {
-            Inertia.put(route('successful_deal_count_report.screenDisplayUiSetting.store'),
+            router.put(route('successful_deal_count_report.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

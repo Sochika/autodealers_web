@@ -14,7 +14,7 @@
             <!-- Start Input Field for md .. -->
             <div class="flex justify-between container w-full p-4">
                 <!-- Start Left Screen -->
-                <div class="md:flex flex-auto md:w-6/12 h-auto bg-feAchromatic-50 dark_bg-feAchromatic-900 border rounded-md dark_border-feAchromatic-500  pt-2">
+                <div class="md:flex flex-auto md:w-6/12 h-auto bg-feAchromatic-50 dark:bg-feAchromatic-900 border rounded-md dark:border-feAchromatic-500  pt-2">
                     <div class="flex flex-col w-full">
                     
                         

@@ -26,8 +26,8 @@
 <script>
 import { ref } from 'vue';
 import { lightness } from 'simpler-color';
-import { useForm } from "@inertiajs/inertia-vue3";
-import { Inertia } from '@inertiajs/inertia';
+import { useForm } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 import PsInputGroup from "@/Components/Core/Input/PsInputGroup.vue";
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -82,7 +82,7 @@ import PsColorPickerModal from '@/Components/Core/Modals/PsColorPickerModal.vue'
                             "_method": "put"
                         })
                         colorForm.post(route("color.update", data.id));
-                        // Inertia.post(route("color.update", data.id), colorForm,{
+                        // router.post(route("color.update", data.id), colorForm,{
                         //     forceFormData: true,
                         //     onFinish: () => {
                         //         this.$inertia.get(route("mobile_setting.index",))

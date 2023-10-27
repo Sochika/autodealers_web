@@ -9,7 +9,7 @@
                     <!-- breadcrumb start -->
                     <ps-breadcrumb-2 :items="breadcrumb"></ps-breadcrumb-2>
                     <!-- breadcrumb end -->
-                    <div class='flex flex-wrap items-center mb-2 mt-2 p-2 bg-feAchromatic-50  rounded dark_bg-feAchromatic-900'>
+                    <div class='flex flex-wrap items-center mb-2 mt-2 p-2 bg-feAchromatic-50  rounded dark:bg-feAchromatic-900'>
                         <!-- <div class=" ms-4 mb-4 flex items-center" >
                             <ps-route-link :to="{name : 'fe_chat_list'}">
                             <ps-label class="hover:underline cursor-pointer font-medium" > {{ $t("chat__chat_list") }} </ps-label>
@@ -43,17 +43,25 @@
 
                         <!-- <div v-if="chatFlag == PsConst.CHAT_FROM_SELLER && showOffer" class="flex flex-col content-end items-center">
                             <div  >
-                                <ps-label class="select-none px-4 py-3 my-auto bg-fePrimary-500 dark_bg-feAccent-500 text-median font-medium text-feAchromatic-50 dark_text-textDare rounded-xl lg:rounded-2xl  cursor-pointer"
-                                textColor="text-feAchromatic-50 dark_text-feAchromatic-900"> {{ $t("chat__make") }} <br/> {{ $t("chat__offer") }}</ps-label>
+                                <ps-label class="select-none px-4 py-3 my-auto bg-fePrimary-500 dark:bg-feAccent-500 text-median font-medium text-feAchromatic-50 dark:text-textDare rounded-xl lg:rounded-2xl  cursor-pointer"
+                                textColor="text-feAchromatic-50 dark:text-feAchromatic-900"> {{ $t("chat__make") }} <br/> {{ $t("chat__offer") }}</ps-label>
                             </div>
                         </div> -->
                         <!-- divider -->
                         <div class="w-52"></div>
                         <!-- divider -->
-                        <ps-button @click.prevent="makeOfferClicked" rounded="rounded" class="mt-2 sm:mt-0" :disabled="(isSoldOut != '1' && showOffer) ? false : true" v-if="chatFlag == PsConst.CHAT_FROM_SELLER">{{$t('chat__make_an_offer')}}</ps-button>
+
+                        <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType != PsConst.PRICE_RANGE">
+                            <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedChatType == PsConst.CHAT_AND_OFFER">
+                            <ps-button @click.prevent="makeOfferClicked" rounded="rounded" class="mt-2 sm:mt-0" :disabled="(isSoldOut != '1' && showOffer) ? false : true" v-if="chatFlag == PsConst.CHAT_FROM_SELLER">{{$t('chat__make_an_offer')}}</ps-button>    
+                             </div>
+                        </div>
+                        <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedChatType == PsConst.CHAT_AND_APPOINTMENT">
+                        <ps-button @click.prevent="makeOfferClicked" rounded="rounded" class="mt-2 sm:mt-0" :disabled="(isSoldOut != '1' && showOffer) ? false : true" v-if="chatFlag == PsConst.CHAT_FROM_SELLER">{{$t('chat_book')}}</ps-button>    
+                        </div>
                     </div>
                     <!-- {{ itemName.split(' ').join('-').toLowerCase() }} -->
-                    <div v-if="dataReady" class='flex sm:flex-row justify-between bg-feAchromatic-50 p-2 rounded dark_bg-feAchromatic-900'>
+                    <div v-if="dataReady" class='flex sm:flex-row justify-between bg-feAchromatic-50 p-2 rounded dark:bg-feAchromatic-900'>
                         <ps-route-link :to="{ name: 'fe_item_detail', query: { item_id: itemId }}">
                             <div class='flex flex-row cursor-pointer'>
                                 <img alt="Placeholder" class="w-16 h-16 bg-feAchromatic-50 rounded-md"
@@ -114,9 +122,10 @@
                                 <div v-if="chat.offerStatus == PsConst.CHAT_STATUS_OFFER">
                                     <!-- Send by me UI -->
                                     <div v-if='chat.sendByUserId == loginUserId' class='w-full flex justify-end ps-1/3 flex-row items-end'>
-                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50"> {{chat.timeString}} </ps-label>
+                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50"> {{chat.timeString}} </ps-label>
                                         <span class="px-2 py-4 mt-2 mb-1 rounded-md inline-block rounded-bl-none bg-feInfo-500 ">
-                                            <ps-label class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat__send_offer") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
+                                            <ps-label v-if="isBooking" class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat_book_make_booking") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
+                                            <ps-label v-else class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat__send_offer") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
                                         </span>
                                     </div>
 
@@ -124,10 +133,11 @@
                                     <div v-else class="pe-1/3 flex flex-col">
                                         <div  class=" flex flex-row items-end">
                                             <span class="px-2 py-4 mt-2 mb-1 rounded-md inline-block rounded-br-none bg-feInfo-500 ">
-                                                <ps-label  textColor="text-feAchromatic-50" > {{ $t("chat__receive_offer") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
+                                                <ps-label v-if="isBooking"  textColor="text-feAchromatic-50" > {{ $t("chat_book_received_booking") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
+                                                <ps-label v-else textColor="text-feAchromatic-50" > {{ $t("chat__receive_offer") }} <br/>{{ itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
                                             </span>
                                             <br class="sm:hidden">
-                                            <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50"> {{chat.timeString}} </ps-label>
+                                            <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50"> {{chat.timeString}} </ps-label>
                                         </div>
                                     </div>
 
@@ -139,9 +149,10 @@
 
                                     <!-- Send by me UI -->
                                     <div v-if='chat.sendByUserId == loginUserId' class='w-full flex justify-end ps-1/3 flex-row items-end'>
-                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50"> {{chat.timeString}} </ps-label>
+                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50"> {{chat.timeString}} </ps-label>
                                         <span class="px-4 py-2 mt-2 mb-1 rounded-lg inline-block rounded-bl-none bg-feError-500 text-feAchromatic-50">
-                                            <ps-label class="text-center" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50" > {{ $t("chat__offer_rejected_item") }}</ps-label>
+                                            <ps-label v-if="isBooking" class="text-center" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50" > {{ $t("chat_book_reject") }}</ps-label>
+                                            <ps-label v-else class="text-center" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50" > {{ $t("chat__offer_rejected_item") }}</ps-label>
                                         </span>
                                     </div>
 
@@ -149,9 +160,10 @@
                                     <div v-else class="pe-1/3 flex flex-col">
                                         <div  class=" flex flex-row items-end">
                                             <span class="px-4 py-2 mt-2 mb-1 rounded-lg inline-block rounded-br-none bg-feError-500 ">
-                                                <ps-label  textColor="text-feAchromatic-50">  {{ $t("chat__offer_rejected_item") }}</ps-label>
+                                                <ps-label v-if="isBooking"  textColor="text-feAchromatic-50">  {{ $t("chat_book_reject") }}</ps-label>
+                                                <ps-label v-else textColor="text-feAchromatic-50">  {{ $t("chat__offer_rejected_item") }}</ps-label>
                                             </span>
-                                            <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50"> {{chat.timeString}} </ps-label>
+                                            <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50"> {{chat.timeString}} </ps-label>
                                         </div>
                                     </div>
 
@@ -170,24 +182,26 @@
                                         <!-- Send by me UI -->
                                         <div v-if='chat.sendByUserId == loginUserId' class="w-full flex flex-col justify-end items-end">
                                             <div  class=' flex flex-row items-end mb-2'>
-                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-bl-none bg-feSuccess-500">
-                                                    <ps-label class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_accepted_item") }}</ps-label>
+                                                    <ps-label v-if="isBooking" class="text-center" textColor="text-feAchromatic-50"  >  {{ $t("chat_book_accept") }}</ps-label>
+                                                    <ps-label v-else class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_accepted_item") }}</ps-label>
                                                 </span>
                                             </div>
 
                                             <!-- Item pick up message -->
                                             <div  class=' flex flex-row items-end mb-2' v-if="chat.isUserBought">
-                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-bl-none bg-feInfo-500">
-                                                    <ps-label class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_pickup") }}</ps-label>
+                                                    <ps-label v-if="isBooking" class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat_book_appoint_done") }}</ps-label>
+                                                    <ps-label v-else class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_pickup") }}</ps-label>
                                                 </span>
                                             </div>
                                             <!-- Item pick up message -->
 
                                              <!-- Item out message -->
                                              <div  class=' flex flex-row items-end mb-2' v-if="isSoldOut == '1'">
-                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-bl-none bg-feError-500">
                                                     <ps-label class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_soldout") }}</ps-label>
                                                 </span>
@@ -195,8 +209,11 @@
                                             <!-- Item soldout message -->
 
                                             <div v-if="chat.offerStatus == PsConst.CHAT_STATUS_ACCEPT && chat.isUserBought == false" class="flex justify-center w-full mt-5">
-                                                <!-- <ps-label @click="isUserBought(chat)" class="p-2 flex flex-shrink-0 bg-fePrimary-500 dark_bg-feAccent-500 rounded-lg cursor-pointer " textColor="text-feAchromatic-50 dark_textDark "> {{ $t("chat__user_has_a_pickup") }} </ps-label> -->
-                                                <ps-button @click="userPickup(chat)" colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" focus="focus_text-feAchromatic-50 focus_bg-fePrimary-500" border="border border-feAchromatic-300 dark_border-feAchromatic-500">
+                                                <!-- <ps-label @click="isUserBought(chat)" class="p-2 flex flex-shrink-0 bg-fePrimary-500 dark:bg-feAccent-500 rounded-lg cursor-pointer " textColor="text-feAchromatic-50 dark:textDark "> {{ $t("chat__user_has_a_pickup") }} </ps-label> -->
+                                                <ps-button v-if="isBooking" @click="appointmentDone(chat)" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" focus="focus:text-feAchromatic-50 focus:bg-fePrimary-500" border="border border-feAchromatic-300 dark:border-feAchromatic-500">
+                                                    {{ $t("chat_book_appoint_done") }}
+                                                </ps-button>
+                                                <ps-button v-else @click="userPickup(chat)" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" focus="focus:text-feAchromatic-50 focus:bg-fePrimary-500" border="border border-feAchromatic-300 dark:border-feAchromatic-500">
                                                     {{ $t("chat__user_has_a_pickup") }}
                                                 </ps-button>
                                             </div>
@@ -208,18 +225,20 @@
                                             <!-- Item accept Message -->
                                             <div  class=" flex flex-row items-end mb-2">
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-br-none bg-feSuccess-500 ">
-                                                    <ps-label class="  " textColor="text-feAchromatic-50"  > {{ $t("chat__offer_accepted_item") }}</ps-label>
+                                                    <ps-label v-if="isBooking" textColor="text-feAchromatic-50"  > {{ $t("chat_book_accept") }}</ps-label>
+                                                    <ps-label v-else textColor="text-feAchromatic-50"  > {{ $t("chat__offer_accepted_item") }}</ps-label>
                                                 </span>
-                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50"> {{chat.timeString}} </ps-label>
                                             </div>
                                             <!-- Item accept message -->
 
                                             <!-- Item pickup message -->
                                             <div  class=' flex flex-row items-end mb-2' v-if="chat.isUserBought">
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-br-none bg-feInfo-500">
-                                                    <ps-label class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_pickup") }}</ps-label>
+                                                    <ps-label v-if="isBooking" class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat_book_appoint_done") }}</ps-label>
+                                                    <ps-label v-else class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_pickup") }}</ps-label>
                                                 </span>
-                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                             </div>
                                             <!-- Item pickup message -->
 
@@ -228,7 +247,7 @@
                                                 <span class="px-2 py-4 rounded-md inline-block rounded-br-none bg-feError-500">
                                                     <ps-label class="text-center  " textColor="text-feAchromatic-50"  >  {{ $t("chat__offer_item_soldout") }}</ps-label>
                                                 </span>
-                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                                <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                             </div>
                                             <!-- Item soldout message -->
 
@@ -244,19 +263,19 @@
                                     <div v-if='chat.sendByUserId == loginUserId' class='w-full flex justify-end ps-1/3 flex-row items-end'>
                                         <!-- <ps-label-caption-2 @click="chatDelete(chat.id)" class="me-2 mb-2 del cursor-pointer bg-feError-500 p-1 rounded text-feAchromatic-50"> Delete </ps-label-caption-2> -->
                                         <div class="">
-                                            <ps-label-caption-2 @click="showDeleteDropDown(chat.id)" :class="deleteChatId == chat.id ? '' : 'del'" class="cursor-pointer rounded float-right" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400">
+                                            <ps-label-caption-2 @click="showDeleteDropDown(chat.id)" :class="deleteChatId == chat.id ? '' : 'del'" class="cursor-pointer rounded float-right" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400">
                                                 <ps-icon name="verticalThreeDot" class="text-feAchromatic-50Dark"></ps-icon>
                                             </ps-label-caption-2>
 
                                             <div class="relative">
-                                                <div @click="deleteConfirm(chat)" class="bg-feAchromatic-50 shadow-sm absolute top-4 right-2 px-5  py-1 rounded border transform cursor-pointer text-sm dark_bg-feAchromatic-900 dark_text-feAchromatic-50" v-if="deleteChatId == chat.id">
+                                                <div @click="deleteConfirm(chat)" class="bg-feAchromatic-50 shadow-sm absolute top-4 right-2 px-5  py-1 rounded border transform cursor-pointer text-sm dark:bg-feAchromatic-900 dark:text-feAchromatic-50" v-if="deleteChatId == chat.id">
                                                 {{ $t('chat__delete_messages') }}
                                                 </div>
                                             </div>
 
-                                            <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                            <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                         </div>
-                                        <span class="p-4 mt-2 mb-1 rounded-md inline-block rounded-bl-none bg-feSecondary-100 dark_bg-feAchromatic-800">
+                                        <span class="p-4 mt-2 mb-1 rounded-md inline-block rounded-bl-none bg-feSecondary-100 dark:bg-feAchromatic-800">
                                             <ps-label class="text-sm"> {{chat.message}} </ps-label>
                                         </span>
                                     </div>
@@ -266,7 +285,7 @@
                                         <span class="p-4 mt-2 mb-1 rounded-md inline-block rounded-br-none  bg-fePrimary-500">
                                             <ps-label textColor="text-feAchromatic-50" class="text-sm"> {{chat.message}} </ps-label>
                                         </span>
-                                        <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                        <ps-label class="ms-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                     </div>
                                 </div>
                             </div>
@@ -278,18 +297,18 @@
                                 <div  class="mt-5 mb-2 grid grid-cols-4 gap-x-4 sm:flex sm:flex-row sm:justify-center  rtl:space-x-reverse sm:space-x-3">
                                     <!-- <div  class='flex  flex-row '>
 
-                                        <span class="px-4 py-2 mt-2 mb-1 rounded-lg inline-block bg-fePrimary-50 dark_bg-feAchromatic-800 ">
+                                        <span class="px-4 py-2 mt-2 mb-1 rounded-lg inline-block bg-fePrimary-50 dark:bg-feAchromatic-800 ">
                                             <ps-label class="text-center " > {{ $t("chat__item_bought") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
                                         </span>
                                     </div> -->
                                     <div class="col-span-2">
-                                        <ps-button @click="clickGiveReview()" colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500">
+                                        <ps-button @click="clickGiveReview()" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500">
                                             {{ $t("chat__leave_a_review") }}
                                         </ps-button>
                                     </div>
                                     <div v-if='chat.sendByUserId == loginUserId && chat.offerStatus == PsConst.CHAT_STATUS_IS_USER_BOUGHT' class="col-span-2" >
-                                        <!-- <ps-label @click="markAsSoldClick(chat)" class="p-2 flex flex-shrink-0 bg-fePrimary-500 dark_bg-feAccent-500 cursor-pointer rounded-lg" textColor="text-feAchromatic-50 dark_text-feAchromatic-900"> {{ $t("chat__mark_as_sold") }} </ps-label> -->
-                                        <ps-button @click="markAsSoldClick(chat)" class="w-full" colors="bg-fePrimary-500 text-feAchromatic-50 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500">
+                                        <!-- <ps-label @click="markAsSoldClick(chat)" class="p-2 flex flex-shrink-0 bg-fePrimary-500 dark:bg-feAccent-500 cursor-pointer rounded-lg" textColor="text-feAchromatic-50 dark:text-feAchromatic-900"> {{ $t("chat__mark_as_sold") }} </ps-label> -->
+                                        <ps-button @click="markAsSoldClick(chat)" class="w-full" colors="bg-fePrimary-500 text-feAchromatic-50 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500">
                                             {{ $t("chat__mark_sold_out") }}
                                         </ps-button>
                                     </div>
@@ -303,7 +322,7 @@
                                 <div  class="w-full mt-5 flex justify-center items-center">
 
                                     <div >
-                                        <ps-button @click="clickGiveReview()" class=" h-9" colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500">
+                                        <ps-button @click="clickGiveReview()" class=" h-9" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500">
                                             {{ $t("chat__leave_a_review") }}
                                         </ps-button>
                                     </div>
@@ -316,9 +335,10 @@
                             <div v-else-if="chat.type == PsConst.CHAT_TYPE_OFFER">
                                 <!-- Send by me UI -->
                                 <div v-if='chat.sendByUserId == loginUserId' class='w-full flex justify-end ps-1/3 flex-row items-end'>
-                                    <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                    <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                     <span class="px-2 py-4 mt-2 mb-1 rounded-md inline-block rounded-bl-none bg-feInfo-500 ">
-                                        <ps-label class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat__send_offer") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
+                                        <ps-label v-if="isBooking" class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat_book_make_booking") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
+                                        <ps-label v-else class="text-center " textColor="text-feAchromatic-50Dark" > {{ $t("chat__send_offer") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}} </ps-label>
                                     </span>
                                 </div>
 
@@ -326,15 +346,16 @@
                                 <div v-else class="flex flex-col">
                                     <div  class="flex flex-row items-end">
                                         <span class="px-2 py-4 mt-2 mb-1 rounded-md block rounded-br-none bg-feInfo-500 ">
-                                            <ps-label class=" dark_text-feAchromatic-800" textColor="text-feAchromatic-50" > {{ $t("chat__receive_offer") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
+                                            <ps-label v-if="isBooking" class=" dark:text-feAchromatic-800" textColor="text-feAchromatic-50" > {{ $t("chat_book_received_booking") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
+                                            <ps-label v-else class=" dark:text-feAchromatic-800" textColor="text-feAchromatic-50" > {{ $t("chat__receive_offer") }} <br/>{{itemPrice == '0' ? $t("item_price__free") : chat.message}}</ps-label>
                                         </span>
-                                        <ps-label class="ms-2 mb-2 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-50" > {{chat.timeString}} </ps-label>
+                                        <ps-label class="ms-2 mb-2 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-50" > {{chat.timeString}} </ps-label>
                                     </div>
                                     <div v-if="chat.offerStatus == PsConst.CHAT_STATUS_OFFER" class="mt-5 mb-2 grid grid-cols-4 gap-4 sm:flex sm:flex-row sm:justify-center  rtl:space-x-reverse sm:space-x-4">
-                                        <!-- <ps-label @click="acceptOffer(chat)" class="p-2 bg-feSuccess-600 hover_bg-feSuccess-700 cursor-pointer rounded-lg text-feAchromatic-50" textColor="text-feAchromatic-50"> {{ $t("chat__accept") }} </ps-label>
-                                        <ps-label @click="rejectOffer(chat)" class="p-2 bg-feAchromatic-600 hover_bg-feAchromatic-700 cursor-pointer rounded-lg text-feAchromatic-50" textColor="text-feAchromatic-50"> {{ $t("chat__reject") }} </ps-label> -->
-                                        <ps-button @click="acceptOffer(chat)" class="col-span-2 sm:w-[140px] h-9" textSize="font-normal text-xxs lg:text-sm" colors="bg-feSuccess-600 cursor-pointer text-feAchromatic-50" rounded="rounded" hover="hover_bg-feSuccess-700" focus="focus_bg-feSuccess-700"> {{ $t("chat__accept") }}</ps-button>
-                                        <ps-button @click="rejectOffer(chat)" class="col-span-2 sm:w-[140px] h-9" textSize="font-normal text-xxs lg:text-sm" colors="text-fePrimary-500 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" focus="focus_text-feAchromatic-50 focus_bg-fePrimary-500" border="border border-feAchromatic-300 dark_border-feAchromatic-500" rounded="rounded"> {{ $t("chat__reject") }} </ps-button>
+                                        <!-- <ps-label @click="acceptOffer(chat)" class="p-2 bg-feSuccess-600 hover:bg-feSuccess-700 cursor-pointer rounded-lg text-feAchromatic-50" textColor="text-feAchromatic-50"> {{ $t("chat__accept") }} </ps-label>
+                                        <ps-label @click="rejectOffer(chat)" class="p-2 bg-feAchromatic-600 hover:bg-feAchromatic-700 cursor-pointer rounded-lg text-feAchromatic-50" textColor="text-feAchromatic-50"> {{ $t("chat__reject") }} </ps-label> -->
+                                        <ps-button @click="acceptOffer(chat)" class="col-span-2 sm:w-[140px] h-9" textSize="font-normal text-xxs lg:text-sm" colors="bg-feSuccess-600 cursor-pointer text-feAchromatic-50" rounded="rounded" hover="hover:bg-feSuccess-700" focus="focus:bg-feSuccess-700"> {{ $t("chat__accept") }}</ps-button>
+                                        <ps-button @click="rejectOffer(chat)" class="col-span-2 sm:w-[140px] h-9" textSize="font-normal text-xxs lg:text-sm" colors="text-fePrimary-500 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" focus="focus:text-feAchromatic-50 focus:bg-fePrimary-500" border="border border-feAchromatic-300 dark:border-feAchromatic-500" rounded="rounded"> {{ $t("chat__reject") }} </ps-button>
                                     </div>
                                 </div>
 
@@ -347,7 +368,7 @@
                                 <!-- Send by me -->
                                 <div v-if='chat.sendByUserId == loginUserId' class='w-full flex justify-end ps-1/3 flex-row items-end h-48 mt-4'>
                                     <div class="relative">
-                                        <ps-label-caption-2 @click="showDeleteDropDown(chat.id)" :class="deleteChatId == chat.id ? '' : 'del'" class="cursor-pointer rounded float-right" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400">
+                                        <ps-label-caption-2 @click="showDeleteDropDown(chat.id)" :class="deleteChatId == chat.id ? '' : 'del'" class="cursor-pointer rounded float-right" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400">
                                                 <ps-icon name="verticalThreeDot" class="text-feAchromatic-50Dark"></ps-icon>
                                         </ps-label-caption-2>
 
@@ -357,7 +378,7 @@
                                             {{ $t('chat__delete_messages') }}
                                         </div>
 
-                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                        <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                     </div>
                                     <img @click="imageView(chat.message)"  width="300px" height="200px" alt="Placeholder" class="cursor-pointer w-auto h-48 p-2 object-cover  rounded-md"
                                     v-lazy=" { src: $page.props.thumb3xUrl + '/' +chat.message, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
@@ -369,7 +390,7 @@
                                     <img @click="imageView(chat.message)"  width="300px" height="200px" alt="Placeholder" class="cursor-pointer w-auto h-48 p-2 object-cover rounded-md"
                                     v-lazy=" { src: $page.props.thumb3xUrl + '/' +chat.message, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
                                     >
-                                    <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark_text-feAchromatic-400"> {{chat.timeString}} </ps-label>
+                                    <ps-label class="me-2 mb-1 text-xs font-normal" textColor="text-feAchromatic-50Dark dark:text-feAchromatic-400"> {{chat.timeString}} </ps-label>
                                 </div>
                             </div>
                         </div>
@@ -384,15 +405,15 @@
                             <button type="button"
                             class="inline-flex items-center justify-center rounded-full h-10 w-10
                             transition duration-500 ease-in-out">
-                                <ps-icon name="camera" textColor="text-fePrimary-500 dark_text-fePrimary-500"></ps-icon>
+                                <ps-icon name="camera" textColor="text-fePrimary-500 dark:text-fePrimary-500"></ps-icon>
                             </button>
                         </div>
                         <div class="grow relative">
                             <ps-input v-bind:placeholder="$t('chat__type_message')" @keyup.enter="sendNormalMessage(inputMessageController)"  v-model:value="inputMessageController" class="mt-1 "
-                            theme="form-input dark_bg-feAchromatic-800 text-feSecondary-500 dark_text-feAchromatic-50"/>
+                            theme="form-input dark:bg-feAchromatic-800 text-feSecondary-500 dark:text-feAchromatic-50"/>
 
                             <button type="button" @click.prevent="sendNormalMessage(inputMessageController)" class="absolute right-3 top-3 ">
-                                <ps-icon name="send" textColor="text-fePrimary-500 dark_text-fePrimary-500"></ps-icon>
+                                <ps-icon name="send" textColor="text-fePrimary-500 dark:text-fePrimary-500"></ps-icon>
                             </button>
                         </div>
                     </div>
@@ -407,12 +428,13 @@
     <ps-success-dialog ref="ps_success_dialog" />
     <chat-image-detail ref='chat_image' />
     <offer-modal ref="offer_modal" :price="itemPrice" @submit="submitOffer" />
+    <booking-modal ref="booking_modal" :price="itemPrice" @submit="submitBooking" />
     <review-modal ref="review_modal"  />
 
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import firebaseApp from 'firebase/app';
 import "firebase/auth";
 import 'firebase/database';
@@ -440,6 +462,7 @@ import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialo
 import PsSuccessDialog from '@template1/vendor/components/core/dialog/PsSuccessDialog.vue';
 import ChatImageDetail from '@template1/vendor/components/modules/chat/ChatImageDetail.vue'
 import OfferModal from '@template1/vendor/components/modules/chat/OfferModal.vue';
+import BookingModal from '@template1/vendor/components/modules/chat/BookingModal.vue';
 import ReviewModal from '@template1/vendor/components/modules/review/ReviewModal.vue';
 import { useGalleryStoreState } from '@templateCore/store/modules/gallery/GalleryStore';
 import PsStatus from '@templateCore/api/common/PsStatus';
@@ -457,7 +480,7 @@ import ChatMessage from '@templateCore/object/ChatMessage';
 import IsUserBoughtParameterHolder from '@templateCore/object/holder/IsUserBoughtParameterHolder';
 import format from 'number-format.js';
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
 import { useProductStore } from "@templateCore/store/modules/item/ProductStore";
 import { useUserUnReadMessageStore } from "@templateCore/store/modules/chat/UserUnreadMessageStore";
@@ -476,6 +499,7 @@ export default {
         PsLabelCaption2,
         PsLoadingDialog,
         OfferModal,
+        BookingModal,
         PsConfirmDialog2,
         PsErrorDialog,
         PsSuccessDialog,
@@ -496,9 +520,8 @@ export default {
         const loginUserId = psValueStore.getLoginUserId();
         const dataReady = ref(false);
 
-
         if(loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
          const userUnreadHolder = new UserUnReadMessageParameterHolder();
 
@@ -532,8 +555,12 @@ export default {
         const appInfoParameterHolder = new AppInfoParameterHolder();
         appInfoParameterHolder.userId = loginUserId;
         const appInfoStore = usePsAppInfoStoreState();
+        const isBooking = ref(false);
+        if(appInfoStore?.appInfo?.data?.psAppSetting.SelectedChatType == PsConst.CHAT_AND_APPOINTMENT){
+            isBooking.value = true;
+        }
         async function loadAppInfo(){
-            // await appInfoStore.loadDeleteHistory(appInfoParameterHolder);
+            //await appInfoStore.loadAppInfo(appInfoParameterHolder);
             // itemPrice = format(appInfoStore.appInfo.data.mobileSetting.price_format, parseFloat(itemPrice)).toString();
             // itemPrice = parseFloat(itemPrice).toString();
         }
@@ -558,6 +585,7 @@ export default {
         const ps_error_dialog = ref();
         const chat_image = ref();
         const offer_modal = ref();
+        const booking_modal = ref();
         const review_modal =ref();
         const showOffer = ref(false);
         const image = ref();
@@ -875,13 +903,60 @@ export default {
         }
 
         function makeOfferClicked(){
-            offer_modal.value.openModal(
+            if (appInfoStore?.appInfo?.data?.psAppSetting.SelectedChatType == PsConst.CHAT_AND_APPOINTMENT) {
+                booking_modal.value.openModal(
                 itemName.value,
                 itemCategory.value,
                 itemImageName.value,
                 currency.value,
                 itemPrice.value);
+            } else {
+                offer_modal.value.openModal(
+                itemName.value,
+                itemCategory.value,
+                itemImageName.value,
+                currency.value,
+                itemPrice.value);
+            }
 
+        }
+
+        async function submitBooking(datetime){
+            let isUserOnlineFlag = "0"; // Default offline
+            if(isOtherUserOnline.value) {
+                isUserOnlineFlag = "1";
+            }
+
+            holder.itemId = itemId;
+            holder.buyerUserId = buyerUserId;
+            holder.sellerUserId = sellerUserId;
+            holder.negoPrice = datetime;
+            holder.type = PsConst.CHAT_TO_SELLER;
+            holder.isUserOnline = isUserOnlineFlag;
+            holder.message = datetime;
+
+            ps_loading_dialog.value.openModal();
+            const item = await offerProvider.makeOffer(buyerUserId, holder);
+
+            if(item.status == PsStatus.ERROR) {
+                PsUtils.log(item.message);
+            }
+            else{
+                chatHolder.id = '';
+                chatHolder.addedDateTimeStamp = getCurrentDateTimeStamp();
+                chatHolder.isSold = false;
+                chatHolder.isUserBought = false;
+                chatHolder.itemId = itemId;
+                chatHolder.message = datetime;
+                chatHolder.offerStatus = PsConst.CHAT_STATUS_OFFER;
+                chatHolder.sendByUserId = loginUserId;
+                chatHolder.sessionId = sessionId;
+                chatHolder.type = PsConst.CHAT_TYPE_OFFER;
+
+                await sendMessage(chatHolder);
+            }
+            await loadChatHistory();
+            ps_loading_dialog.value.closeModal();
         }
 
         async function submitOffer(negoPrice,currency){
@@ -889,6 +964,7 @@ export default {
             if(isOtherUserOnline.value) {
                 isUserOnlineFlag = "1";
             }
+            // alert(negoPrice);
 
             holder.itemId = itemId;
             holder.buyerUserId = buyerUserId;
@@ -924,7 +1000,7 @@ export default {
 
         function acceptOffer(chat) {
             ps_confirm_dialog.value.openModal(
-                trans('chat__accept_title'),
+                trans('chat__confirm_title'),
                 trans('chat__confirm_to_accept_dialog'),
                 trans('chat__confirm'),
                 trans('chat__cancel'),
@@ -1128,6 +1204,23 @@ export default {
             );
         }
 
+        function appointmentDone(chat){
+            ps_confirm_dialog.value.openModal(
+                trans('chat_book_appoint_done'),
+                trans('chat__confirm_to_user_appointment_dialog'),
+                trans('chat__confirm'),
+                trans('chat__cancel'),
+                () => {
+
+                    isUserBought(chat);
+                },
+                () => {
+                   PsUtils.log("cancel");
+
+                }
+            );
+        }
+
         function deleteConfirm(chat,fileName = ''){
             ps_confirm_dialog.value.openModal(
                 trans('chat__delete_message_title'),
@@ -1276,8 +1369,10 @@ export default {
             ps_confirm_dialog,
             makeOfferClicked,
             offer_modal,
+            booking_modal,
             review_modal,
             submitOffer,
+            submitBooking,
             offerProvider,
             acceptOffer,
             rejectOffer,
@@ -1295,10 +1390,13 @@ export default {
             chatDelete,
             chatImageDelete,
             userPickup,
+            appointmentDone,
             deleteChatId,
             showDeleteDropDown,
             deleteConfirm,
-            moment
+            moment,
+            appInfoStore,
+            isBooking
         };
     },
     computed: {

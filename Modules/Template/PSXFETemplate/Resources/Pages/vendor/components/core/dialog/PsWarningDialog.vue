@@ -2,7 +2,7 @@
     <ps-modal ref="psmodal" maxWidth="350px" :isClickOut='false' class=" z-50" >
         <template #title>
             <ps-label-title class="flex flex-auto "> 
-                <font-awesome-icon :icon="['fas', 'exclamation-triangle']" class="text-feWarning-300 mt-1 me-2" size="sm" />
+                <ps-icon name="warningTriangle" class="text-feWarning-300 mt-1 me-2" />
                 {{ title }}
             </ps-label-title>
         </template>
@@ -23,9 +23,8 @@ import PsModal from '@template1/vendor/components/core/modals/PsModal.vue';
 import PsLabelTitle from '@template1/vendor/components/core/label/PsLabelTitle.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
-import { trans } from 'laravel-vue-i18n';import { library } from '@fortawesome/fontawesome-svg-core';
-import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-library.add(faExclamationTriangle);
+import { trans } from 'laravel-vue-i18n';
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default defineComponent({
     name: "PsWarningDialog",
@@ -34,6 +33,7 @@ export default defineComponent({
         PsLabel,
         PsLabelTitle,
         PsButton,
+        PsIcon
     },
     setup() {
         const psmodal = ref();

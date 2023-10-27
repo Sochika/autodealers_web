@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default {
     name : 'PsRouteLink',
     props: {
         textColor : {
             type: String,
-            default: 'text-feSecondary-500 dark_text-feAchromatic-50'
+            default: 'text-feSecondary-500 dark:text-feAchromatic-50'
         },
         textSize : {
             type : String,
@@ -30,11 +30,11 @@ export default {
     setup(props) {
         function clickRoute(){
             if(props.to.params){
-                Inertia.get(route(props.to.name),props.to.params);
+                router.get(route(props.to.name),props.to.params);
             }else if(props.to.query){
-                Inertia.get(route(props.to.name),props.to.query);
+                router.get(route(props.to.name),props.to.query);
             }else{
-                Inertia.get(route(props.to.name));
+                router.get(route(props.to.name));
             }
 
         }

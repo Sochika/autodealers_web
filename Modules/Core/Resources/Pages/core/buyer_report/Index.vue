@@ -86,8 +86,8 @@
 <script>
 import { trans } from 'laravel-vue-i18n';
 import { ref, defineComponent } from "vue";
-import { Inertia } from "@inertiajs/inertia";
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { router } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -208,7 +208,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('buyer_report.index'),
+            router.get(route('buyer_report.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -296,7 +296,7 @@ export default defineComponent({
             this.$inertia.get(route('buyer_report.show',id));
         },
         // FilterOptionshandle(value) {
-        //     Inertia.post(route('user.screenDisplayUiSetting.store'),
+        //     router.post(route('user.screenDisplayUiSetting.store'),
         //         {
         //             value,
         //             sort_field: this.sort_field,

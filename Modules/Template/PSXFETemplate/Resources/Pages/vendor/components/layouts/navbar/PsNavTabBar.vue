@@ -6,7 +6,7 @@
         <div class="xl:w-feLarge lg:w-large w-full flex justify-between mx-4 sm:mx-6 lg:mx-auto">
             <div class="flex items-center cursor-pointer" @click.prevent="openLocationModal">
                 <ps-icon name="locationBig" class="text-feSecondary-100 me-2"></ps-icon>
-                <ps-label textColor="text-feSecondary-200 dark_text-feAchromatic-50" class="text-sm hidden md:block">{{ psValueStore.locationName }}{{ appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1' ? `,${psValueStore.subLocationName}` : '' }} </ps-label>
+                <ps-label textColor="text-feSecondary-200 dark:text-feAchromatic-50" class="text-sm hidden md:block">{{ psValueStore.locationName }}{{ appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1' ? `,${psValueStore.subLocationName}` : '' }} </ps-label>
             </div>
             <!-- <div v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation">
                 {{ checkTownship() }}
@@ -38,7 +38,7 @@
                             <div class="rounded-md shadow-xs w-32">
                                 <div class="pt-2 z-30 ">
                                     <div v-for="language in ($page.props.languages)" :key="language.id"
-                                        class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                         @click="handleLanguage(language)">
                                         <ps-label class="ms-2"
                                             :class="language.symbol==activeLanguage ? ' font-bold' : ''">

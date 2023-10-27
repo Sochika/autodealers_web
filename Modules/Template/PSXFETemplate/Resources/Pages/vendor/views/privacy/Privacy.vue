@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // import { useRoute } from 'vue-router';
 // import router from '@template1/router';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';

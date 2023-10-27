@@ -144,7 +144,7 @@
 <script>
 import { defineComponent, ref, reactive, watch } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTable2 from "@/Components/Core/Table/PsTable2.vue";
@@ -161,7 +161,7 @@ import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import { getCategories, getSubCat, getCustomFields, getCities, getTownships, getUsers } from '@/Api/psApiService.js'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import debounce from 'lodash/debounce';
@@ -295,7 +295,7 @@ import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.v
                         csvFile: selectedFile,
                         "_method": "put"
                     })
-                    Inertia.post(route('subcategory.import.csv'), form)
+                    router.post(route('subcategory.import.csv'), form)
                 }
             );
         }
@@ -309,7 +309,7 @@ import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.v
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('subcategory.index'),
+            router.get(route('subcategory.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -430,7 +430,7 @@ import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.v
             }
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('subcategory.screenDisplayUiSetting.store'),
+        router.put(route('subcategory.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

@@ -19,25 +19,25 @@
                             @onClick="loadLocationList"
                             type="button"
                             class="border inline-flex items-center content-start justify-between w-full h-10 lg:rounded rounded-x
-                            px-4  bg-feSecondary-000 text-sm leading-5 font-medium text-feSecondary-500 dark_text-feSecondary-200
-                                        focus:shadow-outline-blue active_bg-feAchromatic-100 active_text-feSecondary-600 transition
+                            px-4  bg-feSecondary-000 text-sm leading-5 font-medium text-feSecondary-500 dark:text-feSecondary-200
+                                        focus:shadow-outline-blue active:bg-feAchromatic-100 active:text-feSecondary-600 transition
                             ease-in-out duration-150 btn-focus
-                             dark_bg-feSecondary-800 dark_border-feSecondary-200 "
+                             dark:bg-feSecondary-800 dark:border-feSecondary-200 "
                                         aria-haspopup="true"
                             aria-expanded="true">
-                            <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="locationBig" />
+                            <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="locationBig" />
 
-                            <ps-label v-if="locationCity" textColor="font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ locationCity }}</ps-label>
-                            <ps-label v-else textColor="font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ $t('location_modal__select_city') }}</ps-label>
-                            <ps-icon class="text-lg" textColor="text-feSecondary-800 dark_text-feSecondary-200" name="downArrow"   />
+                            <ps-label v-if="locationCity" textColor="font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ locationCity }}</ps-label>
+                            <ps-label v-else textColor="font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ $t('location_modal__select_city') }}</ps-label>
+                            <ps-icon class="text-lg" textColor="text-feSecondary-800 dark:text-feSecondary-200" name="downArrow"   />
                             </button>
                         </ps-label>
                     </template>
                     <template #filter >
                         <div>
-                            <ps-input-with-left-icon rounded="rounded-t-lg" theme="ring-fePrimary-200 dark_ring-feAchromatic-500 focus:outline-none focus_ring focus_border-fePrimary-200 border-feSecondary-300 lg:rounded rounded-x bg-feSecondary-200 dark_bg-feAchromatic-800 text-feSecondary-500 dark_text-feAchromatic-50" height="h-10" @keyup.enter="filterKeywordUpate(itemLocationStore.filterKeyword)"  v-model:value="itemLocationStore.filterKeyword" v-bind:placeholder= "$t('search_city')" style="width: 14.5rem;">
+                            <ps-input-with-left-icon rounded="rounded-t-lg" theme="ring-fePrimary-200 dark:ring-feAchromatic-500 focus:outline-none focus:ring focus:border-fePrimary-200 border-feSecondary-300 lg:rounded rounded-x bg-feSecondary-200 dark:bg-feAchromatic-800 text-feSecondary-500 dark:text-feAchromatic-50" height="h-10" @keyup.enter="filterKeywordUpate(itemLocationStore.filterKeyword)"  v-model:value="itemLocationStore.filterKeyword" v-bind:placeholder= "$t('search_city')" style="width: 14.5rem;">
                                 <template #icon>
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterKeywordUpate(itemLocationStore.filterKeyword)" />
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterKeywordUpate(itemLocationStore.filterKeyword)" />
                                 </template>
                             </ps-input-with-left-icon>
                         </div>
@@ -47,10 +47,10 @@
                             <div  v-if="itemLocationStore.loading.value == true" class='w-56 flex py-4 px-2 items-center'>
                                 <ps-label-caption class="ms-2" > {{ $t("search_for_large_screem__loading") }} </ps-label-caption>
                             </div>
-                            <div v-else class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"  @click="locationFilterClicked('',$t('item_list__all'),'','')" >
+                            <div v-else class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"  @click="locationFilterClicked('',$t('item_list__all'),'','')" >
                                 <ps-label class="ms-2" :class="locationId =='' ? ' font-bold text-fePrimary-700' : ''"  >{{ $t('item_list__all')}} </ps-label>
                             </div>
-                            <div v-for="selectData in itemLocationStore.itemLocationList.data" :key="selectData.id" class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"  @click="locationFilterClicked(selectData.id,selectData.name,selectData.lat,selectData.lng)" >
+                            <div v-for="selectData in itemLocationStore.itemLocationList.data" :key="selectData.id" class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"  @click="locationFilterClicked(selectData.id,selectData.name,selectData.lat,selectData.lng)" >
                                 <ps-label class="ms-2" :class="selectData.id==locationId ? ' font-bold text-fePrimary-700' : ''"  > {{selectData.name}} </ps-label>
                             </div>
                             <div class="border-t border-feAchromatic-100 "></div>
@@ -76,24 +76,24 @@
 
                             type="button"
                             class="border inline-flex items-center content-start justify-between w-full h-10 lg:rounded rounded-x
-                            px-4  bg-feSecondary-000 text-sm leading-5 font-medium text-feSecondary-500 dark_text-feSecondary-200
-                                        focus:shadow-outline-blue active_bg-feAchromatic-100 active_text-feSecondary-600 transition
+                            px-4  bg-feSecondary-000 text-sm leading-5 font-medium text-feSecondary-500 dark:text-feSecondary-200
+                                        focus:shadow-outline-blue active:bg-feAchromatic-100 active:text-feSecondary-600 transition
                             ease-in-out duration-150 btn-focus
-                             dark_bg-feSecondary-800 dark_border-feSecondary-200 cursor-pointer"
+                             dark:bg-feSecondary-800 dark:border-feSecondary-200 cursor-pointer"
                                         aria-haspopup="true"
                             aria-expanded="true">
-                            <ps-icon textColor="text-feSecondary-800 dark_text-feSecondary-200" name="locationBig" />
+                            <ps-icon textColor="text-feSecondary-800 dark:text-feSecondary-200" name="locationBig" />
 
-                            <ps-label v-if="locationTownship" textColor="font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ locationTownship }}</ps-label>
-                            <ps-label v-else textColor="font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ $t('location_modal__select_township') }}</ps-label>
-                            <ps-icon class="text-lg" textColor="text-feSecondary-800 dark_text-feSecondary-200" name="downArrow"   />
+                            <ps-label v-if="locationTownship" textColor="font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ locationTownship }}</ps-label>
+                            <ps-label v-else textColor="font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ $t('location_modal__select_township') }}</ps-label>
+                            <ps-icon class="text-lg" textColor="text-feSecondary-800 dark:text-feSecondary-200" name="downArrow"   />
                             </button>
                     </template>
                     <!-- <template #filter>
                         <div>
-                            <ps-input-with-left-icon :placeholder="$t('search_location')" rounded="rounded-t-lg" theme="ring-fePrimary-200 dark_ring-feAchromatic-500 focus:outline-none focus_ring focus_border-fePrimary-200 border-feSecondary-300 lg:rounded rounded-x bg-feSecondary-200 dark_bg-feAchromatic-800 text-feSecondary-500 dark_text-feAchromatic-50" height="h-10" style="width: 15rem;" @keyup.enter="filtersubLocationUpdate(itemLocationTownshipStore.filterKeyword)" v-model:value="itemLocationTownshipStore.filterKeyword">
+                            <ps-input-with-left-icon :placeholder="$t('search_location')" rounded="rounded-t-lg" theme="ring-fePrimary-200 dark:ring-feAchromatic-500 focus:outline-none focus:ring focus:border-fePrimary-200 border-feSecondary-300 lg:rounded rounded-x bg-feSecondary-200 dark:bg-feAchromatic-800 text-feSecondary-500 dark:text-feAchromatic-50" height="h-10" style="width: 15rem;" @keyup.enter="filtersubLocationUpdate(itemLocationTownshipStore.filterKeyword)" v-model:value="itemLocationTownshipStore.filterKeyword">
                                 <template #icon>
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-500" name="search" class='cursor-pointer' @click="flter(itemCurrencyStore.filterKeyword)"/>
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-500" name="search" class='cursor-pointer' @click="flter(itemCurrencyStore.filterKeyword)"/>
                                 </template>
                             </ps-input-with-left-icon>
                         </div>
@@ -102,10 +102,10 @@
                         <div  v-if="itemLocationTownshipStore.loading.value == true" class='w-56 flex py-4 px-2 items-center'>
                             <ps-label-caption class="ms-2" > {{ $t("search_for_large_screem__loading") }} </ps-label-caption>
                         </div>
-                        <div v-else class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"  @click="townshipFilterClicked('',$t('item_list__all'),'','')" >
+                        <div v-else class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"  @click="townshipFilterClicked('',$t('item_list__all'),'','')" >
                             <ps-label class="ms-2" :class="townshipId =='' ? ' font-bold text-fePrimary-700' : ''"  > {{$t('item_list__all')}} </ps-label>
                         </div>
-                        <div v-for="township in itemLocationTownshipStore.locationTownshipList.data" :key="township.id" class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center" @click.prevent="townshipFilterClicked(township.id,township.townshipName)">
+                        <div v-for="township in itemLocationTownshipStore.locationTownshipList.data" :key="township.id" class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center" @click.prevent="townshipFilterClicked(township.id,township.townshipName)">
                             <ps-label class="ms-2" :class="township.id==townshipId ? ' font-bold text-fePrimary-700' : ''"  > {{township.townshipName}} </ps-label>
                         </div>
                         <div class="border-t border-feAchromatic-100 "></div>

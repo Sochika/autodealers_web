@@ -83,7 +83,7 @@
 
 <script>
 import { defineComponent, ref, reactive, watch } from 'vue'
-import { Link, Head,useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head,useForm } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -97,7 +97,7 @@ import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import Dropdown from "@/Components/Core/DropdownModal/Dropdown.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsJsonModal from '@/Components/Core/Modals/PsJsonModal.vue';
 
     export default defineComponent({
@@ -201,7 +201,7 @@ import PsJsonModal from '@/Components/Core/Modals/PsJsonModal.vue';
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('mobile_language_string.index',props.mobile_language.id),
+            router.get(route('mobile_language_string.index',props.mobile_language.id),
             {
                 mobile_language : props.mobile_language.id,
                 sort_field : sort_field.value,
@@ -223,7 +223,7 @@ import PsJsonModal from '@/Components/Core/Modals/PsJsonModal.vue';
                         csvFile: selectedFile,
                         "_method": "put"
                     })
-                    Inertia.post(route('mobile_language_string.import.csv', props.mobile_language.id), form);
+                    router.post(route('mobile_language_string.import.csv', props.mobile_language.id), form);
                 }
             );
         }
@@ -274,7 +274,7 @@ import PsJsonModal from '@/Components/Core/Modals/PsJsonModal.vue';
             }
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('mobile_language_string.screenDisplayUiSetting.store'),
+        router.put(route('mobile_language_string.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

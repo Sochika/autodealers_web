@@ -13,10 +13,10 @@
         </template>
         <template #footer>
             <div class=" flex flex-row justify-end  rtl:space-x-reverse space-x-5">
-                <!-- <ps-button @click="actionClicked('no')" textSize="text-xxs lg:text-sm" class="py-3 " theme="bg-feSecondary-50 dark_bg-feAchromatic-500 text-fePrimary-500 dark_text-feAchromatic-50"> {{cancelButton}} </ps-button>
+                <!-- <ps-button @click="actionClicked('no')" textSize="text-xxs lg:text-sm" class="py-3 " theme="bg-feSecondary-50 dark:bg-feAchromatic-500 text-fePrimary-500 dark:text-feAchromatic-50"> {{cancelButton}} </ps-button>
                 <ps-button @click="actionClicked('yes')" textSize="text-xxs lg:text-sm" class="py-3"  > {{okButton}} </ps-button> -->
                 <ps-button @click="actionClicked('yes')" textSize="font-normal text-xxs lg:text-sm" colors="bg-fePrimary-500 cursor-pointer text-feAchromatic-50" rounded="rounded"> {{ okButton }}</ps-button>
-                <ps-button @click="actionClicked('no')" textSize="font-normal text-xxs lg:text-sm" colors="dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" focus="focus_text-feAchromatic-50 focus_bg-fePrimary-500" border="border border-feAchromatic-300 dark_border-feAchromatic-500" rounded="rounded"> {{ cancelButton }} </ps-button>
+                <ps-button @click="actionClicked('no')" textSize="font-normal text-xxs lg:text-sm" colors="dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" focus="focus:text-feAchromatic-50 focus:bg-fePrimary-500" border="border border-feAchromatic-300 dark:border-feAchromatic-500" rounded="rounded"> {{ cancelButton }} </ps-button>
             </div>
         </template>
     </ps-modal>

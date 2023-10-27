@@ -5,14 +5,11 @@
 </template>
 
 <script lang='ts'>
-import { useRoute } from 'vue-router';
 
 export default {
     name : "PsContentContainer",
     setup() {
-        const route = useRoute();
         return {
-            route
         }
     }
 }

@@ -23,29 +23,28 @@
                 <div class="grid grid-cols-1 sm:grid-cols-12 gap-4">
                     <div class="col-span-1 sm:col-span-7 md:col-span-8">
                         <!-- gallery start -->
-                        <div class="">
-                            <gallery-vertical-swiper :galleryList="galleryProvider.galleryList?.data"
-                                :video="videoStore.galleryList?.data"
-                                :isLoading="galleryProvider.galleryList.data == null && dataReady ? false : true" />
-                        </div>
+                        <gallery-vertical-swiper :galleryList="galleryProvider.galleryList?.data"
+                            :video="videoStore.galleryList?.data"
+                            :isLoading="galleryProvider.galleryList.data == null && dataReady ? false : true" />
+                        
                         <!-- gallery end -->
 
                         <!-- price start -->
                         <div
-                            class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800 mt-6 sm:hidden">
+                            class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800 mt-6 sm:hidden">
                             <div class="flex justify-between">
                                 <div class="flex flex-wrap items-center gap-1">
                                     <div
                                         v-if="productStore.item?.data?.isDiscount == '1' && appInfoProvider.appInfo.data?.mobileSetting?.is_show_discount == '1'">
                                         <ps-label
-                                            textColor="line-through text-lg font-semibold text-feSecondart-600 dark_text-feSecondary-200">{{
-                                                productStore.item?.data?.itemCurrency?.currencySymbol }}
+                                            textColor="line-through text-lg font-semibold text-feSecondart-600 dark:text-feSecondary-200">
+                                            <span v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType ==  PsConst.NORMAL_PRICE">{{ productStore.item?.data?.itemCurrency?.currencySymbol }}</span>
                                             {{ formatPrice(productStore.item?.data ? productStore.item?.data?.originalPrice
                                                 :
                                                 '') }}</ps-label>
                                     </div>
-                                    <ps-label textColor="text-4xl font-semibold text-fePrimary-500 ">{{
-                                        productStore.item?.data?.itemCurrency?.currencySymbol }}
+                                    <ps-label textColor="text-4xl font-semibold text-fePrimary-500 ">
+                                        <span v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType == PsConst.NORMAL_PRICE">{{ productStore.item?.data?.itemCurrency?.currencySymbol }}</span>
                                         {{ formatPrice(productStore.item?.data ? productStore.item?.data?.price :
                                             '') }}</ps-label>
                                 </div>
@@ -53,11 +52,11 @@
                                 <ps-button
                                     v-if="productStore.item?.data?.user && productStore.item?.data?.user?.userId != loginUserId"
                                     padding="p-2"
-                                    colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feSecondary-700 dark_text-fePrimary-500"
+                                    colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feSecondary-700 dark:text-fePrimary-500"
                                     border="border" hover="" focus="" @click="favouriteClicked">
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500"
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-fePrimary-500"
                                         v-if="productStore.item?.data?.isFavourited == '1'" name="heart" w="24" h="24" />
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500" v-else
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-fePrimary-500" v-else
                                         name="heart-outline" w="24" h="24" />
                                 </ps-button>
                                 <ps-route-link
@@ -68,18 +67,18 @@
                                 </ps-route-link>
                             </div>
                             <div class="mt-4">
-                                <ps-label textColor="text-base font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                <ps-label textColor="text-base font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                     productStore.item?.data ? productStore.item?.data?.title : '' }}</ps-label>
                             </div>
                             <div class="flex justify-between items-center mt-7">
                                 <div class="flex">
                                     <ps-icon name="location" w="20" h="20" viewBox="0 -2 19 19" />
                                     <ps-label
-                                        textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                        textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                             productStore.item?.data ? productStore.item?.data?.itemLocation.name : ''
                                         }}</ps-label>
                                 </div>
-                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                     productStore.item?.data ? productStore.item?.data?.addedDateStr : '' }}</ps-label>
                             </div>
                         </div>
@@ -89,35 +88,35 @@
                         <!-- <div v-for="productRelation in productStore.item?.data?.productRelation.filter((pr) => pr.coreKeysId == 'ps-itm00008')" :key="productRelation.id"> -->
                         <div class="flex items-center gap-3 mt-4"
                             v-if="productStore.item?.data?.productRelation.filter((pr) => pr.coreKeysId == 'ps-itm00008').length != 0 && productStore.item?.data?.productRelation.filter((pr) => pr.coreKeysId == 'ps-itm00008')[0]?.selectedValue[0]?.value != ''">
-                            <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500" name="case" w="24" h="24" />
-                            <ps-label textColor="text-base font-semibold text-feSecondary-600 dark_text-feSecondary-50">{{
+                            <ps-icon textColor="text-fePrimary-500 dark:text-fePrimary-500" name="case" w="24" h="24" />
+                            <ps-label textColor="text-base font-semibold text-feSecondary-600 dark:text-feSecondary-50">{{
                                 $t('item_detail__multi_item') }}</ps-label>
                         </div>
                         <div class="flex items-center gap-3 mt-4" v-else>
-                            <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500" name="case" w="24" h="24" />
-                            <ps-label textColor="text-base font-semibold text-feSecondary-600 dark_text-feSecondary-50">{{
+                            <ps-icon textColor="text-fePrimary-500 dark:text-fePrimary-500" name="case" w="24" h="24" />
+                            <ps-label textColor="text-base font-semibold text-feSecondary-600 dark:text-feSecondary-50">{{
                                 $t('item_detail__single_item') }}</ps-label>
                         </div>
                         <!-- </div> -->
-                        <div class="bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 mt-6">
-                            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                        <div class="bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 mt-6">
+                            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                 $t('item_detail__details') }}</ps-label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-6">
                                 <div v-for="pr in productRelation" :key="pr.id" class="">
                                     <ps-label
-                                        textColor="text-base font-medium text-feSecondary-800 dark_text-feSecondary-50">{{
-                                            customFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId ==
+                                        textColor="text-base font-medium text-feSecondary-800 dark:text-feSecondary-50">{{
+                                            itemCustomFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId ==
                                                 pr.coreKeysId && cf.isVisible == '1')[0]?.name }}</ps-label>
                                     <ps-label
-                                        textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200">{{
+                                        textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200">{{
                                             pr.selectedValue[0].value }}</ps-label>
                                 </div>
                                 <div class="">
                                     <ps-label
-                                        textColor="text-base font-medium text-feSecondary-800 dark_text-feSecondary-50">{{
+                                        textColor="text-base font-medium text-feSecondary-800 dark:text-feSecondary-50">{{
                                             $t('item_detail__stock') }}</ps-label>
                                     <ps-label
-                                        textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200">{{
+                                        textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200">{{
                                             productStore.item?.data?.isSoldOut == '1' ? $t('item_list__sold_item') :
                                             $t('item_detail__available') }}</ps-label>
                                 </div>
@@ -126,11 +125,11 @@
                         <!-- item details end -->
 
                         <!-- description start -->
-                        <div class="mt-6 px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800">
-                            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                        <div class="mt-6 px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800">
+                            <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                 $t('item_detail__description') }}</ps-label>
                             <div class="mt-6">
-                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200">{{
+                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200">{{
                                     productStore.item?.data ? productStore.item?.data?.description : '' }}</ps-label>
                             </div>
                         </div>
@@ -145,9 +144,9 @@
                             <!-- owner profile end -->
 
                             <!-- button group start -->
-                            <div class="mt-6"
-                                v-if="productStore.item?.data?.user && productStore.item?.data?.user?.userId != loginUserId">
-                                <ps-route-link class="flex flex-grow" :to="{
+                           <div class="mt-6" v-if="productStore.item?.data?.user && productStore.item?.data?.user?.userId != loginUserId">
+                                <div v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedChatType != PsConst.NO_CHAT">
+                                    <ps-route-link class="flex flex-grow" :to="{
                                     name: 'fe_chat',
                                     query: {
                                         buyer_user_id: loginUserId,
@@ -161,29 +160,34 @@
                                         chat_flag: PsConst.CHAT_FROM_SELLER,
                                         is_sold_out: productStore.item?.data?.isSoldOut,
 
-                                    }
-                                }">
+                                    }}">
                                     <ps-button class="w-full flex items-center justify-center" padding="px-4 py-1.5">
+                                        <ps-icon class="cursor-pointer" textColor="text-feAchromatic-50 mr-2" name="message" h="20" w="20" />
                                         <ps-label textColor="font-medium text-base">{{ $t("item_detail__chat") }}</ps-label>
                                     </ps-button>
-                                </ps-route-link>
+                                </ps-route-link>  
+                                </div>  
+                                <ps-button  v-if="whatsAppNo != ''" @click="toWhatsApp()" class="w-full flex items-center justify-center mt-4" colors="bg-green-900 text-feAchromatic-50" padding="px-4 py-1.5">
+                                    <ps-icon class="cursor-pointer" textColor="text-feAchromatic-50 mr-2" name="whatsapp" h="20" w="20" />
+                                    <ps-label textColor="font-medium text-base"> WhatsApp </ps-label>
+                                </ps-button>                   
                             </div>
                             <div class="mt-6" v-else>
                                 <div
-                                    class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800">
+                                    class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800">
                                     <div class="flex items-center gap-1">
                                         <ps-icon name="statistic" w="24" h="24" />
                                         <ps-label
-                                            textColor="text-base font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                            textColor="text-base font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                                 $t('item_detail__statistic') }}</ps-label>
                                     </div>
                                     <div class="grid grid-cols-2 mt-6">
                                         <div class="flex flex-col items-center border-e-2 border-feSecondary-500">
                                             <ps-label
-                                                textColor="font-semibold text-xl text-feSecondary-800 dark_text-feSecondary-50">
+                                                textColor="font-semibold text-xl text-feSecondary-800 dark:text-feSecondary-50">
                                                 {{ productStore.item?.data?.touchCount }} </ps-label>
                                             <div
-                                                class="flex items-center gap-1 mt-1 text-feSecondary-800 dark_text-feSecondary-200">
+                                                class="flex items-center gap-1 mt-1 text-feSecondary-800 dark:text-feSecondary-200">
                                                 <ps-icon name="eye-on" w="24" h="24" />
                                                 <ps-label textColor="font-medium text-base"> {{ $t('item_detail__views') }}
                                                 </ps-label>
@@ -191,10 +195,10 @@
                                         </div>
                                         <div class="flex flex-col items-center">
                                             <ps-label
-                                                textColor="font-semibold text-xl text-feSecondary-800 dark_text-feSecondary-50">
+                                                textColor="font-semibold text-xl text-feSecondary-800 dark:text-feSecondary-50">
                                                 {{ productStore.item?.data?.favouriteCount }} </ps-label>
                                             <div
-                                                class="flex items-center gap-1 mt-1 text-feSecondary-800 dark_text-feSecondary-200">
+                                                class="flex items-center gap-1 mt-1 text-feSecondary-800 dark:text-feSecondary-200">
                                                 <ps-icon name="heart-outline" w="24" h="24" />
                                                 <ps-label textColor="font-medium text-base"> {{
                                                     $t('item_detail__favourites') }} </ps-label>
@@ -209,10 +213,13 @@
                                     <ps-button class="grow" v-if="productStore.item?.data && productStore.item?.data.isOwner == PsConst.ONE &&
                                         productStore.item?.data.status == PsConst.ONE &&
                                         (productStore.item?.data.paidStatus == PsConst.ADSNOTAVAILABLE ||
-                                            productStore.item?.data?.paidStatus == PsConst.ADSFINISHED) &&
+                                            productStore.item?.data?.paidStatus == PsConst.ADSFINISHED) && isPromoteSuccessful == false &&
                                         !isAllPaymentDisable" @click="promoteClicked">
                                         {{ $t('item_detail__promote') }}
                                     </ps-button>
+                                    <!-- <ps-button class="grow" v-else-if="isPromoteSuccessful === true" @click="promoteClicked" disabled>
+                                        {{ $t('item_detail__promote') }}
+                                    </ps-button> -->
                                     <ps-button class="grow" v-else disabled>
                                         {{ $t('item_detail__promote') }}
                                     </ps-button>
@@ -240,14 +247,14 @@
 
                             <!-- item location Pscard -->
                             <div v-if="productStore.item?.data"
-                                class="mt-6 px-2 py-6 lg:p-4 bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg">
+                                class="mt-6 px-2 py-6 lg:p-4 bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg">
                                 <div class="flex flex-col gap-2 mb-6">
                                     <ps-label
-                                        textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                        textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                             $t('item_detail__location') }}</ps-label>
                                     <ps-label
                                         v-if="appInfoProvider?.appInfo?.data.psItemUploadConfig?.address == PsConst.ONE"
-                                        class="text-feSecondary-800 dark_text-feSecondary-200 font-normal text-sm"> {{
+                                        class="text-feSecondary-800 dark:text-feSecondary-200 font-normal text-sm"> {{
                                             productStore.item?.data?.itemLocation.name }} </ps-label>
                                 </div>
 
@@ -256,7 +263,7 @@
                                     :lat="parseFloat(productStore.item?.data?.lat + '0')"
                                     :lng="parseFloat(productStore.item?.data?.lng + '0')" :draggable="false" />
 
-                                <open-street-map :dir="$page.props.dir" 
+                                <open-street-map :dir="$page.props.dir"
                                     v-if="appInfoProvider?.appInfo?.data.frontendConfigSetting.openStreetMap == PsConst.ONE"
                                     mapSize="h-68" :lat="parseFloat(productStore.item?.data?.lat + '0')"
                                     :lng="parseFloat(productStore.item?.data?.lng + '0')" :dragValue="false" />
@@ -267,20 +274,20 @@
                         <!-- other info start -->
                         <div class="col-span-8 mt-6">
                             <div
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex flex-col">
-                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex flex-col">
+                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                     $t('item_detail__other_info') }}</ps-label>
                                 <div class="flex grid grid-cols-2 gap-2">
                                     <div v-for="productRelation in productStore.item?.data?.productRelation.filter((pr) => pr.coreKeysId == 'ps-itm-rpt00005' || pr.coreKeysId == 'ps-itm00003')"
                                         :key="productRelation.id">
                                         <div
-                                            v-if="productRelation.selectedValue[0].value != '' && customFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId == productRelation.coreKeysId && cf.isVisible == '1') != ''">
+                                            v-if="productRelation.selectedValue[0].value != '' && itemCustomFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId == productRelation.coreKeysId && cf.isVisible == '1') != ''">
                                             <ps-label
-                                                textColor="text-base font-medium text-feSecondary-800 dark_text-feSecondary-50 mt-6">{{
-                                                    customFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId
+                                                textColor="text-base font-medium text-feSecondary-800 dark:text-feSecondary-50 mt-6">{{
+                                                    itemCustomFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId
                                                         == productRelation.coreKeysId && cf.isVisible == '1')[0]?.name }}</ps-label>
                                             <ps-label
-                                                textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200 mt-2">{{
+                                                textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200 mt-2">{{
                                                     productRelation.selectedValue[0].value }}</ps-label>
                                         </div>
                                     </div>
@@ -288,25 +295,25 @@
                                 <div v-for="productRelation in productStore.item?.data?.productRelation.filter((pr) => pr.coreKeysId != 'ps-itm00002' && pr.coreKeysId != 'ps-itm00003' && pr.coreKeysId != 'ps-itm00004' && pr.coreKeysId != 'ps-itm00007' && pr.coreKeysId != 'ps-itm00008' && pr.coreKeysId != 'ps-itm00009' && pr.coreKeysId != 'ps-itm-rpt00005')"
                                     :key="productRelation.id">
                                     <div
-                                        v-if="productRelation.selectedValue[0].value != '' && customFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId == productRelation.coreKeysId && cf.isVisible == '1') != ''">
+                                        v-if="productRelation.selectedValue[0].value != '' && itemCustomFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId == productRelation.coreKeysId && cf.isVisible == '1') != ''">
                                         <ps-label
-                                            textColor="text-base font-medium text-feSecondary-800 dark_text-feSecondary-50 mt-6">{{
-                                                customFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId ==
+                                            textColor="text-base font-medium text-feSecondary-800 dark:text-feSecondary-50 mt-6">{{
+                                                itemCustomFieldStore.customField.data?.customList.filter((cf) => cf.coreKeysId ==
                                                     productRelation.coreKeysId && cf.isVisible == '1')[0]?.name }}</ps-label>
                                         <ps-label
-                                            textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200 mt-2">{{
+                                            textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200 mt-2">{{
                                                 productRelation.selectedValue[0].value }}</ps-label>
                                     </div>
                                 </div>
                                 <div v-if="productStore.item?.data?.phone != null && productStore.item?.data?.phone != ''">
                                     <ps-label
-                                        textColor="text-base font-medium text-feSecondary-800 dark_text-feSecondary-50 mt-6">{{
+                                        textColor="text-base font-medium text-feSecondary-800 dark:text-feSecondary-50 mt-6">{{
                                             $t('item_detail__contact_numbers') }}</ps-label>
                                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                                         <div v-for="(phone, index) in productStore.item?.data.phone.split('#')"
                                             :key="index">
                                             <ps-label
-                                                textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-200 mt-2">{{
+                                                textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-200 mt-2">{{
                                                     phone }}</ps-label>
                                         </div>
                                     </div>
@@ -318,8 +325,8 @@
                         <div class="flex flex-col gap-6 col-span-8 mt-8">
                             <!-- safty tips start -->
                             <div
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
-                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
+                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                     $t('item_detail__safety_tips') }}</ps-label>
                                 <ps-label textColor="text-sm font-medium text-feInfo-600 cursor-pointer"
                                     @click="safetyTip()">{{ $t('item_detail__learn_more') }}</ps-label>
@@ -328,8 +335,8 @@
 
                             <!-- T&C start -->
                             <div
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
-                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
+                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                     $t('term_and_condition__term_and_condition') }}</ps-label>
                                 <ps-label textColor="text-sm font-medium text-feInfo-600 cursor-pointer"
                                     @click="termsAndConditions()">{{ $t('item_detail__learn_more') }}</ps-label>
@@ -338,8 +345,8 @@
 
                             <!-- FAQ start -->
                             <div
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
-                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg px-2 py-4 lg:p-4 flex justify-between items-center">
+                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                     $t('item_detail__faq') }}</ps-label>
                                 <ps-label textColor="text-sm font-medium text-feInfo-600 cursor-pointer" @click="faq()">{{
                                     $t('item_detail__learn_more') }}</ps-label>
@@ -349,20 +356,28 @@
                     </div>
                     <div class="col-span-1 sm:col-span-5 md:col-span-4 hidden sm:block">
                         <!-- price start -->
-                        <div class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800">
+                        <div class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800">
                             <div class="flex justify-between ">
-                                <div class="flex flex-wrap items-center gap-1">
+
+                                <div v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType != PsConst.NO_PRICE" class="flex flex-wrap items-center gap-1">
                                     <div
                                         v-if="productStore.item?.data?.isDiscount == '1' && appInfoProvider.appInfo.data?.mobileSetting?.is_show_discount == '1'">
                                         <ps-label
-                                            textColor="line-through text-lg font-semibold text-feSecondart-600 dark_text-feSecondary-200">{{
-                                                productStore.item?.data?.itemCurrency?.currencySymbol }}
-                                            {{ formatPrice(productStore.item?.data ? productStore.item?.data?.originalPrice
-                                                :
-                                                '') }}</ps-label>
+                                            textColor="line-through text-lg font-semibold text-feSecondart-600 dark:text-feSecondary-200">
+                                            <!-- {{ productStore.item?.data?.itemCurrency?.currencySymbol }} -->
+                                            <span v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType ==  PsConst.NORMAL_PRICE">
+                                                
+                                                {{ productStore.item?.data?.itemCurrency?.currencySymbol }}
+
+                                                {{ formatPrice(productStore.item?.data ? productStore.item?.data?.originalPrice
+                                                    :
+                                                '') }}
+                                            </span>                                        
+                                            
+                                        </ps-label>
                                     </div>
-                                    <ps-label textColor="text-4xl font-semibold text-fePrimary-500 ">{{
-                                        productStore.item?.data?.itemCurrency?.currencySymbol }}
+                                    <ps-label textColor="text-4xl font-semibold text-fePrimary-500 ">
+                                        <span v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType ==  PsConst.NORMAL_PRICE">{{ productStore.item?.data?.itemCurrency?.currencySymbol }}</span>
                                         {{ formatPrice(productStore.item?.data ? productStore.item?.data?.price :
                                             '') }}</ps-label>
                                 </div>
@@ -370,11 +385,11 @@
                                 <ps-button
                                     v-if="productStore.item?.data?.user && productStore.item?.data?.user?.userId != loginUserId"
                                     padding="p-2"
-                                    colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feSecondary-700 dark_text-fePrimary-500"
+                                    colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feSecondary-700 dark:text-fePrimary-500"
                                     border="border" hover="" focus="" @click="favouriteClicked">
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500"
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-50"
                                         v-if="productStore.item?.data?.isFavourited == '1'" name="heart" w="24" h="24" />
-                                    <ps-icon textColor="text-fePrimary-500 dark_text-fePrimary-500" v-else
+                                    <ps-icon textColor="text-fePrimary-500 dark:text-fePrimary-500" v-else
                                         name="heart-outline" w="24" h="24" />
                                 </ps-button>
                                 <ps-route-link
@@ -385,18 +400,18 @@
                                 </ps-route-link>
                             </div>
                             <div class="mt-4">
-                                <ps-label textColor="text-base font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                <ps-label textColor="text-base font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                     productStore.item?.data ? productStore.item?.data?.title : '' }}</ps-label>
                             </div>
                             <div class="flex justify-between items-center mt-7">
                                 <div class="flex">
                                     <ps-icon name="location" w="20" h="20" viewBox="0 -2 19 19" />
                                     <ps-label
-                                        textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                        textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                             productStore.item?.data ? productStore.item?.data?.itemLocation.name : ''
                                         }}</ps-label>
                                 </div>
-                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark_text-feSecondary-50">{{
+                                <ps-label textColor="text-sm font-normal text-feSecondary-600 dark:text-feSecondary-50">{{
                                     productStore.item?.data ? productStore.item?.data?.addedDateStr : '' }}</ps-label>
                             </div>
                         </div>
@@ -412,7 +427,8 @@
                         <!-- button group start -->
                         <div class="mt-6"
                             v-if="productStore.item?.data?.user && productStore.item?.data?.user?.userId != loginUserId">
-                            <ps-route-link class="flex flex-grow" :to="{
+                            <div v-if="appInfoProvider.appInfo.data?.psAppSetting?.SelectedChatType != PsConst.NO_CHAT">
+                                <ps-route-link class="flex flex-grow" :to="{
                                 name: 'fe_chat',
                                 query: {
                                     buyer_user_id: loginUserId,
@@ -426,29 +442,34 @@
                                     chat_flag: PsConst.CHAT_FROM_SELLER,
                                     is_sold_out: productStore.item?.data?.isSoldOut,
 
-                                }
-                            }">
+                                }}">
                                 <ps-button class="w-full flex items-center justify-center" padding="px-4 py-1.5">
+                                    <ps-icon class="cursor-pointer" textColor="text-feAchromatic-50 mr-2" name="message" h="20" w="20" />
                                     <ps-label textColor="font-medium text-base">{{ $t("item_detail__chat") }}</ps-label>
                                 </ps-button>
                             </ps-route-link>
+                            </div>
+                            <ps-button v-if="whatsAppNo != ''" @click="toWhatsApp()" class="w-full flex items-center justify-center mt-4" colors="bg-green-900 text-feAchromatic-50" padding="px-4 py-1.5">
+                                <ps-icon class="cursor-pointer" textColor="text-feAchromatic-50 mr-2" name="whatsapp" h="20" w="20" />
+                                <ps-label textColor="font-medium text-base"> WhatsApp </ps-label>
+                            </ps-button>
                         </div>
                         <div class="mt-6" v-else>
                             <div
-                                class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800">
+                                class="flex flex-col px-2 py-4 lg:p-4 rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800">
                                 <div class="flex items-center gap-1">
                                     <ps-icon name="statistic" w="24" h="24" />
                                     <ps-label
-                                        textColor="text-base font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                        textColor="text-base font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                             $t('item_detail__statistic') }}</ps-label>
                                 </div>
                                 <div class="grid grid-cols-2 mt-6">
                                     <div class="flex flex-col items-center border-e-2 border-feSecondary-500">
                                         <ps-label
-                                            textColor="font-semibold text-xl text-feSecondary-800 dark_text-feSecondary-50">
+                                            textColor="font-semibold text-xl text-feSecondary-800 dark:text-feSecondary-50">
                                             {{ productStore.item?.data?.touchCount }} </ps-label>
                                         <div
-                                            class="flex items-center gap-1 mt-1 text-feSecondary-800 dark_text-feSecondary-200">
+                                            class="flex items-center gap-1 mt-1 text-feSecondary-800 dark:text-feSecondary-200">
                                             <ps-icon name="eye-on" w="24" h="24" />
                                             <ps-label textColor="font-medium text-base"> {{ $t('item_detail__views') }}
                                             </ps-label>
@@ -456,10 +477,10 @@
                                     </div>
                                     <div class="flex flex-col items-center">
                                         <ps-label
-                                            textColor="font-semibold text-xl text-feSecondary-800 dark_text-feSecondary-50">
+                                            textColor="font-semibold text-xl text-feSecondary-800 dark:text-feSecondary-50">
                                             {{ productStore.item?.data?.favouriteCount }} </ps-label>
                                         <div
-                                            class="flex items-center gap-1 mt-1 text-feSecondary-800 dark_text-feSecondary-200">
+                                            class="flex items-center gap-1 mt-1 text-feSecondary-800 dark:text-feSecondary-200">
                                             <ps-icon name="heart-outline" w="24" h="24" />
                                             <ps-label textColor="font-medium text-base"> {{ $t('item_detail__favourites') }}
                                             </ps-label>
@@ -474,10 +495,13 @@
                                 <ps-button class="grow" v-if="productStore.item?.data && productStore.item?.data.isOwner == PsConst.ONE &&
                                     productStore.item?.data.status == PsConst.ONE &&
                                     (productStore.item?.data.paidStatus == PsConst.ADSNOTAVAILABLE ||
-                                        productStore.item?.data?.paidStatus == PsConst.ADSFINISHED) &&
+                                        productStore.item?.data?.paidStatus == PsConst.ADSFINISHED) && isPromoteSuccessful == false &&
                                     !isAllPaymentDisable" @click="promoteClicked">
                                     {{ $t('item_detail__promote') }}
                                 </ps-button>
+                                <!-- <ps-button class="grow" v-else-if="isPromoteSuccessful === true" @click="promoteClicked" disabled>
+                                    {{ $t('item_detail__promote') }}
+                                </ps-button> -->
                                 <ps-button class="grow" v-else disabled>
                                     {{ $t('item_detail__promote') }}
                                 </ps-button>
@@ -505,12 +529,12 @@
 
                         <!-- item location Pscard -->
                         <div v-if="productStore.item?.data"
-                            class="mt-6 px-2 py-6 lg:p-4 bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg">
+                            class="mt-6 px-2 py-6 lg:p-4 bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg">
                             <div class="flex flex-col gap-2 mb-6">
-                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                                <ps-label textColor="text-xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                     $t('item_detail__location') }}</ps-label>
                                 <ps-label v-if="appInfoProvider?.appInfo?.data.psItemUploadConfig?.address == PsConst.ONE"
-                                    class="text-feSecondary-800 dark_text-feSecondary-200 font-normal text-sm"> {{
+                                    class="text-feSecondary-800 dark:text-feSecondary-200 font-normal text-sm"> {{
                                         productStore.item?.data?.itemLocation.name }} </ps-label>
                             </div>
 
@@ -519,7 +543,7 @@
                                 :lat="parseFloat(productStore.item?.data?.lat + '0')"
                                 :lng="parseFloat(productStore.item?.data?.lng + '0')" :draggable="false" />
 
-                            <open-street-map mapContainer="mapContainer2" :dir="$page.props.dir" 
+                            <open-street-map mapContainer="mapContainer2" :dir="$page.props.dir"
                                 v-if="appInfoProvider?.appInfo?.data.frontendConfigSetting.openStreetMap == PsConst.ONE"
                                 mapSize="h-68" :lat="parseFloat(productStore.item?.data?.lat + '0')"
                                 :lng="parseFloat(productStore.item?.data?.lng + '0')" :dragValue="false" />
@@ -530,9 +554,9 @@
 
                 <div class="">
                     <!-- Start related items -->
-                    <div v-if="relatedItemStore.itemList?.data != null">
+                    <div v-if="relatedItemStore.loading.value || relatedItemStore.itemList?.data != null">
                         <div class="flex justify-between items-center mt-10">
-                            <ps-label textColor="text-2xl font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{
+                            <ps-label textColor="text-2xl font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{
                                 $t("core__fe_related_items") }}</ps-label>
                             <ps-route-link :to="{
                                 name: 'fe_item_list', params: {
@@ -542,10 +566,10 @@
                             }">
                                 <ps-button class="flex flex-row" padding="p-2 sm:px-4 sm:py-2" shadow="shadow-sm"
                                     rounded="rounded" hover="" focus=""
-                                    border="border border-feSecondary-200 dark_border-feSecondary-800"
-                                    colors="bg-feAchromatic-50 text-feSecondary-800 dark_bg-feSecondary-800 dark_text-feSecondary-200">
+                                    border="border border-feSecondary-200 dark:border-feSecondary-800"
+                                    colors="bg-feAchromatic-50 text-feSecondary-800 dark:bg-feSecondary-800 dark:text-feSecondary-200">
                                     <ps-label class="hidden sm:inline">{{ $t("list_fe__view_all_label") }}</ps-label>
-                                    <ps-icon class="sm:ms-2" textColor="dark_text-feSecondary-200" name="arrowNarrowRight"
+                                    <ps-icon class="sm:ms-2" textColor="dark:text-feSecondary-200" name="arrowNarrowRight"
                                         h="23" w="23" viewBox="0 -3 9 20" />
                                 </ps-button>
                             </ps-route-link>
@@ -557,9 +581,9 @@
                                     :itemList="relatedItemStore.itemList?.data.filter((item) => item.id !== itemId)"
                                     storeName="related_item"></item-horizontal-swiper>
                             </div>
-                            <div v-else-if="relatedItemStore.itemList != null && relatedItemStore.loading.value">
+                            <div v-else-if="relatedItemStore.loading.value">
                                 <div class="grid lg:grid-cols-12 sm:grid-cols-8 grid-cols-4  gap-4 sm:gap-3.5 lg:gap-4">
-                                    <div class="w-full col-span-2 lg:col-span-3" v-for="i in 10" :key="i">
+                                    <div class="w-full col-span-2 lg:col-span-3" v-for="i in 4" :key="i">
                                         <item-horizontal-skeletor-item />
                                     </div>
                                 </div>
@@ -582,17 +606,17 @@
     <ps-confirm-dialog ref="ps_confirm_dialog" />
     <ps-error-dialog ref="ps_error_dialog" />
     <gallery-detail-horizontal-swiper ref="gallery_detail" />
-    <promote-item-modal ref="promote_item_modal" />
+    <promote-item-modal ref="promote_item_modal" @isPromoteSuccessful="handlePromote"/>
     <share-to-social-modal ref="share_modal" />
     <ps-learn-more-dialog ref = "ps_learn_more_dialog" />
 </template>
 
 <script  lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // //Libs
-import { useRoute, useRouter } from 'vue-router';
+// import { routeLocationKey, useRoute, useRouter } from 'vue-router';
 // import router from "@template1/router";
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 
 // Objects
 import PsConst from '@templateCore/object/constant/ps_constants';
@@ -618,6 +642,7 @@ import PsBreadcrumb2 from "@template1/vendor/components/core/breadcrumbs/PsBread
 import UserListHorizontal from '@template1/vendor/components/modules/user/UserListHorizontal.vue';
 import GalleryVerticalSwiper from "@template1/vendor/components/modules/gallery/GalleryVerticalSwiper.vue";
 import ItemHorizontalSwiper from "@template1/vendor/components/modules/item/ItemHorizontalSwiper.vue";
+import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/item/ItemHorizontalSkeletorItem.vue"
 import PsLearnMoreDialog from '@template1/vendor/components/core/dialogs/PsLearnMoreDialog.vue';
 
 // Models
@@ -653,6 +678,7 @@ export default {
         PsLearnMoreDialog,
         PsContentContainer,
         ItemHorizontalSwiper,
+        ItemHorizontalSkeletorItem,
         PsBreadcrumb2,
         PsConfirmDialog,
         PsLabel,
@@ -699,12 +725,14 @@ export default {
         relatedItemStore.paramHolder = new ProductParameterHolder().getRelatedProductParameterHolder();
         const touchCountStore = useTouchCountStore();
         const offerProvider = useOfferStoreState();
-        const customFieldStore = useCustomFieldStoreState('detail');
+        const itemCustomFieldStore = useCustomFieldStoreState('detail');
+        const userCustomFieldStore = useCustomFieldStoreState('owner');
 
         const showSafetyTip = ref(false);
         const dataReady = ref(false);
         const imageCount = ref(1);
         let totalCount = ref(0);
+        let whatsAppNo = ref('');
 
         // Init Variables
         const psValueStore = PsValueStore();
@@ -718,6 +746,7 @@ export default {
         const ps_error_dialog = ref();
         const gallery_detail = ref();
         const isPromote = ref(false);
+        const isPromoteSuccessful = ref(false);
         const isAllPaymentDisable = ref();
         const promote_item_modal = ref();
         const map_with_pin_modal = ref();
@@ -736,7 +765,9 @@ export default {
             holder.typeId = itemId;
             holder.userId = loginUserId.value;
             holder.typeName = 'item';
-            touchCountStore.postTouchCount(loginUserId.value, holder);
+            if(loginUserId.value != 'nologinuser') {
+                touchCountStore.postTouchCount(loginUserId.value, holder);
+            }
             // console.log(touchCountStore);
             if (!isAllPaymentDisable.value) {
                 isAllPaymentDisableFun();
@@ -795,7 +826,18 @@ export default {
         async function loadDataForItemDetail() {
             await aboutUsProvider.loadAboutUs(loginUserId.value);
             await productStore.loadItem(itemId, loginUserId.value);
+            await userCustomFieldStore.loadUserCustomFieldList(loginUserId.value);
             loadProductRelation();
+
+            for (const customField of userCustomFieldStore.customField.data?.customList) {
+                if (customField.coreKeysId == PsConst.WHATSAPP_CORE_KEY_Id && customField.isVisible == '1') {
+                    const ownerWhatsAppRelation = productStore.item?.data?.user?.userRelation.filter((pr) => pr.coreKeysId == PsConst.WHATSAPP_CORE_KEY_Id);
+                    if (ownerWhatsAppRelation.length != 0 && ownerWhatsAppRelation[0]?.value != null ) {
+                        whatsAppNo.value = ownerWhatsAppRelation[0]?.value;
+                    }
+                }
+            }
+
             // await galleryProvider.loadGalleryList(0,loginUserId.value, itemId,PsConst.ITEM_TYPE, productStore.item?.data.videoThumbnail);
             // await videoStore.loadGalleryList(0,loginUserId.value, itemId,PsConst.ITEM_TYPE, productStore.item?.data.videoThumbnail);
             await galleryProvider.resetGalleryList(loginUserId.value, itemId, PsConst.ITEM__RELATED_TYPE);
@@ -837,7 +879,7 @@ export default {
                 isPromote.value = false;
 
             }
-            await customFieldStore.loadCustomFieldList(loginUserId.value);
+            await itemCustomFieldStore.loadCustomFieldList(loginUserId.value);
             dataReady.value = true;
         }
 
@@ -884,10 +926,19 @@ export default {
         }
 
         function promoteClicked() {
+
+            isPromoteSuccessful.value = true;  
+
             promote_item_modal.value.openModal(
                 productStore.item?.data?.id
             );
         }
+
+        function handlePromote(value){
+            isPromoteSuccessful.value = value;
+        }
+
+        // console.log(isPromote.value);
 
         function showGalleryDetail(gallery, galleryList) {
 
@@ -933,7 +984,7 @@ export default {
 
 
             } else {
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
         }
 
@@ -960,7 +1011,7 @@ export default {
 
 
             } else {
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
         }
 
@@ -980,7 +1031,7 @@ export default {
                 ps_loading_dialog.value.closeModal();
             }
             else {
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
 
         }
@@ -1007,7 +1058,7 @@ export default {
             // console.log(item);
             if (item.status == PsStatus.SUCCESS) {
 
-                Inertia.get(route("dashboard"));
+                router.get(route("dashboard"));
             }
             else {
                 ps_error_dialog.value.openModal(item.message);
@@ -1033,7 +1084,7 @@ export default {
                 );
             }
             else {
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
 
 
@@ -1045,10 +1096,9 @@ export default {
             // console.log(item);
             if (item.message == "You have already reported to this item.") {
                 ps_error_dialog.value.openModal(item.message);
-
             }
             else {
-                Inertia.get('/');
+                router.get(route('dashboard'));
             }
 
         }
@@ -1056,11 +1106,29 @@ export default {
             share_modal.value.openModal(url, itemId, itemName);
         }
         function formatPrice(value) {
-            if (value.toString() == '0') {
+
+            if(appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType ==  PsConst.NORMAL_PRICE && value.toString() == '0'){
                 return trans('item_price__free');
-            } else {
-                return format(appInfoProvider?.appInfo?.data?.mobileSetting?.price_format, value)
+            }else{
+                if (appInfoProvider.appInfo.data?.psAppSetting?.SelectedPriceType ==  PsConst.PRICE_RANGE) {
+                    const floatValue = parseFloat(value);
+                    const intValue = parseInt(floatValue);
+                    if (intValue > 5) {
+                        return '$'.repeat(5);
+                    }
+                    if (intValue < 1) {
+                        return '$'.repeat(1);
+                    }
+                    return '$'.repeat(intValue);
+                } else {
+                    return format(appInfoProvider?.appInfo?.data?.mobileSetting?.price_format, value);
+                }
             }
+        }
+        function toWhatsApp() {
+            // Construct the WhatsApp URL
+            const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsAppNo.value}&text=${encodeURIComponent(productStore.item?.data?.title)}`;
+            window.open(whatsappURL, '_blank');
         }
         function getPrice() {
             // if(productStore.item?.data && productStore.item.data.discountRate!='0' && appInfoProvider.appInfo.data.psItemUploadConfig.discountRate== PsConst.ONE){
@@ -1105,13 +1173,16 @@ export default {
             markAsSold,
             totalCount,
             imageCount,
-            customFieldStore,
+            itemCustomFieldStore,
             markAsEnableDisable,
             relatedItemStore,
             productRelation,
             submitButtonShow,
-            isAllPaymentDisable
-
+            isAllPaymentDisable,
+            isPromoteSuccessful,
+            handlePromote,
+            whatsAppNo,
+            toWhatsApp
         }
     },
     computed: {

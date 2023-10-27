@@ -123,7 +123,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head,useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head,useForm } from '@inertiajs/vue3';
 
 import TableFieldHideShowModal from '../components/TableFieldHideShowModal.vue'
 import LanguageModal from '../components/LanguageModal.vue'
@@ -144,7 +144,7 @@ import Dropdown from "@/Components/Core/DropdownModal/Dropdown.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsErrorDialog from "@/Components/Core/Dialog/PsErrorDialog.vue";
 import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
 import PsConfirmDialog from '@/Components/Core/Dialog/PsConfirmDialog.vue';
@@ -234,7 +234,7 @@ import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialo
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.put(route("tables.fields.deleteField",{'id' : id}),{
+                    router.put(route("tables.fields.deleteField",{'id' : id}),{
                     onSuccess: () => {
                         visible.value = true;
                         setTimeout(() => {
@@ -278,7 +278,7 @@ import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialo
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('tables.fields.index',props.tableId),
+            router.get(route('tables.fields.index',props.tableId),
             {
                 table:props.tableId,
                 sort_field : sort_field.value,
@@ -355,7 +355,7 @@ import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialo
                         isShowInFilter: isShowInFilter
 
                     })
-                    Inertia.post(route('tables.fields.eyeStatusChange',form));
+                    router.post(route('tables.fields.eyeStatusChange',form));
                 },
                 ()=>{
 
@@ -386,7 +386,7 @@ import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialo
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 ()=>{
-                    Inertia.get(route("table.replace"));
+                    router.get(route("table.replace"));
                 },
                 ()=>{});
         }
@@ -532,7 +532,7 @@ import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialo
                 this.$inertia.get(route('mobile_language_string.index',id));
             },
             FilterOptionshandle(value) {
-            Inertia.put(route('tables.fields.screenDisplayUiSetting.store'),
+            router.put(route('tables.fields.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field :this.sort_field ,

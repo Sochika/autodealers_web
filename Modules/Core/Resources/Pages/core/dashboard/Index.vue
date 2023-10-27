@@ -45,7 +45,7 @@
         <div class="grid cxxl:grid-cols-3 lg:grid-cols-3 cmd:grid-cols-3 sm:grid-cols-2 gap-6 mb-6">
             <!-- Total Users -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'total_user').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_user')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'total_user').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_user')[0]?.hidden">
                 <div class="rounded-full bg-primary-500 w-12 h-12 p-3">
                     <ps-icon name="elements" class="text-white"/>
                 </div>
@@ -71,7 +71,7 @@
 
             <!-- Total Sellers -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'total_seller').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_seller')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'total_seller').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_seller')[0]?.hidden">
                 <div class=" rtl:space-x-reverse -space-x-4 flex flex-row">
                     <div v-for="user in onlyFourSellerImages" :key="user.id">
                         <img  class="relative inline object-cover w-12 h-12 dark:border-secondaryDark-black border-2 border-white rounded-full"
@@ -109,7 +109,7 @@
 
             <!-- Total Buyers -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                        v-show="colFilterOptions.filter((item) => item.key == 'total_buyer').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_buyer')[0].hidden">
+                        v-show="colFilterOptions.filter((item) => item.key == 'total_buyer').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_buyer')[0]?.hidden">
                 <div class=" rtl:space-x-reverse -space-x-4 flex flex-row">
                     <div v-for="user in onlyFourBuyerImages" :key="user.id">
                         <img class="relative inline object-cover w-12 h-12 border-2 dark:border-secondaryDark-black border-white rounded-full"
@@ -147,7 +147,7 @@
 
             <!-- Successful Deal Count -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'successful_deal_count').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'successful_deal_count')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'successful_deal_count').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'successful_deal_count')[0]?.hidden">
                 <div class="rounded-full bg-yellow-500 w-12 h-12 p-3">
                     <ps-icon name="wallet" class="text-white"/>
                 </div>
@@ -173,7 +173,7 @@
 
             <!-- Total Sold Out Items -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'total_users').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_users')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'total_users').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_users')[0]?.hidden">
                 <div class="rounded-full bg-primary-500 w-12 h-12 p-3">
                     <ps-icon name="shoppingCart" class="text-white"/>
                 </div>
@@ -199,7 +199,7 @@
 
             <!-- Total Slow Moving Item -->
             <ps-card theme="w-full px-4 pt-4 me-6 flex flex-col bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'total_slow_moving_items').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_slow_moving_items')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'total_slow_moving_items').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'total_slow_moving_items')[0]?.hidden">
                 <div class="rounded-full bg-blue-500 w-12 h-12 p-3">
                     <ps-icon name="shoppingCart" class="text-white"/>
                 </div>
@@ -228,7 +228,7 @@
         <div class="grid cxxl:grid-cols-3 xxl:grid-cols-3 lg:grid-cols-2 cmd:grid-cols-2 sm:grid-cols-1 gap-6 mb-6">
             <!-- Most Engaging Products Chart -->
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow flex flex-col dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'most_engaging_products').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_engaging_products')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'most_engaging_products').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_engaging_products')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_most_engaging_products')}}</ps-label-title>
                     <ps-dropdown h="h-auto">
@@ -280,7 +280,7 @@
 
             <!-- Most Engaging Categories Chart -->
             <!-- <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'most_engaging_categories').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_engaging_categories')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'most_engaging_categories').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_engaging_categories')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_most_engaging_categories')}}</ps-label-title>
 
@@ -333,7 +333,7 @@
             </ps-card> -->
             <!-- Most Purchased Packages Chart -->
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-            v-show="colFilterOptions.filter((item) => item.key == 'most_purchased_packages').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_purchased_packages')[0].hidden">
+            v-show="colFilterOptions.filter((item) => item.key == 'most_purchased_packages').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'most_purchased_packages')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_most_purchased_packages')}}</ps-label-title>
 
@@ -373,7 +373,7 @@
 
             <!-- User Activities Chart -->
             <!-- <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'user_activities').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'user_activities')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'user_activities').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'user_activities')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">User Activities</ps-label-title>
                 </div>
@@ -385,7 +385,7 @@
 
             <!-- Revenue from Promotion Chart -->
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'revenue_from_promotion').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'revenue_from_promotion')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'revenue_from_promotion').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'revenue_from_promotion')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <div class="flex flex-row">
                         <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_revenue_from_promotion')}}</ps-label-title><ps-label-title> ({{ form.filter }})</ps-label-title>
@@ -429,7 +429,7 @@
 
             <!-- Revenue from Packages Chart -->
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md"
-                v-show="colFilterOptions.filter((item) => item.key == 'revenue_from_packages').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'revenue_from_packages')[0].hidden">
+                v-show="colFilterOptions.filter((item) => item.key == 'revenue_from_packages').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'revenue_from_packages')[0]?.hidden">
                 <div class="flex flex-row justify-between mb-4">
                     <div class="flex flex-row">
                         <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_revenue_from_package')}}</ps-label-title><ps-label-title> ({{ form.filter }})</ps-label-title>
@@ -473,7 +473,7 @@
 
         </div>
         <!-- Highest Rated Seller Table -->
-        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'highest_rated_seller').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'highest_rated_seller')[0].hidden">
+        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'highest_rated_seller').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'highest_rated_seller')[0]?.hidden">
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md">
                 <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_highest_rated_seller')}} {{$t('core__be_lifetime')}}</ps-label-title>
                 <ps-table2 :defaultMt="defaultMt" :sm="defaultMt" :lg="defaultMt" :row="row" :search="search" :object="this.highest_rated_seller" :colFilterOptions="colFilterOptions"
@@ -499,7 +499,7 @@
         </div>
 
         <!-- Hightest Rated Buyer Table -->
-        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'highest_rated_buyer').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'highest_rated_buyer')[0].hidden">
+        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'highest_rated_buyer').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'highest_rated_buyer')[0]?.hidden">
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md">
                 <ps-label-title textColor="text-secondary-800 dark:text-secondary-100" class="font-semibold">{{$t('core__be_highest_rated_buyer')}} {{$t('core__be_lifetime')}}</ps-label-title>
 
@@ -538,7 +538,7 @@
         </div>
 
         <!-- Recent Registered Users Table -->
-        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'recent_registered_users').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'recent_registered_users')[0].hidden">
+        <div class="mb-6" v-show="colFilterOptions.filter((item) => item.key == 'recent_registered_users').length == 0 ? true : !colFilterOptions.filter((item) => item.key == 'recent_registered_users')[0]?.hidden">
             <ps-card theme="px-4 py-3 bg-secondary-000 shadow dark:bg-secondary-900" rounded="rounded-md">
                 <ps-label-title textColor="text-secondary-800 dark:text-secondary-100 dark:bg-secondary-900" class="font-semibold">{{$t('core__be_recent_registered_users')}}</ps-label-title>
                 <ps-table2 :defaultMt="defaultMt" :sm="defaultMt" :lg="defaultMt" :row="row" :search="search" :object="this.recent_registered_users" :colFilterOptions="colFilterOptions"
@@ -573,7 +573,7 @@
 
 <script>
 import { defineComponent,ref,reactive,computed, onMounted } from 'vue'
-import {Head, useForm} from '@inertiajs/inertia-vue3';
+import {Head, useForm} from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsCard from "@/Components/Core/Card/PsCard.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -603,7 +603,7 @@ import PsTable2 from "@/Components/Core/Table/PsTable2.vue";
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
 
 import { trans } from 'laravel-vue-i18n';
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsConfirmDialogWithIcon from '@/Components/Core/Dialog/PsConfirmDialogWithIcon.vue';
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
 import PsSyncSetupModal from '@/Components/Core/Modals/PsSyncSetupModal.vue';
@@ -774,7 +774,7 @@ export default defineComponent({
         function openLicenseActivateModal(){
             ps_license_activate_modal.value.openModal('pls_activate_your_app','You have successfully imported the file.','Back',
                 ()=>{
-                    // Inertia.get(route('language_string.updateAllLanguageStrings'), {
+                    // router.get(route('language_string.updateAllLanguageStrings'), {
                     //     onBefore: () => {
                     //         ps_loading_circle_dialog.value.openModal('Importing','We’re processing your file at the moment. Please wait while we import the file for you.');
                     //     },
@@ -794,7 +794,7 @@ export default defineComponent({
         function openSyncSetupModal(v = null){
             ps_sync_setup_modal.value.openModal('setup_connection_with_builder__title','You have successfully imported the file.','Back',
                 ()=>{
-                    // Inertia.get(route('language_string.updateAllLanguageStrings'), {
+                    // router.get(route('language_string.updateAllLanguageStrings'), {
                     //     onBefore: () => {
                     //         ps_loading_circle_dialog.value.openModal('Importing','We’re processing your file at the moment. Please wait while we import the file for you.');
                     //     },
@@ -1552,7 +1552,7 @@ export default defineComponent({
         ]);
 
         function handleHighestRatedBuyerSearchingSorting(page = null, row = null) {
-            Inertia.get(route('admin.dashboard.search'),
+            router.get(route('admin.dashboard.search'),
                 {
                     highest_rated_buyer_sort_field: highest_rated_buyer_sort_field.value,
                     highest_rated_buyer_sort_order: highest_rated_buyer_sort_order.value,
@@ -1573,7 +1573,7 @@ export default defineComponent({
         }
 
         function handleHighestRatedSellerSearchingSorting(page = null, row = null) {
-            Inertia.get(route('admin.dashboard.search'),
+            router.get(route('admin.dashboard.search'),
                 {
                     highest_rated_seller_sort_field: highest_rated_seller_sort_field.value,
                     highest_rated_seller_sort_order: highest_rated_seller_sort_order.value,
@@ -1594,7 +1594,7 @@ export default defineComponent({
         }
 
         function handleRecentRegisteredUserSearchingSorting(page = null, row = null) {
-            Inertia.get(route('admin.dashboard.search'),
+            router.get(route('admin.dashboard.search'),
                 {
                     recent_registered_user_sort_field: recent_registered_user_sort_field.value,
                     recent_registered_user_sort_order: recent_registered_user_sort_order.value,
@@ -1641,7 +1641,7 @@ export default defineComponent({
                 trans('core__download_project_button'),
                 () => {
                     ps_loading_circle_dialog.value.openModal(trans('core__downloading_title'), trans('core__downloading_message'));
-                    Inertia.post(route('admin.dashboard.downloadAndImport'),{
+                    router.post(route('admin.dashboard.downloadAndImport'),{
                         onBefore:() => {
                             ps_loading_circle_dialog.value.openModal(trans('core__downloading_title'), trans('core__downloading_message'));
                         },
@@ -1678,7 +1678,7 @@ export default defineComponent({
                                 trans('core__error_download_dialog'),
                                 trans('core__success_upgrade_confirm'),
                                 () => {
-                                    Inertia.get(route('admin.index'));
+                                    router.get(route('admin.index'));
                                 }
                             )
         }
@@ -1689,7 +1689,7 @@ export default defineComponent({
                             trans('core__success_upgrade_dialog'),
                             trans('core__success_upgrade_confirm'),
                             () => {
-                                // Inertia.get(route('admin.index'));
+                                // router.get(route('admin.index'));
                             },
                             true
                         );

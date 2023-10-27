@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { createInertiaApp, Head, Link, usePage } from '@inertiajs/inertia-vue3';
+import { createInertiaApp, Head, Link, usePage } from '@inertiajs/vue3';
 
 
 let sub_domain_url = '';
 let clearSlash = '';
 // if(import.meta.env.VITE_APP_ENV == "production"){
-//     clearSlash =  usePage().props.value.dir;
+//     clearSlash =  usePage().props.dir;
 // } else {
 //     clearSlash =  import.meta.env.VITE_APP_DIR;
 // }

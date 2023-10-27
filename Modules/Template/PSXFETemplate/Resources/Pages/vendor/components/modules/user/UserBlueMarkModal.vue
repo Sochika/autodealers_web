@@ -1,30 +1,24 @@
 <template>
-    <ps-modal ref="psmodal" maxWidth="408px" :isClickOut='true' theme="dark_bg-feSecondary-800 px-3 py-6 sm:p-6 border rounded-lg" class="z-50 " line="hidden">
+    <ps-modal ref="psmodal" maxWidth="408px" :isClickOut='true' theme="dark:bg-feSecondary-800 px-3 py-6 sm:p-6 border rounded-lg" class="z-50 " line="hidden">
         <template #title>
-            <div class="flex justify-between items-center">
-                <div class="flex gap-2 items-center">
-                    <ps-icon name="checkCircle" class="text-feInfo-500" w="24" h="24" @click="psmodal.toggle(false)"/>
-                    <ps-label-title> {{ $t('blue_mark_user__verify_blue_mark') }} </ps-label-title>
-                </div>
+            <div class="flex gap-2 items-center">
+                <ps-icon name="checkCircle" class="text-feInfo-500" w="24" h="24" @click="psmodal.toggle(false)"/>
+                <ps-label-title class="grow"> {{ $t('blue_mark_user__verify_blue_mark') }} </ps-label-title>
                 <ps-icon class="cursor-pointer dark_text-feSecondary-500" name="close" w="24" h="24" @click="psmodal.toggle(false)"/>
             </div>
         </template>
+        
         <template #body>
-            <div class="mt-6">
-                <ps-textarea theme="dark_bg-feSecondary-800 dark_text-feSecondary-200" v-bind:placeholder="$t('blue_mark_user__enter_contact_info')" :rows="8" v-model:value="note"  @keypress="validateNote"></ps-textarea>
-                <ps-label class="" textColor="text-fePrimary-500" v-if="validation"> {{ $t("blue_mark_user__note_required") }} </ps-label>
-            </div>
-            <div class="mt-4">
-                <ps-label textColor="text-xs font-normal text-feSecondary-500 dark_text-feSecondary-400">{{ $t('blue_mark_user__description') }}</ps-label>
-            </div>
-
+            <ps-textarea theme="dark_bg-feSecondary-800 dark:text-feSecondary-200 mt-6" v-bind:placeholder="$t('blue_mark_user__enter_contact_info')" :rows="8" v-model:value="note"  @keypress="validateNote"></ps-textarea>
+            <ps-label class="" textColor="text-fePrimary-500" v-if="validation"> {{ $t("blue_mark_user__note_required") }} </ps-label>
+            <ps-label textColor="text-xs font-normal text-feSecondary-500 dark:text-feSecondary-400 mt-4">{{ $t('blue_mark_user__description') }}</ps-label>
         </template>
+
         <template #footer>
             <div class="mt-6 flex flex-col gap-4">
                 <ps-button class="" @click="submitClicked" > {{ $t('blue_mark_user__apply') }} </ps-button>
-                <ps-button colors="bg-feAchromatic-50 dark_bg-feSecondary-800 text-feSecondary-800 dark_text-feSecondary-200" focus="" hover="hover_bg-feSecondary-50" border="border border-feSecondary-300 dark_border-feSecondary-500" @click="psmodal.toggle(false)" > {{ $t('blue_mark_user__close') }}  </ps-button>
+                <ps-button colors="bg-feAchromatic-50 dark:bg-feSecondary-800 text-feSecondary-800 dark:text-feSecondary-200" focus="" hover="hover:bg-feSecondary-50" border="border border-feSecondary-300 dark:border-feSecondary-500" @click="psmodal.toggle(false)" > {{ $t('blue_mark_user__close') }}  </ps-button>
             </div>
-
         </template>
     </ps-modal>
     <ps-loading-dialog ref="ps_loading_dialog"  :isClickOut='false'/>

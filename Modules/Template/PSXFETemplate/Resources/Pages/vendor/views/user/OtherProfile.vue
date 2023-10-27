@@ -10,14 +10,7 @@
                     <div class="grid lg:grid-cols-12 sm:grid-cols-8 grid-cols-4  gap-4 sm:gap-3.5 lg:gap-4 ">
                         <!-- User Profile Normal -->
                         <div class='w-full col-span-4 sm:col-span-2 lg:col-span-3 mt-2 ' >
-                            <ps-card class="lg:rounded-lg bg-feSecondary-50 dark_bg-feSecondary-800 p-4">
-                                <div class="">
-
-                                    <!-- <img alt="Placeholder"  width="30px" height="30px"  class="rounded-full w-16 h-16 lg:w-24 lg:h-24 object-cover mx-auto" :src="userStore.imageUrl(userStore.user.data ? userStore.user.data.userProfilePhoto : '',2)" @error="userStore.defaultProfileImage" > -->
-                                    <!-- <img alt="Placeholder"  width="30px" height="30px"  class="mb-3 rounded-full w-[7.5rem] h-[7.5rem] object-cover mx-auto"
-                                    v-lazy=" { src: $page.props.thumb2xUrl + '/' + userStore.user.data?.userCoverPhoto, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_profile.png' }"
-                                    > -->
-                                    <div class="w-full">
+                            <ps-card class="lg:rounded-lg bg-feSecondary-50 dark:bg-feSecondary-800 p-4">
                                         <div class="w-32 h-32 rounded-full mx-auto relative">
                                             <img alt="Placeholder" class="rounded-full w-full h-full object-cover"
                                                 v-lazy=" { src: $page.props.thumb1xUrl + '/' + userStore.user.data?.userCoverPhoto, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_profile.png' }" />
@@ -25,41 +18,26 @@
                                                 <ps-icon name="bluemark" textColor="text-feSecondary-50" w="24" h="24" />
                                             </div>
                                         </div>
-                                    </div>
+                                        <ps-label textColor="dark:text-feSecondary-200" class="text-center text-xl font-semibold mb-2 mt-2"> {{  userStore.user.data ? userStore.user.data.userName:'' }} </ps-label>
 
-                                    <div class="flex flex-col justify-center mb-2 mt-2">
-                                        <ps-label textColor="dark_text-feSecondary-200" class="text-center text-xl font-semibold"> {{  userStore.user.data ? userStore.user.data.userName:'' }} </ps-label>
-                                       
-                                    </div>
-
-                                    <ps-route-link :to="{ name: 'fe_review_list',query: { user_id: userStore.user.data?.userId } }">
-                                        <div class="flex items-center content-center justify-center px-4 mb-3 cursor-pointer">
-                                            <rating :rating="userStore.user.data ? userStore.user?.data?.overallRating:0" :maxStars="5" size="md" iconColor="text-feWarning-500" />
-                                        </div>
+                                     <ps-route-link :to="{ name:'fe_review_list', query: { user_id: userStore.user.data?.userId } }">
+                                            <rating class="flex items-center content-center justify-center px-4 mb-3 cursor-pointer" :rating="userStore.user.data ? Number(userStore.user?.data?.overallRating) : 0" :maxStars="5" size="md" iconColor="text-feWarning-500" />
                                     </ps-route-link>
 
-                                    <ps-label textColor="text-feSecondary-600 dark_text-feSecondary-400" class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.ratingCount:'' }} {{ $t("profile__reviews") }} </ps-label>
-                                    <ps-label textColor="dark_text-feSecondary-200" v-if="userStore.user.data && userStore.user.data.isShowEmail == '1' " class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userEmail:'' }} </ps-label>
-                                    <ps-label textColor="dark_text-feSecondary-200" v-if="userStore.user.data && userStore.user.data.isShowPhone == '1' " class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userPhone:'' }} </ps-label>
-                                    <ps-label textColor="dark_text-feSecondary-200" class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userAboutMe:'' }} </ps-label>
-                                </div>
-                                <div  class="">
-                                    <ps-label textColor="text-feSecondary-500 dark_text-feSecondary-400" class="text-xs mb-3 text-center">{{ $t("profile__joined_on") }} {{JoinedDate}}</ps-label>
+                                    <ps-label textColor="text-feSecondary-600 dark:text-feSecondary-400" class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.ratingCount:'' }} {{ $t("profile__reviews") }} </ps-label>
+                                    <ps-label textColor="dark:text-feSecondary-200" v-if="userStore.user.data && userStore.user.data.isShowEmail == '1' " class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userEmail:'' }} </ps-label>
+                                    <ps-label textColor="dark:text-feSecondary-200" v-if="userStore.user.data && userStore.user.data.isShowPhone == '1' " class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userPhone:'' }} </ps-label>
+                                    <ps-label textColor="dark:text-feSecondary-200" class="text-sm mb-3 text-center"> {{  userStore.user.data ? userStore.user.data.userAboutMe:'' }} </ps-label>
+                                    <ps-label textColor="text-feSecondary-500 dark:text-feSecondary-400" class="text-xs mb-3 text-center">{{ $t("profile__joined_on") }} {{JoinedDate}}</ps-label>
 
-                                    <ps-route-link :to="{ name: 'fe_follower_list', query: { userId: userStore.user.data?.userId   }}">
-                                        <div class="cursor-pointer mb-2 flex justify-between">
+                                    <ps-route-link class="cursor-pointer mb-2 flex justify-between" :to="{ name: 'fe_follower_list', query: { userId: userStore.user.data?.userId   }}">
                                             <ps-label class="text-sm">{{ $t("other_profile__followers") }} </ps-label>
                                             <ps-label class="font-semibold text-sm">{{userStore.user.data ? userStore.user.data.followerCount:'0'}}</ps-label>
-                                        </div>
                                     </ps-route-link>
-                                    <ps-route-link :to="{ name: 'fe_following_list', query: { userId: userStore.user.data?.userId   }}">
-                                        <div class="cursor-pointer flex justify-between">
+                                    <ps-route-link class="cursor-pointer flex justify-between" :to="{ name: 'fe_following_list', query: { userId: userStore.user.data?.userId   }}">
                                             <ps-label class="text-sm">{{ $t("other_profile__followings") }} </ps-label>
                                             <ps-label  class="font-semibold text-sm">{{userStore.user.data ? userStore.user.data.followingCount:'0'}}</ps-label>
-                                        </div>
                                     </ps-route-link>
-
-                                </div>
                             </ps-card>
                             <div class=" text-center mt-6" v-if="userStore.user.data?.userId != LoginUserId" @click="followClick">
                                 <div v-if="userStore.user.data?.isFollowed == '0'">
@@ -70,7 +48,7 @@
                                 </div>
                             </div>
 
-                            <div v-if="appInfoStore?.appInfo?.data?.psAppSetting?.isBlockUser ==PsConst.ONE" class="mt-5 py-2 px-4 text-center w-full border bg-feAchromatic-50 border-1 border-feSecondary-300 dark_border-feSecondary-500 dark_bg-feSecondary-800 rounded lg:w-full mx-auto">
+                            <div v-if="appInfoStore?.appInfo?.data?.psAppSetting?.isBlockUser ==PsConst.ONE" class="mt-5 py-2 px-4 text-center w-full border bg-feAchromatic-50 border-1 border-feSecondary-300 dark:border-feSecondary-500 dark:bg-feSecondary-800 rounded lg:w-full mx-auto">
                                 <ps-label class="text-sm cursor-pointer" @click="blockClicked(userStore.user?.data?.userId ?? '')">
                                         {{ $t("other_profile__block_user") }}
                                 </ps-label>
@@ -96,13 +74,8 @@
 
                             </div>
 
-                            <div v-if="itemStore.itemList?.data != null && itemStore.isNoMoreRecord.value == false" class="flex justify-center mt-6 mb-4">
-                                <!-- <ps-route-link :to="{name: 'fe_item_list', query: userItemParams['query']}">
-                                    <ps-button class="flex flex-row " theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 capitalize px-4 py-1">
-                                        {{ $t("blog_list__load_more") }}
-                                    </ps-button>
-                                </ps-route-link> -->
-                                <ps-button v-if="itemStore.loading.value == false" @click.prevent="loadMoreActivePost" class="flex flex-row " theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 capitalize px-4 py-1">
+                            <div v-if="itemStore.isNoMoreRecord.value == false" class="flex justify-center mt-6 mb-4">
+                                <ps-button v-if="itemStore.loading.value == false" @click.prevent="loadMoreActivePost" class="flex flex-row " theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 capitalize px-4 py-1">
                                         {{ $t("blog_list__load_more") }}
                                 </ps-button>
                                 <ps-button v-else class="mx-auto mt-8" :disabled="true">{{ $t("list__loading") }}</ps-button>
@@ -124,7 +97,7 @@
                             </div>
                         </div>
                         <div v-else class="col-span-4 sm:col-span-6 lg:col-span-9 mt-2  mb-6 w-full flex justify-center">
-                            <ps-label textColor="text-feSecondary-500 dark_text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
+                            <ps-label textColor="text-feSecondary-500 dark:text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
                         </div>
 
                         <!-- end latest item listing -->
@@ -140,46 +113,40 @@
     </ps-content-container>
 </template>
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
-//Vue
-// import { useRoute } from 'vue-router';
-// import router from "@template1/router";
-import { ref } from 'vue';
+
+import { Head , router } from '@inertiajs/vue3';
+import { ref , onMounted} from 'vue';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeader4.vue';
 import PsCard from '@template1/vendor/components/core/card/PsCard.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
-import PsLabelCaption from '@template1/vendor/components/core/label/PsLabelCaption.vue';
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
 import Rating from '@template1/vendor/components/core/rating/RatingShow.vue';
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue';
 import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 import PsAdSense from '@template1/vendor/components/core/adsense/PsAdSense.vue';
-
+import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
+import PsBreadcrumb2 from '@template1/vendor/components/core/breadcrumbs/PsBreadcrumb2.vue';
 import ItemHorizontalItem from "@template1/vendor/components/modules/item/ItemHorizontalItem.vue";
 import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/item/ItemHorizontalSkeletorItem.vue";
-//Models
-import { useProductStore } from "@templateCore/store/modules/item/ProductStore";
-
-import ProductParameterHolder from "@templateCore/object/holder/ProductParameterHolder";
 import PsConfirmDialog from '@template1/vendor/components/core/dialog/PsConfirmDialog.vue';
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
-import UserBlockParameterHolder from '@templateCore/object/holder/UserBlockParameterHolder';
+
+import { useProductStore } from "@templateCore/store/modules/item/ProductStore";
+import { useUserStore } from "@templateCore/store/modules/user/UserStore";
+import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
 import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
+import ProductParameterHolder from "@templateCore/object/holder/ProductParameterHolder";
+import UserBlockParameterHolder from '@templateCore/object/holder/UserBlockParameterHolder';
 import UserParameterHolder from '@templateCore/object/holder/UserParameterHolder';
 import UserFollowHolder from '@templateCore/object/holder/UserFollowHolder';
 import PsStatus from '@templateCore/api/common/PsStatus';
 import PsConst from "@templateCore/object/constant/ps_constants";
-import { useUserStore } from "@templateCore/store/modules/user/UserStore";
-import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
-
 import AppInfoParameterHolder from '@templateCore/object/holder/AppInfoParameterHolder';
 
 import "vue-skeletor/dist/vue-skeletor.css";
-import { trans } from 'laravel-vue-i18n';import PsUtils from '@templateCore/utils/PsUtils';
-import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
-import PsBreadcrumb2 from '@template1/vendor/components/core/breadcrumbs/PsBreadcrumb2.vue';
-import { Inertia } from "@inertiajs/inertia";
+import { trans } from 'laravel-vue-i18n';
+import PsUtils from '@templateCore/utils/PsUtils';
 import moment from 'moment';
 
 export default {
@@ -191,7 +158,6 @@ export default {
         PsLabelHeader4,
         PsCard,
         PsLabel,
-        PsLabelCaption,
         PsButton,
         Rating,
         ItemHorizontalItem,
@@ -220,8 +186,6 @@ export default {
         // Load Item List
         const holder = new ProductParameterHolder().getLatestParameterHolder();
         holder.addedUserId = userId;
-
-        itemStore.resetProductList(userId, holder);
 
         // Get Login User Id
         const psValueStore = PsValueStore();
@@ -268,7 +232,7 @@ export default {
                 psloading.value.closeModal();
             }
             else{
-                 Inertia.get(route('login'));
+                 router.get(route('login'));
             }
 
 
@@ -293,7 +257,7 @@ export default {
                 );
             }
             else{
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
 
         }
@@ -314,7 +278,7 @@ export default {
                 return;
             }else if(returnData.status == PsStatus.SUCCESS) {
 
-                Inertia.get(route('dashboard'));
+                router.get(route('dashboard'));
 
             }
         }
@@ -322,6 +286,20 @@ export default {
         function loadMoreActivePost(){
             itemStore.loadItemList(userId,holder);
         }
+
+        onMounted(async () => {
+            setTimeout(async ()=>{
+            // console.log(window.popStateDetected);
+                if(!window.popStateDetected) {
+                    itemStore.resetProductList(userId, holder);
+                    // loadUserData();
+                } else {
+                    window.popStateDetected = false;
+                }
+            },1000);        
+        });
+
+
 
 
         return {

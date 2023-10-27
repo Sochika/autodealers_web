@@ -29,9 +29,9 @@
     import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
     import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
     import PsReloadDialog from '@/Components/Core/Dialog/PsReloadDialog.vue';
-    import { Link } from '@inertiajs/inertia';
+    import { Link } from '@inertiajs/vue3';
     import { trans } from 'laravel-vue-i18n';
-    import {Inertia} from "@inertiajs/inertia";
+    import { router } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {
@@ -63,7 +63,7 @@
                 //     }
                 // });
 
-                Inertia.post(route("NextLaravelUpdater::sourceCodeSync"),{},{
+                router.post(route("NextLaravelUpdater::sourceCodeSync"),{},{
                     onBefore: () => {
                         ps_loading_circle_dialog.value.openModal(trans('core__be_source_code_title'),trans('core__be_source_code_syncing_note'));
                     },

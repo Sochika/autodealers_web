@@ -8,7 +8,7 @@
                     <ps-label class="font-medium text-xl lg:text-3xl me-2"> {{ $t('promote_item_modal__promote') }} </ps-label>
                     <ps-label class="font-light text-sm lg:text-xl lg:mt-2.5 mt-1.5"> {{ $t('promote_item_modal__item_promotion') }} </ps-label>
                 </div>
-                <font-awesome-icon @click="psmodal.toggle(false)" :icon="['fas', 'times']" class="text-feSecondary-500 dark_text-feAchromatic-50" size="2x" />
+                <ps-icon @click="isPromoteSuccessful(false)" name="close" class="text-feSecondary-500 dark:text-feAchromatic-50" w="30" h="30" />
             </div>
         </template>
         <template #body>
@@ -25,7 +25,7 @@
                             <div class="">
                                 <ps-date-picker ref="startDate" class='z-50' :pickedDateProps="pickedDate"/>
                             </div>
-                            <ps-time-picker class="bg-fePrimary-50 dark_bg-feAchromatic-800" v-model:hour="startTimeH"  v-model:min="startTimeM" v-model:ampm="startTimeAmpm"/>
+                            <ps-time-picker class="bg-fePrimary-50 dark:bg-feAchromatic-800" v-model:hour="startTimeH"  v-model:min="startTimeM" v-model:ampm="startTimeAmpm"/>
                         </div>
                         <!-- end Ads Start Time -->
 
@@ -49,7 +49,7 @@
                                                 <ps-input  readonly v-if="selectedPromotePlan.id != '5' "  v-model:value="customPromoDate" />
                                                 <ps-input class="w-16" v-else  v-model:value="customPromoDate" />
                                             </div>
-                                            
+
                                             <ps-label class='mt-3 ms-2 font-light text-xs lg:text-sm'> {{ $t('promote_item_modal__days') }}, {{ $t('promote_item_modal__promotion') }} </ps-label>
                                         </div>
                                   </div>
@@ -105,9 +105,9 @@
 </template>
 
 <script lang='ts'>
-
-/// Razorpay 
+/// Razorpay
 import 'https://checkout.razorpay.com/v1/checkout.js';
+
 
 // Libs
 import {defineComponent, reactive, ref } from 'vue';
@@ -128,6 +128,7 @@ import OfflinePaymentModal from '@template1/vendor/components/modules/credit/Off
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
 import PsWarningDialog2 from '@template1/vendor/components/core/dialog/PsWarningDialog2.vue';
 import InputEmailModal from '@template1/vendor/components/modules/email/InputEmailModal.vue';
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 // Providers
 import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
@@ -143,9 +144,7 @@ import format from 'number-format.js';
 // import PsConfig from '@template1/config/PsConfig';
 
 import PaystackPop from '@paystack/inline-js';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-library.add(faTimes)
+
 export default defineComponent({
     name: "PromoteItemModal",
     components: {
@@ -157,6 +156,7 @@ export default defineComponent({
         PsErrorDialog,
         PsRadio1,
         PsInput,
+        PsIcon,
         StripePaymentModal,
         PaypalPaymentModal,
         OfflinePaymentModal,
@@ -164,7 +164,7 @@ export default defineComponent({
         PsWarningDialog2,
         InputEmailModal
     },
-   setup() {
+   setup(_, { emit }) {
         const psmodal = ref();
         const psloading = ref();
         const ps_warning_dialog = ref();
@@ -180,6 +180,7 @@ export default defineComponent({
         const input_email = ref();
         const customPromoDate = ref(1);
         let promoteitemId = '';
+        // const isPromoteSuccessful = ref(true);
 
         // Init Provider
         const appInfoStore = usePsAppInfoStoreState();
@@ -225,6 +226,16 @@ export default defineComponent({
             psmodal.value.toggle(true);
             await loadUserData();
 
+        }
+
+        // async function closeModal(){
+        //     psmodal.value.toggle(false);
+        //     // isPromoteSuccessful.value = false;
+        // }
+
+        async function isPromoteSuccessful(val){
+            this.$emit('isPromoteSuccessful',val);
+            psmodal.value.toggle(false);
         }
 
 
@@ -315,6 +326,7 @@ export default defineComponent({
                                 startDateTimestampStr);
                     },
                     () => {
+                        emit('isPromoteSuccessful',false);
                         PsUtils.log("Cancel");
                     }
                 );
@@ -448,6 +460,7 @@ export default defineComponent({
                                 startDateTimestampStr);
                     },
                     () => {
+                        emit('isPromoteSuccessful',false);
                         PsUtils.log("Cancel");
                     }
                 );
@@ -557,6 +570,7 @@ export default defineComponent({
                     amountStr = (customPromoDate.value * pricePerDay.value).toString();
                     daysStr = customPromoDate.value.toString();
                 }
+                psmodal.value.toggle(false);
 
                 // appInfoStore.loadAppInfo(appInfoParameterHolder);
                 const returnData = await userProvider.loadUser(loginUserId);
@@ -584,12 +598,14 @@ export default defineComponent({
                                 onClose: function(){
                                     // alert("close");
                                     // user closed popup
+                                    emit('isPromoteSuccessful',false);
                                 }
 
                             });
                             paystack.openIframe();
                         },
                         () => {
+                            emit('isPromoteSuccessful',false);
                             console.log('cancel');
                         } );
                 }else{
@@ -611,6 +627,7 @@ export default defineComponent({
                         onClose: function(){
                             // alert("close");
                             // user closed popup
+                            emit('isPromoteSuccessful',false);
                         }
 
                     });
@@ -664,6 +681,7 @@ export default defineComponent({
                                 startDateTimestampStr);
                     },
                     () => {
+                        emit('isPromoteSuccessful',false);
                         PsUtils.log("Cancel");
                     }
                 );
@@ -700,7 +718,9 @@ export default defineComponent({
             ps_warning_dialog,
             paymentClicked,
             input_email,
-            formatPrice
+            formatPrice,
+            // closeModal
+            isPromoteSuccessful
         }
     },
 })

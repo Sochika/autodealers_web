@@ -1,5 +1,5 @@
 <template>
-    <a :href="url" class="text-base" target="_blank" :class="textColor === '' ? 'text-feSecondary-500 dark_text-feAchromatic-50' : textColor" rel="noreferrer"> 
+    <a :href="url" class="text-base" target="_blank" :class="textColor === '' ? 'text-feSecondary-500 dark:text-feAchromatic-50' : textColor" rel="noreferrer"> 
         <slot></slot>
     </a>      
 </template>
@@ -10,7 +10,7 @@ export default {
     props: {
         textColor : {
             type: String,               
-            default: 'text-feSecondary-500 dark_text-feAchromatic-50',                
+            default: 'text-feSecondary-500 dark:text-feAchromatic-50',                
         },
         url : {
             type : String

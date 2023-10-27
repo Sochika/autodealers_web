@@ -12,7 +12,9 @@
                     <div class="flex justify-end content-center items-center w-full">
                         <ps-input-with-right-icon v-on:keyup.enter="searchClicked" v-model:value="categoryStore.paramHolder.keyword" class="sm:w-80 w-full" padding="py-2 px-4 h-10" v-bind:placeholder="$t('category__fe_search')" >
                             <template #icon>
-                                <ps-icon name="search" class='cursor-pointer'/>
+                                
+                                <ps-icon v-if="categoryStore.paramHolder.keyword == ''" name="search" class='cursor-pointer'/>
+                                <ps-icon v-else @click="[categoryStore.paramHolder.keyword = '',searchClicked()]" name="cross" class='cursor-pointer'/>
                             </template>
                         </ps-input-with-right-icon>
 
@@ -24,13 +26,13 @@
                             </template>
                             <template #list>
                                 <div
-                                    class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44"
+                                    class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-44"
                                     role="menu"
                                     aria-orientation="vertical"
                                     aria-labelledby="options-menu">
                                     <div class="pt-2">
-                                        <div v-for="sort in currentsorting" :key="sort.id" class="flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"  @click="sortingFilterClicked(sort)" >
-                                            <span class="ms-2 text-feSecondary-800 dark_text-feSecondary-200" :class="sort.id==activeSortingId ? 'font-semibold' : ''"  >{{ $t("review_entry__title") }}: {{sort.name}} </span>
+                                        <div v-for="sort in currentsorting" :key="sort.id" class="flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"  @click="sortingFilterClicked(sort)" >
+                                            <span class="ms-2 text-feSecondary-800 dark:text-feSecondary-200" :class="sort.id==activeSortingId ? 'font-semibold' : ''"  >{{ $t("review_entry__title") }}: {{sort.name}} </span>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import { useCategoryStoreState } from "@templateCore/store/modules/category/CategoryStore";
 import { useTouchCountStoreState } from '@templateCore/store/modules/category/TouchCountStore';
@@ -89,9 +91,6 @@ import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeade
 import CategoryHorizontalItem from '@template1/vendor/components/modules/category/CategoryHorizontalItem.vue';
 import PsConst from '@templateCore/object/constant/ps_constants';
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkedAlt,faFilter } from '@fortawesome/free-solid-svg-icons';
-library.add(faMapMarkedAlt,faFilter)
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
 import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
 import PsInputWithRightIcon from '@template1/vendor/components/core/input/PsInputWithRightIcon.vue';

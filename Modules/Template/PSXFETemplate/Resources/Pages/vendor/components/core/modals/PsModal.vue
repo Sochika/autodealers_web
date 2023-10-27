@@ -82,7 +82,7 @@ export default {
         },
         bgColor : {
             type : String,
-            default : "bg-feAchromatic-50 dark_bg-feAchromatic-900 "
+            default : "bg-feAchromatic-50 dark:bg-feAchromatic-900 "
             
         },
         line : {

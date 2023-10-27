@@ -63,7 +63,7 @@
 // Vue
 import { computed, ref,onMounted } from 'vue';
 import { trans } from 'laravel-vue-i18n';
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 
 import PsContentContainer from "@template1/vendor/components/layouts/container/PsContentContainer.vue";
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';

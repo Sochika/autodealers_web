@@ -45,30 +45,30 @@
                 </div>
 
                 <div class="flex flex-auto justify-center mt-3">
-                    <ps-label textColor="text-feSecondary-400 dark_text-feAchromatic-500" class='cursor-pointer  font-light text-xs lg:text-sm' @click="loginClicked">  {{ $t("register__already_member_login") }}  </ps-label>
+                    <ps-label textColor="text-feSecondary-400 dark:text-feAchromatic-500" class='cursor-pointer  font-light text-xs lg:text-sm' @click="loginClicked">  {{ $t("register__already_member_login") }}  </ps-label>
                 </div>
 
                 <div class="flex flex-row justify-center mt-4 ">
-                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark_border-feAchromatic-500" />
+                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark:border-feAchromatic-500" />
                     <ps-label class="px-1 font-medium text-sm lg:text-base"> {{ $t("login__or") }} </ps-label>
-                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark_border-feAchromatic-500" />
+                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark:border-feAchromatic-500" />
                 </div>
 
                 <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" @click="phoneloginclicked">
-                     <font-awesome-icon :icon="['fas', 'phone']" class="text-feAchromatic-50 dark_text-feAchromatic-900 text-xl me-2" />
+                     <!-- <font-awesome-icon :icon="['fas', 'phone']" class="text-feAchromatic-50 dark:text-feAchromatic-900 text-xl me-2" /> -->
                     {{ $t("register__register_with_phone") }}
                 </ps-button>
 
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feInfo-600 hover_bg-feInfo-700 text-feAchromatic-50 px-4 py-2" @click="facebookloginclicked">
-                    <font-awesome-icon :icon="['fab', 'facebook-f']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feInfo-600 hover:bg-feInfo-700 text-feAchromatic-50 px-4 py-2" @click="facebookloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'facebook-f']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("register__register_with_facebook") }}
                 </ps-button>
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-2" theme="bg-feWarning-600 hover_bg-feWarning-700 text-feAchromatic-50 px-4 py-2"  id="signinBtn" @click="googleloginclicked">
-                    <font-awesome-icon :icon="['fab', 'google']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-2" theme="bg-feWarning-600 hover:bg-feWarning-700 text-feAchromatic-50 px-4 py-2"  id="signinBtn" @click="googleloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'google']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("register__register_with_google") }}
                 </ps-button>
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-5" theme="bg-feAchromatic-900 hover_bg-feAchromatic-700 text-feAchromatic-50 px-4 py-2"  @click="appleloginclicked">
-                    <font-awesome-icon :icon="['fab', 'apple']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-5" theme="bg-feAchromatic-900 hover:bg-feAchromatic-700 text-feAchromatic-50 px-4 py-2"  @click="appleloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'apple']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("register__register_with_apple") }}
                 </ps-button>
 
@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
 import PsInput from '@template1/vendor/components/core/input/PsInput.vue';
@@ -100,10 +100,6 @@ import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue'
 import PrivacyModal from '@template1/vendor/components/modules/privacy/PrivacyModal.vue';
 import { trans } from 'laravel-vue-i18n'; import PsLine from '@template1/vendor/components/core/line/PsLine.vue';
  import PsStatus from '@templateCore/api/common/PsStatus';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFacebookF,faGoogle } from '@fortawesome/free-brands-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-library.add(faFacebookF,faPhone,faGoogle )
 
 export default {
     name : "RegisterView",

@@ -5,24 +5,12 @@ import 'tailwindcss/tailwind.css';
 import { i18nVue, getActiveLanguage } from 'laravel-vue-i18n'
 
 import { createApp, h } from 'vue';
-import { createInertiaApp, Head, Link } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
-import { far } from '@fortawesome/free-regular-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { createInertiaApp, Head, Link } from '@inertiajs/vue3';
+// import { InertiaProgress } from '@inertiajs/progress';
 import store from './store'
 import VueLazyLoad from 'vue3-lazyload'
 import { createPinia } from 'pinia'
 
-// optionally import default styles
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-import Datepicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-
-delete L.Icon.Default.prototype._getIconUrl
 let sub_domain_url = '';
 let clearSlash =  import.meta.env.VITE_APP_DIR;
 let subFolder = clearSlash.replaceAll("\\", "");
@@ -43,14 +31,6 @@ if(import.meta.env.VITE_APP_ENV == "production"){
     sub_domain_url = '';
 }
 
-L.Icon.Default.mergeOptions({
-    iconRetinaUrl: sub_domain_url+'/images/assets/marker-icon-2x.png',
-    iconUrl: sub_domain_url+'/images/assets/marker-icon.png',
-    shadowUrl: sub_domain_url+'/images/assets/marker-shadow.png'
-});
-
-library.add(fas, fab, far);
-
 function withVite(pages, name) {
     // console.log(pages)
     for (const path in pages) {
@@ -67,6 +47,9 @@ function withVite(pages, name) {
 const pinia = createPinia()
 
 createInertiaApp({
+    progress: {
+        color: '#1267dc',
+      },
     title: (title) => `${title}`,
     resolve: (name) => {
         let part = name.split("::")
@@ -76,7 +59,7 @@ createInertiaApp({
             return withVite(import.meta.glob('../../Modules/**/Resources/Pages/**/*.vue'), name)
         }
     },
-    setup({ el, app, props, plugin }) {
+    setup({ el, App, props, plugin }) {
 
         let sub_domain_url = '';
         let clearSlash =  import.meta.env.VITE_APP_DIR;
@@ -109,7 +92,7 @@ createInertiaApp({
         const apiToCall = base_url + '/mobile_language/langs?symbol=' + activeLanguage.toLowerCase();
         
         axios.get(apiToCall).then(res => {
-            return createApp({ render: () => h(app, props) })
+            return createApp({ render: () => h(App, props) })
                 .use(plugin)
                 .use(store)
                 .use(pinia)
@@ -122,14 +105,12 @@ createInertiaApp({
                     },
                 })
                 .component('InertiaHead', Head)
-                .component('InertiaLink', Link)
-                .component('font-awesome-icon', FontAwesomeIcon)
-                .component('Datepicker', Datepicker)
+                .component('Link', Link)
                 .mixin({ methods: { route } })
                 .mount(el)
 
         }).catch(error => {
-            return createApp({ render: () => h(app, props) })
+            return createApp({ render: () => h(App, props) })
                 .use(plugin)
                 .use(store)
                 .use(pinia)
@@ -143,13 +124,11 @@ createInertiaApp({
                     }
                 })
                 .component('InertiaHead', Head)
-                .component('InertiaLink', Link)
-                .component('font-awesome-icon', FontAwesomeIcon)
-                .component('Datepicker', Datepicker)
+                .component('Link', Link)
                 .mixin({ methods: { route } })
                 .mount(el)
         });
     },
 })
 
-InertiaProgress.init({ color: '#1267dc', showSpinner: true, includeCSS: true });
+// InertiaProgress.init({ color: '#1267dc', showSpinner: true, includeCSS: true });

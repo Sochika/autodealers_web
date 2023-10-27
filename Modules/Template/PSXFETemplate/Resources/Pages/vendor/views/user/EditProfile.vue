@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="">
-                    <div class="w-full flex flex-col  border rounded-md border-feSecondary-400 dark_border-feAchromatic-500 py-6 sm:py-10 md:py-12 lg:py-16 px-6 sm:px-10 md:px-12 lg:px-24">
+                    <div class="w-full flex flex-col  border rounded-md border-feSecondary-400 dark:border-feAchromatic-500 py-6 sm:py-10 md:py-12 lg:py-16 px-6 sm:px-10 md:px-12 lg:px-24">
                         <div class="flex w-full items-center justify-center sm:items-start sm:justify-start">
                             <div class=" mx-2 w-48 h-44 sm:w-52 sm:h-48 rounded-full  relative" >
                                 <!-- <ps-label-title-3 class="mt-1 "> {{ $t("edit_profile__profile_photo") }} </ps-label-title-3> -->
@@ -36,7 +36,7 @@
                                     :key="index">
                                     <ps-label class="text-base">{{ $t(coreField.labelName) }} <span v-if="coreField.mandatory = 1"
                                             class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input ref="userName" type="text" v-model:value="holder.userName" class="dark_bg-transparent"
+                                    <ps-input ref="userName" type="text" v-model:value="holder.userName" class="dark:bg-transparent"
                                         :placeholder="$t(coreField.placeholder)" @keypress="userNameStatus = false" />
                                     <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
                                         v-if="userNameStatus"> {{ $t("item_entry__username_required_error") }} </ps-label>
@@ -49,7 +49,7 @@
                                     :key="index">
                                     <ps-label class="text-base">{{ $t(coreField.labelName) }} <span v-if="coreField.mandatory = 1"
                                             class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input ref="email" type="email" v-model:value="holder.userEmail" class="dark_bg-transparent"
+                                    <ps-input ref="email" type="email" v-model:value="holder.userEmail" class="dark:bg-transparent"
                                         :placeholder="$t(coreField.placeholder)" @keypress="emailStatus = false" />
                                     <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
                                         v-if="emailStatus"> {{ $t("item_entry__email_required_error") }} </ps-label>
@@ -71,7 +71,7 @@
                                                             v-model:value="phoneKeyword"
                                                             v-bind:placeholder="$t('phone_code_by_country')">
                                                             <template #icon>
-                                                                <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500"
+                                                                <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500"
                                                                     name="search" class='cursor-pointer'
                                                                     @click="filterPhoneUpdate(phoneKeyword)" />
                                                             </template>
@@ -94,7 +94,7 @@
                                                             <div v-else>
                                                                 <div v-for="selectData in phoneStore.phoneList.data"
                                                                     :key="selectData.id"
-                                                                    class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                                    class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                                     @click="phoneFilterClicked(selectData)">
 
                                                                     <ps-label class="ms-2"
@@ -153,7 +153,7 @@
                                     :key="index">
                                     <ps-label class="text-base">{{ $t(coreField.labelName) }} <span v-if="coreField.mandatory = 1"
                                             class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-input ref="name" type="text" v-model:value="holder.name" class="dark_bg-transparent"
+                                    <ps-input ref="name" type="text" v-model:value="holder.name" class="dark:bg-transparent"
                                         :placeholder="$t(coreField.placeholder)" @keypress="nameStatus = false" />
                                     <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
                                         v-if="nameStatus"> {{ $t("item_entry__name_required_error") }} </ps-label>
@@ -165,7 +165,7 @@
                                     :key="index">
                                     <ps-label class="text-base">{{ $t(coreField.labelName) }} <span v-if="coreField.mandatory = 1"
                                             class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                                    <ps-textarea rows="4" v-model:value="holder.userAboutMe" class="dark_bg-transparent"
+                                    <ps-textarea rows="4" v-model:value="holder.userAboutMe" class="dark:bg-transparent"
                                         :placeholder="$t(coreField.placeholder)" @keypress="aboutStatus = false" />
                                     <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
                                         v-if="aboutStatus"> {{ $t("item_entry__about_me_required_error") }} </ps-label>
@@ -200,7 +200,7 @@
                                                             <div v-else>
                                                                 <div v-for="selectData in customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data"
                                                                     :key="selectData.coreKeysId"
-                                                                    class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                                    class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                                     @click="selectCustomDropdown(customFieldHeader.coreKeysId, selectData.id)">
 
                                                                     <ps-label class="ms-2"
@@ -242,7 +242,7 @@
                                             v-if="customFieldHeader.uiType.coreKeysId === 'uit00002' && customFieldHeader.isVisible === '1' && customFieldHeader.isDelete === '0'">
                                             <ps-label>{{ $t(customFieldHeader.name) }}<span class="text-feError-800 font-medium ms-1"
                                                     v-show="customFieldHeader.mandatory == '1'">*</span></ps-label>
-                                            <ps-input type="text" class="w-full dark_bg-transparent rounded"
+                                            <ps-input type="text" class="w-full dark:bg-transparent rounded"
                                                 :placeholder="$t(customFieldHeader.placeholder)"
                                                 v-model:value="form.product_relation[customFieldHeader.coreKeysId]"
                                                 @keypress="validateCustom(customFieldHeader.coreKeysId)" />
@@ -359,7 +359,7 @@
                                                     <img
                                                     v-lazy=" { src: $page.props.thumb1xUrl + '/' + item.image.img_path, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
                                                         class="w-96 h-48" :alt="$t(core__be_item_photo)" />
-                                                    <ps-button type="button" @click="replaceImageClicked(item.image.id)" rounded="rounded-full" shadow="drop-shadow-2xl" class="-ms-10 mb-2" colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feAchromatic-900" border="border border-1 dark_border-feSecondary-700 border-feSecondary-300" padding="p-1.5" hover="" focus="">
+                                                    <ps-button type="button" @click="replaceImageClicked(item.image.id)" rounded="rounded-full" shadow="drop-shadow-2xl" class="-ms-10 mb-2" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-900" border="border border-1 dark:border-feSecondary-700 border-feSecondary-300" padding="p-1.5" hover="" focus="">
                                                         <ps-icon name="pencil-btn"  w="21" h="21" />
                                                     </ps-button>
                                                     <ps-image-icon-modal ref="ps_image_icon_modal" />
@@ -407,8 +407,8 @@
                             <ps-button class="text-center w-64 me-0 sm:me-6" @click="isPhoneVerified"> {{ $t("edit_profile__update") }} </ps-button>
                             <ps-button class="text-center w-64 mt-4 sm:mt-0"
                              colors="bg-feSecondary-500 text-feAchromatic-50" 
-                             hover="hover:outline-none hover_bg-feSecondary-600 active_bg-feSecondary-700"
-                             focus="focus:outline-none focus_bg-feSecondary-500 focus_ring focus_ring-feSecondary-300"
+                             hover="hover:outline-none hover:bg-feSecondary-600 active:bg-feSecondary-700"
+                             focus="focus:outline-none focus:bg-feSecondary-500 focus:ring focus:ring-feSecondary-300"
                              @click="cancelClicked"> {{ $t("edit_profile__cancel") }} </ps-button>
                         </div>
                     </div>
@@ -435,7 +435,7 @@
 </template>
 
 <script lang='ts'>
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // Libs
 import {onMounted, reactive, ref} from 'vue';
 // import router from '@template1/router';
@@ -479,8 +479,8 @@ import "firebase/auth";
 // language
 import { trans } from 'laravel-vue-i18n';import PsUtils from '@templateCore/utils/PsUtils';
 import PsConst from '@templateCore/object/constant/ps_constants';
-import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/inertia-vue3";
+import { router } from '@inertiajs/vue3';
+import { useForm } from "@inertiajs/vue3";
 
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
 
@@ -521,7 +521,7 @@ export default {
         const loginUserId = psValueStore.getLoginUserId();
 
         if(loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         const previewImage = reactive({
@@ -923,7 +923,7 @@ export default {
         }
 
         function cancelClicked(){
-            Inertia.get(route('fe_profile'));
+            router.get(route('fe_profile'));
         }
 
         function selectCustomDropdown(coreKeysId, id) {

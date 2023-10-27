@@ -4,7 +4,7 @@
         <div class=" sm:mt-32 lg:mt-36 mt-28  flex flex-col">
 
             <div class=" content-center mx-auto w-96"  >
-                <ps-label class="content-center  text-general-200 dark_text-feAchromatic-50  px-4 py-4 rounded-md" v-if="userProvider.userResource.message != ''"> {{ userProvider.userResource.message }} </ps-label>
+                <ps-label class="content-center  text-general-200 dark:text-feAchromatic-50  px-4 py-4 rounded-md" v-if="userProvider.userResource.message != ''"> {{ userProvider.userResource.message }} </ps-label>
             </div>
 
             <div class="w-55 lg:w-80 flex flex-col mx-auto rounded-lg">
@@ -28,14 +28,14 @@
                 <!-- </form> -->
                 <!-- Forget password & Sign Up -->
                 <div class="mt-4 lg:mt-5 flex flex-col items-center">
-                    <ps-label textColor="text-feSecondary-400 dark_text-feAchromatic-500" class='cursor-pointer font-light text-xs lg:text-sm' @click='openForgotPassword' > {{ $t("login__forgot_password") }} </ps-label>
-                    <ps-label textColor="text-feSecondary-400 dark_text-feAchromatic-500" class='cursor-pointer mt-3 font-light text-xs lg:text-sm' @click='openRegister' > {{ $t("login__new_here") }} <span class="font-medium"> {{ $t("login__sign_up") }}</span> </ps-label>
+                    <ps-label textColor="text-feSecondary-400 dark:text-feAchromatic-500" class='cursor-pointer font-light text-xs lg:text-sm' @click='openForgotPassword' > {{ $t("login__forgot_password") }} </ps-label>
+                    <ps-label textColor="text-feSecondary-400 dark:text-feAchromatic-500" class='cursor-pointer mt-3 font-light text-xs lg:text-sm' @click='openRegister' > {{ $t("login__new_here") }} <span class="font-medium"> {{ $t("login__sign_up") }}</span> </ps-label>
                 </div>
 
                 <div class="flex flex-row justify-center mt-4 ">
-                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark_border-feAchromatic-500" />
+                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark:border-feAchromatic-500" />
                     <ps-label class="px-1 font-medium text-sm lg:text-base"> {{ $t("login__or") }} </ps-label>
-                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark_border-feAchromatic-500" />
+                    <ps-line class="w-full lg:h-3 h-2 border border-s-0 border-e-0 border-feSecondary-400 dark:border-feAchromatic-500" />
                 </div>
 
                 <!-- Login with other Methods -->
@@ -50,20 +50,20 @@
                 </div>
 
                 <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" @click="phoneloginclicked">
-                    <font-awesome-icon :icon="['fas', 'phone']" class="text-feAchromatic-50 dark_text-feAchromatic-900 text-xl me-2" />
+                    <!-- <font-awesome-icon :icon="['fas', 'phone']" class="text-feAchromatic-50 dark:text-feAchromatic-900 text-xl me-2" /> -->
                     {{ $t("login__login_with_phone") }}
                 </ps-button>
 
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feInfo-600 hover_bg-feInfo-700 text-feAchromatic-50 px-4 py-2" @click="facebookloginclicked">
-                    <font-awesome-icon :icon="['fab', 'facebook-f']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feInfo-600 hover:bg-feInfo-700 text-feAchromatic-50 px-4 py-2" @click="facebookloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'facebook-f']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("login__login_with_facebook") }}
                 </ps-button>
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feWarning-600 hover_bg-feWarning-700 text-feAchromatic-50 px-4 py-2"  id="signinBtn" @click="googleloginclicked">
-                    <font-awesome-icon :icon="['fab', 'google']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center" theme="bg-feWarning-600 hover:bg-feWarning-700 text-feAchromatic-50 px-4 py-2"  id="signinBtn" @click="googleloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'google']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("login__login_with_google") }}
                 </ps-button>
-                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-5" theme="bg-feAchromatic-900 hover_bg-feAchromatic-700 text-feAchromatic-50 px-4 py-2"  @click="appleloginclicked">
-                    <font-awesome-icon :icon="['fab', 'apple']" class="text-feAchromatic-50 text-xl me-2"  />
+                <ps-button textSize="text-xs lg:text-base" class="mt-3 lg:mt-4 py-3 flex justify-center mb-5" theme="bg-feAchromatic-900 hover:bg-feAchromatic-700 text-feAchromatic-50 px-4 py-2"  @click="appleloginclicked">
+                    <!-- <font-awesome-icon :icon="['fab', 'apple']" class="text-feAchromatic-50 text-xl me-2"  /> -->
                     {{ $t("login__login_with_apple") }}
                 </ps-button>
                 <div class="mt-4" />
@@ -78,7 +78,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 // Libs
 // import { useRoute } from 'vue-router';
 // import router from '@template1/router';
@@ -101,10 +101,6 @@ import PrivacyModal from '@template1/vendor/components/modules/privacy/PrivacyMo
 import PsSuccessDialog2 from '@template1/vendor/components/core/dialog/PsSuccessDialog2.vue';
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFacebookF,faGoogle,faApple } from '@fortawesome/free-brands-svg-icons';
-import { faPhone } from '@fortawesome/free-solid-svg-icons';
-library.add(faFacebookF,faPhone,faGoogle, faApple )
 
 //language
 import { trans } from 'laravel-vue-i18n';//import PsUtils from '@templateCore/utils/PsUtils';

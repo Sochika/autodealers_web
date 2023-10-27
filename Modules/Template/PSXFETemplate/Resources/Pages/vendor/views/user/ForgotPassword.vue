@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import PsLabelTitle from '@template1/vendor/components/core/label/PsLabelTitle.vue';
 import PsLabelCaption from '@template1/vendor/components/core/label/PsLabelCaption.vue';

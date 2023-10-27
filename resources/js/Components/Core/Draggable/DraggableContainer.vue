@@ -1,16 +1,16 @@
 <template>
-  <draggable class="flex flex-nowrap" :list="list" @change="log">
+  <!-- <draggable class="flex flex-nowrap" :list="list" @change="log"> -->
     <slot></slot>
-  </draggable>
+  <!-- </draggable> -->
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import { VueDraggableNext } from 'vue-draggable-next'
+// import { VueDraggableNext } from 'vue-draggable-next'
 
 export default defineComponent({
   components: {
-    draggable: VueDraggableNext,
+    // draggable: VueDraggableNext,
   },
   props : {
     list : [] as any ,

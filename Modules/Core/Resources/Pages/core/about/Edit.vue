@@ -218,7 +218,7 @@
 <script>
 import { defineComponent,ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import useValidators from '@/Validation/Validators'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
@@ -235,7 +235,7 @@ import PsDangerDialog from "@/Components/Core/Dialog/PsDangerDialog.vue";
 import PsImageUpload from "@/Components/Core/Upload/PsImageUpload.vue";
 import Editor from "@/Components/Core/Editor/Editor.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Edit",
@@ -299,7 +299,7 @@ export default defineComponent({
         function handleSubmit(id) {
             // console.log(form);
             // console.log(id);
-            Inertia.post(route('about.update', id), form, {
+            router.post(route('about.update', id), form, {
                 forceFormData: true,
                 onBefore: () => {loading.value = true},
                 onSuccess: () => {

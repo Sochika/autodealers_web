@@ -11,8 +11,7 @@ use Modules\Core\Entities\UpdaterData;
 use Modules\Installer\Helpers\DatabaseManager;
 use Modules\Installer\Helpers\InstalledFileManager;
 use Modules\Installer\Services\NextUpdateService;
-
-
+use Throwable;
 
 class NextUpdateController extends Controller
 {
@@ -41,7 +40,8 @@ class NextUpdateController extends Controller
      */
     public function welcome()
     {
-        return renderView(self::welcomePath);
+        $dataArr = $this->nextUpdateService->welcome();
+        return renderView(self::welcomePath, $dataArr);
     }
 
     public function sourceCode()

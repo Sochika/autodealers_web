@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex flex-col fixed w-full h-16 z-40 bg-feAchromatic-50 dark_bg-feAchromatic-900 shadow"
+    <nav class="flex flex-col fixed w-full h-16 z-40 bg-feAchromatic-50 dark:bg-feAchromatic-900 shadow"
         :class="topOfPage ? 'mt-10' : 'mt-0'">
         <div class="lg:w-large xl:w-feLarge mx-4 md:mx-6 lg:mx-auto flex items-center justify-between mt-3 ">
             <div class="md:flex gap-6 hidden">
@@ -9,34 +9,34 @@
                         class=" rounded:xl w-auto  h-10 object-cover " />
                 </div>
                 <ps-route-link :to="{ name: 'dashboard' }"
-                    textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer"
+                    textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer"
                     class="px-4 py-2">
                     {{ $t("ps_nav_bar__home") }}
                 </ps-route-link>
                 <ps-route-link :to="{ name: 'fe_category.index' }"
-                    textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer"
+                    textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer"
                     class="px-4 py-2">
                     {{ $t("category_list__title") }}
                 </ps-route-link>
-                <ps-route-link :to="{name: 'fe_blog' }" textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
+                <ps-route-link :to="{name: 'fe_blog' }" textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
                     {{ $t("ps_nav_bar__blogs_title") }}
                 </ps-route-link>
-                <ps-route-link :to="{name: 'fe_contact_us' }" textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
+                <ps-route-link :to="{name: 'fe_contact_us' }" textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
                     {{ $t("ps_nav_bar__contact_us_title") }}
                 </ps-route-link>
             </div>
             <div class="block md:hidden cursor-pointer" @click="toggleMobileMenu">
-                <ps-icon class="cursor-pointer" textColor="text-feSecondary-800 dark_text-feAchromatic-50" name="menu" h="24"
+                <ps-icon class="cursor-pointer" textColor="text-feSecondary-800 dark:text-feAchromatic-50" name="menu" h="24"
                     w="24" />
             </div>
             <div class="flex gap-6 items-center">
-                <ps-icon class="cursor-pointer" textColor="text-feSecondary-800 dark_text-feAchromatic-50 hover_text-fePrimary-500"
+                <ps-icon class="cursor-pointer" textColor="text-feSecondary-800 dark:text-feAchromatic-50 hover:text-fePrimary-500"
                     name="search" h="24" w="24" viewBox="0 0 23 23" @click="searchClicked()" />
                 <div v-if="$page.props.authUser != null" class="flex gap-6 justify-between items-center">
                     <ps-route-link :to="{ name: 'fe_chat_list' }">
                         <div class="relative">
                             <ps-icon class="cursor-pointer"
-                                textColor="text-feSecondary-800 dark_text-feAchromatic-50 hover_text-fePrimary-500" name="message"
+                                textColor="text-feSecondary-800 dark:text-feAchromatic-50 hover:text-fePrimary-500" name="message"
                                 h="24" w="24" viewBox="0 0 23 23" />
                             <div class="me-6 p-0.5 text-xs font-semibold rounded-full bg-fePrimary-500 text-feAchromatic-50 absolute -top-2 -right-8"
                                 v-if="parseInt(userunreadmsgStore.unreadCount.data?.buyerUnreadCount) + parseInt(userunreadmsgStore.unreadCount.data?.sellerUnreadCount)">
@@ -49,7 +49,7 @@
                     <ps-route-link :to="{ name: 'fe_notification_list' }">
                         <div class="relative">
                             <ps-icon class="cursor-pointer"
-                                textColor="text-feSecondary-800 dark_text-feAchromatic-50 hover_text-fePrimary-500"
+                                textColor="text-feSecondary-800 dark:text-feAchromatic-50 hover:text-fePrimary-500"
                                 name="bell-outline" h="24" w="24" viewBox="0 -2 18 23" />
                             <div class="me-6 p-0.5 text-xs font-semibold rounded-full bg-fePrimary-500 text-feAchromatic-50 absolute -top-2 -right-8"
                                 v-if="userunreadmsgStore.unreadCount.data?.notiUnreadCount">{{
@@ -76,20 +76,20 @@
                             <div class="rounded-md shadow-xs w-[280px]">
                                 <div class="z-30 ">
                                     <ps-route-link :to="{ name: 'fe_profile' }" textSize="text-sm"
-                                        class="m-2 mt-4 flex border p-2 rounded hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer justify-center">
+                                        class="m-2 mt-4 flex border p-2 rounded hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer justify-center">
                                         <ps-label textColor="text-feAchromatic-500">{{ $t('core__view_profile') }}</ps-label>
                                     </ps-route-link>
 
                                     <hr class="mt-2 mb-2 mx-2">
 
                                     <ps-route-link :to="{ name: 'fe_favourite_items' }" textSize="text-sm"
-                                        class="w-full flex p-4 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center">
+                                        class="w-full flex p-4 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center">
                                         <ps-icon name="heartOutline" class="ms-2" />
                                         <ps-label class="ms-2">{{ $t('core__fe_favourites') }}</ps-label>
                                     </ps-route-link>
 
                                     <button
-                                        class="w-full flex p-4 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                        class="w-full flex p-4 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                         hover="" focus="" colors="" @click='openUserSetting'>
                                         <ps-icon class="ms-2" name="setting" />
                                         <ps-label class="ms-2" textColor="">{{ $t("profile__user_setting") }}</ps-label>
@@ -98,12 +98,12 @@
                                     <hr class="mt-2 mb-2 mx-2" />
                                     <ps-route-link v-if="$page.props.canAccessAdminPanel" :to="{ name: 'admin.index' }"
                                         textSize="text-sm"
-                                        class="w-full flex p-4 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center">
+                                        class="w-full flex p-4 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center">
                                         <ps-icon name="refresh" class="ms-2" />
                                         <ps-label class="ms-2">{{ $t('core__fe_switch_to_admin') }}</ps-label>
                                     </ps-route-link>
                                     <button @click="clickLogout"
-                                        class="w-full flex p-4 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center ">
+                                        class="w-full flex p-4 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center ">
                                         <ps-icon name="signOut" class="ms-2 " textColor="text-fePrimary-500" />
                                         <ps-label class="ms-2" textColor="text-fePrimary-500">{{ $t('core__be_logout')
                                         }}</ps-label>
@@ -119,7 +119,7 @@
                     </ps-route-link> -->
                 </div>
                 <ps-label v-else @click="loginClicked"
-                    class='font-medium text-sm dark_border-feAccent-500 px-4 py-2 cursor-pointer'
+                    class='font-medium text-sm dark:border-feAccent-500 px-4 py-2 cursor-pointer'
                     textColor="text-fePrimary-500">
                     {{ $t("ps_nav_bar__login") }}
                 </ps-label>
@@ -134,7 +134,7 @@
         </div>
         <transition>
             <div v-if="activeMobileMenu"
-                class="border border-b-2 text-fePrimary-500 dark_text-feSecondary-900 h-auto mt-3 bg-feAchromatic-50 dark_bg-feAchromatic-900 pb-1">
+                class="border border-b-2 text-fePrimary-500 dark:text-feSecondary-900 h-auto mt-3 bg-feAchromatic-50 dark:bg-feAchromatic-900 pb-1">
                 <div class="flex flex-col p-5 gap-6">
                     <div class="h-10">
                         <img v-lazy="{ src: $page.props.thumb1xUrl + '/' + $page.props.backendLogo.img_path, loading: $page.props.sysImageUrl + '/loading_gif.gif', error: $page.props.sysImageUrl + '/default_photo.png' }"
@@ -142,19 +142,19 @@
                             class=" rounded:xl w-auto  h-10 object-cover " />
                     </div>
                     <ps-route-link :to="{ name: 'dashboard' }"
-                        textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer"
+                        textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer"
                         class="px-4 py-2">
                         {{ $t("ps_nav_bar__home") }}
                     </ps-route-link>
                     <ps-route-link :to="{ name: 'fe_category.index' }"
-                        textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer"
+                        textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer"
                         class="px-4 py-2">
                         {{ $t("category_list__title") }}
                     </ps-route-link>
-                    <ps-route-link :to="{name: 'fe_blog' }" textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
+                    <ps-route-link :to="{name: 'fe_blog' }" textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
                         {{ $t("ps_nav_bar__blogs_title") }}
                     </ps-route-link>
-                    <ps-route-link :to="{name: 'fe_contact_us' }" textSize="text-sm text-feSecondary-800 hover_text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
+                    <ps-route-link :to="{name: 'fe_contact_us' }" textSize="text-sm text-feSecondary-800 hover:text-fePrimary-500 font-medium cursor-pointer" class="px-4 py-2">
                         {{ $t("ps_nav_bar__contact_us_title") }}
                     </ps-route-link>
                 </div>
@@ -187,7 +187,7 @@ import PsLine from "@template1/vendor/components/core/line/PsLine.vue";
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue';
 import PsLabel from "@template1/vendor/components/core/label/PsLabel.vue";
 import PsButton from "@template1/vendor/components/core/buttons/PsButton.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsConst from '@templateCore/object/constant/ps_constants';
 import PsConfirmDialog from '@template1/vendor/components/core/dialog/PsConfirmDialog.vue';
 import PsUtils from '@templateCore/utils/PsUtils';
@@ -255,7 +255,10 @@ export default defineComponent({
 
         // }
         async function loadMessage() {
-            await userunreadmsgStore.postUserUnreadMessageCount(userUnreadHolder);
+            if( userUnreadHolder.loginUserId != null 
+                && userUnreadHolder.loginUserId != "nologinuser") {
+                await userunreadmsgStore.postUserUnreadMessageCount(userUnreadHolder);
+            }
         }
         loadMessage();
         onMounted(async () => {
@@ -278,7 +281,7 @@ export default defineComponent({
         }
 
         function gotToHome() {
-            Inertia.get(route('dashboard'));
+            router.get(route('dashboard'));
         }
 
         function toggleMobileMenu(bol = true) {
@@ -327,13 +330,13 @@ export default defineComponent({
                 ,
                 () => {
                     firebaseApp.auth().signOut();
-                    Inertia.post(route('logout'));
+                    router.post(route('logout'));
                 },
                 () => {
                     PsUtils.log('cancel');
                 }
             );
-            // Inertia.get(route('dashboard'));
+            // router.get(route('dashboard'));
         }
         function registerClicked() {
 
@@ -341,14 +344,14 @@ export default defineComponent({
                 activeMobileMenu.value = false;
             }
 
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
         function loginClicked() {
 
             if (activeMobileMenu.value) {
                 activeMobileMenu.value = false;
             }
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         //light / dark mode

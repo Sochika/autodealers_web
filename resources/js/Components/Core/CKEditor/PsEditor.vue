@@ -1,9 +1,10 @@
 <template>
-<ckeditor :editor="editor" v-model="editorData"></ckeditor>
+<div> </div>
+<!-- <ckeditor :editor="editor" v-model="editorData"></ckeditor> -->
 </template>
 
 <script>
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 export default {
@@ -12,7 +13,7 @@ export default {
     },
     data() {
             return {
-                editor: ClassicEditor,
+                // editor: ClassicEditor,
                 editorData: ''
             };
         }

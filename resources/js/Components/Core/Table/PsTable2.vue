@@ -219,12 +219,11 @@ import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsInputWithRightIcon from '@/Components/Core/Input/PsInputWithRightIcon.vue';
 import moment from 'moment';
-import { Head,Link, useForm  } from '@inertiajs/inertia-vue3';
+import { Head,Link, useForm  } from '@inertiajs/vue3';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import Dropdown from "@/Components/Core/DropdownModal/Dropdown.vue";
 import debounce from 'lodash/debounce';
 import NewDropdown from "@/Components/Core/DropdownModal/NewDropdown.vue";
-import {InertiaLink} from "@inertiajs/inertia-vue3";
 import { trans } from 'laravel-vue-i18n';
 
 export default {
@@ -243,7 +242,6 @@ export default {
         Dropdown,
         debounce,
         NewDropdown,
-        InertiaLink
     },
     props: {
         'columns': { type: Array, default: [] },

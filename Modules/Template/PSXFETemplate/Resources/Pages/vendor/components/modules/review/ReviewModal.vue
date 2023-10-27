@@ -28,7 +28,7 @@
             <div class="grid grid-cols-4 gap-6">
                 <ps-button v-if="ratingProvider.loading.value == false"  @click="clicked" textSize="text-xxs lg:text-sm" class="col-span-2"  > {{ $t("review_entry__submit") }}</ps-button>
                 <ps-button :disabled="true" v-else textSize="text-xxs lg:text-sm" class="col-span-2"  > {{ $t("review_entry__loading") }}</ps-button>
-                <ps-button @click="cancel()" textSize="text-xxs lg:text-sm" class="col-span-2" colors="bg-feAchromatic-50 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500"> {{ $t("review_entry__cancel") }} </ps-button>
+                <ps-button @click="cancel()" textSize="text-xxs lg:text-sm" class="col-span-2" colors="bg-feAchromatic-50 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500"> {{ $t("review_entry__cancel") }} </ps-button>
             </div>
 
         </template>

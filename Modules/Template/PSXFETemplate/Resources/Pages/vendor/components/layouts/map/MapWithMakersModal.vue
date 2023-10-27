@@ -1,20 +1,20 @@
 <template>
-    <ps-modal ref="psmodal" maxWidth="370px" :isClickOut='false' line="hidden" theme= "bg-feAchromatic-50 dark_bg-feSecondary-800 lg:px-6 px-4 py-6 rounded-x " class=' z-20'>
+    <ps-modal ref="psmodal" maxWidth="370px" :isClickOut='false' line="hidden" theme= "bg-feAchromatic-50 dark:bg-feSecondary-800 lg:px-6 px-4 py-6 rounded-x " class=' z-20'>
         <template #title>
             <div class="flex flex-row justify-between mb-3">
-                <ps-label class='flex-grow text-base' textColor="text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("fe_map_with_marker_moadl__title") }}  </ps-label>
-                <font-awesome-icon @click="psmodal.toggle(false)" :icon="['fas', 'times']" class="text-feSecondary-800 dark_text-feSecondary-200" size="x" />
+                <ps-label class='flex-grow text-base' textColor="text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("fe_map_with_marker_moadl__title") }}  </ps-label>
+                <ps-icon @click="psmodal.toggle(false)" name="close" class="text-feSecondary-800 dark:text-feSecondary-200"/>
             </div>
         </template>
         <template #body>
             <div class="w-full h-68 flex justify-center items-center" >
-                 <map-with-makers v-if="mapReady" class="h-68" @onChange="onPointerMove" :dragValue="true" :lat="lat" :lng="lng" :markers="markers" :radius="getMiles()" />
+                 <map-with-makers v-if="mapReady" class="h-68" @onChange="onPointerMove" :dir="$page.props.dir" :dragValue="true" :lat="lat" :lng="lng" :markers="markers" :radius="getMiles()" />
                  <ps-label v-else class="flex-grow-0"> {{ $t("fe_map_with_marker_moadl__loading") }} </ps-label>
             </div>
 
             <div class="w-full mt-5 flex flex-row justify-between " >
-                <ps-label class=' text-base' textColor="text-feSecondary-800 dark_text-feSecondary-200"> {{ $t("fe_map_with_marker_moadl__explore_around") }}  </ps-label>
-                <ps-label class='text-base' textColor="text-feSecondary-800 dark_text-feSecondary-200"> {{ getKM()==0? $t("fe_map_with_marker_moadl__all"): getKM() + ' km' }}   </ps-label>
+                <ps-label class=' text-base' textColor="text-feSecondary-800 dark:text-feSecondary-200"> {{ $t("fe_map_with_marker_moadl__explore_around") }}  </ps-label>
+                <ps-label class='text-base' textColor="text-feSecondary-800 dark:text-feSecondary-200"> {{ getKM()==0? $t("fe_map_with_marker_moadl__all"): getKM() + ' km' }}   </ps-label>
             </div>
 
         </template>
@@ -35,8 +35,8 @@
             <input  type="range" id="vol" list="tickmarks" name="vol" min="1" max="11" v-model="radius" @input="rangeChanged" class='w-full'>
 
              <div class="w-full mb-4 flex flex-row justify-between " >
-                <ps-label class=' text-sm' textColor="text-feSecondary-800 dark_text-feSecondary-200"> 0.5 km  </ps-label>
-                <ps-label class='text-sm' textColor="text-feSecondary-800 dark_text-feSecondary-200"> {{$t("fe_map_with_marker_moadl__all")  }} </ps-label>
+                <ps-label class=' text-sm' textColor="text-feSecondary-800 dark:text-feSecondary-200"> 0.5 km  </ps-label>
+                <ps-label class='text-sm' textColor="text-feSecondary-800 dark:text-feSecondary-200"> {{$t("fe_map_with_marker_moadl__all")  }} </ps-label>
             </div>
             <div class="flex justify-between  rtl:space-x-reverse space-x-4">
                 <ps-feSecondary-button @click="reset" class="w-full" >
@@ -59,6 +59,7 @@ import MapWithMakers from "@template1/vendor/components/layouts/map/MapWithMaker
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
 import { useProductStore } from "@templateCore/store/modules/item/ProductStore";
 import { PsValueStore } from '@templateCore/store/modules/core/PsValueStore';
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default defineComponent({
     name : "PsConfirmDialog",
@@ -67,7 +68,8 @@ export default defineComponent({
         PsButton,
         MapWithMakers,
         PsLabel,
-        PsSecondaryButton
+        PsSecondaryButton,
+        PsIcon
     },
     setup() {
         const psmodal = ref();

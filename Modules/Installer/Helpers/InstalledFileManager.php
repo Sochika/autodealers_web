@@ -2,6 +2,7 @@
 
 namespace Modules\Installer\Helpers;
 
+use App\Config\ps_constant;
 use Modules\Core\Entities\Installer;
 use Modules\Core\Entities\DomainChange;
 
@@ -45,12 +46,27 @@ class InstalledFileManager
         }
         $domain = DomainChange::first();
 
-        $path_to_file = public_path('build/app.js');
-        $path_to_file2 = public_path('build/PsApiService2.js');
-        $path_to_file3 = public_path('build/DropZone3.js');
-        $path_to_file4 = public_path('build/OpenStreetMap.js');
-        $path_to_file5 = public_path('build/PsFrontendLayout.js');
-        $path_to_file6 = public_path('build/psApiService.js');
+        // $path_to_file = public_path('build/app.js');
+        // $path_to_file2 = public_path('build/PsApiService2.js');
+        // $path_to_file3 = public_path('build/DropZone3.js');
+        // $path_to_file4 = public_path('build/OpenStreetMap.js');
+        // $path_to_file5 = public_path('build/PsFrontendLayout.js');
+        // $path_to_file6 = public_path('build/psApiService.js');
+
+        $pathArr = findFindWithHashKey(public_path(ps_constant::appJSFilePath));
+        if(count($pathArr) !== 0){
+            $path_to_file = $pathArr[0];
+        }
+
+        $pathArr2 = findFindWithHashKey(public_path(ps_constant::PsApiServiceJSFilePath));
+        if(count($pathArr2) !== 0){
+            $path_to_file2 = $pathArr2[0];
+        }
+
+        $pathArr6 = findFindWithHashKey(public_path(ps_constant::psApiServiceJSFilePath));
+        if(count($pathArr6) !== 0){
+            $path_to_file6 = $pathArr6[0];
+        }
 
 
         // app.js

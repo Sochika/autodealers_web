@@ -87,8 +87,8 @@
 <script>
 import { ref, defineComponent } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
+import { Head } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
@@ -242,7 +242,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('user_report.index'),
+            router.get(route('user_report.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -281,7 +281,7 @@ export default defineComponent({
             this.$inertia.get(route('user_report.show',id));
         },
         FilterOptionshandle(value) {
-            Inertia.post(route('user_report.screenDisplayUiSetting.store'),
+            router.post(route('user_report.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

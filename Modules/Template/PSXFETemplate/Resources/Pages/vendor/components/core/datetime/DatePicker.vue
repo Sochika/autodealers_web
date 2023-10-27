@@ -50,7 +50,7 @@
     :cancelText="cancelText" :selectText="selectText"
     :dark="isDarkMode">
         <template #calendar-header="{ day }">
-            <div class="font-medium text-sm text-feSecondary-800 dark_text-feAchromatic-50">
+            <div class="font-medium text-sm text-feSecondary-800 dark:text-feAchromatic-50">
             {{ day }}
             </div>
         </template>

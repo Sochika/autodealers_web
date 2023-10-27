@@ -310,7 +310,7 @@ class RatingService extends PsService
             $rating = $this->store($request);
         }
 
-        
+
 
         // start update rating value at user
         if($request->type == $this->ratingUserType){
@@ -358,10 +358,10 @@ class RatingService extends PsService
             $to_name = $user_data->name;
             $title = $rating->title;
             $body = __('rating__receive_rating_from',[],$request->language_symbol) . ' ' . $this->userService->getUser($rating->from_user_id)->name;
-
-            if(!sendMail($to, $to_name, null, $subject, $body)){
-                return  ['error' => __('rating__email_not_sent',[],$request->language_symbol) ,'status' =>  $this->internalServerErrorStatusCode ];
-            }
+            sendMail($to, $to_name, null, $subject, $body);
+            // if(!sendMail($to, $to_name, null, $subject, $body)){
+            //     return  ['error' => __('rating__email_not_sent',[],$request->language_symbol) ,'status' =>  $this->internalServerErrorStatusCode ];
+            // }
         }
         // end send email to to_user_id
 

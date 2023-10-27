@@ -60,7 +60,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -74,7 +74,7 @@ import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import Dropdown from "@/Components/Core/DropdownModal/Dropdown.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -208,7 +208,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('currency.index'),
+            router.get(route('currency.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -261,7 +261,7 @@ export default defineComponent({
             this.$inertia.get(route('currency.edit', id));
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('currency.screenDisplayUiSetting.store'),
+        router.put(route('currency.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

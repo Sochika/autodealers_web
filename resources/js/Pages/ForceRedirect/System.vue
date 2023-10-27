@@ -18,7 +18,7 @@
 
 <script>
 import { defineComponent, ref, computed, onMounted } from 'vue'
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PsLabelTitle from "@/Components/Core/Label/PsLabelTitle.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";

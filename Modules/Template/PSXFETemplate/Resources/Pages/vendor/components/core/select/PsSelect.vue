@@ -1,6 +1,6 @@
 <template>
     <select class="appearance-none form-select mt-1 w-60 " :value="getValue(value)" @change="handleInput($event.target.value)"  >         
-        <option v-for=" selectData  in dataList" :key="selectData.id" class="focus_bg-fePrimary-500 dark_bg-feAccent-500"> {{selectData.name}} </option>        
+        <option v-for=" selectData  in dataList" :key="selectData.id" class="focus:bg-fePrimary-500 dark:bg-feAccent-500"> {{selectData.name}} </option>        
     </select>    
 </template>
 

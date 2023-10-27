@@ -4,9 +4,9 @@
             <ps-label-title> {{ $t("ps_loading_dialog__please_wait") }} </ps-label-title>
         </template>
         <template #body>
-            <ps-label> {{ message }} </ps-label>
+            <ps-label> {{ $t(message) }} </ps-label>
         </template>
-        <template #footer>            
+        <template #footer>
         </template>
     </ps-modal>
 </template>
@@ -26,9 +26,9 @@ export default defineComponent({
     setup() {
         const psmodal = ref();
         const message = ref(trans('ps_loading_dialog__loading'));
-        
+
         function openModal() {
-            psmodal.value.toggle(true);           
+            psmodal.value.toggle(true);
         }
 
         function closeModal() {

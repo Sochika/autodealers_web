@@ -1,6 +1,6 @@
 <template>
     <ps-label class="select-none items-center">
-        <input type="radio" class="border-1 form-radio me-1 checked:bg-fePrimary-500 checked:dark_bg-fePrimary-500 dark_bg-feSecondary-800" :id="title" :checked="getValue()" @change="handleInput()" />
+        <input type="radio" class="border-1 form-radio me-1 checked:bg-fePrimary-500 checked:dark:bg-fePrimary-500 dark:bg-feSecondary-800" :id="title" :checked="getValue()" @change="handleInput()" />
         {{title}}
     </ps-label>
 </template>

@@ -54,8 +54,8 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia'
+import { Link, Head, useForm } from '@inertiajs/vue3';
+import { router } from '@inertiajs/vue3'
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -154,7 +154,7 @@ export default defineComponent({
                         csvFile: selectedFile,
                         "_method": "put"
                     })
-                    Inertia.post(route('language_string.import.csv', props.language), form);
+                    router.post(route('language_string.import.csv', props.language), form);
                 }
             );
         }
@@ -174,7 +174,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('attribute.index',[props.tableId, props.customizeHeader.core_keys_id]),
+            router.get(route('attribute.index',[props.tableId, props.customizeHeader.core_keys_id]),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -233,7 +233,7 @@ export default defineComponent({
             this.$inertia.get(route('attribute.edit',[this.tableId, this.customizeHeader.core_keys_id, attributeId]));
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('attribute.screenDisplayUiSetting.store'),
+        router.put(route('attribute.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

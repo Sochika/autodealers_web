@@ -1,8 +1,8 @@
 <template>
-    <ps-modal ref="psmodal" maxWidth="100%" bodyHeight="h-full" line="hidden" :isClickOut='false' theme="rounded-lg" bgColor="rounded-lg bg-transparent dark_bg-transparent" class=' z-20'>
+    <ps-modal ref="psmodal" maxWidth="100%" bodyHeight="h-full" line="hidden" :isClickOut='false' theme="rounded-lg" bgColor="rounded-lg bg-transparent dark:bg-transparent" class=' z-20'>
         <template #body>
                 <div class="flex justify-end pb-20">
-                    <div class="h-8 w-8 rounded flex bg-feSecondary-300 dark_bg-feSecondary-800 justify-center items-center">
+                    <div class="h-8 w-8 rounded flex bg-feSecondary-300 dark:bg-feSecondary-800 justify-center items-center">
                         <ps-icon name="close" class="text-feSecondary-800 hover:cursor-pointer" @click.prevent="psmodal.toggle(false)"></ps-icon>
                     </div>
                 </div>
@@ -30,20 +30,20 @@
                         </SplideTrack>
                         <div class="splide__arrows splide__arrows--ltr">
                             <button
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--prev"
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--prev"
                                 type="button"
                                 aria-label="Previous slide"
                                 aria-controls="splide01-track"
                             >
-                                <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                                <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                             </button>
                             <button
-                                class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--next"
+                                class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--next"
                                 type="button"
                                 aria-label="Next slide"
                                 aria-controls="splide01-track"
                             >
-                                <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                                <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                             </button>
                         </div>
                     </Splide>

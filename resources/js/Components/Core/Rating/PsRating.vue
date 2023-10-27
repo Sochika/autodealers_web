@@ -24,10 +24,6 @@
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar as fasStar, faStarHalfStroke as fasStarHalfStroke } from '@fortawesome/free-regular-svg-icons';
-import { faStar as farSrar, faStarHalfStroke as farStarHalfStroke  } from '@fortawesome/free-solid-svg-icons';
-library.add(fasStar, farSrar, fasStarHalfStroke, farStarHalfStroke)
 
 export default {
     name: 'RatingView',

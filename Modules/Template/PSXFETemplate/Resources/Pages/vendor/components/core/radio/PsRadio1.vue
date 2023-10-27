@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-row justify-between">
         <ps-label class="select-none  inline-flex flex-row items-center">  
-            <input type="radio" class="form-radio me-2 checked:bg-fePrimary-500 dark_bg-feAccent-500" :id="id" :checked="getValue()" @change="handleInput()" />
+            <input type="radio" class="form-radio me-2 checked:bg-fePrimary-500 dark:bg-feAccent-500" :id="id" :checked="getValue()" @change="handleInput()" />
                 <slot name="title" />
         </ps-label>
         <slot name='price' />

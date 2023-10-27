@@ -15,18 +15,17 @@ use Modules\Core\Entities\CoreImage;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Modules\Core\Constants\Constants;
-use Modules\Core\Entities\SystemCode;
 use Laravel\Sanctum\PersonalAccessToken;
 use Modules\Core\Entities\CoreMenuGroup;
 
 use Modules\Core\Entities\MobileSetting;
 use Modules\Core\Entities\BackendSetting;
-use Modules\Core\Entities\LanguageString;
 use Modules\Core\Entities\FrontendSetting;
 use Modules\Core\Entities\CoreSubMenuGroup;
 use Modules\Core\Entities\ActivatedFileName;
 use Modules\Core\Entities\CheckVersionUpdate;
 use Modules\Core\Entities\BuilderAppInfoCache;
+use Modules\Core\Entities\Setting;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -162,16 +161,19 @@ class HandleInertiaRequests extends Middleware
             $builderAppInfo = null;
         }
 
+        $setting = Setting::where('setting_env', Constants::SYSTEM_CONFIG)->first();
+        $selcted_array = json_decode($setting->setting, true);
+
         return array_merge(parent::share($request), [
 
             // "checkingVersionUpdate" => $syncAble,
             "checkVersionUpdate" => $checkVersionUpdate ? $checkVersionUpdate : null,
             "builderAppInfo" => $builderAppInfo,
             "isSubCategoryOn" => $mobileSetting->is_show_subcategory,
-
+            'selected_price_type' => (string) $selcted_array['selected_price_type']['id'],
+            "canAccessAdminPanel" => checkForDashboardPermission(),
             "firebaseConfig" => $firebaseConfigStr,
             "webPushKey" => $webPushKey,
-            "canAccessAdminPanel" => checkForDashboardPermission(),
             "langStatus" => session('langStatus'),
             'dateFormat' => $backendSetting->date_format,
             'mapKey' => $backendSetting->map_key,

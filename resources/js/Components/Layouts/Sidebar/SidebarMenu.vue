@@ -100,7 +100,7 @@
 
 <script>
 
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import SidebarMenuItem from '@/Components/Layouts/Sidebar/SidebarMenuItem.vue';

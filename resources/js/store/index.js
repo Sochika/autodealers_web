@@ -125,9 +125,8 @@ export default createStore({
             } else {
                 localStorage.isDarkMode = "true";
             }
-            console.log(localStorage.isDarkMode);
             commit("setDarkMode");
-            // this.loadIsDarkMode();
+                        
         },
         async loadIsDarkMode({ commit }) {
             commit("loadDarkMode");

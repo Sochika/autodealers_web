@@ -38,12 +38,12 @@ import { defineComponent, computed, onMounted, onUnmounted, ref } from "vue";
 import UpdaterLayout from '@/Layouts/UpdaterLayout.vue';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
-import { Link } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/vue3';
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
 import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 
 export default defineComponent({
     components: {
@@ -61,23 +61,23 @@ export default defineComponent({
         const ps_success_dialog = ref();
         const isGoNext = ref(0);
 
-        let go_next = usePage().props.value.logMessages
+        let go_next = usePage().props.logMessages
 
         if(go_next=='mb_lang_sync_success'){
-            Inertia.get(route("NextLaravelUpdater::builderTableField"));
+            router.get(route("NextLaravelUpdater::builderTableField"));
         }
 
 
 
         function toBuilderZipFile() {
-            Inertia.post(route("NextLaravelUpdater::addNewMobileLangString"), {}, {
+            router.post(route("NextLaravelUpdater::addNewMobileLangString"), {}, {
                 onBefore: () => {
 
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title2_be'),trans('core__be_importing_note2_mb'));
                 },
                 onSuccess: (res) => {
-                    if(usePage().props.value.logMessages == 'mb_lang_sync_success'){
-                        Inertia.get(route("NextLaravelUpdater::builderTableField"));
+                    if(usePage().props.logMessages == 'mb_lang_sync_success'){
+                        router.get(route("NextLaravelUpdater::builderTableField"));
                     }
                 },
                 onError: (errors) => {

@@ -17,7 +17,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsBreadcrumb2 from "@/Components/Core/Breadcrumbs/PsBreadcrumb2.vue";
 import PsDataTable from "@/Components/Core/Table/PsDataTable.vue";

@@ -56,7 +56,7 @@
 
 import { defineComponent, ref, defineAsyncComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
 import useValidators from '@/Validation/Validators'
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";

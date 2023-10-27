@@ -54,7 +54,7 @@ import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLoading from "@/Components/Core/Loading/PsLoading.vue";
 
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 
 // import { trans } from 'laravel-vue-i18n';
 

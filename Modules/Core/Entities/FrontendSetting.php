@@ -43,4 +43,7 @@ class FrontendSetting extends Model
     public function frontend_meta_image(){
         return $this->hasMany(CoreImage::class,'img_parent_id')->where('img_type','backend-meta-image');
     }
+    public function app_branding_image(){
+        return $this->hasMany(CoreImage::class,'img_parent_id')->where('img_type','app-branding-image');
+    }
 }

@@ -8,7 +8,7 @@ export default {
     props: {
         textColor : {
             type: String,               
-            default: 'text-fePrimary-500 dark_text-feSecondary-900',            
+            default: 'text-fePrimary-500 dark:text-feSecondary-900',            
         }        
     }
 }

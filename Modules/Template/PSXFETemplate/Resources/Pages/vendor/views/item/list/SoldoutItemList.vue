@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div v-else class="w-full flex justify-center">
-                                <ps-label textColor="text-feSecondary-500 dark_text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
+                                <ps-label textColor="text-feSecondary-500 dark:text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
                             </div>
                         </div>
 
@@ -70,7 +70,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeader4.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';

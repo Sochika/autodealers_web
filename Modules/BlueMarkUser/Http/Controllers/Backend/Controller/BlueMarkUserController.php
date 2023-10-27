@@ -103,7 +103,7 @@ class BlueMarkUserController extends Controller
         $subject = __('core__be_blue_mark');
         $to_name = $user->name;
         $body = $message;
-        sendMail($to, $to_name, null, $subject, $body);
+        sendMail($to, $to_name, $subject, null, $body);
     }
 
     public function destroy($id)

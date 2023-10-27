@@ -15,7 +15,7 @@
         <!-- End Item entry title -->
         <!-- Start Choose Photo and Video -->
         <div
-            class="w-full grid lg:grid-cols-12 sm:grid-cols-8 grid-cols-4  gap-4 sm:gap-3.5 lg:gap-4 mt-2 bg-feSecondary-50 dark_bg-feAchromatic-900">
+            class="w-full grid lg:grid-cols-12 sm:grid-cols-8 grid-cols-4  gap-4 sm:gap-3.5 lg:gap-4 mt-2 bg-feSecondary-50 dark:bg-feAchromatic-900">
 
             <!-- First Screen for photo -->
             <div class="col-span-12 mt-4 lg:px-8  md:px-8 md:col-start-1 sm:col-start-2 px-6 w-full">
@@ -45,7 +45,7 @@
 
                                 </div>
                                 <ps-label
-                                    class=" relative w-full mt-14 text-center pt-1 text-feAchromatic-50 h-6 rounded-b-xl bg-feSecondary-500 dark_text-feAchromatic-900 dark_bg-feAchromatic-50 opacity-90"
+                                    class=" relative w-full mt-14 text-center pt-1 text-feAchromatic-50 h-6 rounded-b-xl bg-feSecondary-500 dark:text-feAchromatic-900 dark:bg-feAchromatic-50 opacity-90"
                                     textColor="text-feAchromatic-50">
                                     {{ $t("item_entry__default") }}
                                 </ps-label>
@@ -66,11 +66,7 @@
 
                                 <div @click="imageDelete(index)"
                                     v-if="previewImages[index - 1]?.imgUrl != '' || getImageUrl(index) != ''"
-                                    class="cursor-pointer relative mt-14 ms-11 bg-fePrimary-50 rounded-full dark_bg-feAchromatic-800  py-1.5 px-2.5">
-
-                                    <font-awesome-icon :icon="['fas', 'trash-alt']"
-                                        class=" text-feSecondary-500 dark_text-feAchromatic-50 lg:text-base text-sm" />
-                                </div>
+                                    class="cursor-pointer relative mt-14 ms-11 bg-fePrimary-50 rounded-full dark:bg-feAchromatic-800  py-1.5 px-2.5">
 
 
                             </div>
@@ -122,9 +118,8 @@
                                 class="rounded-xl w-20 h-20 object-cover " :key="video" v-lazy="video" />
                         </div>
                         <div @click="videoDelete()" v-if="previewVideo.data != '' || getVideoUrl() != ''"
-                            class="cursor-pointer relative mt-14 ms-11 bg-fePrimary-50 rounded-full dark_bg-feAchromatic-800  py-1.5 px-2.5">
-                            <font-awesome-icon :icon="['fas', 'trash-alt']"
-                                class=" text-feSecondary-500 dark_text-feAchromatic-50 lg:text-base text-sm" />
+                            class="cursor-pointer relative mt-14 ms-11 bg-fePrimary-50 rounded-full dark:bg-feAchromatic-800  py-1.5 px-2.5">
+                            <ps-icon name="trash-alt" class=" text-feSecondary-500 dark:text-feAchromatic-50 lg:text-base text-sm"/>
                         </div>
                     </div>
                 </div>
@@ -133,7 +128,7 @@
         <!-- End Choose Photo -->
 
         <!-- Start Input Field for md .. -->
-        <div class="w-full grid  grid-cols-12 gap-4 sm:gap-3.5 lg:gap-4 bg-feSecondary-50  dark_bg-feAchromatic-900">
+        <div class="w-full grid  grid-cols-12 gap-4 sm:gap-3.5 lg:gap-4 bg-feSecondary-50  dark:bg-feAchromatic-900">
             <!-- Start Left Screen -->
             <div class="col-span-12  mt-4  lg:px-8  md:px-8 md:col-start-1 sm:col-start-2 px-6 w-full">
                 <div class=" w-full">
@@ -144,7 +139,7 @@
                         :key="index">
                         <ps-label class="text-base">{{ $t(coreField.labelName) }} <span v-if="coreField.mandatory = 1"
                                 class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                        <ps-input ref="title" type="text" v-model:value="paramHolder1.title" class="dark_bg-transparent"
+                        <ps-input ref="title" type="text" v-model:value="paramHolder1.title" class="dark:bg-transparent"
                             :placeholder="$t(coreField.placeholder)" @keypress="validateTitle" />
                         <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
                             v-if="validation.titleStatus"> {{ $t("item_entry__title_required_error") }} </ps-label>
@@ -174,7 +169,7 @@
                                             <div v-else>
                                                 <div v-for="selectData in categoryStore.itemList.data"
                                                     :key="selectData.catId"
-                                                    class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                    class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                     @click="categoryFilterClicked(selectData)">
 
                                                     <ps-label class="ms-2"
@@ -227,7 +222,7 @@
                                                 v-model:value="subCatKeyword"
                                                 v-bind:placeholder="$t('item_list__search_subcat')">
                                                 <template #icon>
-                                                    <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500"
+                                                    <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500"
                                                         name="search" class='cursor-pointer'
                                                         @click="filterSubCatUpdate(subCatKeyword)" />
                                                 </template>
@@ -257,7 +252,7 @@
                                                 <div v-else>
                                                     <div v-for="selectSubcategory in subCategoryStore.subCategoryList.data"
                                                         :key="selectSubcategory.id"
-                                                        class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                         @click="subCategoryFilterClicked(selectSubcategory)">
                                                         <ps-label class="ms-2"
                                                             :class="selectSubcategory.id == paramHolder1.subCatId ? ' font-bold' : ''">
@@ -310,7 +305,7 @@
                                                 @keyup.enter="filterPhoneUpdate(phoneKeyword)" v-model:value="phoneKeyword"
                                                 v-bind:placeholder="$t('phone_code_by_country')">
                                                 <template #icon>
-                                                    <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500"
+                                                    <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500"
                                                         name="search" class='cursor-pointer'
                                                         @click="filterPhoneUpdate(phoneKeyword)" />
                                                 </template>
@@ -333,7 +328,7 @@
                                                 <div v-else>
                                                     <div v-for="selectData in phoneStore.phoneList.data"
                                                         :key="selectData.id"
-                                                        class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                         @click="phoneFilterClicked(selectData, index)">
 
                                                         <ps-label class="ms-2"
@@ -362,7 +357,7 @@
                                     </template>
 
                                 </ps-dropdown>
-                                <ps-input class="w-full dark_bg-transparent" ref="phone" type="text"
+                                <ps-input class="w-full dark:bg-transparent" ref="phone" type="text"
                                     v-model:value="phoneList[index]['value']" :placeholder="$t(coreField.placeholder)"
                                     @keypress="validatePhone" />
                                 <!-- {{phoneList}} -->
@@ -394,7 +389,8 @@
 
 
                     <!-- original price-->
-                    <div class="mb-4">
+                    <!-- {{ appInfoStore.appInfo.data.psAppSetting.SelectedPriceType }} -->
+                    <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType != 'NO_PRICE'" class="mb-4">
 
                         <ps-label
                             v-for="(coreField, index) in customFieldStore.customField.data?.coreList.filter((coreField) => coreField.fieldName === 'original_price' && coreField.isVisible === '1')"
@@ -402,7 +398,7 @@
                                 class="text-feError-800 font-medium ms-1 ">*</span></ps-label>
 
 
-                        <div class="flex flex-row items-center  mt-2">
+                        <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType == 'NORMAL_PRICE'" class="flex flex-row items-center  mt-2">
                             <div class=""
                                 v-for="(coreField, index) in customFieldStore.customField.data?.coreList.filter((coreField) => coreField.fieldName === 'currency_id' && coreField.isVisible === '1')"
                                 :key="index">
@@ -424,7 +420,7 @@
                                                 <div v-else>
                                                     <div v-for="itemcurrency in itemCurrencyStore.itemCurrencyList.data"
                                                         :key="itemcurrency.id"
-                                                        class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                         @click="currencyFilterClicked(itemcurrency)">
                                                         <ps-label class="ms-2"
                                                             :class="itemcurrency.id == paramHolder1.itemCurrencyId ? ' font-bold' : ''">
@@ -460,10 +456,51 @@
                                 v-for="(coreField, index) in customFieldStore.customField.data?.coreList.filter((coreField) => coreField.fieldName === 'original_price' && coreField.isVisible === '1')"
                                 :key="index">
 
-                                <ps-input ref="price" class="dark_bg-transparent" type="text"
+                                <ps-input ref="price" class="dark:bg-transparent" type="text"
                                     v-model:value="paramHolder1.price" :placeholder="$t(coreField.placeholder)"
                                     @keypress="validatePrice" />
                             </div>
+                        </div>
+
+                        <div v-if="appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType == 'PRICE_RANGE'" class="flex-row  ">
+                            <div class=""
+                                v-for="(coreField, index) in customFieldStore.customField.data?.coreList.filter((coreField) => coreField.fieldName === 'currency_id' && coreField.isVisible === '1')"
+                                :key="index">
+
+                                <ps-dropdown  class='lg:mt-2 mt-1  w-full' >
+                                    <template #select>
+                                        <ps-dropdown-select :showCenter="true"
+
+                                            :selectedValue="paramHolder1.price == '' ? '' : price_range.filter((price) => price.id == paramHolder1.price)[0].value"
+
+                                            />
+                                    </template>
+
+                                    <template #list>
+                                        <div class="rounded-md shadow-xs w-56 ">
+                                            <div class="pt-2 z-30 ">
+
+                                                    <div v-for="range in price_range"
+                                                        :key="range.id"
+                                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
+                                                        @click="priceRangeClicked(range)">
+                                                        <ps-label class="ms-2"
+                                                            :class="range.id == paramHolder1.price ? ' font-bold' : ''">
+                                                            {{ range.value }} </ps-label>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </template>
+
+                                </ps-dropdown>
+                                <ps-label class="  w-full text-xs" textColor="text-feError-500"
+                                    v-if="validation.itemCurrencyStatus"> {{
+                                        $t("item_entry__currency_symbol_required_error") }}
+                                </ps-label>
+                            </div>
+
+
                         </div>
 
                         <ps-label class="mt-1  w-full text-xs" textColor="text-feError-500" v-if="validation.priceStatus"> {{
@@ -482,7 +519,7 @@
                             :key="index">
                             <ps-label class="text-base">{{ $t(coreField.labelName) }}<span v-if="coreField.mandatory == 1"
                                     class="text-feError-800 font-medium ms-1">*</span></ps-label>
-                            <ps-input ref="percent" class="dark_bg-transparent" type="text"
+                            <ps-input ref="percent" class="dark:bg-transparent" type="text"
                                 v-model:value="paramHolder1.percent" :placeholder="$t(coreField.placeholder)"
                                 @keypress="validatePercent" />
                             <ps-label class="lg:mt-2 mt-1  w-full text-xs" textColor="text-feError-500"
@@ -536,7 +573,7 @@
                                             <div v-else>
                                                 <div v-for="selectData in customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data"
                                                     :key="selectData.coreKeysId"
-                                                    class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                    class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                     @click="selectCustomDropdown(customFieldHeader.coreKeysId, selectData.id)">
 
                                                     <ps-label class="ms-2"
@@ -578,7 +615,7 @@
                             v-if="customFieldHeader.uiType.coreKeysId === 'uit00002' && customFieldHeader.isVisible === '1' && customFieldHeader.isDelete === '0'">
                             <ps-label>{{ $t(customFieldHeader.name) }}<span class="text-feError-800 font-medium ms-1"
                                     v-show="customFieldHeader.mandatory == '1'">*</span></ps-label>
-                            <ps-input type="text" class="w-full dark_bg-transparent rounded"
+                            <ps-input type="text" class="w-full dark:bg-transparent rounded"
                                 :placeholder="$t(customFieldHeader.placeholder)"
                                 v-model:value="form.product_relation[customFieldHeader.coreKeysId]"
                                 @keypress="validateCustom(customFieldHeader.coreKeysId)" />
@@ -695,7 +732,7 @@
                                     <img
                                     v-lazy=" { src: $page.props.thumb1xUrl + '/' + item.image.img_path, loading: $page.props.sysImageUrl+'/loading_gif.gif', error: $page.props.sysImageUrl+'/default_photo.png' }"
                                         class="w-96 h-48" :alt="$t(core__be_item_photo)" />
-                                    <ps-button type="button" @click="replaceImageClicked(item.image.id)" rounded="rounded-full" shadow="drop-shadow-2xl" class="-ms-10 mb-2" colors="bg-feAchromatic-50 text-fePrimary-500 dark_bg-feAchromatic-900" border="border border-1 dark_border-feSecondary-700 border-feSecondary-300" padding="p-1.5" hover="" focus="">
+                                    <ps-button type="button" @click="replaceImageClicked(item.image.id)" rounded="rounded-full" shadow="drop-shadow-2xl" class="-ms-10 mb-2" colors="bg-feAchromatic-50 text-fePrimary-500 dark:bg-feAchromatic-900" border="border border-1 dark:border-feSecondary-700 border-feSecondary-300" padding="p-1.5" hover="" focus="">
                                         <ps-icon name="pencil-btn"  w="21" h="21" />
                                     </ps-button>
                                     <ps-image-icon-modal ref="ps_image_icon_modal" />
@@ -770,7 +807,7 @@
 
                                             <div v-for="selectData in itemLocationStore.itemLocationList.data"
                                                 :key="selectData.id"
-                                                class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                 @click="locationFilterClicked(selectData)">
                                                 <ps-label class="ms-2"
                                                     :class="selectData.id == paramHolder1.itemLocationId ? ' font-bold text-fePrimary-700' : ''">
@@ -822,7 +859,7 @@
                                                 v-model:value="sublocationKeyword"
                                                 v-bind:placeholder="$t('search_for_large_screem__sub_location')">
                                                 <template #icon>
-                                                    <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500"
+                                                    <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500"
                                                         name="search" class='cursor-pointer'
                                                         @click="filtersubLocationUpdate(sublocationKeyword)" />
                                                 </template>
@@ -852,7 +889,7 @@
                                                 <div v-else>
                                                     <div v-for="locationTownship in locationTownshipProvider.locationTownshipList.data"
                                                         :key="locationTownship.id"
-                                                        class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                        class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                         @click="locationTownshipFilterClicked(locationTownship)">
                                                         <ps-label class="ms-2"
                                                             :class="locationTownship.id == paramHolder1.locationTownshipId ? ' font-bold' : ''">
@@ -929,23 +966,23 @@
                     </div>
                 </div>
                 <div class="w-full ">
-                    <!-- <ps-button class="lg:mt-5 mt-4 mb-5 text-center w-full " textSize="lg:text-sm sm:text-xs text-xs" theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-1" @click="locatorButtonPress"> CurrentLoc </ps-button> -->
+                    <!-- <ps-button class="lg:mt-5 mt-4 mb-5 text-center w-full " textSize="lg:text-sm sm:text-xs text-xs" theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-1" @click="locatorButtonPress"> CurrentLoc </ps-button> -->
                     <ps-button v-if="itemId == '0'" class="lg:mt-5 mt-4 mb-5 text-center w-full "
                         textSize="lg:text-sm sm:text-xs text-xs"
-                        theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-1"
+                        theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-1"
                         @click="submitClicked"> {{ $t("core__fe_item_entry__submit") }} </ps-button>
                     <ps-button v-else class="lg:mt-5 mt-4 mb-5 text-center w-full " textSize="lg:text-sm sm:text-xs text-xs"
-                        theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-1"
+                        theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-1"
                         @click="submitClicked"> {{ $t("item_entry__update") }} </ps-button>
 
                     <ps-button textSize="lg:text-sm sm:text-xs text-xs"
-                        colors="bg-feAchromatic-50 dark_bg-feAchromatic-900 dark_text-feAchromatic-50 "
+                        colors="bg-feAchromatic-50 dark:bg-feAchromatic-900 dark:text-feAchromatic-50 "
                         class="lg:mt-5 mt-4 mb-5 text-center w-full" @click="loginClicked" :disabled="false">
                         {{ $t("core__be_btn_cancel") }} </ps-button>
 
                     <!-- <ps-button class="lg:mt-5 mt-4 mb-5 text-center w-full "
                         textSize="lg:text-sm sm:text-xs text-xs"
-                        theme="bg-feAchromatic-50 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-1"
+                        theme="bg-feAchromatic-50 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-1"
                         @click="submitClicked"> {{ $t("item_entry__submit") }} </ps-button> -->
                 </div>
             </div>
@@ -1038,23 +1075,20 @@ import LocationTownshipParameterHolder from '@templateCore/object/holder/Locatio
 import SubCategoryListParameterHolder from '@templateCore/object/holder/SubCategoryListParameterHolder';
 import PsStatus from '@templateCore/api/common/PsStatus';
 import DefaultPhoto from '@templateCore/object/DefaultPhoto';
-import DraggableContainer from '@template1/vendor/components/core/draggable/DraggableContainer.vue';
+// import DraggableContainer from '@template1/vendor/components/core/draggable/DraggableContainer.vue';
 import Dropzone from '@template1/vendor/components/core/dropzone/DropZone.vue';
 // import Dropzone from "@/Components/Core/Dropzone/Dropzone1.vue"
-import { useForm } from "@inertiajs/inertia-vue3";
+import { useForm } from "@inertiajs/vue3";
 
 //language
 import { trans } from 'laravel-vue-i18n';
 import PsUtils from '@templateCore/utils/PsUtils';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 // import Dropzone from "@/Components/Core/Dropzone/Dropzone1.vue"
 import axios from 'axios';
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 // import PsConfig from '@template1/config/PsConfig';
-library.add(faTrashAlt)
 
 const MapWithPinPicker = defineAsyncComponent(() => import('@template1/vendor/components/layouts/map/MapWithPinPicker.vue'));
 const OpenStreetMap = defineAsyncComponent(() => import('@template1/vendor/components/layouts/map/OpenStreetMap.vue'))
@@ -1081,7 +1115,7 @@ export default {
         LimitItemModal,
         OpenStreetMap,
         //    draggable: VueDraggableNext,
-        DraggableContainer,
+        // DraggableContainer,
         DatePicker,
         PsRadioValue2,
         CheckBox,
@@ -1105,6 +1139,30 @@ export default {
         const ps_success_dialog = ref();
         const galleryLoad = ref(false);
         const date_picker = ref(false);
+
+        const price_range = ref([
+            {
+                id:"1",
+                value:"$"
+            },
+            {
+                id:"2",
+                value:"$$"
+            },
+            {
+                id:"3",
+                value:"$$$"
+            },
+            {
+                id:"4",
+                value:"$$$$"
+            },
+            {
+                id:"5",
+                value:"$$$$$"
+            },
+
+        ]);
 
         const appInfoStore = usePsAppInfoStoreState();
         // const itemLocationTownshipStore = useItemLocationTownshipStoreState();
@@ -1185,7 +1243,7 @@ export default {
         const autoProcessQueue = ref();
 
         if (loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         const paramHolder1 = ref(new ItemEntryParameterHolder());
@@ -1367,6 +1425,29 @@ export default {
             }
         });
 
+
+        function checkPriceFormat(data) {
+            // alert(data);
+            if (appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType == "PRICE_RANGE") {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return 5
+                }
+                if (intValue < 1) {
+                    return 1
+                }
+                return intValue;
+            }
+            if (appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType == "NORMAL_PRICE") {
+                return data;
+            }
+            if (appInfoStore.appInfo.data?.psAppSetting?.SelectedPriceType == "NO_PRICE") {
+                return data;
+            }
+        }
+
         function locatorButtonPress() {
             // ps_loading_dialog.value.openModal();
             if (navigator.geolocation) {
@@ -1392,11 +1473,7 @@ export default {
                 },
                     error => {
                         ps_loading_dialog.value.closeModal();
-                        ps_error_dialog.value.openModal(
-                            '',
-                            error.message);
-
-                        console.log("sese");
+                        console.log(error.message);
                         locationPermission.value = false;
                     },
                     {
@@ -1436,7 +1513,9 @@ export default {
                 // alert(item.data.itemCurrency.currencySymbol);
                 paramHolder1.value.currencyShortForm = item.data.itemCurrency.currencySymbol;
 
-                paramHolder1.value.price = item.data.originalPrice;
+                paramHolder1.value.price=checkPriceFormat(item.data.originalPrice)
+
+
                 paramHolder1.value.percent = item.data.percent;
 
                 paramHolder1.value.phone = item.data.phone;
@@ -1671,6 +1750,11 @@ export default {
             validation.value.itemCurrencyStatus = false;
         }
 
+        function priceRangeClicked(value) {
+            paramHolder1.value.price = value.id;
+            validation.value.itemCurrencyStatus = false;
+        }
+
         function updateLocation(lat, lng) {
             if (lat == null || lng == null) {
                 return;
@@ -1795,7 +1879,7 @@ export default {
                             ps_loading_dialog.value.closeModal();
                             // ps_success_dialog.value.openModal(trans('ps_success_dialog__success'), trans('item_upload__success_update'), trans('ps_confirm_dialog__yes'), () => {
 
-                            //     Inertia.get(route('dashboard'));
+                            //     router.get(route('dashboard'));
                             // });
 
                         }
@@ -1807,12 +1891,12 @@ export default {
                             if (itemId != '0') {
                                 ps_success_dialog.value.openModal(trans('ps_success_dialog__success'), trans('item_upload__success_update'), trans('ps_confirm_dialog__yes'), () => {
 
-                                    Inertia.get(route('dashboard'));
+                                    router.get(route('dashboard'));
                                 });
                             } else {
                                 ps_success_dialog.value.openModal(trans('ps_success_dialog__success'), trans('item_upload__success_upload'), trans('ps_confirm_dialog__yes'), () => {
 
-                                    Inertia.get(route('dashboard'));
+                                    router.get(route('dashboard'));
                                 });
 
                             }
@@ -1906,12 +1990,12 @@ export default {
                 // alert(queueFinish.value);
                 // alert(close);
                 ps_loading_dialog.value.closeModal();
-                // Inertia.get(route('dashboard'));
+                // router.get(route('dashboard'));
 
 
                 ps_success_dialog.value.openModal(trans('ps_success_dialog__success'), trans('item_upload__success_update'), trans('ps_confirm_dialog__yes'), () => {
 
-                    Inertia.get(route('dashboard'));
+                    router.get(route('dashboard'));
                 });
 
 
@@ -2124,6 +2208,10 @@ export default {
             if (paramHolder1.value.lat == '' && paramHolder1.value.lng == '') {
                 paramHolder1.value.lat = appInfoStore?.appInfo?.data.psAppSetting?.lat;
                 paramHolder1.value.lng = appInfoStore?.appInfo?.data.psAppSetting?.lng;
+            }
+
+            if(appInfoStore?.appInfo?.data.psAppSetting?.SelectedPriceType == PsConst.NO_PRICE){
+                paramHolder1.value.price = '0';
             }
 
 
@@ -2461,6 +2549,7 @@ export default {
             getFileCount,
             maxUpload,
             imageOrder,
+            price_range,
 
 
             ps_warning_dialog,
@@ -2498,11 +2587,13 @@ export default {
             // image1,
             // image2,
             onVideoClick,
+            checkPriceFormat,
 
             imageCount,
             previewImages,
             previewVideo,
             phoneFilterClicked,
+            priceRangeClicked,
 
             // onImg2Selected,
             // onImg3Selected,

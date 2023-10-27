@@ -3,10 +3,10 @@
       
     <input
       type="radio"
-      class="w-4 h-4 focus_ring-1 bg-feAchromatic-100 dark_bg-feAchromatic-700 dark_border-feAchromatic-600
+      class="w-4 h-4 focus:ring-1 bg-feAchromatic-100 dark:bg-feAchromatic-700 dark:border-feAchromatic-600
       "
       :disabled="disabled"
-      :class="[disabled ? 'text-fePrimary-400 border-feAchromatic-400 focus_ring-fePrimary-400' : color]"
+      :class="[disabled ? 'text-fePrimary-400 border-feAchromatic-400 focus:ring-fePrimary-400' : color]"
      
       :id="title"
       :checked="title === value"
@@ -36,7 +36,7 @@ export default {
     },
     color: {
       type: String,
-      default: "text-fePrimary-500 border-feAchromatic-300 focus_ring-fePrimary-500",
+      default: "text-fePrimary-500 border-feAchromatic-300 focus:ring-fePrimary-500",
     },
     disabled:{
         type:Boolean,

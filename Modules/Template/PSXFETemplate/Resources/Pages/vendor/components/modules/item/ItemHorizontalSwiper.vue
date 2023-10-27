@@ -2,16 +2,16 @@
     <div>
         <splide :options="options" :has-track="false">
             <splide-track>
-                <splide-slide v-if="item == null && isLoading" >
+                <splide-slide v-if="isLoading" >
                     <item-horizontal-skeletor-item />
                 </splide-slide>
-                <splide-slide v-if="item == null && isLoading" >
+                <splide-slide v-if="isLoading" >
                     <item-horizontal-skeletor-item />
                 </splide-slide>
-                <splide-slide v-if="item == null && isLoading" >
+                <splide-slide v-if="isLoading" >
                     <item-horizontal-skeletor-item />
                 </splide-slide>
-                <splide-slide v-if="item == null && isLoading" >
+                <splide-slide v-if="isLoading" >
                     <item-horizontal-skeletor-item />
                 </splide-slide>
                 <splide-slide v-for="item in itemList" :key="item.id">
@@ -21,22 +21,22 @@
                     <!-- </ps-route-link> -->
                 </splide-slide>
             </splide-track>
-            <div class="splide__arrows splide__arrows--ltr">
+            <div :class="'splide__arrows splide__arrows--'+getDir()">
                 <button
-                    class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 arrow splide__arrow--prev"
+                    class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 arrow splide__arrow--prev"
                     type="button"
                     aria-label="Previous slide"
                     aria-controls="splide01-track"
                 >
-                    <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                    <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                 </button>
                 <button
-                    class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 arrow splide__arrow--next"
+                    class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 arrow splide__arrow--next"
                     type="button"
                     aria-label="Next slide"
                     aria-controls="splide01-track"
                 >
-                    <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                    <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                 </button>
             </div>
 
@@ -86,6 +86,7 @@ import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/ite
                 focus  : 0,
                 omitEnd: true,
                 pagination: false,
+                direction: getDir(),
                 breakpoints:{
                     1536:{
                         perPage: 4,
@@ -128,22 +129,33 @@ import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/ite
                 focus  : 0,
                 omitEnd: true,
             };
-            return { options };
+
+            function getDir(){
+                if(localStorage.activeLanguage != null && localStorage.activeLanguage != undefined && localStorage.activeLanguage == 'ar'){
+                    return 'rtl';
+                }else{
+                    return 'ltr';
+                }
+            }
+            return { options, getDir };
         }
     }
 </script>
 
 <style scoped>
 
-.splide__arrows--rtl .splide__arrow--prev{left:auto;right:1em}
-.splide__arrows--rtl .splide__arrow--prev svg{transform:scaleX(1)}
-.splide__arrows--rtl .splide__arrow--next{left:1em;right:auto}
-.splide__arrows--rtl .splide__arrow--next svg{transform:scaleX(-1)}
-.splide__arrows--ttb .splide__arrow{left:50%;transform:translate(-50%)}
-.splide__arrows--ttb .splide__arrow--prev{top:1em}
-.splide__arrows--ttb .splide__arrow--prev svg{transform:rotate(-90deg)}
-.splide__arrows--ttb .splide__arrow--next{bottom:1em;top:auto}
-.splide__arrows--ttb .splide__arrow--next svg{transform:rotate(90deg)}
+.splide__arrow--prev{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+}
+.splide__arrow--next{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+
 .splide{z-index: 0;}
 .splide__arrow{
     -ms-flex-align:center;
@@ -167,15 +179,23 @@ import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/ite
     border: 0.5px solid #E5E7EB;
     box-shadow: 0px 1px 2px rgba(6, 25, 56, 0.05);
 }
-.splide__arrow svg{fill:#000;height:1.2em;width:1.2em}
+
+/* right to left */
+.splide__arrows--rtl .splide__arrow--prev{left:auto;right:-1em}
+.splide__arrows--rtl .splide__arrow--next{right:auto;left:-1em}
+
+/* left to right */
+.splide__arrows--ltr .splide__arrow--prev{right:auto;left:-1em}
+.splide__arrows--ltr .splide__arrow--next{left:auto;right:-1em}
+
+/* .splide__arrow svg{fill:#000;height:1.2em;width:1.2em}
 .splide__arrow:hover:not(:disabled){opacity:1}
-.splide__arrow:disabled{opacity:.3}
-/* .splide__arrow:focus-visible{outline:3px solid #0bf;outline-offset:3px} */
-.splide__arrow--prev{left:-.5rem}
-.splide__arrow--prev svg{transform:scaleX(-1)}
-.splide__arrow--next{right:-.5rem}
-/* .splide.is-focus-in .splide__arrow:focus{outline:3px solid #0bf;outline-offset:3px} */
-.splide__arrow--prev{
+.splide__arrow:disabled{opacity:.3}*/
+
+/* .splide__arrow--prev{left:-.5rem}
+.splide__arrow--next{right:-.5rem} */
+
+/* .splide__arrow--prev{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
@@ -184,23 +204,31 @@ import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/ite
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-}
+} */
 @media (max-width: 640px) {
     .arrow{
         top: 100%;
         transform: translateY(100%);
     }
-    .splide__arrow--prev{
+    .splide__arrows--rtl .splide__arrow--prev{
+        right: calc(50% - 32px);
+        transform: translateX(50%);
+    }
+    .splide__arrows--rtl .splide__arrow--next{
         left: calc(50% - 32px);
         transform: translateX(-50%);
     }
-    .splide__arrow--next{
-        left: calc(50% + 32px);
+    .splide__arrows--ltr .splide__arrow--prev{
+        left: calc(50% - 32px);
         transform: translateX(-50%);
+    }
+    .splide__arrows--ltr .splide__arrow--next{
+        right: calc(50% - 32px);
+        transform: translateX(50%);
     }
 }
 
-@media (min-width: 786px) {
+/* @media (min-width: 786px) {
     .splide__arrow{
         top: 50%;
         transform: translateY(-50%);
@@ -211,14 +239,14 @@ import ItemHorizontalSkeletorItem from "@template1/vendor/components/modules/ite
     .splide__arrow--next{
         right: -1rem;
     }
-}
+} */
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     .splide__arrow--prev{
         left: -1.5rem;
     }
     .splide__arrow--next{
         right: -1.5rem;
     }
-}
+} */
 </style>

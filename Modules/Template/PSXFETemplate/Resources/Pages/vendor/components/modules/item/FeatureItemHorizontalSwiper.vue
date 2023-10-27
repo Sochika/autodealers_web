@@ -5,27 +5,27 @@
                 <splide-slide v-for="item in itemList" :key="item.id">
                     <item-horizontal-item v-if="item.title == ''" :item="item" />
                     <!-- <ps-route-link v-else :to="{ name: 'fe_item_detail', query: { item_id: item.id   }}"> -->
-                        <item-horizontal-item v-else :item="item" :notShowTitle="notShowTitle" :storeName="storeName"/>
+                        <item-horizontal-item :item="item" :notShowTitle="notShowTitle" :storeName="storeName"/>
                     <!-- </ps-route-link> -->
                 </splide-slide>
             </splide-track>
 
-            <div class="splide__arrows splide__arrows--ltr">
+            <div :class="'splide__arrows splide__arrows--'+getDir()">
                 <button
-                    class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--prev"
+                    class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--prev"
                     type="button"
                     aria-label="Previous slide"
                     aria-controls="splide01-track"
                 >
-                    <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                    <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                 </button>
                 <button
-                    class="bg-feSecondary-50 dark_bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--next"
+                    class="bg-feSecondary-50 dark:bg-feSecondary-800 w-10 h-10 rounded shadow-sm p-2 splide__arrow--next"
                     type="button"
                     aria-label="Next slide"
                     aria-controls="splide01-track"
                 >
-                    <ps-icon textColor="dark_text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
+                    <ps-icon textColor="dark:text-feSecondary-200" name="arrowNarrowRight" h="23" w="23" viewBox="0 -3 9 20"/>
                 </button>
             </div>
         </splide>
@@ -71,6 +71,7 @@ import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
                 focus  : 0,
                 omitEnd: true,
                 pagination: false,
+                direction: getDir(),
                 breakpoints:{
                     1536:{
                         perPage: 4,
@@ -118,7 +119,14 @@ import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
                 focus  : 0,
                 omitEnd: true,
             };
-            return { options };
+            function getDir(){
+                if(localStorage.activeLanguage != null && localStorage.activeLanguage != undefined && localStorage.activeLanguage == 'ar'){
+                    return 'rtl';
+                }else{
+                    return 'ltr';
+                }
+            }
+            return { options, getDir };
         }
     }
 </script>
@@ -128,14 +136,20 @@ import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    left: -1.5rem;
 }
 .splide__arrow--next{
     position:absolute;
     top:50%;
     transform:translateY(-50%);
-    right: -1.5rem;
 }
+/* right to left */
+.splide__arrows--rtl .splide__arrow--prev{left:auto;right:-1em}
+.splide__arrows--rtl .splide__arrow--next{right:auto;left:-1em}
+
+/* left to right */
+.splide__arrows--ltr .splide__arrow--prev{right:auto;left:-1em}
+.splide__arrows--ltr .splide__arrow--next{left:auto;right:-1em}
+
     /* .splide{z-index: 0; padding: 0;}
 @media (max-width: 640px) {
 

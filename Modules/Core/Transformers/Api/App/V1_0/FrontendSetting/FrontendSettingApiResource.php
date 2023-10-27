@@ -109,6 +109,7 @@ class FrontendSettingApiResource extends JsonResource
             "frontend_logo" => new CoreImageApiResource(isset($this->frontend_logo[0]) && $this->frontend_logo[0] ? $this->frontend_logo[0]: []),
             "frontend_icon" => new CoreImageApiResource(isset($this->frontend_icon[0]) && $this->frontend_icon[0] ? $this->frontend_icon[0]: []),
             "frontend_banner" => new CoreImageApiResource(isset($this->frontend_banner[0]) && $this->frontend_banner[0] ? $this->frontend_banner[0]: []),
+            "app_branding_image" => new CoreImageApiResource(isset($this->app_branding_image[0]) && $this->app_branding_image[0] ? $this->app_branding_image[0]: []),
             "frontend_meta_title" => isset($this->frontend_meta_title) ? $this->frontend_meta_title: '',
             "frontend_meta_description" => isset($this->frontend_meta_description) ? $this->frontend_meta_description : '',
             "frontend_meta_image" => new CoreImageApiResource(isset($this->frontend_meta_image[0]) && $this->frontend_meta_image[0] ? $this->frontend_meta_image[0]: []),

@@ -31,9 +31,9 @@
     import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
     import PsSuccessDialog from '@/Components/Core/Dialog/PsSuccessDialog.vue';
     import PsReloadDialog from '@/Components/Core/Dialog/PsReloadDialog.vue';
-    import { Link } from '@inertiajs/inertia';
+    import { Link } from '@inertiajs/vue3';
     import { trans } from 'laravel-vue-i18n';
-    import {Inertia} from "@inertiajs/inertia";
+    import { router } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {
@@ -60,7 +60,7 @@
             function openSuccessDialog(){
                 ps_reload_dialog.value.openModal(trans('ps_success_dialog__update_process_complete'),trans(props.status.msg), 'Done',
                 // ()=>{
-                //     Inertia.get(route('admin.index'));
+                //     router.get(route('admin.index'));
                 // },
                 'admin.index',
                 false, 'checkCircle');
@@ -68,7 +68,7 @@
 
             function handleFieldTableSync(){
 
-                Inertia.post(route("NextLaravelUpdater::builderTableFieldSync"),{},{
+                router.post(route("NextLaravelUpdater::builderTableFieldSync"),{},{
                     onBefore: () => {
                         ps_loading_circle_dialog.value.openModal(trans('core__be_sync_table_title'),trans('core__be_table_field_syncing_note'));
                         isLoading.value = true;
@@ -100,7 +100,7 @@
 
             function goToDashboard(){
                 isLoading.value = true;
-                Inertia.get(route('admin.index'));
+                router.get(route('admin.index'));
             }
 
             return {

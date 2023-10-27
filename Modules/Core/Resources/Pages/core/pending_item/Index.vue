@@ -335,8 +335,8 @@
 <script>
 import { ref, defineComponent, watch } from "vue";
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head,useForm } from "@inertiajs/inertia-vue3";
-import { Inertia } from "@inertiajs/inertia";
+import { Head,useForm } from "@inertiajs/vue3";
+import { router } from '@inertiajs/vue3';
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
@@ -555,7 +555,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null, row = null) {
-            Inertia.get(route('pending_item.index'),
+            router.get(route('pending_item.index'),
                 {
                     sort_field: sort_field.value,
                     sort_order: sort_order.value,
@@ -580,7 +580,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("pending_item.destroy", id), {
+                    router.delete(route("pending_item.destroy", id), {
                         onSuccess: () => {
                             visible.value = true;
                             setTimeout(() => {
@@ -827,7 +827,7 @@ export default defineComponent({
             this.$inertia.get(route('pending_item.edit', id));
         },
         FilterOptionshandle(value) {
-            Inertia.put(route('pending_item.screenDisplayUiSetting.store'),
+            router.put(route('pending_item.screenDisplayUiSetting.store'),
                 {
                     value,
                     sort_field: this.sort_field,

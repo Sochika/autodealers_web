@@ -13,6 +13,8 @@
 
         </UpdaterLayout>
         <ps-loading-circle-dialog ref="ps_loading_circle_dialog" />
+        <ps-error-dialog-with-link ref="ps_error_dialog_with_link" />
+
 
     </div>
 </template>
@@ -22,9 +24,10 @@
     import UpdaterLayout from '@/Layouts/UpdaterLayout.vue';
     import PsButton from "@/Components/Core/Buttons/PsButton.vue";
     import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
-    import { Link } from '@inertiajs/inertia';
+    import PsErrorDialogWithLink from "@/Components/Core/Dialog/PsErrorDialogWithLink.vue";
+    import { Link } from '@inertiajs/vue3';
     import { trans } from 'laravel-vue-i18n';
-    import {Inertia} from "@inertiajs/inertia";
+    import { router } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {
@@ -32,14 +35,17 @@
             Link,
             PsButton,
             PsLoadingCircleDialog,
+            PsErrorDialogWithLink,
         },
+        props:['errMsg', 'docLink'],
         setup(props) {
 
             const ps_loading_circle_dialog = ref();
-
+            const ps_error_dialog_with_link = ref();
+            const url = props.docLink;
 
             function toOverview(){
-                Inertia.get(route("NextLaravelUpdater::sourceCode"),{},{
+                router.get(route("NextLaravelUpdater::sourceCode"),{},{
                     onBefore: () => {
                         // ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                     },
@@ -53,6 +59,10 @@
                 });
             }
 
+            function checkError(){
+                ps_error_dialog_with_link.value.openModal(trans('incompatible_php_version'), props.errMsg,trans('core__be_btn_ok'), ()=> {}, false, url, trans('how_to_change_php_path'));
+            }
+
             // onMounted(() => {
             //     var loading = document. getElementById("home_loading__container");
             //     loading.style.display = "none";
@@ -60,7 +70,14 @@
 
             return {
                 toOverview,
-                ps_loading_circle_dialog
+                ps_loading_circle_dialog,
+                ps_error_dialog_with_link,
+                checkError
+            }
+        },
+        mounted() {
+            if(this.errMsg){
+                this.checkError();
             }
         }
     });

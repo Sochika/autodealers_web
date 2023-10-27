@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import { ref,onMounted } from 'vue';
 // Vue
 // import router from '@template1/router';

@@ -1,5 +1,5 @@
 <template>
-    <p class="" :class="textColor === '' ? 'text-feSecondary-800 dark_text-feSecondary-300' : textColor">
+    <p class="" :class="textColor === '' ? 'text-feSecondary-800 dark:text-feSecondary-300' : textColor">
         <slot></slot>
     </p>
 </template>
@@ -10,7 +10,7 @@ export default {
     props: {
         textColor : {
             type: String,               
-            default: 'text-feSecondary-800 dark_text-feSecondary-300',            
+            default: 'text-feSecondary-800 dark:text-feSecondary-300',            
         }        
     }
 }

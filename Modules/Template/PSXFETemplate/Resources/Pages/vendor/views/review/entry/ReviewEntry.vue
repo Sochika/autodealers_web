@@ -29,7 +29,7 @@
 
                 <!-- Entry -->
                 <div class="flex justify-between sm:w-3/4 md:w-2/3 w-full p-4 ms-4">
-                    <div class="w-full flex flex-col bg-feAchromatic-50 dark_bg-feAchromatic-800 border rounded-md border-feAchromatic-200 dark_border-black pt-4 py-4 px-8">
+                    <div class="w-full flex flex-col bg-feAchromatic-50 dark:bg-feAchromatic-800 border rounded-md border-feAchromatic-200 dark:border-black pt-4 py-4 px-8">
 
                         <ps-label >  {{ $t("review_entry__your_rating") }} </ps-label>
                         <rating-selected ref="rating" class="mt-5" :grade="0" :maxStars="5" :hasCounter="true" />
@@ -54,7 +54,7 @@
 
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 //Vue
 import {ref} from 'vue';
 
@@ -76,7 +76,7 @@ import { createUserProviderState } from "@templateCore/store/modules/user/UserPr
 
 // Params Holders
 import RatingHolder from '@templateCore/object/holder/RatingHolder';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 //language
 import { trans } from 'laravel-vue-i18n';import PsConst from '@templateCore/object/constant/ps_constants';
@@ -107,7 +107,7 @@ export default {
         const loginUserId = psValueStore.getLoginUserId();
 
         if(loginUserId == null || loginUserId == '' || loginUserId == PsConst.NO_LOGIN_USER) {
-            Inertia.get(route('login'));
+            router.get(route('login'));
         }
 
         const toUserId = "route.query.user_id?.toString() ?? ''";

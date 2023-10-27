@@ -60,7 +60,7 @@ import PsButton from '@/Components/Core/Buttons/PsButton.vue';
 import PsToggle from '@/Components/Core/Toggle/PsToggle.vue';
 import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
 
-import { useForm } from '@inertiajs/inertia-vue3';
+import { useForm } from '@inertiajs/vue3';
 
 // import { trans } from 'laravel-vue-i18n';
 

@@ -404,4 +404,12 @@ class Constants
 
     const notFromHomePageSearch = 0;
     const fromHomePageSearch = 1;
+
+    // Constants for Price Setting
+    const NO_PRICE = 'NO_PRICE';
+    const PRICE_RANGE = 'PRICE_RANGE';
+    const NORMAL_PRICE = 'NORMAL_PRICE';
+
+    // System Setting
+    const SYSTEM_CONFIG = "system_config";
 }

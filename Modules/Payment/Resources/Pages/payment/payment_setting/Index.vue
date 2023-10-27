@@ -120,7 +120,7 @@
 <script>
 import { defineComponent,ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head,Link } from "@inertiajs/inertia-vue3";
+import { Head,Link } from "@inertiajs/vue3";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";

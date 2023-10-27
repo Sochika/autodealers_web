@@ -1,16 +1,17 @@
 <template>
-    <ps-route-link
+<div>
+</div>
+    <!-- <ps-route-link
             :to="{name: name, params : params2 }" 
-            :textColor="route.name === name && textColor == '' ? 'text-fePrimary-500 dark_text-fePrimary-500': textColor "
+            :textColor="route.name === name && textColor == '' ? 'text-fePrimary-500 dark:text-fePrimary-500': textColor "
             :class="route.name === name ? ' font-bold flex': 'flex' "> 
             {{title}}
             
-    </ps-route-link>
+    </ps-route-link> -->
 </template>
 
 <script lang="ts">
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue';
-import { useRoute } from 'vue-router';
 
 export default {
     name: 'PsNavMenu',
@@ -35,9 +36,8 @@ export default {
         }
     },
     setup() {
-        const route = useRoute();
         return {
-            route
+            
         }
     }
 }

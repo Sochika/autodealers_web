@@ -14,7 +14,7 @@
         <template #footer>
             <div class="flex justify-end">
                 <ps-button @click="userAction(true)"> {{ $t('privact_modal__accept') }} </ps-button>
-                <ps-button @click="userAction(false)" class='ms-4' textSize="text-xxs lg:text-sm" colors="bg-feAchromatic-50 dark_bg-feAchromatic-800 dark_text-feAchromatic-200 hover_text-feAchromatic-50" border="border border-feAchromatic-300 dark_border-feAchromatic-500">  {{ $t('privact_modal__reject') }} </ps-button>
+                <ps-button @click="userAction(false)" class='ms-4' textSize="text-xxs lg:text-sm" colors="bg-feAchromatic-50 dark:bg-feAchromatic-800 dark:text-feAchromatic-200 hover:text-feAchromatic-50" border="border border-feAchromatic-300 dark:border-feAchromatic-500">  {{ $t('privact_modal__reject') }} </ps-button>
             </div>
         </template>
     </ps-modal>

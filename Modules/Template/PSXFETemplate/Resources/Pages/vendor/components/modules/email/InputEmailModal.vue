@@ -16,7 +16,7 @@
         </template>
          <template #footer>
             <div class=" flex flex-row justify-between">
-                <ps-button @click="actionClicked('no')" textSize="text-xxs lg:text-sm" class="py-3 " theme="bg-feSecondary-50 dark_bg-feAchromatic-500 text-fePrimary-500 dark_text-feAchromatic-50"> {{ $t('profile__cancel')}} </ps-button>  
+                <ps-button @click="actionClicked('no')" textSize="text-xxs lg:text-sm" class="py-3 " theme="bg-feSecondary-50 dark:bg-feAchromatic-500 text-fePrimary-500 dark:text-feAchromatic-50"> {{ $t('profile__cancel')}} </ps-button>  
                 <ps-button @click="actionClicked('yes')" textSize="text-xxs lg:text-sm" class="py-3"  > {{ $t('profile__confirm')}}</ps-button>                 
             </div>
         </template>

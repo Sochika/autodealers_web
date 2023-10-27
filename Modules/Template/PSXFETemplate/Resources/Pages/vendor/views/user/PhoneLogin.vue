@@ -1,18 +1,18 @@
 <template>
     <Head :title="$t('phone_login__phone_login')"/>
-    <div class=" sm:mt-28 lg:mt-28 mt-28 bg-fePrimary-500 dark_bg-feAccent-500  h-screen flex flex-col">
+    <div class=" sm:mt-28 lg:mt-28 mt-28 bg-fePrimary-500 dark:bg-feAccent-500  h-screen flex flex-col">
 
-        <div class=" mt-56 w-96 flex flex-col mx-auto bg-feAchromatic-50 dark_bg-feAchromatic-900  m-auto rounded-lg">
+        <div class=" mt-56 w-96 flex flex-col mx-auto bg-feAchromatic-50 dark:bg-feAchromatic-900  m-auto rounded-lg">
             <ps-label-title class="mt-8 mx-auto text-2xl" > {{ $t("phone_login__phone_login") }} </ps-label-title>
 
             <ps-label class="mt-4 mx-8 "> {{ $t("phone_login__user_name") }} : </ps-label>
             <ps-input class="mt-2 mx-8" type="text" v-bind:placeholder="$t('phone_login__user_name')" v-on:keyup.enter="clicked" @keypress="validateName" v-model:value="name"></ps-input>
-            <ps-label-caption v-if="isValidUserName" class="mt-2 mx-8" textColor="text-fePrimary-500 dark_text-feAccent-500" >{{ $t("phone_login__user_name_required") }}</ps-label-caption>
+            <ps-label-caption v-if="isValidUserName" class="mt-2 mx-8" textColor="text-fePrimary-500 dark:text-feAccent-500" >{{ $t("phone_login__user_name_required") }}</ps-label-caption>
             <ps-label-caption class="mt-2 mx-8">{{ $t("phone_login__user_name_format") }}</ps-label-caption>
 
             <ps-label class="mt-4 mx-8 "> {{ $t("phone_login__phone_number") }} : </ps-label>
             <ps-input class="mt-2 mx-8" type="text" v-bind:placeholder="$t('phone_login__phone_number_placeholder')" v-on:keyup.enter="clicked" @keypress="validatePhone" v-model:value="phone"></ps-input>
-            <ps-label-caption v-if="isValidPhone" class="mt-2 mx-8" textColor="text-fePrimary-500 dark_text-feAccent-500" >{{ $t("phone_login__phone_required") }}</ps-label-caption>
+            <ps-label-caption v-if="isValidPhone" class="mt-2 mx-8" textColor="text-fePrimary-500 dark:text-feAccent-500" >{{ $t("phone_login__phone_required") }}</ps-label-caption>
             <div id="recaptcha-container"></div> <br>
             <div class="flex items-center justify-center mb-4">
 
@@ -37,7 +37,7 @@
 </template>
 
 <script lang='ts'>
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 //Vue
 import { ref } from 'vue';
 // import firebaseApp from 'firebase/app';

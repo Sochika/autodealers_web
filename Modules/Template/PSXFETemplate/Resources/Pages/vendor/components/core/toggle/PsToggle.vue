@@ -22,7 +22,7 @@
 <script>
 import Toggle from '@vueform/toggle'
 import { ref,watch } from 'vue'
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 
   export default {
     props: {
@@ -73,7 +73,7 @@ import { Inertia } from '@inertiajs/inertia'
         }
     )
 
-    Inertia.on('finish', (event) => {
+    router.on('finish', (event) => {
         toggleValue.value = props.selectedValue;
     })
 

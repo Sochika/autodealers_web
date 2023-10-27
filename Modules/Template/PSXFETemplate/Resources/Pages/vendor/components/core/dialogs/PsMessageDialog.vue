@@ -1,7 +1,7 @@
 <template>
     <ps-modal ref="psmodal" maxWidth="450px" line="hidden" :isClickOut='false' theme=" px-6 py-7 rounded-lg shadow-xl" class=' z-20'>
         <template #title>
-            <ps-icon @click="close()" name="close" class="text-sm text-feSecondary-400 ms-auto my-auto focus:shadow-none hover_text-purple-500 flex justify-end"  />
+            <ps-icon @click="close()" name="close" class="text-sm text-feSecondary-400 ms-auto my-auto focus:shadow-none hover:text-purple-500 flex justify-end"  />
             <div class="flex flex-col text-center justify-center items-center text-feAchromatic-300">
                 <ps-icon class="flex-grow-0" name="checkCircle" w="86" h="86" />
                 <ps-label class="font-medium text-xl lg:text-2xl mt-3"> {{title}} </ps-label>
@@ -14,7 +14,7 @@
         </template>
         <template #footer>
             <div class=" flex flex-row justify-center mt-6">
-                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-3" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover_ring hover_ring-feAchromatic-100" > {{cancelButton}} </ps-button>
+                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-3" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover:ring hover:ring-feAchromatic-100" > {{cancelButton}} </ps-button>
                 <ps-button rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class=""  > {{okButton}} </ps-button>
             </div>
         </template>

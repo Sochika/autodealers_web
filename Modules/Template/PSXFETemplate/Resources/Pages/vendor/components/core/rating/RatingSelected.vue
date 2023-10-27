@@ -1,22 +1,19 @@
 <template>
     <div class="flex items-center">
         <div @click="rate(star)" v-for="star in maxStars" :class="{ 'active': star <= stars }" :key="star" class="star me-1">
-            <font-awesome-icon :icon="['fas', 'star']" v-if="star <= stars" :class="colors" size="lg" />
-            <font-awesome-icon :icon="['far', 'star']" v-else :class="colors" size="lg" />
+            <ps-icon name="starFill" v-if="star <= stars" :class="colors" w="28" h="28"/>
+            <ps-icon name="starOutline" v-else :class="colors"  w="28" h="28"/>
         </div>
     </div>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as farSrar } from '@fortawesome/free-solid-svg-icons';
-library.add(fasStar, farSrar)
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default {
     name: 'RatingSelected',
     components : {
-
+        PsIcon
     },
     props: {
         'grade': {
@@ -33,7 +30,7 @@ export default {
         },
         'colors': {
             type: String,
-            default : 'text-fePrimary-500 dark_text-feAccent-500'
+            default : 'text-fePrimary-500 dark:text-feAccent-500'
         }
     },
     data() {

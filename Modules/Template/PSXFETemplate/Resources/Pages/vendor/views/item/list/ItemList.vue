@@ -6,15 +6,15 @@
                 <div>
                     <div class="flex flex-col">
                         <div class="sm:flex flex-row">
-                            <div class="flex flex-row w-64 sm:mt-0 mt-6">
+                            <div class="flex flex-row sm:mt-0 mt-6">
                                 <ps-breadcrumb-2 :items="breadcrumb" class=""/>
                             </div>
-                            <div class="mt-4 sm:mt-0" v-if="itemProvider.paramHolder.catId == ''">
-                                <p v-if="query.ad_post_type == 'only_paid_item' && query.order_by == 'added_date'" class="text-lg text-feSeondary-800 font-semibold dark_text-feSecondary-200">{{ $t("home__fe_featured_items") }}</p>
-                                <p v-else-if="itemProvider.paramHolder.searchTerm" class="text-lg text-feSeondary-800 font-semibold dark_text-feSecondary-200">{{ $t("search_result_for") }} "{{ itemProvider.paramHolder.searchTerm }}"</p>
-                                <p v-else-if="query.order_by == 'item_touch_count'" class="text-lg text-feSeondary-800 font-semibold dark_text-feSecondary-200">{{ $t("dashboard__popular") }}</p>
-                                <p v-else-if="(query.is_discount == '1' && query.order_by == 'added_date')" class="text-lg text-feSeondary-800 font-semibold dark_text-feSecondary-200">{{ $t("dashboard__discount") }}</p>
-                                <p v-else-if="query.order_by == 'added_date'" class="text-lg text-feSeondary-800 font-semibold dark_text-feSecondary-200">{{ $t("home__fe_recently_added") }}</p>
+                            <div class="sm:ms-16 mt-4 sm:mt-0" v-if="itemProvider.paramHolder.catId == ''">
+                                <p v-if="query.ad_post_type == 'only_paid_item' && query.order_by == 'added_date'" class="text-lg text-feSeondary-800 font-semibold dark:text-feSecondary-200">{{ $t("home__fe_featured_items") }}</p>
+                                <p v-else-if="itemProvider.paramHolder.searchTerm" class="text-lg text-feSeondary-800 font-semibold dark:text-feSecondary-200">{{ $t("search_result_for") }} "{{ itemProvider.paramHolder.searchTerm }}"</p>
+                                <p v-else-if="query.order_by == 'item_touch_count'" class="text-lg text-feSeondary-800 font-semibold dark:text-feSecondary-200">{{ $t("dashboard__popular") }}</p>
+                                <p v-else-if="(query.is_discount == '1' && query.order_by == 'added_date')" class="text-lg text-feSeondary-800 font-semibold dark:text-feSecondary-200">{{ $t("dashboard__discount") }}</p>
+                                <p v-else-if="query.order_by == 'added_date'" class="text-lg text-feSeondary-800 font-semibold dark:text-feSecondary-200">{{ $t("home__fe_recently_added") }}</p>
                             </div>
                         </div>
 
@@ -27,19 +27,19 @@
                         <div class="flex flex-row">
 
                             <!-- Filter For Normal and Large Screen -->
-                            <div class='w-64 me-7 hidden sm:flex flex-col dark_bg-feSecondary-800 h-full p-4 rounded-lg' >
+                            <div class='w-64 me-7 hidden sm:flex flex-col dark:bg-feSecondary-800 h-full p-4 rounded-lg' >
 
                                 <div class="flex flex-row items-center justify-between w-full">
-                                    <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-300" class="font-semibold text-md lg:text-xl"> {{ $t("item_list__filter_by") }} </ps-label>
+                                    <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-300" class="font-semibold text-md lg:text-xl"> {{ $t("item_list__filter_by") }} </ps-label>
 
-                                    <ps-label-caption class="font-light cursor-pointer" textColor="text-feSecondary-500 dark_text-feSecondary-300" @click="clearAllFilter"> {{ $t("item_list__clear_filter") }} </ps-label-caption>
+                                    <ps-label-caption class="font-light cursor-pointer" textColor="text-feSecondary-500 dark:text-feSecondary-300" @click="clearAllFilter"> {{ $t("item_list__clear_filter") }} </ps-label-caption>
                                 </div>
 
                                 <!-- Category -->
-                                <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("category_list__title") }} </ps-label>
+                                <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("category_list__title") }} </ps-label>
                                 <ps-dropdown align="left" class='mt-1 lg:mt-2 ' @onClick="loadCategory" >
                                     <template #select>
-                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.catName" />
+                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.catName" />
                                     </template>
                                     <template #list >
                                         <div class="rounded-md shadow-xs w-56 " >
@@ -49,12 +49,12 @@
                                                 </div>
                                                 <div v-else>
                                                     <div
-                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                     @click="categoryFilterClicked({catId:'', catName:$t('item_list__all')})" >
                                                         <ps-label class="ms-2" :class="itemProvider.paramHolder.catId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                     </div>
                                                     <div v-for="selectData in categoryStore.itemList.data" :key="selectData.catId"
-                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                     @click="categoryFilterClicked(selectData)" >
                                                         <ps-label class="ms-2" :class="selectData.catId==itemProvider.paramHolder.catId ? ' font-medium' : 'font-light'"  > {{selectData.catName}} </ps-label>
                                                     </div>
@@ -79,17 +79,17 @@
 
                                 <!-- for sub category dropdown -->
                                 <div v-if="appInfoStore?.appInfo?.data?.mobileSetting.is_show_subcategory == '1'">
-                                    <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__sub_categories") }} </ps-label>
+                                    <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__sub_categories") }} </ps-label>
                                     <ps-dropdown align="left" class='mt-1 lg:mt-2 w-full' @click="loadSubCategory(itemProvider.paramHolder.catId)" >
                                         <template #select>
-                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.subCatName
+                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.subCatName
                                             " />
                                         </template>
                                         <template #filter >
                                             <div class="w-56">
                                                 <ps-input-with-right-icon class="rounded-xl flex-1 " @keyup.enter="filterSubCatUpdate(subCatKeyword)" v-model:value="subCatKeyword" v-bind:placeholder= "$t('item_list__search_subcat')" >
                                                 <template #icon>
-                                                    <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterSubCatUpdate(subCatKeyword)"/>
+                                                    <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterSubCatUpdate(subCatKeyword)"/>
                                                 </template>
                                                 </ps-input-with-right-icon>
                                             </div>
@@ -101,12 +101,12 @@
                                                         <ps-label class='p-2 flex' > {{ $t("list__loading") }} </ps-label>
                                                     </div>
                                                     <div v-else>
-                                                        <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                        <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                         @click="subCategoryFilterClicked({id:'', name:$t('item_list__all')})" >
                                                             <ps-label class="ms-2" :class="itemProvider.paramHolder.subCatId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                         </div>
                                                         <div v-for="selectSubCat in subCategoryStore.subCategoryList.data" :key="selectSubCat.id"
-                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                             @click="subCategoryFilterClicked(selectSubCat)" >
                                                             <ps-label class="ms-2" :class="selectSubCat.id==itemProvider.paramHolder.subCatId ? ' font-medium' : 'font-light'"  > {{selectSubCat.name}} </ps-label>
                                                         </div>
@@ -132,7 +132,7 @@
                                 <!-- end sub category -->
 
                                 <div class="w-full">
-                                    <!-- <ps-label class="sm:mt-6 lg:mb-2 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_detail__status") }} </ps-label>
+                                    <!-- <ps-label class="sm:mt-6 lg:mb-2 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_detail__status") }} </ps-label>
                                     <div class="sm:block md:flex flex-row w-full text-sm font-medium md:mb-0">
                                         <ps-radio v-for=" selectData  in itemProvider.paramHolder.sortingList"
                                             :key="selectData.id"
@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="w-full flex flex-col">
-                                    <ps-label class="sm:mt-6 lg:mb-2 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_list__stock") }} </ps-label>
+                                    <ps-label class="sm:mt-6 lg:mb-2 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_list__stock") }} </ps-label>
                                     <div class="sm:block md:flex flex-row w-full text-sm font-medium">
                                         <ps-radio v-for=" selectData  in soldOutItem"
                                             :key="selectData.id"
@@ -171,10 +171,10 @@
                                 <!-- Price Range -->
                                 <div class="w-full">
 
-                                    <ps-label class="sm:mt-6 mb-1 lg:mb-2 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_list__price_range") }} </ps-label>
+                                    <ps-label class="sm:mt-6 mb-1 lg:mb-2 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_list__price_range") }} </ps-label>
                                     <div class="sm:block md:grid grid-cols-2 gap-2">
-                                        <ps-input theme="dark_bg-feSecondary-800 dark_text-feSecondary-300" type="text" class="w-full sm:mb-4 md:mb-0" v-bind:placeholder="$t('item_list__min')" v-model:value="itemProvider.paramHolder.minPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked" />
-                                        <ps-input theme="dark_bg-feSecondary-800 dark_text-feSecondary-300" type="text" class="w-full " v-bind:placeholder="$t('item_list__max')" v-model:value="itemProvider.paramHolder.maxPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked"/>
+                                        <ps-input theme="dark:bg-feSecondary-800 dark:text-feSecondary-300" type="text" class="w-full sm:mb-4 md:mb-0" v-bind:placeholder="$t('item_list__min')" v-model:value="itemProvider.paramHolder.minPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked" />
+                                        <ps-input theme="dark:bg-feSecondary-800 dark:text-feSecondary-300" type="text" class="w-full " v-bind:placeholder="$t('item_list__max')" v-model:value="itemProvider.paramHolder.maxPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked"/>
                                     </div>
                                 </div>
 
@@ -187,7 +187,7 @@
                                         <ps-dropdown align="left" class='lg:mt-2 mt-1  w-full' @onClick="loadCustomField(customFieldHeader.coreKeysId)">
                                             <template #select>
 
-                                                <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :showCenter="true" :selectedValue="
+                                                <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :showCenter="true" :selectedValue="
                                                 customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data?.filter((customField)=> customField.id === form.product_relation[customFieldHeader.coreKeysId])[0]?.name
 
                                                 " />
@@ -201,13 +201,13 @@
                                                             <ps-label class='p-2 flex' @click="loadCustomField(customFieldHeader.coreKeysId)">{{ $t("item_entry__loading") }} </ps-label >
                                                         </div>
                                                         <div v-else>
-                                                            <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                            <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                 @click="selectCustomDropdown(customFieldHeader.coreKeysId,'')" >
                                                                     <ps-label class="ms-2" :class="form.product_relation[customFieldHeader.coreKeysId] =='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                             </div>
                                                             <div v-for="selectData in customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data"
                                                             :key="selectData.coreKeysId"
-                                                            class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                            class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                             @click="selectCustomDropdown(customFieldHeader.coreKeysId,selectData.id)" >
 
                                                                 <ps-label class="ms-2" :class="form.product_relation[customFieldHeader.coreKeysId] == selectData.id ? 'font-bold' : ''"> {{selectData.name}} </ps-label>
@@ -231,17 +231,16 @@
 
                                             </template>
                                         </ps-dropdown>
-                                        <!-- <ps-label textColor="text-feError-500 "  class="lg:mt-2 mt-1  w-full text-xs">{{ product_relation_errors && product_relation_errors[customFieldHeader.coreKeysId] }}</ps-label> -->
                                     </div>
 
                                 </div>
                                 <!-- /.custom field end -->
 
                                 <!-- Location -->
-                                <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__location_city") }} </ps-label>
+                                <ps-label class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__location_city") }} </ps-label>
                                 <ps-dropdown align="left" class='mt-1 lg:mt-2 ' @onClick="loadLocation" >
                                     <template #select>
-                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationName" />
+                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationName" />
                                     </template>
                                     <template #list >
                                         <div class="rounded-md shadow-xs w-56 " >
@@ -251,12 +250,12 @@
                                                 </div>
                                                 <div v-else>
                                                     <div
-                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                     @click="itemlocFilterClicked('', $t('item_list__all'),0,0)" >
                                                         <ps-label class="ms-2" :class="itemProvider.paramHolder.itemLocationId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                     </div>
                                                     <div v-for="selectData in itemLocationStore.itemLocationList.data" :key="selectData.id"
-                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                     @click="itemlocFilterClicked(selectData.id, selectData.name,selectData.lat, selectData.lng)" >
                                                         <ps-label class="ms-2" :class="selectData.id==itemProvider.paramHolder.itemLocationId ? ' font-medium' : 'font-light'"  > {{selectData.name}} </ps-label>
                                                     </div>
@@ -280,10 +279,10 @@
                                 </ps-dropdown>
 
                                 <!-- for sub Location -->
-                                <ps-label v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'" class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__location_township") }} </ps-label>
+                                <ps-label v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'" class="sm:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__location_township") }} </ps-label>
                                 <ps-dropdown align="left" class='mt-1 lg:mt-2' @click="loadSubLocation(itemProvider.paramHolder.itemLocationId)" v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'">
                                     <template #select>
-                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationTownshipName
+                                        <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationTownshipName
                                         " />
                                     </template>
                                     <template #list >
@@ -293,12 +292,12 @@
                                                     <ps-label class='p-2 flex' > {{ $t("list__loading") }} </ps-label>
                                                 </div>
                                                 <div v-else>
-                                                    <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                     @click="subLocFilterClicked({id:'', name:$t('item_list__all')})" >
                                                         <ps-label class="ms-2" :class="itemProvider.paramHolder.itemLocationTownship=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                     </div>
                                                     <div v-for="selectSubLoc in itemLocationTownshipStore.locationTownshipList.data" :key="selectSubLoc.id"
-                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                         @click="subLocFilterClicked(selectSubLoc)" >
                                                         <ps-label class="ms-2" :class="selectSubLoc.id==itemProvider.paramHolder.itemLocationTownship ? ' font-medium' : 'font-light'"  > {{selectSubLoc.townshipName}} </ps-label>
                                                     </div>
@@ -323,12 +322,11 @@
                                 <!-- end sub Location -->
 
                                 <ps-feSecondary-button  v-if="appInfoStore.appInfo.data?.mobileSetting?.no_filter_with_location_on_map == '1'"  @click="mapFilterClicked()" class=" sm:mt-5 w-full ">
-                                    <!-- <font-awesome-icon :icon="['fas', 'map-marked-alt']" class="text-feAchromatic-50 dark_text-feAchromatic-900 text-lg me-2"  /> -->
                                         {{ $t("item_list__pick_location") }}
                                 </ps-feSecondary-button>
 
 
-                                <ps-button theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-3" class="w-full text-center sm:mt-6 mb-2" @click="locationFilterClicked"> {{ $t("fe_map_with_marker_moadl__apply") }} </ps-button>
+                                <ps-button theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-3" class="w-full text-center sm:mt-6 mb-2" @click="locationFilterClicked"> {{ $t("fe_map_with_marker_moadl__apply") }} </ps-button>
 
                             </div>
                             <!-- End Filter For Normal and Large Screen -->
@@ -339,114 +337,48 @@
                                 <div class="flex justify-end mb-4">
 
                                     <div class="sm:block hidden">
-                                        <!-- <ps-label class="mt-4 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_list__search") }} </ps-label> -->
-                                        <!-- <ps-input-with-right-icon padding="py-2 px-4" className="w-[19.625rem] text-sm shadow-sm dark_bg-feAchromatic-900" theme="dark_text-feSecondary-200" placeholderColor="" rounded="rounded" defaultBorder="bg-feSecondary-50 dark_bg-feAchromatic-900 border border-feSecondary-200 hover_border-feSecondary-400 dark_border-feSecondary-200 hover:dark_border-feSecondary-50 focus:outline-none focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-200" @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" :placeholder= "$t('search_for_large_screem__search')" >
-                                            <template #icon>
-                                                <ps-icon textColor="text-feSecondary-500 dark_text-feSecondary-200" name="search" class='cursor-pointer' />
-                                            </template>
-                                        </ps-input-with-right-icon> -->
 
-                                        <ps-input-with-right-icon @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" className="sm:w-80 w-full bg-feAchromatic-50 dark_bg-feAchromatic-900" placeholderColor="placeholder-feSecondary-400 dark_placeholder-feSecondary-400" padding=" px-4 h-10" v-bind:placeholder="$t('search_for_large_screem__search')" >
+                                        <ps-input-with-right-icon @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" className="sm:w-80 w-full bg-feAchromatic-50 dark:bg-feAchromatic-900" placeholderColor="placeholder-feSecondary-400 dark:placeholder-feSecondary-400" padding=" px-4 h-10" v-bind:placeholder="$t('search_for_large_screem__search')" >
                                             <template #icon>
-                                                <ps-icon name="search" textColor="text-feSecondary-400" class='cursor-pointer'/>
+                                                <ps-icon v-if="itemProvider.paramHolder.searchTerm == ''" name="search" textColor="text-feSecondary-400" class='cursor-pointer'/>
+                                                <ps-icon v-else @click="[itemProvider.paramHolder.searchTerm = '',nameFilterClicked()]" name="cross" textColor="text-feSecondary-400" class='cursor-pointer'/>
                                             </template>
                                         </ps-input-with-right-icon>
                                         <!-- <ps-input type="text" class="w-full mt-1 lg:mt-2 lg:text-sm text-xs" v-bind:placeholder="$t('item_list__search')" v-model:value="itemProvider.paramHolder.searchTerm" @keyup.enter="nameFilterClicked" /> -->
                                     </div>
 
-                                    <ps-button hover="" focus="" colors="bg-feAchromatic-50 dark_bg-feAchromatic-900 text-feSecondary-800 dark_text-feSecondary-200 " class="me-2 sm:hidden" padding="px-4 py-2" border="border border-1 border-feSecondary-200" @click="toggleShowFilter" :disabled="false">
-                                        <ps-icon textColor="text-feSecondary-500 dark_text-feSecondary-200" name="filter" class='cursor-pointer me-1' />
+                                    <ps-button hover="" focus="" colors="bg-feAchromatic-50 dark:bg-feAchromatic-900 text-feSecondary-800 dark:text-feSecondary-200 " class="me-2 sm:hidden" padding="px-4 py-2" border="border border-1 border-feSecondary-200" @click="toggleShowFilter" :disabled="false">
+                                        <ps-icon textColor="text-feSecondary-500 dark:text-feSecondary-200" name="filter" class='cursor-pointer me-1' />
                                         {{ $t("filter") }}
                                     </ps-button>
-
-                                    <!-- <div class=" bg-feAchromatic-50 rounded-x shadow-xl p-2 justify-end" @click="toggleShowFilter"> -->
-                                        <!-- For Mobile -->
-                                    <!-- </div> -->
-
-                                    <!-- <ps-dropdown horizontalAlign="right" class=''>
-                                        <template #select>
-                                            <div v-for="selectData in sortingArr" :key="selectData.id">
-                                                <ps-dropdown-select iconTheme="text-feAchromatic-50 ms-2" bgColor="bg-fePrimary-500" text="text-sm text-feAchromatic-50" v-if="selectData.type==itemProvider.paramHolder.orderType" :selectedValue="$t(selectData.title)" />
-                                            </div>
-                                        </template>
-                                        <template #list >
-                                            <div class="rounded-md shadow-xs w-56 " >
-                                                <div class="pt-2 z-30">
-                                                    <div v-if="sortingArr == null">
-                                                        <ps-label class='p-2 flex' @click="loadCategory"> {{ $t("list__loading") }} </ps-label>
-                                                    </div>
-                                                    <div v-else>
-                                                        <div v-for="selectData in sortingArr" :key="selectData.id"
-                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
-                                                        @click="orderingFilterClicked(selectData)" >
-                                                            <ps-label class="ms-2" :class="selectData.type==itemProvider.paramHolder.orderType ? ' font-medium' : 'font-light'"  > {{$t(selectData.title)}} </ps-label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-
-                                    </ps-dropdown> -->
-
-                                    <!-- <ps-dropdown horizontalAlign="right" h="h-auto" class="h-10 w-auto">
-                                        <template #select>
-                                            <ps-label class="rounded h-full">
-                                                <ps-button class=" h-10 ">
-                                                    <span class="me-2"> {{activeSortingArrName ? $t(activeSortingArrName) : $t('A_to_Z')}} </span>
-                                                    <ps-icon class="flex" name="downChervon"   />
-                                                </ps-button>
-                                            </ps-label>
-                                        </template>
-                                        <template #list >
-                                            <div class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44 " >
-                                                <div class="pt-2 z-30">
-                                                    <div>
-                                                        <div v-for="sort in sortingArr" :key="sort.id"
-                                                            class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"
-                                                                @click="orderingFilterClicked(sort)" >
-                                                            <ps-label class="ms-2" :class="sort.id==activeSortingArrId ? ' font-medium' : 'font-light'"  >{{ $t("review_entry__title") }}: {{$t(sort.title)}} </ps-label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </template>
-                                    </ps-dropdown> -->
 
                                 </div>
 
                                 <div class="sm:hidden block mb-4 sm:mb-0">
-                                    <!-- <ps-input-with-right-icon padding="py-2 px-4" className="w-full text-sm shadow-sm dark_bg-feAchromatic-900" theme="dark_text-feSecondary-200" placeholderColor="" rounded="rounded" defaultBorder="bg-feSecondary-50 border border-feSecondary-200 hover_border-feSecondary-400 dark_border-feSecondary-200 hover:dark_border-feSecondary-50 focus:outline-none focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-200" @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" :placeholder= "$t('search_for_large_screem__search')" >
+                                    <ps-input-with-right-icon @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" className="sm:w-80 w-full bg-feAchromatic-50 dark:bg-feAchromatic-900" placeholderColor="placeholder-feSecondary-400 dark:placeholder-feSecondary-400" padding=" px-4 h-10" v-bind:placeholder="$t('search_for_large_screem__search')" >
                                         <template #icon>
-                                            <ps-icon textColor="text-feSecondary-500 dark_text-feSecondary-200" name="search" class='cursor-pointer' />
-                                        </template>
-                                    </ps-input-with-right-icon> -->
-
-                                    <ps-input-with-right-icon @keyup.enter="nameFilterClicked" v-model:value="itemProvider.paramHolder.searchTerm" className="sm:w-80 w-full bg-feAchromatic-50 dark_bg-feAchromatic-900" placeholderColor="placeholder-feSecondary-400 dark_placeholder-feSecondary-400" padding=" px-4 h-10" v-bind:placeholder="$t('search_for_large_screem__search')" >
-                                        <template #icon>
-                                            <ps-icon name="search" textColor="text-feSecondary-400" class='cursor-pointer'/>
+                                            <ps-icon v-if="itemProvider.paramHolder.searchTerm == ''" name="search" textColor="text-feSecondary-400" class='cursor-pointer'/>
+                                                <ps-icon v-else @click="[itemProvider.paramHolder.searchTerm = '',nameFilterClicked()]" name="cross" textColor="text-feSecondary-400" class='cursor-pointer'/>
                                         </template>
                                     </ps-input-with-right-icon>
                                 </div>
 
-                                <div class="mb-4 flex justify-end">
-                                    <div class="flex flex-col gap-4 sm:flex-row md:gap-6">
-                                        <div class="flex items-center justify-end">
-                                            <ps-label textColor="text-xs font-medium me-2 dark_text-feSecondary-200">{{$t("core_fe__sort_by")}}</ps-label>
+                                    <div class="mb-4 flex flex-col gap-4 sm:flex-row md:gap-6 justify-end">
+                                        <div class="flex items-center">
+                                            <ps-label textColor="text-xs font-medium me-2 dark:text-feSecondary-200">{{$t("core_fe__sort_by")}}</ps-label>
                                             <ps-dropdown horizontalAlign="right" h="h-auto" class="h-10 w-auto">
                                                 <template #select>
-                                                    <ps-label class="rounded h-full">
-                                                        <ps-button class=" h-10 " :disabled="activeProductsArrId != 1 && activeProductsArrId != 0" colors="bg-feAchromatic-50 dark_bg-feAchromatic-900" border="border dark_border-feSecondary-400" focus="focus:outline-none focus_bg-fePrimary-500 focus_ring focus_ring-fePrimary-300 focus_text-feAchromatic-50" hover="hover:outline-none hover_bg-fePrimary-600 hover_text-feAchromatic-50">
-                                                            <span class="me-2 font-medium"> {{activeSortingArrName ? $t(activeSortingArrName) : $t('core_fe__default')}} </span>
-                                                            <ps-icon class="flex" name="downChervon"/>
-                                                        </ps-button>
-                                                    </ps-label>
+                                                    <ps-button class=" h-10 " :disabled="activeProductsArrId != 1 && activeProductsArrId != 0" colors="bg-feAchromatic-50 dark:bg-feAchromatic-900" border="border dark:border-feSecondary-400" focus="focus:outline-none focus:bg-fePrimary-500 focus:ring focus:ring-fePrimary-300 focus:text-feAchromatic-50" hover="hover:outline-none hover:bg-fePrimary-600 hover:text-feAchromatic-50">
+                                                        <span class="me-2 font-medium"> {{activeSortingArrName ? $t(activeSortingArrName) : $t('core_fe__default')}} </span>
+                                                        <ps-icon class="flex" name="downChervon"/>
+                                                    </ps-button>
                                                 </template>
                                                 <template #list v-if="activeProductsArrId == 1 || activeProductsArrId == 0">
-                                                    <div class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44 " >
+                                                    <div class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-44 " >
                                                         <div class="pt-2 z-30">
                                                             <div>
                                                                 <div v-for="sort in sortingArr" :key="sort.id"
-                                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"
+                                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"
                                                                         @click="orderingFilterClicked(sort)" >
                                                                     <ps-label v-if="(sort.id == 1 || sort.id == 2)" class="ms-2" :class="sort.id==activeSortingArrId ? ' font-medium' : 'font-light'"  >{{$t("review_entry__title")}}: {{$t(sort.title)}} </ps-label>
                                                                     <ps-label v-else-if="(sort.id == 3 || sort.id == 4)" class="ms-2" :class="sort.id==activeSortingArrId ? ' font-medium' : 'font-light'"  >{{$t("item_entry__price")}}: {{$t(sort.title)}} </ps-label>
@@ -459,22 +391,20 @@
                                             </ps-dropdown>
                                         </div>
                                         <div class="flex items-center">
-                                            <ps-label textColor="text-xs font-medium me-2 dark_text-feSecondary-200">{{$t('core_fe__products_by')}}</ps-label>
+                                            <ps-label textColor="text-xs font-medium me-2 dark:text-feSecondary-200">{{$t('core_fe__products_by')}}</ps-label>
                                             <ps-dropdown horizontalAlign="right" h="h-auto" class="h-10 w-auto">
                                                 <template #select>
-                                                    <ps-label class="rounded h-full">
-                                                        <ps-button class=" h-10 " colors="bg-feAchromatic-50 dark_bg-feAchromatic-900" border="border dark_border-feSecondary-400" focus="focus:outline-none focus_bg-fePrimary-500 focus_ring focus_ring-fePrimary-300 focus_text-feAchromatic-50" hover="hover:outline-none hover_bg-fePrimary-600 hover_text-feAchromatic-50">
-                                                            <span class="me-2 font-medium"> {{activeProductsArrName ? $t(activeProductsArrName) : $t('core_fe__relevance')}} </span>
-                                                            <ps-icon class="flex" name="downChervon"/>
-                                                        </ps-button>
-                                                    </ps-label>
+                                                    <ps-button class=" h-10 " colors="bg-feAchromatic-50 dark:bg-feAchromatic-900" border="border dark:border-feSecondary-400" focus="focus:outline-none focus:bg-fePrimary-500 focus:ring focus:ring-fePrimary-300 focus:text-feAchromatic-50" hover="hover:outline-none hover:bg-fePrimary-600 hover:text-feAchromatic-50">
+                                                        <span class="me-2 font-medium"> {{activeProductsArrName ? $t(activeProductsArrName) : $t('core_fe__relevance')}} </span>
+                                                        <ps-icon class="flex" name="downChervon"/>
+                                                    </ps-button>
                                                 </template>
                                                 <template #list >
-                                                    <div class="rounded-md bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xs w-44 " >
+                                                    <div class="rounded-md bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xs w-44 " >
                                                         <div class="pt-2 z-30">
                                                             <div>
                                                                 <div v-for="sort in productsArr" :key="sort.id"
-                                                                    class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feSecondary-500 cursor-pointer items-center"
+                                                                    class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feSecondary-500 cursor-pointer items-center"
                                                                         @click="orderingByProductsClicked(sort)" >
                                                                     <ps-label class="ms-2" :class="sort.id==activeProductsArrId ? ' font-medium' : 'font-light'"  >{{$t(sort.title)}}</ps-label>
                                                                 </div>
@@ -485,7 +415,7 @@
                                             </ps-dropdown>
                                         </div>
                                     </div>
-                                </div>
+                                
 
                                 <div class="grid sm:grid-cols-8 xl:grid-cols-9 grid-cols-4 gap-4 sm:gap-3.5 lg:gap-6">
 
@@ -494,7 +424,7 @@
                                             <div class="h-52 ">
                                                 <img v-lazy="{ src: $page.props.sysImageUrl+'/no_result.png' }" alt="" class="w-full h-52 object-contain">
                                             </div>
-                                            <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-300" class="text-lg font-semibold mt-4"> {{ $t("list__no_result") }} </ps-label>
+                                            <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-300" class="text-lg font-semibold mt-4"> {{ $t("list__no_result") }} </ps-label>
                                             <ps-label textColor="text-feSecondary-500" class="mt-2 text-sm"> {{ $t("list__no_list_found") }} </ps-label>
                                             <ps-label textColor="text-feSecondary-500" class="text-sm"> {{ $t("list__search_again") }} </ps-label>
                                             <ps-button class="mt-6"> {{ $t("list__search") }} </ps-button>
@@ -534,12 +464,12 @@
                                     <div>
                                         <transition @enter="enter" @leave="leave">
 
-                                            <div class='flex flex-col w-68 p-8 h-auto bg-feAchromatic-50 dark_bg-feSecondary-800 shadow-xl rounded-lg'  >
+                                            <div class='flex flex-col w-68 p-8 h-auto bg-feAchromatic-50 dark:bg-feSecondary-800 shadow-xl rounded-lg'  >
 
                                                 <div class="flex flex-row items-center justify-between w-full">
                                                     <ps-label class="font-semibold text-base">  {{ $t("item_list__filter_by") }} </ps-label>
 
-                                                    <ps-label class="font-light cursor-pointer text-xxs" textColor="text-feSecondary-300 dark_text-feAccent-500" @click="clearAllFilter"> {{ $t("item_list__clear_filter") }} </ps-label>
+                                                    <ps-label class="font-light cursor-pointer text-xxs" textColor="text-feSecondary-300 dark:text-feAccent-500" @click="clearAllFilter"> {{ $t("item_list__clear_filter") }} </ps-label>
                                                 </div>
 
                                                 <!-- Category -->
@@ -547,7 +477,7 @@
                                                     <ps-label class="font-medium text-sm mb-1"> {{ $t("category_list__title") }} </ps-label>
                                                     <ps-dropdown align="right" class='mt-1 w-full' @onClick="loadCategory" >
                                                         <template #select>
-                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.catName" />
+                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.catName" />
                                                         </template>
                                                         <template #list >
                                                             <div class="rounded-md shadow-xs w-56 " >
@@ -557,12 +487,12 @@
                                                                     </div>
                                                                     <div v-else>
                                                                         <div
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="categoryFilterClicked({catId:'', catName:$t('item_list__all')})" >
                                                                             <ps-label class="ms-2" :class="itemProvider.paramHolder.catId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                                         </div>
                                                                         <div v-for="selectData in categoryStore.itemList.data" :key="selectData.catId"
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="categoryFilterClicked(selectData)" >
                                                                             <ps-label class="ms-2" :class="selectData.catId==itemProvider.paramHolder.catId ? ' font-medium' : 'font-light'"  > {{selectData.catName}} </ps-label>
                                                                         </div>
@@ -588,17 +518,17 @@
 
                                                 <!-- for sub category dropdown -->
                                                 <div class="mb-6" v-if="appInfoStore?.appInfo?.data?.mobileSetting.is_show_subcategory == '1'">
-                                                    <ps-label class="lg:mt-6 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__sub_categories") }} </ps-label>
+                                                    <ps-label class="lg:mt-6 mb-1 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__sub_categories") }} </ps-label>
                                                     <ps-dropdown align="left" class='mt-1 w-full' @click="loadSubCategory(itemProvider.paramHolder.catId)" >
                                                         <template #select>
-                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.subCatName
+                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.subCatName
                                                             " />
                                                         </template>
                                                         <template #filter >
                                                             <div class="w-56">
                                                                 <ps-input-with-right-icon class="rounded-xl flex-1 " @keyup.enter="filterSubCatUpdate(subCatKeyword)" v-model:value="subCatKeyword" v-bind:placeholder= "$t('item_list__search_subcat')" >
                                                                 <template #icon>
-                                                                    <ps-icon textColor="text-feSecondary-400 dark_text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterSubCatUpdate(subCatKeyword)"/>
+                                                                    <ps-icon textColor="text-feSecondary-400 dark:text-feAchromatic-500" name="search" class='cursor-pointer' @click="filterSubCatUpdate(subCatKeyword)"/>
                                                                 </template>
                                                                 </ps-input-with-right-icon>
                                                             </div>
@@ -610,12 +540,12 @@
                                                                         <ps-label class='p-2 flex' > {{ $t("list__loading") }} </ps-label>
                                                                     </div>
                                                                     <div v-else>
-                                                                        <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="subCategoryFilterClicked({id:'', name:$t('item_list__all')})" >
                                                                             <ps-label class="ms-2" :class="itemProvider.paramHolder.subCatId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                                         </div>
                                                                         <div v-for="selectSubCat in subCategoryStore.subCategoryList.data" :key="selectSubCat.id"
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                             @click="subCategoryFilterClicked(selectSubCat)" >
                                                                             <ps-label class="ms-2" :class="selectSubCat.id==itemProvider.paramHolder.subCatId ? ' font-medium' : 'font-light'"  > {{selectSubCat.name}} </ps-label>
                                                                         </div>
@@ -642,7 +572,7 @@
 
                                                 <!-- Status -->
                                                 <div class="w-full mb-6 flex flex-col">
-                                                    <!-- <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_detail__status") }} </ps-label>
+                                                    <!-- <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_detail__status") }} </ps-label>
                                                     <div class="flex flex-row w-full text-sm font-medium">
                                                         <ps-radio v-for=" selectData  in itemProvider.paramHolder.sortingList"
                                                             :key="selectData.id"
@@ -667,7 +597,7 @@
 
                                                 <!-- Stock -->
                                                 <div class="mb-6 w-full flex flex-col">
-                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_list__stock") }} </ps-label>
+                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_list__stock") }} </ps-label>
                                                     <div class="flex flex-row w-full text-sm font-medium">
                                                         <ps-radio v-for=" selectData  in soldOutItem"
                                                             :key="selectData.id"
@@ -681,14 +611,12 @@
 
                                                 <!-- Price Range -->
                                                 <div class="w-full mb-6">
-                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" >  {{ $t("item_list__price_range") }} </ps-label>
+                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" >  {{ $t("item_list__price_range") }} </ps-label>
                                                     <div class="grid grid-cols-2 gap-2">
-                                                        <ps-input theme="dark_bg-feSecondary-800 dark_text-feSecondary-300" type="text" class="w-full" v-bind:placeholder="$t('item_list__min')" v-model:value="itemProvider.paramHolder.minPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked" />
-                                                        <ps-input theme="dark_bg-feSecondary-800 dark_text-feSecondary-300" type="text" class="w-full " v-bind:placeholder="$t('item_list__max')" v-model:value="itemProvider.paramHolder.maxPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked"/>
+                                                        <ps-input theme="dark:bg-feSecondary-800 dark:text-feSecondary-300" type="text" class="w-full" v-bind:placeholder="$t('item_list__min')" v-model:value="itemProvider.paramHolder.minPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked" />
+                                                        <ps-input theme="dark:bg-feSecondary-800 dark:text-feSecondary-300" type="text" class="w-full " v-bind:placeholder="$t('item_list__max')" v-model:value="itemProvider.paramHolder.maxPrice" @keypress="checkPrice($event)" @keyup.enter="pricerangeItemFilterClicked"/>
                                                     </div>
                                                 </div>
-
-
 
                                                 <!-- custom field start -->
                                                 <div v-for="customFieldHeader in customFieldStore.customField.data?.customList" :key="customFieldHeader.id">
@@ -699,7 +627,7 @@
                                                         <ps-dropdown align="left" class='lg:mt-2 mt-1  w-full' @onClick="loadCustomField(customFieldHeader.coreKeysId)">
                                                             <template #select>
 
-                                                                <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :showCenter="true" :selectedValue="
+                                                                <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :showCenter="true" :selectedValue="
                                                                 customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data?.filter((customField)=> customField.id === form.product_relation[customFieldHeader.coreKeysId])[0]?.name
 
                                                                 " />
@@ -713,13 +641,13 @@
                                                                             <ps-label class='p-2 flex' @click="loadCustomField(customFieldHeader.coreKeysId)">{{ $t("item_entry__loading") }} </ps-label >
                                                                         </div>
                                                                         <div v-else>
-                                                                            <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                            <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                                 @click="selectCustomDropdown(customFieldHeader.coreKeysId,'')" >
                                                                                     <ps-label class="ms-2" :class="form.product_relation[customFieldHeader.coreKeysId] =='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                                             </div>
                                                                             <div v-for="selectData in customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customFieldHeader.coreKeysId)[0]?.provider?.customizeUiList.data"
                                                                             :key="selectData.coreKeysId"
-                                                                            class="w-56 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-fePrimary-900 cursor-pointer items-center"
+                                                                            class="w-56 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-fePrimary-900 cursor-pointer items-center"
                                                                             @click="selectCustomDropdown(customFieldHeader.coreKeysId,selectData.id)" >
 
                                                                                 <ps-label class="ms-2" :class="form.product_relation[customFieldHeader.coreKeysId] == selectData.id ? 'font-bold' : ''"> {{selectData.name}} </ps-label>
@@ -743,7 +671,6 @@
 
                                                             </template>
                                                         </ps-dropdown>
-                                                        <!-- <ps-label textColor="text-feError-500 "  class="lg:mt-2 mt-1  w-full text-xs">{{ product_relation_errors && product_relation_errors[customFieldHeader.coreKeysId] }}</ps-label> -->
                                                     </div>
 
 
@@ -754,10 +681,10 @@
 
                                                 <!-- Location -->
                                                 <div class="mb-6">
-                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__location_city") }} </ps-label>
+                                                    <ps-label class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__location_city") }} </ps-label>
                                                     <ps-dropdown align="left" class='mt-1 lg:mt-2 w-full' @onClick="loadLocation" >
                                                         <template #select>
-                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationName" />
+                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationName" />
                                                         </template>
                                                         <template #list >
                                                             <div class="rounded-md shadow-xs w-56" >
@@ -767,12 +694,12 @@
                                                                     </div>
                                                                     <div v-else>
                                                                         <div
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="itemlocFilterClicked('', $t('item_list__all'),0,0)" >
                                                                             <ps-label class="ms-2" :class="itemProvider.paramHolder.itemLocationId=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                                         </div>
                                                                         <div v-for="selectData in itemLocationStore.itemLocationList.data" :key="selectData.id"
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="itemlocFilterClicked(selectData.id, selectData.name,selectData.lat, selectData.lng)" >
                                                                             <ps-label class="ms-2" :class="selectData.id==itemProvider.paramHolder.itemLocationId ? ' font-medium' : 'font-light'"  > {{selectData.name}} </ps-label>
                                                                         </div>
@@ -798,10 +725,10 @@
 
                                                 <!-- for sub Location -->
                                                 <div class="mb-6">
-                                                    <ps-label v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'" class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-300" > {{ $t("item_list__location_township") }} </ps-label>
+                                                    <ps-label v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'" class="mb-1 lg:mt-6 lg:text-base font-medium text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-300" > {{ $t("item_list__location_township") }} </ps-label>
                                                     <ps-dropdown align="left" class='mt-1 w-full' @click="loadSubLocation(itemProvider.paramHolder.itemLocationId)" v-if="appInfoStore.appInfo.data?.psAppSetting?.isSubLocation == '1'">
                                                         <template #select>
-                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark_border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationTownshipName
+                                                            <ps-dropdown-select placeholderLang='item_list__all' border="border dark:border-feSecondary-200" :selectedValue="itemProvider.paramHolder.itemLocationTownshipName
                                                             " />
                                                         </template>
                                                         <template #list >
@@ -811,12 +738,12 @@
                                                                         <ps-label class='p-2 flex' > {{ $t("list__loading") }} </ps-label>
                                                                     </div>
                                                                     <div v-else>
-                                                                        <div class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        <div class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                         @click="subLocFilterClicked({id:'', name:$t('item_list__all')})" >
                                                                             <ps-label class="ms-2" :class="itemProvider.paramHolder.itemLocationTownship=='' ? ' font-medium' : 'font-light'"  > {{ $t("item_list__all") }}  </ps-label>
                                                                         </div>
                                                                         <div v-for="selectSubLoc in itemLocationTownshipStore.locationTownshipList.data" :key="selectSubLoc.id"
-                                                                        class="w-72 flex py-4 px-2 hover_bg-fePrimary-50 dark_hover_bg-feAchromatic-800 cursor-pointer items-center"
+                                                                        class="w-72 flex py-4 px-2 hover:bg-fePrimary-50 dark:hover:bg-feAchromatic-800 cursor-pointer items-center"
                                                                             @click="subLocFilterClicked(selectSubLoc)" >
                                                                             <ps-label class="ms-2" :class="selectSubLoc.id==itemProvider.paramHolder.itemLocationTownship ? ' font-medium' : 'font-light'"  > {{selectSubLoc.townshipName}} </ps-label>
                                                                         </div>
@@ -842,11 +769,10 @@
                                                 <!-- end sub Location -->
 
                                                 <ps-feSecondary-button  v-if="appInfoStore.appInfo.data?.frontendConfigSetting?.noFilterWithLocationOnMap != '1'"  @click="mapFilterClicked()" class="mb-6 lg:mt-5 w-full ">
-                                            <!-- <font-awesome-icon :icon="['fas', 'map-marked-alt']" class="text-feAchromatic-50 dark_text-feAchromatic-900 text-lg me-2"  /> -->
                                                 {{ $t("item_list__pick_location") }}
                                                 </ps-feSecondary-button>
 
-                                                <ps-button theme="bg-fePrimary-500 dark_bg-feAccent-500 text-feAchromatic-50 dark_text-feAchromatic-900 py-3 " textSize="text-xs" class="w-full text-center mb-2" @click="locationFilterClicked"> {{ $t("fe_map_with_marker_moadl__apply") }} </ps-button>
+                                                <ps-button theme="bg-fePrimary-500 dark:bg-feAccent-500 text-feAchromatic-50 dark:text-feAchromatic-900 py-3 " textSize="text-xs" class="w-full text-center mb-2" @click="locationFilterClicked"> {{ $t("fe_map_with_marker_moadl__apply") }} </ps-button>
 
                                             </div>
                                         </transition>
@@ -874,12 +800,12 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 
 // Vue
 // import { useRoute } from 'vue-router'
-import { onMounted,onUnmounted,computed, ref,reactive ,defineAsyncComponent } from 'vue';
+import { onMounted,onUnmounted, ref,reactive ,defineAsyncComponent } from 'vue';
 
 // Core UI
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue';
@@ -889,7 +815,8 @@ import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
 import PsSecondaryButton from '@template1/vendor/components/core/buttons/PsSecondaryButton.vue';
 import PsInput from '@template1/vendor/components/core/input/PsInput.vue';
 import PsInputWithRightIcon from '@template1/vendor/components/core/input/PsInputWithRightIcon.vue';
-import PsDropdown from '@template1/vendor/components/core/dropdown/PsDropdown.vue';
+const PsDropdown = defineAsyncComponent(() => import('@template1/vendor/components/core/dropdown/PsDropdown.vue'));
+// import PsDropdown from '';
 import PsDropdownSelect from '@template1/vendor/components/core/dropdown/PsDropdownSelect.vue';
 import PsLoadingDialog from '@template1/vendor/components/core/dialog/PsLoadingDialog.vue';
 import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialog.vue';
@@ -924,11 +851,7 @@ import SubCategoryListParameterHolder from '@templateCore/object/holder/SubCateg
     import { useCustomizeUiStoreState } from '@templateCore/store/modules/customField/CustomizeUiStore';
 //language
 import { trans } from 'laravel-vue-i18n';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkedAlt,faFilter } from '@fortawesome/free-solid-svg-icons';
-library.add(faMapMarkedAlt,faFilter)
-import {  useForm } from "@inertiajs/inertia-vue3";
-import ProductRelation from '../../../../../../../../TemplateCore/object/ProductRelation';
+import {  useForm } from "@inertiajs/vue3";
     import Axios from 'axios';
 
 
@@ -1057,7 +980,7 @@ export default {
 
 
         const customFieldStore = useCustomFieldStoreState('list');
-            const customizeUiStoreList = reactive({
+        const customizeUiStoreList = reactive({
                                             data : [{
                                                 'id': 'default',
                                                 'provider': useCustomizeUiStoreState('default')
@@ -1168,74 +1091,81 @@ export default {
          * Loading Data
          */
         onMounted(async () => {
-
-            if(initial.value == true && itemProvider.itemList.data == null){
-                ps_loading_dialog.value.openModal();
-            }
             setTimeout(async ()=>{
-               if(itemProvider.paramHolder.isDiscount == '1'){
-                    isDiscount.value = true;
-               }else {
-                    isDiscount.value = false;
-               }
-                if(itemProvider.paramHolder.orderBy == PsConst.FILTERING_TRENDING && itemProvider.paramHolder.orderType == PsConst.FILTERING__DESC){
-                    currentsorting.id = "1";
-                    currentsorting.orderBy = PsConst.FILTERING_TRENDING;
-                    currentsorting.orderType = PsConst.FILTERING__DESC;
-                    currentsorting.name = "Popular";
-                }else{
-
-                    currentsorting.id = "0";
-                    currentsorting.orderBy = PsConst.FILTERING__ADDED_DATE;
-                    currentsorting.orderType = PsConst.FILTERING__DESC;
-                    currentsorting.name = "Recent";
-
-
-                    itemProvider.paramHolder.sortingName == 'Recent';
-                    itemProvider.paramHolder.orderBy == PsConst.FILTERING__ADDED_DATE;
-                    itemProvider.paramHolder.orderType == PsConst.FILTERING__DESC;
-                }
-
-                if(itemProvider.paramHolder.isSoldOut == '1'){
-                    currentstatus.id = "1";
-                    currentstatus.name = "Sold";
-                }else{
-                    currentstatus.id = "0";
-                    currentstatus.name = "Available";
-
-                    itemProvider.paramHolder.isSoldOut == '0';
-                }
-
-                await loadDataList();
-
-                await customFieldStore.loadCustomFieldList(loginUserId);
-
-                for(const customField of customFieldStore.customField.data?.customList){
-                    // for dropdown
-                    if(customField.isVisible == '1' && customField.isDelete == '0' && customField.uiType.coreKeysId == 'uit00001'){
-                        customizeUiStoreList.data.push({
-                            'id': customField.coreKeysId,
-                            'provider': useCustomizeUiStoreState(customField.coreKeysId)
-                        })
+            // console.log(window.popStateDetected);
+                if(!window.popStateDetected) {
+                    if(initial.value == true && itemProvider.itemList.data == null){
+                        ps_loading_dialog.value.openModal();
                     }
-                }
+                    
+                    if(itemProvider.paramHolder.isDiscount == '1'){
+                            isDiscount.value = true;
+                    }else {
+                            isDiscount.value = false;
+                    }
+                        if(itemProvider.paramHolder.orderBy == PsConst.FILTERING_TRENDING && itemProvider.paramHolder.orderType == PsConst.FILTERING__DESC){
+                            currentsorting.id = "1";
+                            currentsorting.orderBy = PsConst.FILTERING_TRENDING;
+                            currentsorting.orderType = PsConst.FILTERING__DESC;
+                            currentsorting.name = "Popular";
+                        }else{
 
-                const productRelation = itemProvider.paramHolder.productRelation;
+                            currentsorting.id = "0";
+                            currentsorting.orderBy = PsConst.FILTERING__ADDED_DATE;
+                            currentsorting.orderType = PsConst.FILTERING__DESC;
+                            currentsorting.name = "Recent";
 
-                if(productRelation != null && productRelation.length > 0){
-                    productRelation.forEach((customField) => {
 
-                        form.product_relation[customField.core_keys_id] = customField.value;
+                            itemProvider.paramHolder.sortingName == 'Recent';
+                            itemProvider.paramHolder.orderBy == PsConst.FILTERING__ADDED_DATE;
+                            itemProvider.paramHolder.orderType == PsConst.FILTERING__DESC;
+                        }
 
-                        loadCustomField(customField.core_keys_id);
+                        if(itemProvider.paramHolder.isSoldOut == '1'){
+                            currentstatus.id = "1";
+                            currentstatus.name = "Sold";
+                        }else{
+                            currentstatus.id = "0";
+                            currentstatus.name = "Available";
 
-                    });
-                }
-                if(itemProvider.paramHolder.catId != '') {
-                    loadSubCategory(itemProvider.paramHolder.catId);
-                }
+                            itemProvider.paramHolder.isSoldOut == '0';
+                        }
 
-            },1000);
+                        await loadDataList();
+
+                        await customFieldStore.loadCustomFieldList(loginUserId);
+
+                        for(const customField of customFieldStore.customField.data?.customList){
+                            // for dropdown
+                            if(customField.isVisible == '1' && customField.isDelete == '0' && customField.uiType.coreKeysId == 'uit00001'){
+                                customizeUiStoreList.data.push({
+                                    'id': customField.coreKeysId,
+                                    'provider': useCustomizeUiStoreState(customField.coreKeysId)
+                                })
+                            }
+                        }
+
+                        const productRelation = itemProvider.paramHolder.productRelation;
+
+                        if(productRelation != null && productRelation.length > 0){
+                            productRelation.forEach((customField) => {
+
+                                form.product_relation[customField.core_keys_id] = customField.value;
+
+                                loadCustomField(customField.core_keys_id);
+
+                            });
+                        }
+                        if(itemProvider.paramHolder.catId != '') {
+                            loadSubCategory(itemProvider.paramHolder.catId);
+                        }
+
+                    
+                }else {
+                    initial.value = false;
+                    window.popStateDetected = false;
+                } 
+            },1000);        
         });
          onUnmounted(() => {
             // Search Terms
@@ -1281,7 +1211,7 @@ export default {
 
             for(const customField of customFieldStore.customField.data?.customList){
                 if(customField.isVisible == '1' && customField.isDelete == '0' && customField.uiType.coreKeysId == 'uit00001'){
-                    customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customField.coreKeysId)[0].provider.$reset;
+                    customizeUiStoreList.data.filter((customizeDetail) => customizeDetail.id === customField.coreKeysId)[0]?.provider.$reset;
                 }
             }
         });

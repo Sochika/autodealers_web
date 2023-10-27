@@ -141,9 +141,9 @@ import { trans } from 'laravel-vue-i18n';
 import PsIcon from "../Icons/PsIcon.vue";
 import PsInput from "../Input/PsInput.vue";
 import PsLabelCaption from "../Label/PsLabelCaption.vue";
-import {useForm,Link, usePage} from "@inertiajs/inertia-vue3";
+import {useForm,Link, usePage} from "@inertiajs/vue3";
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsConfirmDialog from '@/Components/Core/Dialog/PsConfirmDialog.vue';
 import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
 import PsErrorDialog from '@/Components/Core/Dialog/PsErrorDialog.vue';
@@ -225,7 +225,7 @@ export default defineComponent ({
 
         function checkConnection(){
             if (form.token != ""){
-                Inertia.post(route('admin.dashboard.checkConnection'),form,{
+                router.post(route('admin.dashboard.checkConnection'),form,{
                     onBefore:() => {
                         // ps_loading_circle_dialog.value.openModal(trans('creating_auto_sync'), trans('wait_msg'));
                     },
@@ -252,7 +252,7 @@ export default defineComponent ({
 
         function setupClicked(){
             if (form.token != ""){
-                Inertia.post(route('admin.dashboard.setupAutoSync'),form,{
+                router.post(route('admin.dashboard.setupAutoSync'),form,{
                     onBefore:() => {
                         ps_loading_circle_dialog.value.openModal(trans('setup_connection_with_builder__upgrading'), trans('setup_connection_with_builder__wait_msg'));
                         close();
@@ -280,7 +280,7 @@ export default defineComponent ({
             });
 
             if(form.token == null || form.token == ''){
-                Inertia.post(route('api_token.default_creating_token'),form1,{
+                router.post(route('api_token.default_creating_token'),form1,{
                     onSuccess:(res) => {
                         // console.log('hello my from Ps license');
                         // console.log(res.props.defaultBuilderToken);
@@ -298,7 +298,7 @@ export default defineComponent ({
                 console.log( form.token);
             }
 
-            // Inertia.post(route('api_token.default_creating_token'),form1,{
+            // router.post(route('api_token.default_creating_token'),form1,{
             //     onSuccess:(res) => {
             //         console.log('hello my frined');
             //         console.log(res);

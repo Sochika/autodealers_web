@@ -1,7 +1,7 @@
 <template>
     <Head :title="$t('core__fe_email_verification_title')" />
     <div :class="isDarkMode ? 'dark' : ''">
-        <div class="mb-6 bg-feAchromatic-50 dark_bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
+        <div class="mb-6 bg-feAchromatic-50 dark:bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
             <div class="h-auto  sm:mt-32 lg:mt-36 mt-28 flex flex-row w-98 lg:w-202 rounded-md overflow-hidden shadow-md ">
                 <div class="hidden w-100  h-auto bg-feSecondary-900  lg:flex flex-col items-center justify-center">
                     <div class="w-65 h-50">
@@ -15,17 +15,17 @@
                         {{ $t('login__fe_description_best_deal') }}
                     </ps-label>
 
-                    <div class="flex flex-row text-feSecondary-50  dark_text-feSecondary-900  rtl:space-x-reverse space-x-4">
+                    <div class="flex flex-row text-feSecondary-50  dark:text-feSecondary-900  rtl:space-x-reverse space-x-4">
                         <ps-icon name="facebookCircle" />
                         <ps-icon name="instagramCircle" />
                         <ps-icon name="twitter" />
-                        <!-- <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-50" class="" name="apple-icon"
+                        <!-- <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-50" class="" name="apple-icon"
                             h="24" w="24" /> -->
                         <ps-icon name="pinterest" />
                         <ps-icon name="linkedIn" />
                     </div>
                 </div>
-                <div class="w-full lg:w-100 bg-feAchromatic-50 dark_bg-feSecondary-800 px-4 sm:px-10 pb-10">
+                <div class="w-full lg:w-100 bg-feAchromatic-50 dark:bg-feSecondary-800 px-4 sm:px-10 pb-10">
                     <!-- <img v-if="$page.props.backendLogo" :src="$page.props.uploadUrl + '/' + $page.props.backendLogo.img_path" width="50" height="50" class="m-auto my-2.5"/> -->
 
                     <div class="flex  justify-center">
@@ -36,11 +36,11 @@
 
                     <div>
                         <div class="mb-4">
-                            <ps-label class="mb-2 text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{ $t('core__fe_verify_code') }}</ps-label>
+                            <ps-label class="mb-2 text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{ $t('core__fe_verify_code') }}</ps-label>
                             <ps-input type="text" v-on:keyup.enter="clicked" v-model:value="code"
-                                class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                theme="text-feSecondary-500 bg-feAchromatic-50 dark_bg-feSecondary-800"
-                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus_ring-1 focus_ring-fePrimary-500"
+                                class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                theme="text-feSecondary-500 bg-feAchromatic-50 dark:bg-feSecondary-800"
+                                defaultBorder="border border-feSecondary-200 dark:border-feSecondary-400 focus:outline-none focus:ring-1 focus:ring-fePrimary-500"
                                 :placeholder="$t('core__fe_verify_code_placeholder')" autofocus />
                             <!-- <ps-label-caption textColor="text-feError-500 " class="mt-2 block">{{ errors.email
                             }}</ps-label-caption> -->
@@ -65,7 +65,7 @@
 
                         <div class="block mt-6 mb-2 lg:mb-44">
                             <ps-feSecondary-button 
-                            colors="bg-feAchromatic-50 dark_bg-feSecondary-800 text-feSecondary-800 dark_text-feSecondary-50"
+                            colors="bg-feAchromatic-50 dark:bg-feSecondary-800 text-feSecondary-800 dark:text-feSecondary-50"
                             @click="loginClicked" class="w-full">
                                 {{ $t('core__fe_verify_cancel') }}
                             </ps-feSecondary-button>
@@ -99,7 +99,7 @@ import { ref, computed} from 'vue';
 import { useStore } from 'vuex'
 import { trans } from 'laravel-vue-i18n';
 
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import PsLabelHeader3 from "@template1/vendor/components/core/label/PsLabelHeader3.vue";
 import PsCard from "@/Components/Core/Card/PsCard.vue";
 // Params Holders
@@ -108,17 +108,13 @@ import PsLabelCaption from "@template1/vendor/components/core/label/PsLabelCapti
 import PsLoading from "@/Components/Core/Loading/PsLoading.vue";
 import WelcomeImage from "@/Components/Svgs/WelcomeImage.vue";
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faTrashAlt, faEdit, faStore, faStoreSlash, faEye } from '@fortawesome/free-solid-svg-icons';
-library.add(faHeart, faTrashAlt, faEdit, faStore, faStoreSlash, faEye)
 //Modules
 import PsStatus from '@templateCore/api/common/PsStatus';
 
 import PsConst from '@templateCore/object/constant/ps_constants';
 // import { PsValueStore } from "@templateCore/store/modules/core/PsValueStore";
 import { useAuthStore } from '../../store/AuthStore';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import ForgotpasswordParameterHolder from '@templateCore/object/holder/ForgotpasswordParameterHolder';
 
 // Params Holders
@@ -164,7 +160,7 @@ export default {
         const code = ref();
 
         if(props.authUser != null){
-            Inertia.get(route('dashboard'))
+            router.get(route('dashboard'))
         }
 
         async function clicked() {
@@ -179,7 +175,7 @@ export default {
             ps_loading_dialog.value.closeModal(); 
             if(returnData.status == PsStatus.SUCCESS) {  
                 ps_success_dialog.value.openModal(trans('core__fe_verify_complete'), trans('core__fe_verify_complete_message'),trans('core__fe_verify_continue'),()=>{
-                    Inertia.get(route('resetPassword',{'id': returnData.data.userId, 'code': code.value }))
+                    router.get(route('resetPassword',{'id': returnData.data.userId, 'code': code.value }))
                 }); 
             } else {
                 ps_error_dialog.value.openModal(trans('ps_error_dialog__error'), returnData.message,trans('core__fe_btn_ok'),()=>{});
@@ -205,7 +201,7 @@ export default {
 
         function loginClicked() {
             // Redirect
-            Inertia.get(route('login'))
+            router.get(route('login'))
             // authStore.navigateUserLoginTo("login", router, route.query.redirect, route.query, route.params);
         }
         return{

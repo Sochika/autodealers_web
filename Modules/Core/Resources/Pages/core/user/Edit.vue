@@ -393,7 +393,7 @@
 <script>
 import { defineComponent, ref,watch } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import useValidators from '@/Validation/Validators'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import PsInputWithRightIcon from "@/Components/Core/Input/PsInputWithRightIcon.vue";

@@ -63,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { Head } from '@inertiajs/inertia-vue3';
+import { Head } from '@inertiajs/vue3';
 import PsContentContainer from '@template1/vendor/components/layouts/container/PsContentContainer.vue';
 import PsLabelHeader4 from '@template1/vendor/components/core/label/PsLabelHeader4.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue'

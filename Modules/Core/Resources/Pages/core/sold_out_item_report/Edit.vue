@@ -60,7 +60,7 @@
                                     </div>
                                     <div class="grid grid-cols-3 mt-1" >
                                         <ps-label class="text-base" textColor="text-secondary-500" > {{ $t('core__be_item_price_title') }} </ps-label>
-                                        <ps-label class="text-base col-span-2"  > <span class="me-2"> :</span>{{ item.price }} </ps-label>
+                                        <ps-label class="text-base col-span-2"  > <span class="me-2"> :</span>{{ checkPriceFormat(item.price) }} </ps-label>
                                     </div>
                                     <div class="grid grid-cols-3 mt-1" >
                                         <ps-label class="text-base" textColor="text-secondary-500" > {{ $t('core__be_item_purchased_option') }} </ps-label>
@@ -93,7 +93,8 @@
 <script>
 import { defineComponent, defineAsyncComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, usePage } from "@inertiajs/vue3";
+import PsConst from '@templateCore/object/constant/ps_constants';
 import CheckBox from "../components/CheckBox.vue";
 import PsRadioValue from "@/Components/Core/Radio/PsRadioValue.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
@@ -130,6 +131,7 @@ export default defineComponent({
         Head,
         CheckBox,
         DatePicker,
+        PsConst,
         PsInput,
         PsRadioValue,
         PsLabel,
@@ -209,8 +211,28 @@ export default defineComponent({
             },
         ]
 
+        function checkPriceFormat(data) {
+            if (usePage().props.selected_price_type == PsConst.PRICE_RANGE) {
+
+                const floatValue = parseFloat(data);
+                const intValue = parseInt(floatValue);
+                if (intValue > 5) {
+                    return '$'.repeat(5);
+                }
+                if (intValue < 1) {
+                    return '$'.repeat(1);
+                }
+                return '$'.repeat(intValue);
+            }
+            if (usePage().props.selected_price_type == PsConst.NORMAL_PRICE) {
+                return data;
+            }
+        }
+        
+
         return { 
             columns,
+            checkPriceFormat
         }
     },
     computed: {

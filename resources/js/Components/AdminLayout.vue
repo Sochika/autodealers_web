@@ -3,7 +3,7 @@ import { defineComponent, ref } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import TitleBar from "@/Components/Layouts/TitleBar.vue";
 import SidebarMenu from "@/Components/Layouts/SidebarMenu.vue";
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 export default defineComponent({
     components: { TitleBar, SidebarMenu, Head, Link },

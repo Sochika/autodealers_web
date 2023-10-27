@@ -44,7 +44,7 @@
 
 <script>
 import { defineComponent,ref } from 'vue'
-import { Link, Head } from '@inertiajs/inertia-vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -56,7 +56,7 @@ import PsRating from "@/Components/Core/Rating/PsRating.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
 
 export default defineComponent({
@@ -152,7 +152,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('category_report.index'),
+            router.get(route('category_report.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,

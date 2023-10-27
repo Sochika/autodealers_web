@@ -4,7 +4,7 @@
             <div class="w-screem flex flex-col">
                 <div class="flex flex-row justify-between"> 
                     <div class="flex-grow" />
-                    <font-awesome-icon @click="psmodal.toggle(false)" :icon="['fas', 'times']" class="text-feSecondary-700 dark_text-feAchromatic-500" size="2x" />
+                    <ps-icon @click="psmodal.toggle(false)" name="close" class="text-feSecondary-700 dark:text-feAchromatic-500" w="35" h="35" />
                 </div>
                 <div class=" flex flex-row justify-between">
                 
@@ -23,13 +23,12 @@
 <script lang='ts'>
 import { defineComponent,ref } from 'vue';
 import PsImageModal from '@template1/vendor/components/core/modals/PsImageModal.vue';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-library.add(faTimes)
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 export default defineComponent({
     name: "ChatImageDetail",
     components : {
-        PsImageModal
+        PsImageModal,
+        PsIcon
     },
     setup() {
         const psmodal = ref();

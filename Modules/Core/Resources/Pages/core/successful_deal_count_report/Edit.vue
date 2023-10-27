@@ -77,7 +77,7 @@
                          <div>
                             <ps-label-header-6 class="font-semibold mb-4" textColor="text-secondary-800 dark:text-secondary-100">{{ $t('core__be_item_details') }}</ps-label-header-6>
                         </div>
-                        <ps-data-table margin="m-0" :rows="this.item" :columns="columns" :searchHide="true">
+                        <ps-data-table margin="m-0" :rows="this.item" :columns="columns" :searchHide="true" :selectedPriceType="selectedPriceType">
                             <template #tableRow="rowProps">
                                 <span v-if="rowProps.field == itmPurchasedOption + '@@name'">
                                     <ps-badge class="m-2" v-if="rowProps.row[itmPurchasedOption + '@@name']">{{ rowProps.row[itmPurchasedOption + '@@name'] }}</ps-badge>
@@ -147,7 +147,7 @@
 <script>
 import { defineComponent, defineAsyncComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, useForm } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/vue3";
 import CheckBox from "../components/CheckBox.vue";
 import PsRadioValue from "@/Components/Core/Radio/PsRadioValue.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
@@ -176,6 +176,7 @@ import PsBadge from "@/Components/Core/Badge/PsBadge.vue";
 import PsRating from "@/Components/Core/Rating/PsRating.vue";
 import moment from 'moment';
 import { trans } from 'laravel-vue-i18n';
+import PsConst from '@templateCore/object/constant/ps_constants';
 
 export default defineComponent({
     name: "Edit",
@@ -218,7 +219,8 @@ export default defineComponent({
         'customizeDetails',
         'itmPurchasedOption',
         'itmItemType',
-        'itmDealOption'
+        'itmDealOption',
+        'selected_price_type',
     ],
     data() {
         return {
@@ -226,7 +228,47 @@ export default defineComponent({
         }
     },
     setup(props) {
-        const columns = [
+        const selectedPriceType = props.selected_price_type;
+        let columns = []; let temp1 = []; let temp2 = [];
+        if (selectedPriceType == PsConst.NO_PRICE) {
+            temp1 = [
+            {
+                label: trans('core__be_item_name'),
+                field: 'title',
+                type: 'String',
+            },
+            {
+                label: trans('core__be_category_name'),
+                field: 'category_id',
+                relation: 'category',
+                relationField: "name",
+                type: 'String',
+            },
+            ];
+        } else if (selectedPriceType == PsConst.PRICE_RANGE) {
+            temp1 = [
+            {
+                label: trans('core__be_item_name'),
+                field: 'title',
+                type: 'String',
+            },
+            {
+                label: trans('core__be_category_name'),
+                field: 'category_id',
+                relation: 'category',
+                relationField: "name",
+                type: 'String',
+            },
+            {
+                label: trans('core__be_item_price'),
+                field: 'original_price',
+                type: 'Integer',
+            },
+            ];
+        } 
+        
+        else {
+            temp1 = [
             {
                 label: trans('core__be_item_name'),
                 field: 'title',
@@ -244,7 +286,10 @@ export default defineComponent({
                 field: 'price',
                 type: 'Integer',
             },
-            {
+            ]
+        }
+        temp2 = [
+        {
                 label: trans('core__be_offer_amount'),
                 field: "offer_amount",
                 type: 'Integer',
@@ -271,9 +316,12 @@ export default defineComponent({
                 type: 'Date',
             },
         ]
-
+        
+        columns = [...temp1, ...temp2];
         return {
             columns,
+            selectedPriceType,
+            PsConst
         }
     },
     computed: {

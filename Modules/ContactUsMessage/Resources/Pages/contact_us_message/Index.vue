@@ -103,7 +103,7 @@
 
 <script>
 import { defineComponent, ref,reactive } from 'vue'
-import { Head,useForm } from '@inertiajs/inertia-vue3';
+import { Head,useForm } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsLabelCaption3 from "@/Components/Core/Label/PsLabelCaption3.vue";
@@ -119,7 +119,7 @@ import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsActivity from '@/Components/Core/Activity/PsActivity.vue';
 import moment from 'moment';
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -177,13 +177,13 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.put(route("contact.allasread"));
+                    router.put(route("contact.allasread"));
                 },
                 () => { }
             );
     }
     function goToDetail(id){
-         Inertia.get(route("contact.edit",id));
+         router.get(route("contact.edit",id));
     }
 
     function clickDelete(){
@@ -206,7 +206,7 @@ export default defineComponent({
                 trans('core__be_btn_confirm'),
                 trans('core__be_btn_cancel'),
                 () => {
-                    Inertia.delete(route("contact.multiDelete", form));
+                    router.delete(route("contact.multiDelete", form));
                     showDelete.value = !showDelete.value;
                 },
                 () => { }

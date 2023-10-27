@@ -5,11 +5,11 @@
             <div id="dropin-container"></div>
             <div class="flex justify-center mx-auto">
                 <ps-button id="submit-button">{{ $t('paypal_credit_card_modal__submit_payment') }}</ps-button>
-                <ps-button theme="btn-second" class="text-center mx-4" @click="psmodal.toggle(false)" > {{ $t('paypal_credit_card_modal__close') }} </ps-button>
+                <ps-button theme="btn-second" class="text-center mx-4" @click="actionClicked('no')" > {{ $t('paypal_credit_card_modal__close') }} </ps-button>
             </div>
         </template>
     </ps-modal>
-    <ps-loading-dialog ref="psloading"  :isClickOut='false'/>
+    <!-- <ps-loading-dialog ref="psloading"  :isClickOut='false'/> -->
 
     <ps-error-dialog ref="ps_error_dialog" />
 </template>

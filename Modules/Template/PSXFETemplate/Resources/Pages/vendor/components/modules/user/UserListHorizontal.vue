@@ -1,5 +1,5 @@
 <template>
-    <div class="shadow-sm relative bg-feSecondary-50 dark_bg-feSecondary-800 rounded-lg flex flex-col gap-4 p-4">
+    <div class="shadow-sm relative bg-feSecondary-50 dark:bg-feSecondary-800 rounded-lg flex flex-col gap-4 p-4">
         <div class="flex gap-4">
             <ps-route-link :to="{ name: 'fe_other_profile', params: { userId: user.userId }}">
                 <div class="w-20 h-20 relative cursor-pointer">
@@ -12,35 +12,35 @@
             </ps-route-link>
             <div class="grow flex flex-col gap-2 justify-center truncate">
                 <ps-route-link :to="{ name: 'fe_other_profile', params: { userId: user.userId }}" class="cursor-pointer">
-                    <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark_text-feSecondary-50">{{ user.userName.length > 17 ? user.userName.slice(0,17)+"..." : user.userName }}</ps-label>
+                    <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark:text-feSecondary-50">{{ user.userName.length > 17 ? user.userName.slice(0,17)+"..." : user.userName }}</ps-label>
                 </ps-route-link>
                 <ps-route-link :to="{ name: 'fe_review_list',query: { user_id: user.userId } }">
-                    <rating :rating="user ? user.overallRating:0" :maxStars="5" iconColor="text-feWarning-500" size="md"/>
+                    <rating :rating="user ? Number(user.overallRating) : 0" :maxStars=5 iconColor="text-feWarning-500" size='1x'/>
                 </ps-route-link>
                 <div class="flex gap-4 h-6">
-                    <router-link v-if="user.isShowPhone == '1' && user.userPhone" class="cursor-pointer">
+                    <div v-if="user.isShowPhone == '1' && user.userPhone" class="cursor-pointer">
                         <a :href="'tel:' + user.userPhone "><ps-icon name="phone" w="24" h="24"/></a>
 
-                    </router-link>
-                    <router-link v-if="user.isShowEmail == '1' && user.userEmail" class="cursor-pointer">
+                    </div>
+                    <div v-if="user.isShowEmail == '1' && user.userEmail" class="cursor-pointer">
                         <a :href="'mailto:' + user.userEmail "><ps-icon name="email" w="24" h="24"/></a>
-                    </router-link>
+                    </div>
                 </div>
             </div>
             <div class="self-center hidden">
-                <router-link>
+                <!-- <router-link>
                     <ps-icon textColor="text-feSecondary-800" name="arrowNarrowRight" w="24" h="24" viewBox="0 -3 9 20"/>
-                </router-link>
+                </router-link> -->
             </div>
         </div>
         <div class="grid grid-cols-2">
             <div class="flex items-center gap-1 col-span-1 md:col-span-2 lg:col-span-1">
-                <ps-icon class="text-feSecondary-800 dark_text-feSecondary-50" name="user-group-fill" w="24" h="24" viewBox="0 0 24 24"/>
-                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark_text-feSecondary-50">{{user ? user.followerCount:'0'}} {{ $t("profile__followers")}}</ps-label>
+                <ps-icon class="text-feSecondary-800 dark:text-feSecondary-50" name="user-group-fill" w="24" h="24" viewBox="0 0 24 24"/>
+                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark:text-feSecondary-50">{{user ? user.followerCount:'0'}} {{ $t("profile__followers")}}</ps-label>
             </div>
             <div class="flex items-center gap-1">
-                <ps-icon class="text-feSecondary-800 dark_text-feSecondary-50" name="shoppingCart-fill" w="24" h="24" viewBox="0 0 24 24"/>
-                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark_text-feSecondary-50">{{user ? user.activeItemCount:'0'}} {{ $t("user__item") }}</ps-label>
+                <ps-icon class="text-feSecondary-800 dark:text-feSecondary-50" name="shoppingCart-fill" w="24" h="24" viewBox="0 0 24 24"/>
+                <ps-label textColor="text-sm font-medium text-feSecondary-800 dark:text-feSecondary-50">{{user ? user.activeItemCount:'0'}} {{ $t("user__item") }}</ps-label>
             </div>
         </div>
 
@@ -56,7 +56,7 @@
 <script lang="ts">
 
 import { ref } from 'vue'
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 import PsCard from '@template1/vendor/components/core/card/PsCard.vue';
 import PsLabel from '@template1/vendor/components/core/label/PsLabel.vue'
@@ -128,7 +128,7 @@ export default {
             }
             else{
 
-                Inertia.get(route('login'));
+                router.get(route('login'));
             }
 
 

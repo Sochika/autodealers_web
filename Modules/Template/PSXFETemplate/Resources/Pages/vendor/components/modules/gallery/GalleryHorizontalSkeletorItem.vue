@@ -1,5 +1,5 @@
 <template>
-    <div class='w-screen overflow-hidden bg-fePrimary-50 dark_bg-feAchromatic-800' >
+    <div class='w-screen overflow-hidden bg-fePrimary-50 dark:bg-feAchromatic-800' >
         <div class='w-full h-64'>
             <Skeletor class='rounded-sm w-full h-64'/>
         </div>

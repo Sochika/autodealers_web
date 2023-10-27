@@ -117,7 +117,7 @@
 
 <script>
 import { defineComponent, ref, reactive ,watch } from 'vue'
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -135,7 +135,7 @@ import { trans } from 'laravel-vue-i18n';
 import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsTextButton from "@/Components/Core/Buttons/PsTextButton.vue";
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import { getCategories, getSubCat, getCustomFields, getCities, getTownships, getUsers } from '@/Api/psApiService.js'
 import PsInput from "@/Components/Core/Input/PsInput.vue";
 import debounce from 'lodash/debounce';
@@ -253,7 +253,7 @@ export default defineComponent({
                         csvFile: selectedFile,
                         "_method": "put"
                     })
-                    Inertia.post(route('township.import.csv'), form)
+                    router.post(route('township.import.csv'), form)
                 }
             );
         }
@@ -288,7 +288,7 @@ export default defineComponent({
         }
 
         function handleSearchingSorting(page = null,row=null){
-            Inertia.get(route('township.index'),
+            router.get(route('township.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,
@@ -390,7 +390,7 @@ export default defineComponent({
 
         },
         FilterOptionshandle(value) {
-        Inertia.put(route('township.screenDisplayUiSetting.store'),
+        router.put(route('township.screenDisplayUiSetting.store'),
             {
                 value,
                 sort_field :this.sort_field ,

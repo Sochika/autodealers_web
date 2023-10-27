@@ -157,7 +157,7 @@
 <script>
 import { defineComponent,watch,ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import {Head, Link, useForm} from '@inertiajs/inertia-vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import moment from 'moment';
 import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import PsInput from "@/Components/Core/Input/PsInput.vue";
@@ -181,7 +181,7 @@ import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsLicenseActivateModal from '@/Components/Core/Modals/PsLicenseActivateModal.vue';
 
 import { trans } from 'laravel-vue-i18n';
-import {Inertia} from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 export default defineComponent({
     name: "Index",
@@ -286,7 +286,7 @@ export default defineComponent({
 
             ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
 
-            Inertia.post(route('table.import.zip'), form, {
+            router.post(route('table.import.zip'), form, {
                 onBefore: () => {
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                 },
@@ -308,7 +308,7 @@ export default defineComponent({
 
             ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
 
-            Inertia.post(route('table.import.zip'), form, {
+            router.post(route('table.import.zip'), form, {
                 onBefore: () => {
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                 },
@@ -352,7 +352,7 @@ export default defineComponent({
                         diffIds : props.diffIds,
                         recentImportedFileName : props.recentImportedFileName
                     })
-                    Inertia.post(route('table.field.override'), handleOverrideForm, {
+                    router.post(route('table.field.override'), handleOverrideForm, {
                         onBefore: () => {
                             ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                         },
@@ -369,7 +369,7 @@ export default defineComponent({
                     let handleNotOverrideForm = useForm({
                         recentImportedFileName : props.recentImportedFileName
                     })
-                    Inertia.post(route('table.field.override'), handleNotOverrideForm, {
+                    router.post(route('table.field.override'), handleNotOverrideForm, {
                         onBefore: () => {
                             ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                         },
@@ -402,7 +402,7 @@ export default defineComponent({
                     })
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
 
-                    Inertia.post(route('table.field.handleProjectNotSame'), handleProjectNotSameForm, {
+                    router.post(route('table.field.handleProjectNotSame'), handleProjectNotSameForm, {
                         onBefore: () => {
                             ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
                         },
@@ -424,7 +424,7 @@ export default defineComponent({
         }
 
         function sortingClicked(){
-            Inertia.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
+            router.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
         }
         
         function confirmToReplaceModal(){
@@ -436,7 +436,7 @@ export default defineComponent({
                     // doAlreadySelectedImport(slectedFileName);
                     // alert('hi');
                     ps_loading_circle_dialog.value.openModal(trans('core__be_importing_title'),trans('core__be_importing_note'));
-                    Inertia.get(route("table.do_replace"));
+                    router.get(route("table.do_replace"));
                 },
                 ()=>{},
                 trans('core__be_replace_project_warning'),);
@@ -445,7 +445,7 @@ export default defineComponent({
         function openLicenseActivateModal(){
             ps_license_activate_modal.value.openModal(trans('pls_activate_your_app'),'You have successfully imported the file.','Back',
                 ()=>{
-                    // Inertia.get(route('language_string.updateAllLanguageStrings'), {
+                    // router.get(route('language_string.updateAllLanguageStrings'), {
                     //     onBefore: () => {
                     //         ps_loading_circle_dialog.value.openModal('Importing','We’re processing your file at the moment. Please wait while we import the file for you.');
                     //     },
@@ -464,14 +464,14 @@ export default defineComponent({
 
         watch(search,value=>{
             setTimeout(() => {
-                Inertia.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
+                router.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
             }, 2000);
 
         })
 
         function usedTypeClicked(v){
             usedTypeSearch.value = v;
-            Inertia.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
+            router.get(route('table.index'),{sorting: isSorting.value == false ? 0 : 1,loading : loadmore.value == false ? 0 :1  , search:search.value, tableUsedTypeId:usedTypeSearch.value})
         }
 
         function importClicked(){

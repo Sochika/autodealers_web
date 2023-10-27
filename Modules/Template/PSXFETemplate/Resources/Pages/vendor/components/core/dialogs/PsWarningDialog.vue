@@ -15,7 +15,7 @@
         </template>
         <template #footer>
             <div class=" flex flex-row justify-end">
-                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-2" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover_ring hover_ring-feAchromatic-100" > {{cancelButton}} </ps-button>
+                <ps-button rounded="rounded" @click="actionClicked('no')" textSize="text-xs lg:text-sm" class=" me-2" border="border border-feAchromatic-200" colors="bg-none" hover="hover:outline-none hover:ring hover:ring-feAchromatic-100" > {{cancelButton}} </ps-button>
                 <ps-button rounded="rounded" @click="actionClicked('yes')" textSize="text-xs lg:text-sm" class="" colors="bg-feInfo-500 text-feAchromatic-50"  > {{okButton}} </ps-button>
             </div>
         </template>

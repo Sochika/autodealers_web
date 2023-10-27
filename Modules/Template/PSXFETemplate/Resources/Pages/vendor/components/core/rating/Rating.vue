@@ -1,22 +1,19 @@
 <template>
   <div class="flex items-center">
       <div v-for="star in maxStars" :class="{ 'active': star <= stars }" :key="star" @click="rate(star)" class="star me-0.5">
-          <font-awesome-icon :icon="['fas', 'star']" :class="star <= grade ? 'text-feWarning-500 ' : 'hidden ' " size="sm" />
-          <font-awesome-icon :icon="['far', 'star']" :class="star <= grade ? 'hidden ' : 'text-feWarning-500 ' " size="sm" />
+          <ps-icon name="starFill" :class="star <= grade ? 'text-feWarning-500 ' : 'hidden ' "/>
+          <ps-icon name="starOutline" :class="star <= grade ? 'hidden ' : 'text-feWarning-500 ' "/>
       </div>
   </div>
 </template>
 
 <script lang='ts'>
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar as fasStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as farSrar } from '@fortawesome/free-solid-svg-icons';
-library.add(fasStar, farSrar)
+import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 
 export default {
     name: 'RatingView',
     components : {
-
+        PsIcon
     },
     props: {
         'grade': {

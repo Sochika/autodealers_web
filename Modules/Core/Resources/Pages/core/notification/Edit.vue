@@ -90,7 +90,7 @@
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import useValidators from '@/Validation/Validators'
 import CheckBox from "../components/CheckBox.vue";
 import RoleCheckbox from "../components/RoleCheckbox.vue";

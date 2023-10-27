@@ -149,7 +149,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue'
-import { Link, Head, useForm } from '@inertiajs/inertia-vue3';
+import { Link, Head, useForm } from '@inertiajs/vue3';
 import PsLayout from "@/Components/PsLayout.vue";
 import PsLabel from "@/Components/Core/Label/PsLabel.vue";
 import PsButton from "@/Components/Core/Buttons/PsButton.vue";
@@ -165,7 +165,7 @@ import PsBannerIcon from "@/Components/Core/Banners/PsBannerIcon.vue";
 import Dropdown from "@/Components/Core/DropdownModal/Dropdown.vue";
 import PsIconButton from "@/Components/Core/Buttons/PsIconButton.vue";
 import { trans } from 'laravel-vue-i18n';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 import PsDropdownSelect from "@/Components/Core/Dropdown/PsDropdownSelect.vue";
 import PsDropdown from "@/Components/Core/Dropdown/PsDropdown.vue";
 import DatePicker from "@/Components/Core/DateTime/DatePicker.vue";
@@ -338,7 +338,7 @@ export default defineComponent({
 
         function handleSearchingSorting(page = null,row=null){
 
-            Inertia.get(route('paid_item.index'),
+            router.get(route('paid_item.index'),
             {
                 sort_field : sort_field.value,
                 sort_order: sort_order.value,

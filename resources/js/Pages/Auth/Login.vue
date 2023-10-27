@@ -5,7 +5,7 @@
         <!-- frontend enable -->
         <PsFrontendLayout v-if="backendSetting.fe_setting == 1" :backendSetting="backendSetting"
             :firebaseConfig="firebaseConfig" :webPushKey="webPushKey">
-            <div class="mb-6 bg-feAchromatic-50 dark_bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
+            <div class="mb-6 bg-feAchromatic-50 dark:bg-feAchromatic-900 flex flex-row  min-h-screen items-center justify-center">
                 <div
                     class="h-auto  sm:mt-32 lg:mt-36 mt-28 flex flex-row w-98 lg:w-202 rounded-md overflow-hidden shadow-md ">
                     <div class="hidden w-100  h-auto bg-feSecondary-900  lg:flex flex-col items-center justify-center">
@@ -20,35 +20,35 @@
                             {{ $t('login__fe_description_best_deal') }}
                         </ps-label>
 
-                        <div class="flex flex-row text-feSecondary-50  dark_text-feSecondary-900  rtl:space-x-reverse space-x-4">
+                        <div class="flex flex-row text-feSecondary-50  dark:text-feSecondary-900  rtl:space-x-reverse space-x-4">
                             <ps-icon name="facebookCircle" />
                             <ps-icon name="instagramCircle" />
                             <ps-icon name="twitter" />
-                            <!-- <ps-icon textColor="text-fePrimary-500 dark_text-feAchromatic-50" class="" name="apple-icon"
+                            <!-- <ps-icon textColor="text-fePrimary-500 dark:text-feAchromatic-50" class="" name="apple-icon"
                                 h="24" w="24" /> -->
                             <ps-icon name="pinterest" />
                             <ps-icon name="linkedIn" />
                         </div>
                     </div>
-                    <div class="w-full lg:w-100 bg-feAchromatic-50 dark_bg-feSecondary-800 px-10 pb-10">
+                    <div class="w-full lg:w-100 bg-feAchromatic-50 dark:bg-feSecondary-800 px-10 pb-10">
                         <!-- <img v-if="$page.props.backendLogo" :src="$page.props.uploadUrl + '/' + $page.props.backendLogo.img_path" width="50" height="50" class="m-auto my-2.5"/> -->
 
                         <div class="flex justify-center">
 
                             <ps-label class="mt-6 mb-6 text-2xl font-senibold justify-center">{{ $t('core__fe_login')
                             }}</ps-label>
-                            <!-- <ps-label class="mt-1 mb-6 text-base font-light" textColor="text-feSecondary-600 dark_text-feSecondary-50">{{
+                            <!-- <ps-label class="mt-1 mb-6 text-base font-light" textColor="text-feSecondary-600 dark:text-feSecondary-50">{{
                                 $t('login_to_your_acc') }}</ps-label> -->
                         </div>
 
                         <form @submit.prevent="submit">
                             <div class="mb-4">
-                                <ps-label class="mb-2 text-sm" textColor="text-feSecondary-800 dark_text-feSecondary-200">{{
+                                <ps-label class="mb-2 text-sm" textColor="text-feSecondary-800 dark:text-feSecondary-200">{{
                                     $t('core__fe_email_username') }}</ps-label>
                                 <ps-input ref="email" type="text" v-model:value="form.email"
-                                    class="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                    theme="text-feSecondary-500 dark_bg-feSecondary-800"
-                                    defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                                    class="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                    theme="text-feSecondary-500 dark:bg-feSecondary-800"
+                                    defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                     :placeholder="$t('core__fe_email_username_placeholder')" autofocus />
                                 <ps-label-caption textColor="text-feError-500 " class="mt-2 block">{{ errors.email
                                 }}</ps-label-caption>
@@ -56,15 +56,15 @@
                             <div class="mb-4">
                                 <ps-label class="mb-2">{{ $t('core__fe_password') }}</ps-label>
                                 <ps-input-with-right-icon v-model:value="form.password" ref="password"
-                                    placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-500"
-                                    theme="bg-feAchromatic-50 dark_bg-feSecondary-800" :type="(isHide ? 'password' : 'text')"
-                                    defaultBorder="border border-feSecondary-200 hover_border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark_placeholder-feSecondary-400"
+                                    placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-500"
+                                    theme="bg-feAchromatic-50 dark:bg-feSecondary-800" :type="(isHide ? 'password' : 'text')"
+                                    defaultBorder="border border-feSecondary-200 hover:border-feSecondary-400 dark:border-feSecondary-400 hover:dark:border-feSecondary-50 focus:outline-none focusr_border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300 placeholder-feSecondary-500 dark:placeholder-feSecondary-400"
                                     @keyup="validateEmptyInput('password', form.password)"
                                     @blur="validateEmptyInput('password', form.password)"
                                     :placeholder="$t('core__fe_password_placeholder2')" autocomplete="current-password">
                                     <template #icon>
                                         <ps-icon viewBox="0 0 24 24" @click="isHide = !isHide" class="cursor-pointer"
-                                            theme="text-feSecondary-800 dark_text-feSecondary-300"
+                                            theme="text-feSecondary-800 dark:text-feSecondary-300"
                                             :name="isHide ? 'eyeOff' : 'eye-on'" />
                                     </template>
                                 </ps-input-with-right-icon>
@@ -74,8 +74,8 @@
 
                             <div class="flex justify-between mb-4">
                                 <ps-checkbox-value name="remember" v-model:checked="form.remember"
-                                    color="focus_ring-2 focus_ring-fePrimary-300 hover_bg-fePrimary-500 dark_hover_bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark_text-fePrimary-500"
-                                    textColor="text-fePrimary-500 dark_text-fePrimary-500"
+                                    color="focus:ring-2 focus:ring-fePrimary-300 hover:bg-fePrimary-500 dark:hover:bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark:text-fePrimary-500"
+                                    textColor="text-fePrimary-500 dark:text-fePrimary-500"
                                     :title="$t('core__fe_remember_me')" />
                                 <ps-label class="cursor-pointer" textColor=" text-fePrimary-500 " v-if="canResetPassword"
                                     @click="handleReset">
@@ -100,7 +100,7 @@
 
                         </form>
                         <div class=" flex flex-row justify-center my-8">
-                            <ps-label class="me-1" textColor="text-feSecondary-800 dark_text-feSecondary-500">
+                            <ps-label class="me-1" textColor="text-feSecondary-800 dark:text-feSecondary-500">
                                 {{ $t('fe__donot_have_acc') }}
                             </ps-label>
                             <ps-label class="cursor-pointer" textColor="text-fePrimary-500" @click="singinUpClicked">
@@ -127,9 +127,9 @@
 
                         <div class='flex flex-row items-start justify-start mb-6'>
                             <ps-checkbox-value title="" v-model:value="agreePrivacyPolicy"
-                                color="focus_ring-2 focus_ring-fePrimary-300 hover_bg-fePrimary-500 dark_hover_bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark_text-fePrimary-500"
-                                textColor="text-fePrimary-500 dark_text-fePrimary-500" @click="agreePrivacyPolicyClicked" />
-                            <ps-label class='me-2  text-sm ' textColor="text-feSecondary-800 dark_text-feSecondary-200">{{
+                                color="focus:ring-2 focus:ring-fePrimary-300 hover:bg-fePrimary-500 dark:hover:bg-fePrimary-500 checked:bg-fePrimary-500 dark:checked:bg-fePrimary-500 text-fePrimary-500 dark:text-fePrimary-500"
+                                textColor="text-fePrimary-500 dark:text-fePrimary-500" @click="agreePrivacyPolicyClicked" />
+                            <ps-label class='me-2  text-sm ' textColor="text-feSecondary-800 dark:text-feSecondary-200">{{
                                 $t("core__fe_login__check_privacy_policy")
                             }}</ps-label>
 
@@ -146,7 +146,7 @@
                                 v-if="appInfoStore?.appInfo?.data?.mobileSetting.show_phone_login == 1"
                                 class="cursor-pointer rounded w-10 h-10 flex  text-feBrand-phone bg-feBrand-phone justify-center items-center">
 
-                                <svg class="flex flex-wrap items-center justify-center   rtl:space-x-reverse space-x-2 space-y-2  text-feSecondary-50 dark_text-feAchromatic-50"
+                                <svg class="flex flex-wrap items-center justify-center   rtl:space-x-reverse space-x-2 space-y-2  text-feSecondary-50 dark:text-feAchromatic-50"
                                     width="40" height="40" viewBox="0 0 40 40" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect width="40" height="40" rx="4" fill="fill-current" />
@@ -167,7 +167,7 @@
                                 v-if="appInfoStore?.appInfo?.data?.mobileSetting.show_facebook_login == 1"
                                 class="cursor-pointer rounded w-10 h-10 flex text-feBrand-facebook bg-feBrand-facebook justify-center border items-center">
 
-                                <svg class="flex flex-wrap items-center justify-center   rtl:space-x-reverse space-x-2 space-y-2  text-feSecondary-50 dark_text-feAchromatic-50"
+                                <svg class="flex flex-wrap items-center justify-center   rtl:space-x-reverse space-x-2 space-y-2  text-feSecondary-50 dark:text-feAchromatic-50"
                                     width="40" height="40" viewBox="0 0 40 40" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <rect width="40" height="40" rx="4" fill="fill-current" />
@@ -228,11 +228,11 @@
         </PsFrontendLayout>
         <!-- frontend disable -->
         <div v-else
-            class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 dark_bg-feAchromatic-900 dark_text-feSecondary-50">
+            class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 dark:bg-feAchromatic-900 dark:text-feSecondary-50">
 
 
 
-            <ps-card class="w-full sm:max-w-md mt-6 py-4 shadow-md dark_bg-feAchromatic-900" rounded="rounded">
+            <ps-card class="w-full sm:max-w-md mt-6 py-4 shadow-md dark:bg-feAchromatic-900" rounded="rounded">
 
                 <div class="flex items-center justify-end px-2">
 
@@ -249,7 +249,7 @@
                         class="m-auto my-2.5" />
                     <ps-label-header-3 class="pt-2 text-center">{{ $t('core__be_login_to_your_account') }}</ps-label-header-3>
                     <ps-label-title class="text-center m-auto pb-8 pt-2"
-                        textColor="text-feSecondary-600 dark_text-feSecondary-50">{{ $t('core__be_welcome_back') }}</ps-label-title>
+                        textColor="text-feSecondary-600 dark:text-feSecondary-50">{{ $t('core__be_welcome_back') }}</ps-label-title>
 
                     <form @submit.prevent="submit">
                         <div class="mb-4">
@@ -303,7 +303,7 @@
 
 <script>
 import { defineComponent, ref, computed, onMounted, watch } from 'vue'
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import PsLabelHeader3 from "@template1/vendor/components/core/label/PsLabelHeader3.vue";
 import PsCard from "@/Components/Core/Card/PsCard.vue";
 import useValidators from "@/Validation/Validators";
@@ -324,13 +324,10 @@ import { useAuthStore } from '../../store/AuthStore';
 import { getExistUser } from '@/Api/psApiService.js'
 import UserExistParameterHolder from '@templateCore/object/holder/UserExistParameterHolder';
 import PsConst from '@templateCore/object/constant/ps_constants';
-import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/vue3';
 import WelcomeImage from "@/Components/Svgs/WelcomeImage.vue";
 import PsFrontendLayout from '@template1/vendor/components/layouts/container/PsFrontendLayout.vue';
 import PsTextButton from "@template1/vendor/components/core/buttons/PsTextButton.vue";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faTrashAlt, faEdit, faStore, faStoreSlash, faEye } from '@fortawesome/free-solid-svg-icons';
 import PsStatus from '@templateCore/api/common/PsStatus';
 import { usePsAppInfoStoreState } from '@templateCore/store/modules/appinfo/AppInfoStore';
 
@@ -338,7 +335,6 @@ import PsInput1 from "@template1/vendor/components/core/input/PsInput.vue";
 import PsInputWithRightIcon1 from "@/Components/Core/Input/PsInputWithRightIcon.vue";
 // import PsLabel from "@template1/vendor/components/core/label/PsLabel.vue";
 import PsButton1 from "@template1/vendor/components/core/buttons/PsButton.vue";
-library.add(faHeart, faTrashAlt, faEdit, faStore, faStoreSlash, faEye)
 
 // import PsCheckboxValue from '@template1/vendor/components/core/checkbox/PsCheckboxValue.vue';
 import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialog.vue';
@@ -552,7 +548,7 @@ export default defineComponent({
 
 
         function singinUpClicked() {
-            Inertia.get(route('register'));
+            router.get(route('register'));
         }
 
 
@@ -566,8 +562,8 @@ export default defineComponent({
     },
     methods: {
         testmail() {
-            // Inertia.post('')
-            Inertia.post(route("send.mail.testing"))
+            // router.post('')
+            router.post(route("send.mail.testing"))
         },
 
         getDir(){
@@ -915,7 +911,7 @@ export default defineComponent({
         },
 
         phoneloginclicked() {
-            Inertia.get(route('Phonelogin'))
+            router.get(route('Phonelogin'))
         },
 
         handleReset() {
@@ -934,7 +930,7 @@ export default defineComponent({
                     const returnData = await this.authStore.postResendCode(map);
                     if (returnData.status == PsStatus.SUCCESS) {
 
-                        Inertia.post(route('verifyEmail'), useForm({ 'email': this.form.email, 'user_id': UserLogindata.data.message.user.id, 'password': this.form.password }))
+                        router.post(route('verifyEmail'), useForm({ 'email': this.form.email, 'user_id': UserLogindata.data.message.user.id, 'password': this.form.password }))
                     } else {
                         this.ps_error_dialog.openModal('', returnData.message);
                     }

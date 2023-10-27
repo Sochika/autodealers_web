@@ -27,7 +27,7 @@ import PsLabelCaption from '@template1/vendor/components/core/label/PsLabelCapti
 import PsButton from '@template1/vendor/components/core/buttons/PsButton.vue';
 import PsInput from '@template1/vendor/components/core/input/PsInput.vue';
 import PsErrorDialog from '@template1/vendor/components/core/dialog/PsErrorDialog.vue';
-import { Inertia } from "@inertiajs/inertia";
+import { router } from '@inertiajs/vue3';
 
 //language
 import { trans } from 'laravel-vue-i18n';
@@ -123,7 +123,7 @@ export default {
                         && userCredential.user.uid != '' ) {
                             // call backend server
                             const user = userCredential.user;
-                            Inertia.post(route('updateVerify'),{'verify_type' : '4','user_id' : props.authUser.id});
+                            router.post(route('updateVerify'),{'verify_type' : '4','user_id' : props.authUser.id});
 
                         }else {
                             

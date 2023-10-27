@@ -1,61 +1,61 @@
 <template>
-    <ps-modal ref="psmodal" :isClickOut="false" line="hidden" maxWidth="552px" bodyHeight="h-[500px]" theme="rounded-lg px-8 py-6 bg-feAchromatic-50 dark_bg-feSecondary-800" >
+    <ps-modal ref="psmodal" :isClickOut="false" line="hidden" maxWidth="552px" bodyHeight="h-[500px]" theme="rounded-lg px-8 py-6 bg-feAchromatic-50 dark:bg-feSecondary-800" >
         <template #title>
             <div class="flex justify-between items-center">
-                <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark_text-feSecondary-200">  {{ $t("core_fe__find_what_you_need") }} </ps-label>
+                <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark:text-feSecondary-200">  {{ $t("core_fe__find_what_you_need") }} </ps-label>
                 <ps-icon name="close" class="text-feAchromatic-400 hover:cursor-pointer" w="24" h="24" @click.prevent="psmodal.toggle(false)"></ps-icon>
             </div>
         </template>
         <template #body>
             <div class="relative">
-                <div class="w-full h-full bg-feAchromatic-50 dark_bg-feSecondary-800 absolute z-20" v-if="isShow">
+                <div class="w-full h-full bg-feAchromatic-50 dark:bg-feSecondary-800 absolute z-20" v-if="isShow">
                     <div class="grid grid-cols-3">
                         <div class="col-span-1">
                             <ps-label textColor="text-sm font-medium text-fePrimary-500 px-2 py-1 cursor-pointer" @click="hideRecentSearch()">{{ $t("core_fe__back") }}</ps-label>
                         </div>
                         <div class="col-span-1 text-center">
-                            <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark_text-feSecondary-200">{{ $t(recentHistoryTitle) }}</ps-label>
+                            <ps-label textColor="text-lg font-semibold text-feSecondary-800 dark:text-feSecondary-200">{{ $t(recentHistoryTitle) }}</ps-label>
                         </div>
                     </div>
                     <div class="border-b-2 pb-1 mt-6">
                         <ps-label textColor="text-xs font-medium text-feSecondary-500 px-2 py-1 cursor-pointer" @click="deleteHistory()">{{ $t("core_fe__clear_searches") }}</ps-label>
                     </div>
                     <div v-if="loading" class="mt-3 flex items-center justify-center h-96">
-                        <ps-label textColor="text-sm font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ $t("list__loading") }}</ps-label>
+                        <ps-label textColor="text-sm font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ $t("list__loading") }}</ps-label>
                     </div>
                     <div v-else class="mt-3 flex flex-col gap-4 h-96 overflow-auto">
                         <div v-for="history in currentHistoryList.searchHistoryList?.data" :key="history.id">
-                            <ps-label textColor="text-sm font-normal text-feSecondary-800 dark_text-feSecondary-200">{{ history.keyword }}</ps-label>
+                            <ps-label textColor="text-sm font-normal text-feSecondary-800 dark:text-feSecondary-200">{{ history.keyword }}</ps-label>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex gap-1 mt-4 dark_text-feAchromatic-50">
-                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='0'?'border-fePrimary-500':'border-feAchromatic-50 dark_border-feSecondary-800']" @click="setActiveTabId('0')">
+                <div class="flex gap-1 mt-4 dark:text-feAchromatic-50">
+                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='0'?'border-fePrimary-500':'border-feAchromatic-50 dark:border-feSecondary-800']" @click="setActiveTabId('0')">
                         <ps-label :textColor="activeTabId == '0' ? 'font-semibold' : ''">{{ $t("core_fe__all") }}</ps-label>
                     </div>
-                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='1'?'border-fePrimary-500':'border-feAchromatic-50 dark_border-feSecondary-800']" @click="setActiveTabId('1')">
+                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='1'?'border-fePrimary-500':'border-feAchromatic-50 dark:border-feSecondary-800']" @click="setActiveTabId('1')">
                         <ps-icon name="item" w="24" h="24"/>
                         <ps-label :textColor="activeTabId == '1' ? 'font-semibold' : ''">{{ $t("core_fe__search_item") }}</ps-label>
                     </div>
-                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='2'?'border-fePrimary-500':'border-feAchromatic-50 dark_border-feSecondary-800']" @click="setActiveTabId('2')">
+                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='2'?'border-fePrimary-500':'border-feAchromatic-50 dark:border-feSecondary-800']" @click="setActiveTabId('2')">
                         <ps-icon name="category" w="24" h="24"/>
                         <ps-label :textColor="activeTabId == '2' ? 'font-semibold' : ''">{{ $t("item_entry__category") }}</ps-label>
                     </div>
-                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='3'?'border-fePrimary-500':'border-feAchromatic-50 dark_border-feSecondary-800']" @click="setActiveTabId('3')">
+                    <div :class="['flex items-center gap-2 p-2 cursor-pointer border-b-4',activeTabId=='3'?'border-fePrimary-500':'border-feAchromatic-50 dark:border-feSecondary-800']" @click="setActiveTabId('3')">
                         <ps-icon name="user" w="24" h="24"/>
                         <ps-label :textColor="activeTabId == '3' ? 'font-semibold' : ''">{{ $t("core_fe__user") }}</ps-label>
                     </div>
                 </div>
                 <div class="mt-2">
                     <ps-input-with-left-icon rounded="rounded-lg" class="shadow-md"
-                        theme="dark_bg-feSecondary-600 dark_text-feSecondary-200"
-                        defaultBorder="border-none focus:outline-none focus_border-none focus_ring-2 focus_ring-fePrimary-300 ring-fePrimary-300"
+                        theme="dark:bg-feSecondary-600 dark:text-feSecondary-200"
+                        defaultBorder="border-none focus:outline-none focus:border-none focus:ring-2 focus:ring-fePrimary-300 ring-fePrimary-300"
                         :placeholder="$t('list__search')"
-                        placeholderColor="placeholder-feSecondary-800 dark_placeholder-feSecondary-400"
+                        placeholderColor="placeholder-feSecondary-800 dark:placeholder-feSecondary-400"
                         v-on:keyup.enter="searchClicked" v-model:value="allSearchHolder.keyword">
                         <template #icon>
-                            <ps-icon name="search" textColor="text-feSecondary-800 dark_text-feSecondary-400" w="24" h="24"/>
+                            <ps-icon name="search" textColor="text-feSecondary-800 dark:text-feSecondary-400" w="24" h="24"/>
                         </template>
                     </ps-input-with-left-icon>
                 </div>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="mt-3 flex flex-col gap-4 max-h-80 overflow-auto">
                                     <div v-for="all in allSearchHistroyStore.searchHistoryList?.data" :key="all.id">
-                                        <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer" @click="historyClick(all.keyword)">{{ all.keyword }}</ps-label>
+                                        <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer" @click="historyClick(all.keyword)">{{ all.keyword }}</ps-label>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="mt-3 flex flex-col gap-4" v-for="item in allSearchStore.allSearchList.data.item.slice(0,3)" :key="item.id">
                                             <ps-route-link :to="{ name: 'fe_item_detail', query: { item_id: item.id } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -118,7 +118,7 @@
                                         <div class="mt-3 flex flex-col gap-4" v-for="category in allSearchStore.allSearchList.data.category.slice(0,3)" :key="category.id">
                                             <ps-route-link :to="{name: $page.props.mobileSetting.is_show_subcategory == '1' ? 'fe_sub_category' : 'fe_item_list',
                                                 query: { cat_id: category.catId, cat_name: category.catName } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -132,7 +132,7 @@
                                         </div>
                                         <div class="mt-3 flex flex-col gap-4" v-for="user in allSearchStore.allSearchList.data.user.slice(0,3)" :key="user.id">
                                             <ps-route-link :to="{ name: 'fe_other_profile', query: { userId: user.userId } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                         <ps-label textColor="text-feSecondary-500">{{ $t("core_fe__suggestion") }}</ps-label>
                                         <div class="mt-3 flex flex-col gap-4" v-for="item in allSearchStore.allSearchList.data?.item" :key="item.id">
                                             <ps-route-link :to="{ name: 'fe_item_detail', query: { item_id: item.id } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@
                                         </div>
                                         <div class="mt-3 flex flex-col gap-4 max-h-80 overflow-auto">
                                             <div v-for="item in itemSearchHistroyStore.searchHistoryList?.data" :key="item.id">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer" @click="historyClick(item.keyword)">{{ item.keyword }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer" @click="historyClick(item.keyword)">{{ item.keyword }}</ps-label>
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                         <ps-label textColor="text-feSecondary-500">{{ $t("core_fe__suggestion") }}</ps-label>
                                         <div class="mt-3 flex flex-col gap-4" v-for="item in allSearchStore.allSearchList.data?.item" :key="item.id">
                                             <ps-route-link :to="{ name: 'fe_item_detail', query: { item_id: item.id } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ item.title }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -220,7 +220,7 @@
                                                     cat_id: category.catId,
                                                     cat_name: category.catName
                                                 } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -236,7 +236,7 @@
                                         </div>
                                         <div class="mt-3 flex flex-col gap-4 max-h-80 overflow-auto">
                                             <div v-for="category in categorySearchHistroyStore.searchHistoryList?.data" :key="category.id">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer" @click="historyClick(category.keyword)">{{ category.keyword }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer" @click="historyClick(category.keyword)">{{ category.keyword }}</ps-label>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +256,7 @@
                                         <ps-label textColor="text-feSecondary-500">{{ $t("core_fe__suggestion") }}</ps-label>
                                         <div class="mt-3 flex flex-col gap-4" v-for="category in allSearchStore.allSearchList.data?.category" :key="category.id">
                                             <ps-route-link :to="{ name: 'fe_category.index' }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ category.catName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -283,7 +283,7 @@
                                         <ps-label textColor="text-feSecondary-500">{{ $t("core_fe__suggestion") }}</ps-label>
                                         <div class="mt-3 flex flex-col gap-4" v-for="user in allSearchStore.allSearchList.data?.user" :key="user.id">
                                             <ps-route-link :to="{ name: 'fe_other_profile', query: { userId: user.userId } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -299,7 +299,7 @@
                                         </div>
                                         <div class="mt-3 flex flex-col gap-4 max-h-80 overflow-auto">
                                             <div v-for="user in userSearchHistroyStore.searchHistoryList?.data" :key="user.id">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer" @click="historyClick(user.keyword)">{{ user.keyword }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer" @click="historyClick(user.keyword)">{{ user.keyword }}</ps-label>
                                             </div>
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@
                                         <ps-label textColor="text-feSecondary-500">{{ $t("core_fe__suggestion") }}</ps-label>
                                         <div class="mt-3 flex flex-col gap-4" v-for="user in allSearchStore.allSearchList.data?.user" :key="user.id">
                                             <ps-route-link :to="{ name: 'fe_other_profile', query: { userId: user.userId } }" @click.prevent="psmodal.toggle(false)">
-                                                <ps-label textColor="text-feSecondary-800 dark_text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
+                                                <ps-label textColor="text-feSecondary-800 dark:text-feSecondary-200 cursor-pointer">{{ user.userName }}</ps-label>
                                             </ps-route-link>
                                         </div>
                                     </div>
@@ -354,11 +354,6 @@ import PsIcon from '@template1/vendor/components/core/icons/PsIcon.vue';
 import PsInputWithLeftIcon from '@template1/vendor/components/core/input/PsInputWithLeftIcon.vue';
 import PsRouteLink from '@template1/vendor/components/core/link/PsRouteLink.vue';
 import { trans } from 'laravel-vue-i18n'
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faFacebookSquare } from '@fortawesome/free-brands-svg-icons';
-import { faTwitterSquare } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faClone } from '@fortawesome/free-solid-svg-icons';
 import PsConst from '@templateCore/object/constant/ps_constants';
 
 import { useAllSearchStoreState } from "@templateCore/store/modules/search/AllSearchStore";
@@ -369,7 +364,6 @@ import AllSearchParameterHolder from '@templateCore/object/holder/AllSearchParam
 import SearchHistoryHolder from '@templateCore/object/holder/SearchHistoryHolder';
 import DeleteSearchHistoryHolder from '@templateCore/object/holder/DeleteSearchHistoryHolder';
 
-library.add(faFacebookSquare,faTwitterSquare,faLinkedin,faClone )
 
 export default defineComponent({
     name : "SearchModal",

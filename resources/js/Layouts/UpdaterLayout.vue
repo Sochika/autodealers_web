@@ -85,7 +85,7 @@
     import PsLoadingCircleDialog from '@/Components/Core/Dialog/PsLoadingCircleDialog.vue';
     import PsIcon from "@/Components/Core/Icons/PsIcon.vue";
     import { trans } from 'laravel-vue-i18n';
-    import {Inertia} from "@inertiajs/inertia";
+    import { router } from '@inertiajs/vue3';
 
     export default defineComponent({
         components: {

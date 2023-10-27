@@ -1,6 +1,6 @@
 <template>
     <div class="text-center cursor-pointer w-full overflow-hidden bg-feAchromatic-50 
-                 dark_bg-feSecondary-800 rounded-x sm:rounded-xl lg:rounded-lg ">
+                 dark:bg-feSecondary-800 rounded-x sm:rounded-xl lg:rounded-lg ">
  
          <div class="h-44 relative flex justify-center">
  
@@ -10,7 +10,7 @@
                  alt="">
  
              <div class="w-14 h-14 absolute -bottom-7 bg-feAchromatic-50 p-3 items-center
-                         rounded-full border-2 border-white dark_bg-feSecondary-800">
+                         rounded-full border-2 border-white dark:bg-feSecondary-800">
  
                  <img alt="Placeholder" 
                      class="w-7 h-7 transform transition duration-500 hover:scale-110 object-contain"

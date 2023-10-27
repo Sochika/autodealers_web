@@ -20,7 +20,7 @@
                             <ps-button v-else class="font-medium mx-auto mt-6" @click="loadMore" :disabled="true"> {{ $t("follower_list__loading") }} </ps-button>
                         </div>
                         <!-- <div v-else-if="userStore.loading.value==false" class="w-full flex justify-center">
-                            <ps-label textColor="text-feSecondary-500 dark_text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
+                            <ps-label textColor="text-feSecondary-500 dark:text-feAchromatic-50 lg:text-xl sm:text-lg text-base font-medium" class="mt-10 flex-grow-0 mx-auto"> {{ $t("list__no_result") }} </ps-label>
                         </div> -->
                     </div>
                     <ps-no-result v-if="userStore.loading.value == false && userStore.userList?.data == null" @onClick="loadMore" />

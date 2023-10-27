@@ -217,7 +217,7 @@
 <script>
 import { defineComponent } from 'vue'
 import PsLayout from "@/Components/PsLayout.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import Text from "../components/Text.vue";
 import CheckBox from "../components/CheckBox.vue";
 import FlashMessage from "../components/FlashMessage.vue";
