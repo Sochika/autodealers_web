@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e
+class ComposerStaticInitafbed235077b537bf96e3a3d8d300baf
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -4971,6 +4971,7 @@ class ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e
         'Modules\\Core\\Entities\\RolePermission' => __DIR__ . '/../..' . '/Modules/Core/Entities/RolePermission.php',
         'Modules\\Core\\Entities\\ScreenDisplayUiSetting' => __DIR__ . '/../..' . '/Modules/Core/Entities/ScreenDisplayUiSetting.php',
         'Modules\\Core\\Entities\\SearchHistory' => __DIR__ . '/../..' . '/Modules/Core/Entities/SearchHistory.php',
+        'Modules\\Core\\Entities\\Setting' => __DIR__ . '/../..' . '/Modules/Core/Entities/Setting.php',
         'Modules\\Core\\Entities\\Shipping' => __DIR__ . '/../..' . '/Modules/Core/Entities/Shipping.php',
         'Modules\\Core\\Entities\\Shop' => __DIR__ . '/../..' . '/Modules/Core/Entities/Shop.php',
         'Modules\\Core\\Entities\\ShopCustomField' => __DIR__ . '/../..' . '/Modules/Core/Entities/ShopCustomField.php',
@@ -9207,10 +9208,10 @@ class ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInita1f7bbe6797cd1ae0520581d77b9267e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitafbed235077b537bf96e3a3d8d300baf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitafbed235077b537bf96e3a3d8d300baf::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitafbed235077b537bf96e3a3d8d300baf::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitafbed235077b537bf96e3a3d8d300baf::$classMap;
 
         }, null, ClassLoader::class);
     }

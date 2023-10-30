@@ -25,11 +25,11 @@ export default ({ mode }) => {
         outDir: 'public/build',
         rollupOptions: {
             input: ['resources/js/app.js'],
-            output: {
-                entryFileNames : "[name].js",
-                chunkFileNames : "[name].js",
-                assetFileNames : "[name].[ext]",
-            }
+            // output: {
+            //     entryFileNames : "[name].js",
+            //     chunkFileNames : "[name].js",
+            //     assetFileNames : "[name].[ext]",
+            // }
         },
     },
     resolve: {

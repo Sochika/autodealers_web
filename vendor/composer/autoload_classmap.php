@@ -4274,6 +4274,7 @@ return array(
     'Modules\\Core\\Entities\\RolePermission' => $baseDir . '/Modules/Core/Entities/RolePermission.php',
     'Modules\\Core\\Entities\\ScreenDisplayUiSetting' => $baseDir . '/Modules/Core/Entities/ScreenDisplayUiSetting.php',
     'Modules\\Core\\Entities\\SearchHistory' => $baseDir . '/Modules/Core/Entities/SearchHistory.php',
+    'Modules\\Core\\Entities\\Setting' => $baseDir . '/Modules/Core/Entities/Setting.php',
     'Modules\\Core\\Entities\\Shipping' => $baseDir . '/Modules/Core/Entities/Shipping.php',
     'Modules\\Core\\Entities\\Shop' => $baseDir . '/Modules/Core/Entities/Shop.php',
     'Modules\\Core\\Entities\\ShopCustomField' => $baseDir . '/Modules/Core/Entities/ShopCustomField.php',
